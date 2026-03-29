@@ -1,0 +1,48 @@
+services:
+   app:
+      build: .
+      container_name: sql-lab-app
+      ports:
+         - "3000:3000"
+      environment:
+         DB_HOST: db
+         DB_PORT: 5432
+         DB_NAME: sql_lab
+         DB_USER: postgres
+         DB_PASSWORD: postgres
+      depends_on:
+         db:
+            condition: service_healthy
+      command: >
+         sh -c "
+         until getent hosts db; do
+           echo 'Waiting for db DNS...';
+           sleep 2;
+         done;
+         until pnpm knex migrate:latest; do
+           echo 'Waiting for database...';
+           sleep 2;
+         done;
+         pnpm knex seed:run &&
+         node dist/app.js
+         "
+
+   db:
+      image: postgres:16-alpine
+      container_name: sql-lab-db
+      ports:
+         - "5433:5432"
+      environment:
+         POSTGRES_DB: sql_lab
+         POSTGRES_USER: postgres
+         POSTGRES_PASSWORD: postgres
+      volumes:
+         - pgdata:/var/lib/postgresql/data
+      healthcheck:
+         test: ["CMD-SHELL", "pg_isready -U postgres -d sql_lab"]
+         interval: 5s
+         timeout: 5s
+         retries: 5
+
+volumes:
+   pgdata:
