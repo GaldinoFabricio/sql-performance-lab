@@ -101,7 +101,7 @@ describe("GET /queries/explain/:type", () => {
 
    it("retorna explain para optimized", async () => {
       const res = await request(app).get("/queries/explain/fast");
-
+      console.log("Optimized plan:", JSON.stringify(res.body.plan, null, 2));
       expect(res.status).toBe(200);
       expect(res.body.type).toBe("fast");
       expect(Array.isArray(res.body.plan)).toBe(true);
