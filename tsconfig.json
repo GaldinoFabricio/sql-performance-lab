@@ -13,5 +13,11 @@
       "types": ["node"]
    },
    "include": ["src", "knexfile.ts"],
-   "exclude": ["node_modules", "dist", "test", "eslint.config.mjs"]
+   "exclude": [
+      "node_modules",
+      "dist",
+      "test",
+      "eslint.config.mjs",
+      "src/**/*.test.ts"
+   ]
 }

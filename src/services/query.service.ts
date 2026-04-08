@@ -32,28 +32,50 @@ export async function runOptimizedQuery() {
    };
 }
 
-export async function runJoinQuery() {
+export async function runJoinSlow() {
    const start = performance.now();
-
-   const rows = await db("users")
-      .join("orders", "users.id", "orders.user_id")
-      .join("order_items", "orders.id", "order_items.order_id")
-      .where("orders.status", "completed")
-      .select(
-         "users.name",
-         "users.email",
-         "orders.total",
-         "orders.status",
-         "order_items.quantity",
-         "order_items.unit_price",
-      )
-      .limit(100);
-
+   const rows = await db.raw(`
+    SELECT users.name, orders.total, orders.status
+    FROM users
+    JOIN orders ON users.id = orders.user_id
+    WHERE orders.status = 'completed'
+    ORDER BY orders.total DESC
+    LIMIT 100
+  `);
    return {
-      type: "join",
-      description: "JOIN users × orders × order_items filtrado por status",
+      type: "join-slow",
+      description: "JOIN sem índice composto — filesort + full scan em orders",
+      rows: rows.rows.length,
+      ms: (performance.now() - start).toFixed(2),
+   };
+}
+
+export async function runJoinOptimized() {
+   const start = performance.now();
+   const rows = await db("orders")
+      .join("users", "orders.user_id", "users.id")
+      .where("orders.status", "completed")
+      .orderBy("orders.total", "desc")
+      .select("users.name", "orders.total", "orders.status")
+      .limit(100);
+   return {
+      type: "join-optimized",
+      description: "JOIN com índice em (status, user_id) — index scan",
       rows: rows.length,
       ms: (performance.now() - start).toFixed(2),
-      sample: rows.slice(0, 3),
+   };
+}
+
+export async function explainQuery(type: "slow" | "fast") {
+   const query =
+      type === "slow"
+         ? db("users").where("country", "like", "%BR%").select("id").toSQL()
+         : db("users").where("country", "BR").select("id").toSQL();
+
+   const result = await db.raw(`EXPLAIN ANALYZE ${query.sql}`, query.bindings);
+
+   return {
+      type,
+      plan: result.rows.map((r: any) => r["QUERY PLAN"]),
    };
 }

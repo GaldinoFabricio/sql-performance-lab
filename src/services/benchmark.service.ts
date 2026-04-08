@@ -1,18 +1,43 @@
 import db from "../db/knex";
 
-export async function executeBenchmark() {
-   const start = performance.now();
+async function measureQuery(fn: () => Promise<any>, iterations = 5) {
+   const times: number[] = [];
 
-   const slow = await db("users").where("email", "like", "%@gmail.com%");
-   const slowTime = performance.now() - start;
+   for (let i = 0; i < iterations; i++) {
+      const start = performance.now();
+      await fn();
+      times.push(performance.now() - start);
+   }
 
-   const start2 = performance.now();
-   const fast = await db("users").where("email", "test@gmail.com");
-   const fastTime = performance.now() - start2;
+   const avg = times.reduce((a, b) => a + b, 0) / times.length;
+   const min = Math.min(...times);
+   const max = Math.max(...times);
 
    return {
-      slow: { rows: slow.length, ms: slowTime.toFixed(2) },
-      fast: { rows: fast.length, ms: fastTime.toFixed(2) },
-      improvement: `${((1 - fastTime / slowTime) * 100).toFixed(1)}%`,
+      avg: avg.toFixed(2),
+      min: min.toFixed(2),
+      max: max.toFixed(2),
+      iterations,
+   };
+}
+
+export async function executeBenchmark() {
+   const slowStats = await measureQuery(() =>
+      db("users").where("country", "like", "%BR%").select("id"),
+   );
+
+   const fastStats = await measureQuery(() =>
+      db("users").where("country", "BR").select("id"),
+   );
+
+   const improvement = (
+      (1 - Number(fastStats.avg) / Number(slowStats.avg)) *
+      100
+   ).toFixed(1);
+
+   return {
+      slow: slowStats,
+      fast: fastStats,
+      improvement: `${improvement}%`,
    };
 }
