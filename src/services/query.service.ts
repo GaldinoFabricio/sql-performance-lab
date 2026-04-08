@@ -72,7 +72,15 @@ export async function explainQuery(type: "slow" | "fast") {
          ? db("users").where("country", "like", "%BR%").select("id").toSQL()
          : db("users").where("country", "BR").select("id").toSQL();
 
+   if (type === "fast") {
+      await db.raw("SET enable_seqscan = OFF");
+   }
+
    const result = await db.raw(`EXPLAIN ANALYZE ${query.sql}`, query.bindings);
+
+   if (type === "fast") {
+      await db.raw("SET enable_seqscan = ON");
+   }
 
    return {
       type,

@@ -106,7 +106,11 @@ describe("GET /queries/explain/:type", () => {
       expect(res.body.type).toBe("fast");
       expect(Array.isArray(res.body.plan)).toBe(true);
       expect(
-         res.body.plan.some((line: string) => line.includes("Index Scan")),
-      ).toBe(true); // proves the optimization works
+         res.body.plan.some(
+            (line: string) =>
+               line.includes("Index Scan") ||
+               line.includes("Bitmap Index Scan"),
+         ),
+      ).toBe(true);
    });
 });
