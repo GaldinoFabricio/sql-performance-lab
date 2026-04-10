@@ -45,7 +45,7 @@ jobs:
            run: pnpm install
 
          - name: Run migrations
-           run: pnpm knex migrate:latest
+           run: pnpm knex --knexfile src/knexfile.ts migrate:latest
            env:
               DB_HOST: localhost
               DB_PORT: 5432
@@ -54,7 +54,7 @@ jobs:
               DB_PASSWORD: postgres
 
          - name: Run seed
-           run: pnpm knex seed:run
+           run: pnpm knex --knexfile src/knexfile.ts seed:run
            env:
               DB_HOST: localhost
               DB_PORT: 5432
