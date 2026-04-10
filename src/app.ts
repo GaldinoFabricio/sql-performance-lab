@@ -8,4 +8,8 @@ app.use(express.json());
 app.use("/benchmarks", benchmarkRoutes);
 app.use("/queries", queryRoutes);
 
+app.get("/health", (req, res) => {
+   res.status(200).json({ status: "OK" });
+});
+
 export default app;

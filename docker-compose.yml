@@ -19,12 +19,12 @@ services:
            echo 'Waiting for db DNS...';
            sleep 2;
          done;
-         until pnpm knex migrate:latest; do
+         until pnpm knex --knexfile src/knexfile.ts migrate:latest; do
            echo 'Waiting for database...';
            sleep 2;
          done;
-         pnpm knex seed:run &&
-         node dist/app.js
+         pnpm knex --knexfile src/knexfile.ts seed:run &&
+         node dist/server.js
          "
 
    db:

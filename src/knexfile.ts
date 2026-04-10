@@ -11,10 +11,10 @@ const config: Knex.Config = {
       password: process.env.DB_PASSWORD || "postgres",
    },
    migrations: {
-      directory: "./src/db/migrations",
+      directory: "./db/migrations",
    },
    seeds: {
-      directory: "./src/db/seeds",
+      directory: "./db/seeds",
    },
 };
 

@@ -12,4 +12,5 @@ RUN pnpm build
 
 EXPOSE 3000
 
-CMD ["node", "dist/app.js"]
+
+CMD ["pnpm", "start"]

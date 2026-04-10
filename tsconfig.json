@@ -4,15 +4,15 @@
       "module": "commonjs",
       "lib": ["es2020"],
       "allowJs": true,
-      "outDir": "build",
-      "rootDir": ".",
+      "outDir": "dist",
+      "rootDir": "src",
       "strict": true,
       "noImplicitAny": true,
       "esModuleInterop": true,
       "resolveJsonModule": true,
       "types": ["node"]
    },
-   "include": ["src", "knexfile.ts"],
+   "include": ["src"],
    "exclude": [
       "node_modules",
       "dist",
