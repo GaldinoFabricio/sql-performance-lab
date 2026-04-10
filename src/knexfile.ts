@@ -1,5 +1,10 @@
-import "dotenv/config";
+import dotenv from "dotenv";
+import path from "path";
 import type { Knex } from "knex";
+
+dotenv.config({ path: path.resolve(__dirname, "../.env") });
+
+const srcDir = path.resolve(__dirname);
 
 const config: Knex.Config = {
    client: "pg",
@@ -11,10 +16,10 @@ const config: Knex.Config = {
       password: process.env.DB_PASSWORD || "postgres",
    },
    migrations: {
-      directory: "./db/migrations",
+      directory: path.join(srcDir, "db", "migrations"),
    },
    seeds: {
-      directory: "./db/seeds",
+      directory: path.join(srcDir, "db", "seeds"),
    },
 };
 
