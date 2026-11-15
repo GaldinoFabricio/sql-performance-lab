@@ -65,6 +65,15 @@ jobs:
               DB_USER: postgres
               DB_PASSWORD: postgres
 
+         - name: Embed logs (search tests need vectors)
+           run: pnpm embed:logs
+           env:
+              DB_HOST: localhost
+              DB_PORT: 5432
+              DB_NAME: sql_lab
+              DB_USER: postgres
+              DB_PASSWORD: postgres
+
          - name: Run tests
            run: pnpm test
            env:
