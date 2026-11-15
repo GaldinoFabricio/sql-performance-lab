@@ -39,7 +39,7 @@ import {
  * Results go to evals/results/search-<rows>.json.
  *
  * Usage: pnpm eval:search [--truth=evals/ground_truth.json] [--rounds=3]
- *        [--hnsw=16:64,16:200,32:200] [--repeats=N] [--keep-index]
+ *        [--hnsw=16:64,16:200,32:200] [--repeats=N] [--hybrid-last-only] [--keep-index]
  *
  * pgvector assigns HNSW levels at random, so two builds of the same config
  * are different graphs with different recall. Each config is built
@@ -56,6 +56,9 @@ const TRUTH_PATH = path.resolve(
 const TEXT_QUERIES_PATH = path.join(ROOT, "evals/text_queries.json");
 const ROUNDS = Number(flag("rounds") ?? 3);
 const KEEP_INDEX = process.argv.includes("--keep-index");
+// Hybrid inherits the full-text side's cost, which grows with the table
+// (seconds per query at 1M); this runs it on the last HNSW config only.
+const HYBRID_LAST_ONLY = process.argv.includes("--hybrid-last-only");
 
 const EF_SEARCH = [10, 20, 40, 80, 160];
 // (m, ef_construction) to build. 16:64 is pgvector's default.
@@ -479,7 +482,7 @@ async function main() {
          }));
          // RRF over the GIN top-N and this index's top-N, in one statement.
          hybridName = `hybrid RRF (${tag} ef=${HYBRID.ef_search})`;
-         specs.push({
+         if (!HYBRID_LAST_ONLY || cfg === HNSW_CONFIGS[HNSW_CONFIGS.length - 1]) specs.push({
             name: hybridName,
             setup: efSearch(HYBRID.ef_search),
             run: (c, q) =>
