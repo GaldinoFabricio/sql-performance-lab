@@ -18,7 +18,8 @@
       "model:fetch": "ts-node --transpile-only src/scripts/model.ts fetch",
       "model:verify": "ts-node --transpile-only src/scripts/model.ts verify",
       "embed:logs": "ts-node --transpile-only src/scripts/embed-logs.ts",
-      "eval:ground-truth": "ts-node --transpile-only src/scripts/ground-truth.ts"
+      "eval:ground-truth": "ts-node --transpile-only src/scripts/ground-truth.ts",
+      "eval:search": "ts-node --transpile-only src/scripts/search-experiments.ts"
    },
    "keywords": [],
    "author": "",
