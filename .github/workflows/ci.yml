@@ -44,6 +44,9 @@ jobs:
          - name: Install dependencies
            run: pnpm install
 
+         - name: Fetch embedding model (pinned, SHA-256 verified)
+           run: pnpm model:fetch
+
          - name: Run migrations
            run: pnpm knex --knexfile src/knexfile.ts migrate:latest
            env:
