@@ -14,13 +14,16 @@
       "migrate:make": "knex --knexfile src/knexfile.ts migrate:make",
       "seed:make": "knex --knexfile src/knexfile.ts seed:make",
       "seed:run": "knex --knexfile src/knexfile.ts seed:run",
-      "seed:logs": "knex --knexfile src/knexfile.ts seed:run --specific=seed_logs.ts"
+      "seed:logs": "knex --knexfile src/knexfile.ts seed:run --specific=seed_logs.ts",
+      "model:fetch": "ts-node --transpile-only src/scripts/model.ts fetch",
+      "model:verify": "ts-node --transpile-only src/scripts/model.ts verify"
    },
    "keywords": [],
    "author": "",
    "license": "ISC",
    "packageManager": "pnpm@10.22.0",
    "dependencies": {
+      "@huggingface/transformers": "4.3.2",
       "dotenv": "^17.3.1",
       "express": "^5.2.1",
       "knex": "^3.2.7",
@@ -39,5 +42,11 @@
    },
    "vitest": {
       "environment": "node"
+   },
+   "pnpm": {
+      "ignoredBuiltDependencies": [
+         "onnxruntime-node",
+         "protobufjs"
+      ]
    }
 }
