@@ -30,6 +30,10 @@ services:
    db:
       image: pgvector/pgvector:pg17
       container_name: sql-lab-db
+      # Docker gives containers 64 MB of /dev/shm. A parallel HNSW build puts
+      # its graph in shared memory (up to maintenance_work_mem), so with the
+      # default it fails with "could not resize shared memory segment".
+      shm_size: 4gb
       ports:
          - "5433:5432"
       environment:
