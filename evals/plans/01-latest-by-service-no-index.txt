@@ -1,0 +1,23 @@
+-- Latest 50 logs of a service, without the composite index
+-- setup: DROP INDEX idx_logs_service_created_at
+
+SELECT id, created_at, level, message FROM logs WHERE service = 'payments' ORDER BY created_at DESC LIMIT 50;
+
+Limit  (cost=258804.83..258810.67 rows=50 width=93) (actual time=172.559..178.385 rows=50 loops=1)
+  Buffers: shared hit=10327 read=241187
+  ->  Gather Merge  (cost=258804.83..266913.73 rows=69500 width=93) (actual time=172.558..178.381 rows=50 loops=1)
+        Workers Planned: 2
+        Workers Launched: 2
+        Buffers: shared hit=10327 read=241187
+        ->  Sort  (cost=257804.81..257891.68 rows=34750 width=93) (actual time=170.044..170.047 rows=43 loops=3)
+              Sort Key: created_at DESC
+              Sort Method: top-N heapsort  Memory: 39kB
+              Buffers: shared hit=10327 read=241187
+              Worker 0:  Sort Method: top-N heapsort  Memory: 41kB
+              Worker 1:  Sort Method: top-N heapsort  Memory: 41kB
+              ->  Parallel Seq Scan on logs  (cost=0.00..256650.44 rows=34750 width=93) (actual time=0.048..165.562 rows=27519 loops=3)
+                    Filter: (service = 'payments'::text)
+                    Rows Removed by Filter: 305814
+                    Buffers: shared hit=10253 read=241187
+Planning Time: 0.060 ms
+Execution Time: 178.407 ms

@@ -1,0 +1,17 @@
+-- Mitigation: partial HNSW index WHERE service = 'shipping'
+-- setup: SET LOCAL maintenance_work_mem = '512MB'
+-- setup: CREATE INDEX idx_logs_embedding_hnsw_shipping ON logs USING hnsw (embedding vector_cosine_ops) WITH (m = 16, ef_construction = 64) WHERE service = 'shipping'
+-- setup: SET LOCAL hnsw.ef_search = 40
+-- setup: SET LOCAL hnsw.iterative_scan = off
+
+SELECT id, embedding <=> '[…384 floats…]'::vector AS distance FROM logs WHERE service = 'shipping' ORDER BY embedding <=> '[…384 floats…]'::vector LIMIT 10;
+
+Limit  (cost=449.17..493.38 rows=10 width=24) (actual time=0.134..0.143 rows=10 loops=1)
+  Buffers: shared hit=237
+  ->  Index Scan using idx_logs_embedding_hnsw_shipping on logs  (cost=449.17..188199.51 rows=42467 width=24) (actual time=0.134..0.141 rows=10 loops=1)
+        Order By: (embedding <=> '[…384 floats…]'::vector)
+        Buffers: shared hit=237
+Planning:
+  Buffers: shared hit=2
+Planning Time: 0.058 ms
+Execution Time: 0.155 ms

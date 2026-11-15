@@ -1,0 +1,17 @@
+-- HNSW + WHERE service, ef_search = 40
+-- setup: SET LOCAL hnsw.ef_search = 40
+-- setup: SET LOCAL hnsw.iterative_scan = off
+
+SELECT id, embedding <=> '[…384 floats…]'::vector AS distance FROM logs WHERE service = 'shipping' ORDER BY embedding <=> '[…384 floats…]'::vector LIMIT 10;
+
+Limit  (cost=935.04..1345.02 rows=10 width=24) (actual time=0.537..0.537 rows=0 loops=1)
+  Buffers: shared hit=1112
+  ->  Index Scan using idx_logs_embedding_hnsw on logs  (cost=935.04..1741369.26 rows=42452 width=24) (actual time=0.536..0.536 rows=0 loops=1)
+        Order By: (embedding <=> '[…384 floats…]'::vector)
+        Filter: (service = 'shipping'::text)
+        Rows Removed by Filter: 40
+        Buffers: shared hit=1112
+Planning:
+  Buffers: shared hit=1
+Planning Time: 0.046 ms
+Execution Time: 0.549 ms

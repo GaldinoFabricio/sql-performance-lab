@@ -1,0 +1,20 @@
+-- Mitigation: no HNSW, the B-tree finds the service and distances are sorted exactly
+-- setup: DROP INDEX idx_logs_embedding_hnsw
+
+SELECT id, embedding <=> '[…384 floats…]'::vector AS distance FROM logs WHERE service = 'shipping' ORDER BY embedding <=> '[…384 floats…]'::vector LIMIT 10;
+
+Limit  (cost=113102.00..113102.03 rows=10 width=24) (actual time=58.944..58.947 rows=10 loops=1)
+  Buffers: shared hit=40992
+  ->  Sort  (cost=113102.00..113208.17 rows=42467 width=24) (actual time=58.944..58.945 rows=10 loops=1)
+        Sort Key: ((embedding <=> '[…384 floats…]'::vector))
+        Sort Method: top-N heapsort  Memory: 26kB
+        Buffers: shared hit=40992
+        ->  Bitmap Heap Scan on logs  (cost=1161.54..112184.31 rows=42467 width=24) (actual time=10.490..54.499 rows=43080 loops=1)
+              Recheck Cond: (service = 'shipping'::text)
+              Heap Blocks: exact=40289
+              Buffers: shared hit=40992
+              ->  Bitmap Index Scan on idx_logs_service_created_at  (cost=0.00..1150.93 rows=42467 width=0) (actual time=4.781..4.781 rows=43080 loops=1)
+                    Index Cond: (service = 'shipping'::text)
+                    Buffers: shared hit=223
+Planning Time: 0.056 ms
+Execution Time: 58.963 ms

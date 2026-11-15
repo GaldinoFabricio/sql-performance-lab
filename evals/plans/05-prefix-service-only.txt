@@ -1,0 +1,12 @@
+-- Leftmost prefix: service alone uses the index (first column)
+
+SELECT count(*) FROM logs WHERE service = 'shipping';
+
+Aggregate  (cost=1830.08..1830.09 rows=1 width=8) (actual time=7.955..7.955 rows=1 loops=1)
+  Buffers: shared hit=971
+  ->  Index Only Scan using idx_logs_service_created_at on logs  (cost=0.42..1726.38 rows=41483 width=0) (actual time=0.013..5.927 rows=43080 loops=1)
+        Index Cond: (service = 'shipping'::text)
+        Heap Fetches: 0
+        Buffers: shared hit=971
+Planning Time: 0.050 ms
+Execution Time: 7.975 ms

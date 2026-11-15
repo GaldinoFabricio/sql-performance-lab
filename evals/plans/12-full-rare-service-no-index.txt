@@ -1,0 +1,13 @@
+-- full table, service = 'shipping', index scans disabled
+-- setup: SET LOCAL enable_indexscan = off
+-- setup: SET LOCAL enable_bitmapscan = off
+-- setup: SET LOCAL enable_indexonlyscan = off
+
+SELECT id, created_at, level FROM logs WHERE service = 'shipping';
+
+Seq Scan on logs  (cost=0.00..263945.05 rows=41483 width=21) (actual time=0.017..421.960 rows=43080 loops=1)
+  Filter: (service = 'shipping'::text)
+  Rows Removed by Filter: 956920
+  Buffers: shared hit=49374 read=202066
+Planning Time: 0.049 ms
+Execution Time: 423.399 ms

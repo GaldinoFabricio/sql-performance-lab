@@ -1,0 +1,11 @@
+-- level = 'FATAL' (few rows): index used
+-- setup: CREATE INDEX idx_logs_level ON logs (level)
+-- setup: ANALYZE logs
+
+SELECT id, service FROM logs WHERE level = 'FATAL';
+
+Index Scan using idx_logs_level on logs  (cost=0.42..38851.58 rows=14407 width=18) (actual time=0.015..8.289 rows=14065 loops=1)
+  Index Cond: (level = 'FATAL'::text)
+  Buffers: shared hit=13800
+Planning Time: 0.053 ms
+Execution Time: 8.677 ms

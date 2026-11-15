@@ -1,0 +1,10 @@
+-- 500 rows, service = 'api-gateway' (36% of rows)
+
+SELECT id, created_at, level FROM logs_500 WHERE service = 'api-gateway';
+
+Seq Scan on logs_500  (cost=0.00..22.25 rows=182 width=21) (actual time=0.021..0.215 rows=182 loops=1)
+  Filter: (service = 'api-gateway'::text)
+  Rows Removed by Filter: 318
+  Buffers: shared hit=16
+Planning Time: 0.084 ms
+Execution Time: 0.336 ms

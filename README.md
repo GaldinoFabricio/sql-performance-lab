@@ -83,6 +83,10 @@ A single endpoint that runs both the slow and optimized versions multiple times 
 
 Headline: with 1M rows, an HNSW index answers in ~2 ms instead of 220 ms, but finds only 64% of the true nearest neighbours for typed queries. Full write-up, chart and conclusions: [SEMANTIC_SEARCH.md](./SEMANTIC_SEARCH.md).
 
+### 6. Query Plans on 1M Logs
+
+`pnpm eval:plans` saves `EXPLAIN (ANALYZE, BUFFERS)` for 20 experiments on the 1M-row `logs` table. Topics: a composite index created `CONCURRENTLY`, the leftmost prefix rule, a redundant index and INSERT cost (measured in WAL bytes), 500 vs 1M rows, a low-selectivity index, HNSW + `WHERE` (and four fixes), and `pg_stat_statements` ranked by total vs mean time. The plans are explained node by node, in Portuguese, in [evals/plans/README.md](./evals/plans/README.md).
+
 ---
 
 ## Tech Stack
@@ -200,6 +204,11 @@ CREATE INDEX idx_order_items_product_id ON order_items(product_id);
 
 -- Products
 CREATE INDEX idx_products_category ON products(category);
+
+-- Logs (semantic search chapter)
+CREATE INDEX idx_logs_message_fts ON logs USING gin (to_tsvector('english', message));
+CREATE INDEX idx_logs_embedding_hnsw ON logs USING hnsw (embedding vector_cosine_ops) WITH (m = 32, ef_construction = 200);
+CREATE INDEX CONCURRENTLY idx_logs_service_created_at ON logs (service, created_at DESC);
 ```
 
 ---
