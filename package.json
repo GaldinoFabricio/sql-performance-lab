@@ -13,7 +13,8 @@
       "migrate:rollback": "knex --knexfile src/knexfile.ts migrate:rollback",
       "migrate:make": "knex --knexfile src/knexfile.ts migrate:make",
       "seed:make": "knex --knexfile src/knexfile.ts seed:make",
-      "seed:run": "knex --knexfile src/knexfile.ts seed:run"
+      "seed:run": "knex --knexfile src/knexfile.ts seed:run",
+      "seed:logs": "knex --knexfile src/knexfile.ts seed:run --specific=seed_logs.ts"
    },
    "keywords": [],
    "author": "",
