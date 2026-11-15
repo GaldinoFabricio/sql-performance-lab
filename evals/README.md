@@ -68,8 +68,11 @@ is reproducible.
   mostly near-copies of the same template. That's expected for nearest-neighbor
   search, and it doesn't make recall less valid. It is why relevance needs its
   own eval.
-- **10k rows.** The exact scan takes ~0.6s for all 100 queries. Phase 3 scales
-  the table up and regenerates this file. The script and checks stay the same.
+- **One file per table size.** `ground_truth.json` is for the default 10k
+  rows (CI). Larger tables get their own file, built with the same script and
+  checks: `pnpm eval:ground-truth --out=evals/ground_truth.100k.json` after
+  `LOGS_COUNT=100000 pnpm seed:logs && pnpm embed:logs`. At 100k, the exact
+  scan takes ~5s for the 100 queries and the JS cross-check ~19s.
 
 ## `text_queries.json`
 
