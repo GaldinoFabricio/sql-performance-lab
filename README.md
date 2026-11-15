@@ -77,6 +77,12 @@ Measures the cost of joining three tables (users, orders, order_items) with and 
 
 A single endpoint that runs both the slow and optimized versions multiple times and returns average, min, max, and improvement percentage.
 
+### 5. Semantic Search over Logs (pgvector)
+
+`GET /search/logs` searches a synthetic `logs` table four ways: `LIKE`, full-text (GIN), vectors (exact and HNSW) and a hybrid of both. Each is measured with recall and precision evals at 10k, 100k and 1M rows.
+
+Headline: with 1M rows, an HNSW index answers in ~2 ms instead of 220 ms, but finds only 64% of the true nearest neighbours for typed queries. Full write-up, chart and conclusions: [SEMANTIC_SEARCH.md](./SEMANTIC_SEARCH.md).
+
 ---
 
 ## Tech Stack
@@ -86,6 +92,7 @@ A single endpoint that runs both the slow and optimized versions multiple times 
 - **Express** — HTTP layer
 - **Knex.js** — query builder and migrations
 - **Faker.js** — realistic dataset generation
+- **pgvector** + **Transformers.js** (all-MiniLM-L6-v2, local CPU) — embeddings and vector search
 - **Vitest + Supertest** — automated tests
 
 ---
@@ -146,6 +153,7 @@ pnpm dev
 | GET    | `/queries/join/optimized` | JOIN with composite index (index scan)              |
 | GET    | `/queries/explain/:type`  | Execution plan for `slow` or `fast`                 |
 | GET    | `/benchmarks/run`         | Side-by-side benchmark comparison (5 iterations)    |
+| GET    | `/search/logs?q=&mode=`   | Log search: `hybrid` (default), `vector`, `fulltext`, `like`; optional `k`, `ef_search` |
 
 **Example response from `/benchmarks/run`:**
 
