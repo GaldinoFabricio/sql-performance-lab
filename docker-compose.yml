@@ -36,8 +36,10 @@ services:
       shm_size: 4gb
       # pg_stat_statements must be loaded at server start (pnpm eval:plans).
       command: ["postgres", "-c", "shared_preload_libraries=pg_stat_statements"]
+      # Host port comes from DB_PORT in .env (Compose reads it), so the port
+      # the database listens on and the port the app/tests use stay in sync.
       ports:
-         - "5433:5432"
+         - "${DB_PORT:-5433}:5432"
       environment:
          POSTGRES_DB: sql_lab
          POSTGRES_USER: postgres
