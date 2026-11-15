@@ -53,9 +53,15 @@ is reproducible.
 
 ### Known limits
 
-- **Queries come from the corpus.** They are real log lines, not user-typed
-  searches like "db connection timeout". That's fine for measuring the index
-  (recall); free-text queries belong to the relevance eval.
+- **Queries come from the corpus, and that flatters HNSW.** A log used as a
+  query sits *inside* the data (its neighbors are at distance 0.00–0.10), so
+  the graph search finds them easily. Typed searches like "redis is down" land
+  *outside* the data (nearest neighbor at ~0.4), and there HNSW recall drops
+  sharply. Phase 3 showed this: at 10k rows with pgvector's default build,
+  `ef_search=40` gives 99.5% recall on log queries but 79% on free text. So
+  `pnpm eval:search` also measures recall for `text_queries.json`. Exact
+  search is the truth for any query vector, so it computes the exact k-th
+  distance for each free-text query with the same forced sequential scan.
 - **The sample follows the table's mix**: 78 INFO, 13 WARN, 8 ERROR, 1 FATAL.
   Recall is measured on realistic traffic, but errors are a minority.
 - **The neighbors are easy.** 99.5% of them share the query's `root_cause`,
@@ -64,3 +70,29 @@ is reproducible.
   own eval.
 - **10k rows.** The exact scan takes ~0.6s for all 100 queries. Phase 3 scales
   the table up and regenerates this file. The script and checks stay the same.
+
+## `text_queries.json`
+
+60 hand-written searches, 4 per error root cause, typed the way someone on
+call would type them. Each has the `root_cause` a good answer is about, and a
+`kind`:
+
+- `keyword`: an exact token from the logs (`ENOSPC`, `x509`);
+- `mixed`: shares some words with the logs (`redis is down`);
+- `paraphrase`: describes the problem without the logs' words
+  (`server ran out of RAM and crashed`).
+
+They measure two things: recall against exact search (computed at run time)
+and precision@10, the share of the 10 slots filled with a log of the expected
+root cause.
+
+## `results/search-<rows>.json`
+
+Output of `pnpm eval:search --truth=<ground truth for that table size>`:
+LIKE, full-text (GIN), exact vector, HNSW over an `ef_search` sweep for
+several `(m, ef_construction)` builds, and hybrid RRF. Each entry keeps the
+`EXPLAIN` plan, which the script checked for the expected index.
+
+pgvector assigns HNSW levels at random, so each build is a different graph.
+Up to 100k rows, each config is built 3 times and recall is reported as
+mean `[min-max]`.
