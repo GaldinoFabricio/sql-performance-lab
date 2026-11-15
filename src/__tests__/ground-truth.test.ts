@@ -1,5 +1,5 @@
 import { describe, it, expect } from "vitest";
-import { compareTopK, cosineDistance, exactTopK, sampleQueryIds } from "../evals/ground-truth";
+import { compareTopK, cosineDistance, exactTopK, sampleQueryIds, TopK } from "../evals/ground-truth";
 
 describe("sampleQueryIds", () => {
    const ids = Array.from({ length: 1000 }, (_, i) => i + 1);
@@ -60,5 +60,17 @@ describe("compareTopK", () => {
 
    it("rejeita distâncias diferentes", () => {
       expect(compareTopK([{ id: 1, distance: 0.1 }], [{ id: 1, distance: 0.2 }])).toMatch(/rank 1/);
+   });
+});
+
+describe("TopK", () => {
+   it("dá o mesmo resultado que ordenar tudo, em qualquer ordem de chegada", () => {
+      const items = Array.from({ length: 500 }, (_, i) => ({ id: i + 1, distance: Math.round(Math.sin(i) * 50) / 100 }));
+      const expected = [...items].sort((a, b) => a.distance - b.distance || a.id - b.id).slice(0, 10);
+      for (const order of [items, [...items].reverse()]) {
+         const top = new TopK(10);
+         order.forEach((n) => top.push(n));
+         expect(top.result()).toEqual(expected);
+      }
    });
 });

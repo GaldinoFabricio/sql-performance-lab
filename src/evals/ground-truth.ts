@@ -70,21 +70,43 @@ export function cosineDistance(a: ArrayLike<number>, b: ArrayLike<number>): numb
 }
 
 /**
- * Brute force over the whole corpus, float64, ordered by (distance, id) —
- * the same order the SQL uses. The query row itself is excluded.
+ * Streaming top-k by (distance, id), the same order the SQL uses. Memory is
+ * O(k), so 1M rows can be checked batch by batch without loading the table.
+ */
+export class TopK {
+   private items: Neighbor[] = [];
+   constructor(private readonly k: number) {}
+
+   push(n: Neighbor): void {
+      const worst = this.items[this.items.length - 1];
+      if (this.items.length === this.k && !before(n, worst)) return;
+      let i = this.items.length;
+      while (i > 0 && before(n, this.items[i - 1])) i--;
+      this.items.splice(i, 0, n);
+      if (this.items.length > this.k) this.items.pop();
+   }
+
+   result(): Neighbor[] {
+      return [...this.items];
+   }
+}
+
+const before = (a: Neighbor, b: Neighbor) => a.distance < b.distance || (a.distance === b.distance && a.id < b.id);
+
+/**
+ * Brute force over the whole corpus, float64. The query row itself is excluded.
  */
 export function exactTopK(
    queryId: number,
    query: ArrayLike<number>,
-   corpus: ReadonlyMap<number, ArrayLike<number>>,
+   corpus: Iterable<[number, ArrayLike<number>]>,
    k: number,
 ): Neighbor[] {
-   const all: Neighbor[] = [];
+   const top = new TopK(k);
    for (const [id, v] of corpus) {
-      if (id !== queryId) all.push({ id, distance: cosineDistance(query, v) });
+      if (id !== queryId) top.push({ id, distance: cosineDistance(query, v) });
    }
-   all.sort((a, b) => a.distance - b.distance || a.id - b.id);
-   return all.slice(0, k);
+   return top.result();
 }
 
 /**

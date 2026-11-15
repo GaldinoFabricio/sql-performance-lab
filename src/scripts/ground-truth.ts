@@ -4,13 +4,14 @@ import db from "../db/knex";
 import { MODEL_ID } from "../embeddings/model";
 import {
    compareTopK,
+   cosineDistance,
    DISTANCE_EPS,
-   exactTopK,
    GROUND_TRUTH_VERSION,
    GroundTruth,
    GroundTruthQuery,
    rootCauseAgreement,
    sampleQueryIds,
+   TopK,
 } from "../evals/ground-truth";
 
 /**
@@ -21,7 +22,7 @@ import {
  * fails if the two disagree. See evals/README.md for why this is a valid
  * ground truth for measuring ANN (HNSW) recall later.
  *
- * Usage: pnpm eval:ground-truth [--queries=100] [--k=10] [--seed=42]
+ * Usage: pnpm eval:ground-truth [--queries=100] [--k=10] [--seed=42] [--out=evals/ground_truth.json]
  */
 
 function arg(name: string, fallback: number): number {
@@ -34,11 +35,16 @@ function arg(name: string, fallback: number): number {
 const QUERIES = arg("queries", 100);
 const K = arg("k", 10);
 const SEED = arg("seed", 42);
-const OUT = path.resolve(__dirname, "../../evals/ground_truth.json");
+const OUT = path.resolve(
+   process.argv.find((a) => a.startsWith("--out="))?.slice("--out=".length) ??
+      path.join(__dirname, "../../evals/ground_truth.json"),
+);
+// Rows read per round trip in the JS cross-check (~0.6 KB of text each).
+const STREAM_BATCH = 20_000;
 
 const kthOf = (n: { distance: number }[]) => n[n.length - 1].distance;
 
-interface Row {
+interface QueryRow {
    id: string;
    level: string;
    root_cause: string | null;
@@ -46,18 +52,44 @@ interface Row {
    embedding: string;
 }
 
+/**
+ * Brute force in JS over the whole table, streamed by primary key so memory
+ * stays O(batch + queries * k) even at 1M rows.
+ */
+async function jsExactTopK(queries: Map<number, Float64Array>): Promise<Map<number, TopK>> {
+   const tops = new Map([...queries.keys()].map((id) => [id, new TopK(K)]));
+   const qs = [...queries].map(([id, v]) => ({ id, v, top: tops.get(id)! }));
+   let cursor = 0;
+   for (;;) {
+      const { rows } = await db.raw(
+         "SELECT id, embedding::text AS e FROM logs WHERE id > ? ORDER BY id LIMIT ?",
+         [cursor, STREAM_BATCH],
+      );
+      if (rows.length === 0) break;
+      for (const r of rows) {
+         const id = Number(r.id);
+         const v = Float64Array.from(JSON.parse(r.e));
+         for (const q of qs) if (q.id !== id) q.top.push({ id, distance: cosineDistance(q.v, v) });
+      }
+      cursor = Number(rows[rows.length - 1].id);
+   }
+   return tops;
+}
+
 async function main() {
    const { rows: [pending] } = await db.raw("SELECT count(*) AS n FROM logs WHERE embedding IS NULL");
    if (Number(pending.n) > 0) throw new Error(`${pending.n} logs have no embedding yet; run pnpm embed:logs`);
 
-   // 1. The whole table, once: used for sampling and for the JS cross-check.
-   const t0 = performance.now();
-   const all: Row[] = (await db.raw("SELECT id, level, root_cause, message, embedding::text FROM logs")).rows;
-   const corpus = new Map<number, number[]>(all.map((r) => [Number(r.id), JSON.parse(r.embedding)]));
-   const byId = new Map(all.map((r) => [Number(r.id), r]));
-   console.log(`loaded ${all.length} rows in ${((performance.now() - t0) / 1000).toFixed(1)}s`);
-
-   const queryIds = sampleQueryIds([...corpus.keys()], QUERIES, SEED);
+   // 1. Sample the query rows (ids only, then just those rows).
+   const allIds: number[] = (await db.raw("SELECT id FROM logs")).rows.map((r: any) => Number(r.id));
+   const queryIds = sampleQueryIds(allIds, QUERIES, SEED);
+   const queryRows: QueryRow[] = (
+      await db.raw("SELECT id, level, root_cause, message, embedding::text FROM logs WHERE id = ANY(?::bigint[])", [
+         queryIds,
+      ])
+   ).rows;
+   const byId = new Map(queryRows.map((r) => [Number(r.id), r]));
+   console.log(`${allIds.length.toLocaleString("en-US")} rows, ${queryIds.length} sampled queries (seed ${SEED})`);
 
    // 2. Exact search in Postgres. Index scans are disabled so the planner
    // cannot pick an approximate index (HNSW/IVFFlat) once one exists, and the
@@ -97,9 +129,11 @@ async function main() {
 
    // 3. Independent recomputation in JS. Any disagreement aborts the run.
    const t1 = performance.now();
+   const jsTops = await jsExactTopK(
+      new Map(queryIds.map((id) => [id, Float64Array.from(JSON.parse(byId.get(id)!.embedding))])),
+   );
    for (const qid of queryIds) {
-      const js = exactTopK(qid, corpus.get(qid)!, corpus, K);
-      const diff = compareTopK(grouped.get(qid) ?? [], js);
+      const diff = compareTopK(grouped.get(qid) ?? [], jsTops.get(qid)!.result());
       if (diff) throw new Error(`query ${qid}: Postgres and JS disagree (${diff})`);
    }
    console.log(`cross-check: Postgres == JS float64 brute force for all ${queryIds.length} queries ` +
@@ -141,7 +175,7 @@ async function main() {
       metric: "cosine_distance",
       k: K,
       seed: SEED,
-      rows: all.length,
+      rows: allIds.length,
       fingerprint: fp.fingerprint,
       self_excluded: true,
       queries,
