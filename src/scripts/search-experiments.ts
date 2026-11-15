@@ -35,11 +35,15 @@ import {
  * query vector, not only for logs already in the table).
  *
  * The HNSW index is built here, once per (m, ef_construction), to time it,
- * and dropped at the end unless --keep-index (which keeps the last one).
- * Results go to evals/results/search-<rows>.json.
+ * under its own name (idx_logs_embedding_hnsw_eval), and dropped at the end
+ * unless --keep-index (which keeps the last one). The production index from
+ * the migration is dropped for the run, so it can't serve any query, and
+ * recreated from its saved definition at the end.
+ * Results go to evals/results/search-<rows>.json, or --out.
  *
  * Usage: pnpm eval:search [--truth=evals/ground_truth.json] [--rounds=3]
- *        [--hnsw=16:64,16:200,32:200] [--repeats=N] [--hybrid-last-only] [--keep-index]
+ *        [--hnsw=16:64,16:200,32:200] [--ef=10,20,40,80,160] [--repeats=N]
+ *        [--hybrid-last-only] [--keep-index] [--out=evals/results/x.json]
  *
  * pgvector assigns HNSW levels at random, so two builds of the same config
  * are different graphs with different recall. Each config is built
@@ -60,7 +64,8 @@ const KEEP_INDEX = process.argv.includes("--keep-index");
 // (seconds per query at 1M); this runs it on the last HNSW config only.
 const HYBRID_LAST_ONLY = process.argv.includes("--hybrid-last-only");
 
-const EF_SEARCH = [10, 20, 40, 80, 160];
+const EF_SEARCH = (flag("ef") ?? "10,20,40,80,160").split(",").map(Number);
+if (EF_SEARCH.some((ef) => !Number.isInteger(ef) || ef < 1)) throw new Error("bad --ef");
 // (m, ef_construction) to build. 16:64 is pgvector's default.
 const HNSW_CONFIGS = (flag("hnsw") ?? "16:64,16:200,32:200")
    .split(",")
@@ -71,7 +76,8 @@ const HNSW_CONFIGS = (flag("hnsw") ?? "16:64,16:200,32:200")
       return { m, ef_construction };
    });
 const HYBRID = { candidates: 40, rrfK: 60, ef_search: 40 };
-const INDEX = "idx_logs_embedding_hnsw";
+const INDEX = "idx_logs_embedding_hnsw_eval";
+const PROD_INDEX = "idx_logs_embedding_hnsw";
 
 interface Query {
    key: string; // log id or the free text
@@ -358,6 +364,25 @@ function printTable(title: string, rows: MethodResult[]) {
 }
 
 async function main() {
+   // The production HNSW index would compete with the one under test.
+   const {
+      rows: [prod],
+   } = await db.raw("SELECT indexdef FROM pg_indexes WHERE indexname = ?", [PROD_INDEX]);
+   if (!prod) return run();
+   console.log(`dropping ${PROD_INDEX} for the run; it is recreated at the end:\n  ${prod.indexdef}`);
+   await db.raw(`DROP INDEX ${PROD_INDEX}`);
+   try {
+      await run();
+   } finally {
+      console.log(`recreating ${PROD_INDEX}...`);
+      await db.transaction(async (trx) => {
+         await trx.raw("SET LOCAL maintenance_work_mem = '2GB'");
+         await trx.raw(prod.indexdef);
+      });
+   }
+}
+
+async function run() {
    const truth: GroundTruth = JSON.parse(readFileSync(TRUTH_PATH, "utf8"));
    const k = truth.k;
 
@@ -535,7 +560,11 @@ async function main() {
    const pick = (rs: MethodResult[], name: string) =>
       rs.find((r) => r.method === name)!;
    const last = HNSW_CONFIGS[HNSW_CONFIGS.length - 1];
-   const hnsw40 = `HNSW m=${last.m} efc=${last.ef_construction} ef_search=40`;
+   // The ef_search closest to hybrid's, so the columns compare like with like.
+   const efKind = EF_SEARCH.reduce((a, b) =>
+      Math.abs(b - HYBRID.ef_search) < Math.abs(a - HYBRID.ef_search) ? b : a,
+   );
+   const hnsw40 = `HNSW m=${last.m} efc=${last.ef_construction} ef_search=${efKind}`;
    console.log(
       `\nfree-text precision@${k} by kind (vector/hybrid: ${hnsw40.replace("HNSW ", "")}):`,
    );
@@ -568,10 +597,12 @@ async function main() {
 
    const outDir = path.join(ROOT, "evals/results");
    mkdirSync(outDir, { recursive: true });
-   const out = path.join(
-      outDir,
-      `search-${rows >= 1_000_000 ? `${rows / 1_000_000}m` : `${rows / 1000}k`}.json`,
-   );
+   const out = flag("out")
+      ? path.resolve(flag("out")!)
+      : path.join(
+           outDir,
+           `search-${rows >= 1_000_000 ? `${rows / 1_000_000}m` : `${rows / 1000}k`}.json`,
+        );
    writeFileSync(
       out,
       JSON.stringify(
