@@ -1,4 +1,4 @@
-import { Knex } from "knex";
+import type { Knex } from "knex";
 
 // Dimension of all-MiniLM-L6-v2 (src/embeddings/embedder.ts). Hard-coded here
 // because a migration is a frozen snapshot: switching models means a new

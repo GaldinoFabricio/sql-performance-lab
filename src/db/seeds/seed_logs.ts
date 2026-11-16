@@ -1,4 +1,4 @@
-import { Knex } from "knex";
+import type { Knex } from "knex";
 import { DEFAULT_SEED, generateLogs } from "../../logs/generator";
 
 // How many logs to create. Default is small so `pnpm seed:run` stays fast

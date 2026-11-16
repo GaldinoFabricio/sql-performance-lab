@@ -1,4 +1,4 @@
-import { Knex } from "knex";
+import type { Knex } from "knex";
 
 // "Latest logs of a service": WHERE service = ? ORDER BY created_at DESC.
 // With (service, created_at DESC) the planner walks the index already in the
