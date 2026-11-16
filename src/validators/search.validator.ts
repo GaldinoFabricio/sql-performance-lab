@@ -12,7 +12,20 @@ const intParam = (name: string, min: number, max: number, fallback: number) => {
    });
 };
 
+// Hybrid RRF weight: "" or missing falls back to the default, anything else must be in [min, max].
+const weightParam = (name: string, fallback: number) => {
+   const [min, max] = SEARCH_DEFAULTS.weightRange;
+   const message = `${name} must be a number between ${min} and ${max}`;
+   return Joi.number().min(min).max(max).empty("").default(fallback).messages({
+      "number.base": message,
+      "number.min": message,
+      "number.max": message,
+      "number.infinity": message,
+   });
+};
+
 const [efMin, efMax] = SEARCH_DEFAULTS.efSearchRange;
+const [rrfMin, rrfMax] = SEARCH_DEFAULTS.rrfKRange;
 
 // GET /search/logs. celebrate replaces req.query with the validated values: q trimmed,
 // k/ef_search as numbers, defaults filled in.
@@ -30,6 +43,9 @@ export const validateLogSearch = celebrate({
       }),
       k: intParam("k", 1, SEARCH_DEFAULTS.maxK, SEARCH_DEFAULTS.k),
       ef_search: intParam("ef_search", efMin, efMax, SEARCH_DEFAULTS.efSearch),
+      vw: weightParam("vw", SEARCH_DEFAULTS.vectorWeight),
+      fw: weightParam("fw", SEARCH_DEFAULTS.keywordWeight),
+      rrf_k: intParam("rrf_k", rrfMin, rrfMax, SEARCH_DEFAULTS.rrfK),
    }),
 });
 
@@ -38,4 +54,7 @@ export interface LogSearchQuery {
    mode: SearchMode;
    k: number;
    ef_search: number;
+   vw: number;
+   fw: number;
+   rrf_k: number;
 }

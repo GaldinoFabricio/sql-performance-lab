@@ -25,6 +25,11 @@ export const SEARCH_DEFAULTS = {
    efSearch: 160,
    efSearchRange: [10, 1000] as const,
    hybridCandidates: 40,
+   vectorWeight: 1.0,
+   keywordWeight: 1.0,
+   weightRange: [0, 5] as const,
+   rrfK: 60,
+   rrfKRange: [1, 1000] as const,
    maxQueryLength: 500,
 };
 
@@ -33,6 +38,11 @@ export interface SearchParams {
    mode: SearchMode;
    k: number;
    efSearch: number;
+   /** RRF weights for the hybrid mode (ignored by the other modes). */
+   vectorWeight: number;
+   keywordWeight: number;
+   /** RRF constant for the hybrid mode: score = weight / (rrfK + rank). */
+   rrfK: number;
 }
 
 export interface LogResult {
@@ -80,7 +90,12 @@ export async function searchLogs(p: SearchParams): Promise<SearchResponse> {
          case "vector":
             return vectorSearch(trx, vec, p.k);
          case "hybrid":
-            return hybridSearch(trx, p.q, vec, p.k, null, { candidates: SEARCH_DEFAULTS.hybridCandidates });
+            return hybridSearch(trx, p.q, vec, p.k, null, {
+               candidates: SEARCH_DEFAULTS.hybridCandidates,
+               vectorWeight: p.vectorWeight,
+               keywordWeight: p.keywordWeight,
+               rrfK: p.rrfK,
+            });
          case "fulltext":
             return fullTextSearch(trx, p.q, p.k);
          case "like":
