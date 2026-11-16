@@ -1,16 +1,13 @@
-FROM node:20-alpine
+FROM node:20-slim
 
 WORKDIR /app
+RUN corepack enable
 
 COPY package.json pnpm-lock.yaml ./
-
-RUN npm install -g pnpm && pnpm install --frozen-lockfile
+RUN pnpm install --frozen-lockfile
 
 COPY . .
-
 RUN pnpm build
 
 EXPOSE 3000
-
-
-CMD ["pnpm", "start"]
+CMD ["node", "dist/server.js"]
