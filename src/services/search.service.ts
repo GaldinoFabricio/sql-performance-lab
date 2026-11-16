@@ -1,6 +1,7 @@
 import db from "../db/knex";
 import { embed, toPgVector } from "../embeddings/embedder";
 import { likePattern } from "../evals/metrics";
+import { routeWeights } from "../search/routing";
 import { fullTextSearch, Hit, hybridSearch, likeSearch, vectorSearch } from "../search/search";
 
 /**
@@ -38,11 +39,39 @@ export interface SearchParams {
    mode: SearchMode;
    k: number;
    efSearch: number;
-   /** RRF weights for the hybrid mode (ignored by the other modes). */
-   vectorWeight: number;
-   keywordWeight: number;
+   /** RRF weights for the hybrid mode. Undefined = not set by the caller. */
+   vectorWeight?: number;
+   keywordWeight?: number;
    /** RRF constant for the hybrid mode: score = weight / (rrfK + rank). */
    rrfK: number;
+   /** Hybrid only: pick the weights from the query (routing.ts) when none are given. */
+   route: boolean;
+}
+
+/** Where the hybrid weights came from: the caller, the router, or the fixed default. */
+export type WeightsFrom = "explicit" | "routed" | "fixed";
+
+export interface HybridWeights {
+   vectorWeight: number;
+   keywordWeight: number;
+   from: WeightsFrom;
+}
+
+/**
+ * Explicit vw/fw always win (manual tests). If only one is given, the other
+ * takes the fixed default, so a half-explicit request never mixes in routing.
+ * Otherwise route the query, or fall back to the fixed 1/1 when route=false.
+ */
+export function hybridWeights(p: Pick<SearchParams, "q" | "vectorWeight" | "keywordWeight" | "route">): HybridWeights {
+   if (p.vectorWeight !== undefined || p.keywordWeight !== undefined) {
+      return {
+         vectorWeight: p.vectorWeight ?? SEARCH_DEFAULTS.vectorWeight,
+         keywordWeight: p.keywordWeight ?? SEARCH_DEFAULTS.keywordWeight,
+         from: "explicit",
+      };
+   }
+   if (p.route) return { ...routeWeights(p.q), from: "routed" };
+   return { vectorWeight: SEARCH_DEFAULTS.vectorWeight, keywordWeight: SEARCH_DEFAULTS.keywordWeight, from: "fixed" };
 }
 
 export interface LogResult {
@@ -59,6 +88,8 @@ export interface SearchResponse {
    mode: SearchMode;
    k: number;
    ef_search: number | null;
+   /** Hybrid only (null for the other modes): the RRF settings actually used. */
+   hybrid: { vector_weight: number; keyword_weight: number; weights_from: WeightsFrom; rrf_k: number } | null;
    ms: { embed: number; search: number; total: number };
    results: LogResult[];
 }
@@ -81,6 +112,7 @@ export async function searchLogs(p: SearchParams): Promise<SearchResponse> {
    // requests sharing the pooled connection. Hybrid asks the vector side for
    // `hybridCandidates` rows, so ef_search must be at least that.
    const efSearch = p.mode === "hybrid" ? Math.max(p.efSearch, SEARCH_DEFAULTS.hybridCandidates) : p.efSearch;
+   const weights = p.mode === "hybrid" ? hybridWeights(p) : null;
    const t = performance.now();
    const hits: Hit[] = await db.transaction(async (trx) => {
       if (needsVector) {
@@ -92,8 +124,8 @@ export async function searchLogs(p: SearchParams): Promise<SearchResponse> {
          case "hybrid":
             return hybridSearch(trx, p.q, vec, p.k, null, {
                candidates: SEARCH_DEFAULTS.hybridCandidates,
-               vectorWeight: p.vectorWeight,
-               keywordWeight: p.keywordWeight,
+               vectorWeight: weights!.vectorWeight,
+               keywordWeight: weights!.keywordWeight,
                rrfK: p.rrfK,
             });
          case "fulltext":
@@ -119,6 +151,12 @@ export async function searchLogs(p: SearchParams): Promise<SearchResponse> {
       mode: p.mode,
       k: p.k,
       ef_search: needsVector ? efSearch : null,
+      hybrid: weights && {
+         vector_weight: weights.vectorWeight,
+         keyword_weight: weights.keywordWeight,
+         weights_from: weights.from,
+         rrf_k: p.rrfK,
+      },
       ms: { embed: round(embedMs), search: round(searchMs), total: round(performance.now() - start) },
       results: ids.map((id) => byId.get(id)!).filter(Boolean),
    };

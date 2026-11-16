@@ -12,11 +12,12 @@ const intParam = (name: string, min: number, max: number, fallback: number) => {
    });
 };
 
-// Hybrid RRF weight: "" or missing falls back to the default, anything else must be in [min, max].
-const weightParam = (name: string, fallback: number) => {
+// Hybrid RRF weight: must be in [min, max]. No default on purpose: "" or missing
+// stays undefined, so the service knows the caller did not set it and can route.
+const weightParam = (name: string) => {
    const [min, max] = SEARCH_DEFAULTS.weightRange;
    const message = `${name} must be a number between ${min} and ${max}`;
-   return Joi.number().min(min).max(max).empty("").default(fallback).messages({
+   return Joi.number().min(min).max(max).empty("").messages({
       "number.base": message,
       "number.min": message,
       "number.max": message,
@@ -43,8 +44,12 @@ export const validateLogSearch = celebrate({
       }),
       k: intParam("k", 1, SEARCH_DEFAULTS.maxK, SEARCH_DEFAULTS.k),
       ef_search: intParam("ef_search", efMin, efMax, SEARCH_DEFAULTS.efSearch),
-      vw: weightParam("vw", SEARCH_DEFAULTS.vectorWeight),
-      fw: weightParam("fw", SEARCH_DEFAULTS.keywordWeight),
+      vw: weightParam("vw"),
+      fw: weightParam("fw"),
+      // route=false turns query routing off: hybrid with fixed weights (1/1).
+      route: Joi.boolean().truthy("1").falsy("0").empty("").default(true).messages({
+         "boolean.base": "route must be true or false",
+      }),
       rrf_k: intParam("rrf_k", rrfMin, rrfMax, SEARCH_DEFAULTS.rrfK),
    }),
 });
@@ -54,7 +59,8 @@ export interface LogSearchQuery {
    mode: SearchMode;
    k: number;
    ef_search: number;
-   vw: number;
-   fw: number;
+   vw?: number;
+   fw?: number;
    rrf_k: number;
+   route: boolean;
 }
