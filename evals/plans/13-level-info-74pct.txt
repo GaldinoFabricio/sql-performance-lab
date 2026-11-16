@@ -1,0 +1,12 @@
+-- level = 'INFO' (most rows): index ignored
+-- setup: CREATE INDEX idx_logs_level ON logs (level)
+-- setup: ANALYZE logs
+
+SELECT id, service FROM logs WHERE level = 'INFO';
+
+Seq Scan on logs  (cost=0.00..263945.79 rows=737708 width=18) (actual time=0.009..458.644 rows=739475 loops=1)
+  Filter: (level = 'INFO'::text)
+  Rows Removed by Filter: 260525
+  Buffers: shared hit=50078 read=201362
+Planning Time: 0.051 ms
+Execution Time: 479.746 ms

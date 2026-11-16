@@ -77,6 +77,16 @@ Measures the cost of joining three tables (users, orders, order_items) with and 
 
 A single endpoint that runs both the slow and optimized versions multiple times and returns average, min, max, and improvement percentage.
 
+### 5. Semantic Search over Logs (pgvector)
+
+`GET /search/logs` searches a synthetic `logs` table four ways: `LIKE`, full-text (GIN), vectors (exact and HNSW) and a hybrid of both. Each is measured with recall and precision evals at 10k, 100k and 1M rows.
+
+Headline: with 1M rows, an HNSW index answers in ~2 ms instead of 220 ms, but finds only 64% of the true nearest neighbours for typed queries. Full write-up, chart and conclusions: [SEMANTIC_SEARCH.md](./SEMANTIC_SEARCH.md).
+
+### 6. Query Plans on 1M Logs
+
+`pnpm eval:plans` saves `EXPLAIN (ANALYZE, BUFFERS)` for 20 experiments on the 1M-row `logs` table. Topics: a composite index created `CONCURRENTLY`, the leftmost prefix rule, a redundant index and INSERT cost (measured in WAL bytes), 500 vs 1M rows, a low-selectivity index, HNSW + `WHERE` (and four fixes), and `pg_stat_statements` ranked by total vs mean time. The plans are explained node by node, in Portuguese, in [evals/plans/README.md](./evals/plans/README.md).
+
 ---
 
 ## Tech Stack
@@ -86,6 +96,7 @@ A single endpoint that runs both the slow and optimized versions multiple times 
 - **Express** — HTTP layer
 - **Knex.js** — query builder and migrations
 - **Faker.js** — realistic dataset generation
+- **pgvector** + **Transformers.js** (all-MiniLM-L6-v2, local CPU) — embeddings and vector search
 - **Vitest + Supertest** — automated tests
 
 ---
@@ -146,6 +157,7 @@ pnpm dev
 | GET    | `/queries/join/optimized` | JOIN with composite index (index scan)              |
 | GET    | `/queries/explain/:type`  | Execution plan for `slow` or `fast`                 |
 | GET    | `/benchmarks/run`         | Side-by-side benchmark comparison (5 iterations)    |
+| GET    | `/search/logs?q=&mode=`   | Log search: `hybrid` (default), `vector`, `fulltext`, `like`; optional `k`, `ef_search` |
 
 **Example response from `/benchmarks/run`:**
 
@@ -192,6 +204,11 @@ CREATE INDEX idx_order_items_product_id ON order_items(product_id);
 
 -- Products
 CREATE INDEX idx_products_category ON products(category);
+
+-- Logs (semantic search chapter)
+CREATE INDEX idx_logs_message_fts ON logs USING gin (to_tsvector('english', message));
+CREATE INDEX idx_logs_embedding_hnsw ON logs USING hnsw (embedding vector_cosine_ops) WITH (m = 32, ef_construction = 200);
+CREATE INDEX CONCURRENTLY idx_logs_service_created_at ON logs (service, created_at DESC);
 ```
 
 ---

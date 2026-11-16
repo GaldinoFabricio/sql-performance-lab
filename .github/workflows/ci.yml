@@ -14,7 +14,7 @@ jobs:
 
       services:
          postgres:
-            image: postgres:16
+            image: pgvector/pgvector:pg17
             env:
                POSTGRES_USER: postgres
                POSTGRES_PASSWORD: postgres
@@ -44,6 +44,9 @@ jobs:
          - name: Install dependencies
            run: pnpm install
 
+         - name: Fetch embedding model (pinned, SHA-256 verified)
+           run: pnpm model:fetch
+
          - name: Run migrations
            run: pnpm knex --knexfile src/knexfile.ts migrate:latest
            env:
@@ -55,6 +58,15 @@ jobs:
 
          - name: Run seed
            run: pnpm knex --knexfile src/knexfile.ts seed:run
+           env:
+              DB_HOST: localhost
+              DB_PORT: 5432
+              DB_NAME: sql_lab
+              DB_USER: postgres
+              DB_PASSWORD: postgres
+
+         - name: Embed logs (search tests need vectors)
+           run: pnpm embed:logs
            env:
               DB_HOST: localhost
               DB_PORT: 5432

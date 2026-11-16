@@ -1,0 +1,14 @@
+-- With both (service) and (service, created_at): the planner picks one
+-- setup: CREATE INDEX idx_logs_service ON logs (service)
+-- setup: ANALYZE logs
+
+SELECT count(*) FROM logs WHERE service = 'shipping';
+
+Aggregate  (cost=93658.17..93658.18 rows=1 width=8) (actual time=7.284..7.284 rows=1 loops=1)
+  Buffers: shared hit=93
+  ->  Index Only Scan using idx_logs_service on logs  (cost=0.42..93553.95 rows=41689 width=0) (actual time=0.017..4.985 rows=43080 loops=1)
+        Index Cond: (service = 'shipping'::text)
+        Heap Fetches: 45
+        Buffers: shared hit=93
+Planning Time: 0.310 ms
+Execution Time: 7.310 ms

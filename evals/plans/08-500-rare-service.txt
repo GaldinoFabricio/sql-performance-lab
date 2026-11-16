@@ -1,0 +1,13 @@
+-- 500 rows, service = 'shipping' (~4% of rows)
+
+SELECT id, created_at, level FROM logs_500 WHERE service = 'shipping';
+
+Bitmap Heap Scan on logs_500  (cost=4.42..21.48 rows=19 width=21) (actual time=0.029..0.048 rows=19 loops=1)
+  Recheck Cond: (service = 'shipping'::text)
+  Heap Blocks: exact=9
+  Buffers: shared hit=11
+  ->  Bitmap Index Scan on idx_logs_500_service_created_at  (cost=0.00..4.42 rows=19 width=0) (actual time=0.016..0.016 rows=19 loops=1)
+        Index Cond: (service = 'shipping'::text)
+        Buffers: shared hit=2
+Planning Time: 0.135 ms
+Execution Time: 0.071 ms

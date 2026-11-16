@@ -1,0 +1,6013 @@
+{
+  "version": 1,
+  "created_at": "2026-11-15T11:58:24.127Z",
+  "model": "Xenova/all-MiniLM-L6-v2",
+  "metric": "cosine_distance",
+  "k": 10,
+  "seed": 42,
+  "rows": 10000,
+  "fingerprint": "26683d76fb217ee5017694aff2e91dc8",
+  "self_excluded": true,
+  "queries": [
+    {
+      "id": 55,
+      "level": "INFO",
+      "root_cause": "info:http_request",
+      "message": "Handled /api/auth/refresh in 315 ms (status 200)",
+      "kth_distance": 0.038569509983062744,
+      "ties_beyond_k": 0,
+      "neighbors": [
+        {
+          "id": 4554,
+          "distance": 0,
+          "root_cause": "info:http_request"
+        },
+        {
+          "id": 995,
+          "distance": 0.03231239126250629,
+          "root_cause": "info:http_request"
+        },
+        {
+          "id": 1156,
+          "distance": 0.03415796262496551,
+          "root_cause": "info:http_request"
+        },
+        {
+          "id": 8412,
+          "distance": 0.03524148464202881,
+          "root_cause": "info:http_request"
+        },
+        {
+          "id": 1337,
+          "distance": 0.03543102318870062,
+          "root_cause": "info:http_request"
+        },
+        {
+          "id": 4457,
+          "distance": 0.03543102318870062,
+          "root_cause": "info:http_request"
+        },
+        {
+          "id": 4410,
+          "distance": 0.03580776390547935,
+          "root_cause": "info:http_request"
+        },
+        {
+          "id": 4722,
+          "distance": 0.03580776390547935,
+          "root_cause": "info:http_request"
+        },
+        {
+          "id": 2952,
+          "distance": 0.038175053270155246,
+          "root_cause": "info:http_request"
+        },
+        {
+          "id": 5582,
+          "distance": 0.038569509983062744,
+          "root_cause": "info:http_request"
+        }
+      ]
+    },
+    {
+      "id": 206,
+      "level": "INFO",
+      "root_cause": "info:job_completed",
+      "message": "Batch of 357 messages processed, 0 failures",
+      "kth_distance": 0.05715546182261255,
+      "ties_beyond_k": 1,
+      "neighbors": [
+        {
+          "id": 907,
+          "distance": 0.042887988262650945,
+          "root_cause": "info:job_completed"
+        },
+        {
+          "id": 8920,
+          "distance": 0.042887988262650945,
+          "root_cause": "info:job_completed"
+        },
+        {
+          "id": 289,
+          "distance": 0.05062162272671711,
+          "root_cause": "info:job_completed"
+        },
+        {
+          "id": 3734,
+          "distance": 0.05231789222221228,
+          "root_cause": "info:job_completed"
+        },
+        {
+          "id": 5466,
+          "distance": 0.05514383316040039,
+          "root_cause": "info:job_completed"
+        },
+        {
+          "id": 2459,
+          "distance": 0.0557688193252327,
+          "root_cause": "info:job_completed"
+        },
+        {
+          "id": 6505,
+          "distance": 0.056351555908070394,
+          "root_cause": "info:job_completed"
+        },
+        {
+          "id": 6746,
+          "distance": 0.05661670217165826,
+          "root_cause": "info:job_completed"
+        },
+        {
+          "id": 7431,
+          "distance": 0.056635071640880774,
+          "root_cause": "info:job_completed"
+        },
+        {
+          "id": 489,
+          "distance": 0.05715546182261255,
+          "root_cause": "info:job_completed"
+        }
+      ]
+    },
+    {
+      "id": 252,
+      "level": "INFO",
+      "root_cause": "info:http_request",
+      "message": "request completed method=GET path=/api/checkout status=200 duration_ms=247 request_id=ec9b5a73-b85e-4050-9cb5-a6c76e419f60",
+      "kth_distance": 0.037585232041942085,
+      "ties_beyond_k": 0,
+      "neighbors": [
+        {
+          "id": 2621,
+          "distance": 0.018453715031889306,
+          "root_cause": "info:http_request"
+        },
+        {
+          "id": 8651,
+          "distance": 0.03529820372136416,
+          "root_cause": "info:http_request"
+        },
+        {
+          "id": 5399,
+          "distance": 0.035434197018758495,
+          "root_cause": "info:http_request"
+        },
+        {
+          "id": 5332,
+          "distance": 0.036100860106835664,
+          "root_cause": "info:http_request"
+        },
+        {
+          "id": 1812,
+          "distance": 0.036378063399962746,
+          "root_cause": "info:http_request"
+        },
+        {
+          "id": 1459,
+          "distance": 0.03661738953173055,
+          "root_cause": "info:http_request"
+        },
+        {
+          "id": 2846,
+          "distance": 0.0370042655173739,
+          "root_cause": "info:http_request"
+        },
+        {
+          "id": 3621,
+          "distance": 0.03709096158634473,
+          "root_cause": "info:http_request"
+        },
+        {
+          "id": 4120,
+          "distance": 0.03753995447873926,
+          "root_cause": "info:http_request"
+        },
+        {
+          "id": 8147,
+          "distance": 0.037585232041942085,
+          "root_cause": "info:http_request"
+        }
+      ]
+    },
+    {
+      "id": 343,
+      "level": "WARN",
+      "root_cause": "cache_unavailable",
+      "message": "Cache unreachable at 10.7.123.229:6379, falling back to database for product lookups",
+      "kth_distance": 0.11429911170606977,
+      "ties_beyond_k": 0,
+      "neighbors": [
+        {
+          "id": 2283,
+          "distance": 0.01763391284537652,
+          "root_cause": "cache_unavailable"
+        },
+        {
+          "id": 2007,
+          "distance": 0.019340129435666098,
+          "root_cause": "cache_unavailable"
+        },
+        {
+          "id": 5320,
+          "distance": 0.022950646525537355,
+          "root_cause": "cache_unavailable"
+        },
+        {
+          "id": 4372,
+          "distance": 0.025459260507203485,
+          "root_cause": "cache_unavailable"
+        },
+        {
+          "id": 1884,
+          "distance": 0.027921982980322335,
+          "root_cause": "cache_unavailable"
+        },
+        {
+          "id": 4863,
+          "distance": 0.028918630818966617,
+          "root_cause": "cache_unavailable"
+        },
+        {
+          "id": 6457,
+          "distance": 0.03366517217986886,
+          "root_cause": "cache_unavailable"
+        },
+        {
+          "id": 3742,
+          "distance": 0.037708434853708006,
+          "root_cause": "cache_unavailable"
+        },
+        {
+          "id": 3021,
+          "distance": 0.04000294446962571,
+          "root_cause": "cache_unavailable"
+        },
+        {
+          "id": 7784,
+          "distance": 0.11429911170606977,
+          "root_cause": "cache_unavailable"
+        }
+      ]
+    },
+    {
+      "id": 450,
+      "level": "INFO",
+      "root_cause": "info:http_request",
+      "message": "Handled /api/orders/ord_bm20gbf95o in 130 ms (status 200)",
+      "kth_distance": 0.12421664576927172,
+      "ties_beyond_k": 0,
+      "neighbors": [
+        {
+          "id": 3682,
+          "distance": 0.1082072975246533,
+          "root_cause": "info:http_request"
+        },
+        {
+          "id": 1965,
+          "distance": 0.11309619726864029,
+          "root_cause": "info:http_request"
+        },
+        {
+          "id": 3575,
+          "distance": 0.11613157872306668,
+          "root_cause": "info:http_request"
+        },
+        {
+          "id": 2155,
+          "distance": 0.11907490946648192,
+          "root_cause": "info:http_request"
+        },
+        {
+          "id": 6166,
+          "distance": 0.11928048374408273,
+          "root_cause": "info:http_request"
+        },
+        {
+          "id": 8297,
+          "distance": 0.12049135924846821,
+          "root_cause": "info:http_request"
+        },
+        {
+          "id": 7853,
+          "distance": 0.12131201048373352,
+          "root_cause": "info:http_request"
+        },
+        {
+          "id": 1142,
+          "distance": 0.12149461741756795,
+          "root_cause": "info:http_request"
+        },
+        {
+          "id": 5913,
+          "distance": 0.12264459172554709,
+          "root_cause": "info:http_request"
+        },
+        {
+          "id": 9940,
+          "distance": 0.12421664576927172,
+          "root_cause": "info:http_request"
+        }
+      ]
+    },
+    {
+      "id": 464,
+      "level": "INFO",
+      "root_cause": "info:health_check",
+      "message": "Health check OK",
+      "kth_distance": 0,
+      "ties_beyond_k": 391,
+      "neighbors": [
+        {
+          "id": 9,
+          "distance": 0,
+          "root_cause": "info:health_check"
+        },
+        {
+          "id": 10,
+          "distance": 0,
+          "root_cause": "info:health_check"
+        },
+        {
+          "id": 42,
+          "distance": 0,
+          "root_cause": "info:health_check"
+        },
+        {
+          "id": 52,
+          "distance": 0,
+          "root_cause": "info:health_check"
+        },
+        {
+          "id": 81,
+          "distance": 0,
+          "root_cause": "info:health_check"
+        },
+        {
+          "id": 131,
+          "distance": 0,
+          "root_cause": "info:health_check"
+        },
+        {
+          "id": 138,
+          "distance": 0,
+          "root_cause": "info:health_check"
+        },
+        {
+          "id": 141,
+          "distance": 0,
+          "root_cause": "info:health_check"
+        },
+        {
+          "id": 168,
+          "distance": 0,
+          "root_cause": "info:health_check"
+        },
+        {
+          "id": 169,
+          "distance": 0,
+          "root_cause": "info:health_check"
+        }
+      ]
+    },
+    {
+      "id": 581,
+      "level": "ERROR",
+      "root_cause": "dns_failure",
+      "message": "Unable to resolve hostname api.stripe.com while calling adyen",
+      "kth_distance": 0.38675689302590177,
+      "ties_beyond_k": 1,
+      "neighbors": [
+        {
+          "id": 5271,
+          "distance": 0.10232187301468898,
+          "root_cause": "dns_failure"
+        },
+        {
+          "id": 7898,
+          "distance": 0.22514365168994255,
+          "root_cause": "dns_failure"
+        },
+        {
+          "id": 2034,
+          "distance": 0.23026428763823747,
+          "root_cause": "dns_failure"
+        },
+        {
+          "id": 4141,
+          "distance": 0.23026428763823747,
+          "root_cause": "dns_failure"
+        },
+        {
+          "id": 5672,
+          "distance": 0.23026428763823747,
+          "root_cause": "dns_failure"
+        },
+        {
+          "id": 8893,
+          "distance": 0.23026428763823747,
+          "root_cause": "dns_failure"
+        },
+        {
+          "id": 5463,
+          "distance": 0.27463750981763047,
+          "root_cause": "dns_failure"
+        },
+        {
+          "id": 5401,
+          "distance": 0.3166471749578402,
+          "root_cause": "dns_failure"
+        },
+        {
+          "id": 6681,
+          "distance": 0.38093837386001395,
+          "root_cause": "dns_failure"
+        },
+        {
+          "id": 256,
+          "distance": 0.38675689302590177,
+          "root_cause": "dns_failure"
+        }
+      ]
+    },
+    {
+      "id": 631,
+      "level": "INFO",
+      "root_cause": "info:http_request",
+      "message": "Handled /api/auth/refresh in 194 ms (status 200)",
+      "kth_distance": 0.023118013592232978,
+      "ties_beyond_k": 0,
+      "neighbors": [
+        {
+          "id": 9925,
+          "distance": 0.017871491604973477,
+          "root_cause": "info:http_request"
+        },
+        {
+          "id": 554,
+          "distance": 0.019699247452528046,
+          "root_cause": "info:http_request"
+        },
+        {
+          "id": 2983,
+          "distance": 0.020372744732006565,
+          "root_cause": "info:http_request"
+        },
+        {
+          "id": 9502,
+          "distance": 0.021708125660859445,
+          "root_cause": "info:http_request"
+        },
+        {
+          "id": 5010,
+          "distance": 0.022000373721129396,
+          "root_cause": "info:http_request"
+        },
+        {
+          "id": 6827,
+          "distance": 0.022791498067513016,
+          "root_cause": "info:http_request"
+        },
+        {
+          "id": 7291,
+          "distance": 0.022934371725463643,
+          "root_cause": "info:http_request"
+        },
+        {
+          "id": 1749,
+          "distance": 0.022977619678445138,
+          "root_cause": "info:http_request"
+        },
+        {
+          "id": 1837,
+          "distance": 0.023118013592232978,
+          "root_cause": "info:http_request"
+        },
+        {
+          "id": 2152,
+          "distance": 0.023118013592232978,
+          "root_cause": "info:http_request"
+        }
+      ]
+    },
+    {
+      "id": 649,
+      "level": "INFO",
+      "root_cause": "info:job_completed",
+      "message": "Batch of 201 messages processed, 0 failures",
+      "kth_distance": 0.053697215629260886,
+      "ties_beyond_k": 0,
+      "neighbors": [
+        {
+          "id": 4114,
+          "distance": 0.03897851937881058,
+          "root_cause": "info:job_completed"
+        },
+        {
+          "id": 7178,
+          "distance": 0.03897851937881058,
+          "root_cause": "info:job_completed"
+        },
+        {
+          "id": 2704,
+          "distance": 0.045940489946021956,
+          "root_cause": "info:job_completed"
+        },
+        {
+          "id": 8604,
+          "distance": 0.04922205209732056,
+          "root_cause": "info:job_completed"
+        },
+        {
+          "id": 6959,
+          "distance": 0.050545692443847656,
+          "root_cause": "info:job_completed"
+        },
+        {
+          "id": 6984,
+          "distance": 0.05201106643544162,
+          "root_cause": "info:job_completed"
+        },
+        {
+          "id": 489,
+          "distance": 0.05287572899090398,
+          "root_cause": "info:job_completed"
+        },
+        {
+          "id": 1154,
+          "distance": 0.05287572899090398,
+          "root_cause": "info:job_completed"
+        },
+        {
+          "id": 7209,
+          "distance": 0.05365621403977028,
+          "root_cause": "info:job_completed"
+        },
+        {
+          "id": 6219,
+          "distance": 0.053697215629260886,
+          "root_cause": "info:job_completed"
+        }
+      ]
+    },
+    {
+      "id": 735,
+      "level": "ERROR",
+      "root_cause": "null_reference",
+      "message": "java.lang.NullPointerException: Cannot invoke \"Order.getTotal()\" because \"cart\" is null\n\tat com.shop.orders.OrderService.handle(OrderService.java:456)\n\tat com.shop.orders.OrderService.handle(OrderService.java:244)\n\tat com.shop.inventory.StockReservation.process(StockReservation.java:520)\n\tat com.shop.payments.ChargeHandler.run(ChargeHandler.java:291)\n\tat java.base/java.lang.Thread.run(Thread.java:1583)",
+      "kth_distance": 0.07897094598150745,
+      "ties_beyond_k": 0,
+      "neighbors": [
+        {
+          "id": 5228,
+          "distance": 0.036870753298801406,
+          "root_cause": "null_reference"
+        },
+        {
+          "id": 4049,
+          "distance": 0.04979970902796327,
+          "root_cause": "null_reference"
+        },
+        {
+          "id": 541,
+          "distance": 0.05460702508363724,
+          "root_cause": "null_reference"
+        },
+        {
+          "id": 9787,
+          "distance": 0.06002095878309577,
+          "root_cause": "null_reference"
+        },
+        {
+          "id": 9800,
+          "distance": 0.06836403970264526,
+          "root_cause": "null_reference"
+        },
+        {
+          "id": 3031,
+          "distance": 0.0689360221902996,
+          "root_cause": "null_reference"
+        },
+        {
+          "id": 900,
+          "distance": 0.07737307374511337,
+          "root_cause": "null_reference"
+        },
+        {
+          "id": 6036,
+          "distance": 0.07739667718936849,
+          "root_cause": "null_reference"
+        },
+        {
+          "id": 9764,
+          "distance": 0.07805159033882325,
+          "root_cause": "null_reference"
+        },
+        {
+          "id": 6066,
+          "distance": 0.07897094598150745,
+          "root_cause": "null_reference"
+        }
+      ]
+    },
+    {
+      "id": 741,
+      "level": "INFO",
+      "root_cause": "info:job_completed",
+      "message": "Job email-digest finished in 59414ms, processed 2034 items",
+      "kth_distance": 0.04599075961222454,
+      "ties_beyond_k": 0,
+      "neighbors": [
+        {
+          "id": 4986,
+          "distance": 0.034128279510948434,
+          "root_cause": "info:job_completed"
+        },
+        {
+          "id": 8382,
+          "distance": 0.03835379162936414,
+          "root_cause": "info:job_completed"
+        },
+        {
+          "id": 6223,
+          "distance": 0.038475990295382845,
+          "root_cause": "info:job_completed"
+        },
+        {
+          "id": 6764,
+          "distance": 0.04170206064871673,
+          "root_cause": "info:job_completed"
+        },
+        {
+          "id": 1234,
+          "distance": 0.043077165713641286,
+          "root_cause": "info:job_completed"
+        },
+        {
+          "id": 6103,
+          "distance": 0.04425179958340786,
+          "root_cause": "info:job_completed"
+        },
+        {
+          "id": 7628,
+          "distance": 0.045290353613474554,
+          "root_cause": "info:job_completed"
+        },
+        {
+          "id": 7141,
+          "distance": 0.045599994325622895,
+          "root_cause": "info:job_completed"
+        },
+        {
+          "id": 4697,
+          "distance": 0.04571819305417213,
+          "root_cause": "info:job_completed"
+        },
+        {
+          "id": 3596,
+          "distance": 0.04599075961222454,
+          "root_cause": "info:job_completed"
+        }
+      ]
+    },
+    {
+      "id": 880,
+      "level": "INFO",
+      "root_cause": "info:http_request",
+      "message": "request completed method=GET path=/api/checkout status=200 duration_ms=133 request_id=92465899-a42c-4d46-b78a-0b07d72fec62",
+      "kth_distance": 0.015127537831333582,
+      "ties_beyond_k": 0,
+      "neighbors": [
+        {
+          "id": 7999,
+          "distance": 0.012577412263601873,
+          "root_cause": "info:http_request"
+        },
+        {
+          "id": 8663,
+          "distance": 0.012585102761635825,
+          "root_cause": "info:http_request"
+        },
+        {
+          "id": 4498,
+          "distance": 0.013859744709804445,
+          "root_cause": "info:http_request"
+        },
+        {
+          "id": 9453,
+          "distance": 0.014076829795562573,
+          "root_cause": "info:http_request"
+        },
+        {
+          "id": 2161,
+          "distance": 0.014107929967562605,
+          "root_cause": "info:http_request"
+        },
+        {
+          "id": 2828,
+          "distance": 0.014166651467455993,
+          "root_cause": "info:http_request"
+        },
+        {
+          "id": 3844,
+          "distance": 0.01428157091134441,
+          "root_cause": "info:http_request"
+        },
+        {
+          "id": 180,
+          "distance": 0.014658089084000903,
+          "root_cause": "info:http_request"
+        },
+        {
+          "id": 3560,
+          "distance": 0.015016014869206895,
+          "root_cause": "info:http_request"
+        },
+        {
+          "id": 1546,
+          "distance": 0.015127537831333582,
+          "root_cause": "info:http_request"
+        }
+      ]
+    },
+    {
+      "id": 974,
+      "level": "ERROR",
+      "root_cause": "null_reference",
+      "message": "TypeError: Cannot read properties of null (reading 'status')\n    at Checkout.findById (/app/src/controllers/checkout.controller.ts:137:28)\n    at Order.charge (/app/src/services/order.service.ts:393:33)\n    at processTicksAndRejections (node:internal/process/task_queues:95:5)",
+      "kth_distance": 0.16307144385150263,
+      "ties_beyond_k": 0,
+      "neighbors": [
+        {
+          "id": 6601,
+          "distance": 0.04213786878662662,
+          "root_cause": "null_reference"
+        },
+        {
+          "id": 5187,
+          "distance": 0.12933121569976624,
+          "root_cause": "null_reference"
+        },
+        {
+          "id": 4895,
+          "distance": 0.1318000240802646,
+          "root_cause": "null_reference"
+        },
+        {
+          "id": 4190,
+          "distance": 0.13300059640400452,
+          "root_cause": "null_reference"
+        },
+        {
+          "id": 3641,
+          "distance": 0.1391561974603761,
+          "root_cause": "null_reference"
+        },
+        {
+          "id": 9487,
+          "distance": 0.14006820796700425,
+          "root_cause": "null_reference"
+        },
+        {
+          "id": 6482,
+          "distance": 0.14578354358672485,
+          "root_cause": "null_reference"
+        },
+        {
+          "id": 4016,
+          "distance": 0.14585454141225296,
+          "root_cause": "null_reference"
+        },
+        {
+          "id": 645,
+          "distance": 0.16071961394314604,
+          "root_cause": "null_reference"
+        },
+        {
+          "id": 1596,
+          "distance": 0.16307144385150263,
+          "root_cause": "null_reference"
+        }
+      ]
+    },
+    {
+      "id": 1069,
+      "level": "WARN",
+      "root_cause": "jwt_expired",
+      "message": "Rejected request to /api/orders: access token expired 58 minutes ago",
+      "kth_distance": 0.024045343867733604,
+      "ties_beyond_k": 0,
+      "neighbors": [
+        {
+          "id": 8732,
+          "distance": 0.013587354803823226,
+          "root_cause": "jwt_expired"
+        },
+        {
+          "id": 5543,
+          "distance": 0.01617985867380367,
+          "root_cause": "jwt_expired"
+        },
+        {
+          "id": 8476,
+          "distance": 0.016739903882731944,
+          "root_cause": "jwt_expired"
+        },
+        {
+          "id": 3390,
+          "distance": 0.01684677801689838,
+          "root_cause": "jwt_expired"
+        },
+        {
+          "id": 5410,
+          "distance": 0.017938228065212614,
+          "root_cause": "jwt_expired"
+        },
+        {
+          "id": 1873,
+          "distance": 0.018791439389161946,
+          "root_cause": "jwt_expired"
+        },
+        {
+          "id": 6877,
+          "distance": 0.020018639566736218,
+          "root_cause": "jwt_expired"
+        },
+        {
+          "id": 5744,
+          "distance": 0.02022326474743741,
+          "root_cause": "jwt_expired"
+        },
+        {
+          "id": 3454,
+          "distance": 0.02220541106428664,
+          "root_cause": "jwt_expired"
+        },
+        {
+          "id": 2302,
+          "distance": 0.024045343867733604,
+          "root_cause": "jwt_expired"
+        }
+      ]
+    },
+    {
+      "id": 1150,
+      "level": "INFO",
+      "root_cause": "info:http_request",
+      "message": "GET /api/auth/refresh 200 184ms",
+      "kth_distance": 0.02080184097278892,
+      "ties_beyond_k": 0,
+      "neighbors": [
+        {
+          "id": 5656,
+          "distance": 0.013294726213966102,
+          "root_cause": "info:http_request"
+        },
+        {
+          "id": 583,
+          "distance": 0.016157955412792857,
+          "root_cause": "info:http_request"
+        },
+        {
+          "id": 3535,
+          "distance": 0.016568064689629236,
+          "root_cause": "info:http_request"
+        },
+        {
+          "id": 7348,
+          "distance": 0.016778521689749692,
+          "root_cause": "info:http_request"
+        },
+        {
+          "id": 2238,
+          "distance": 0.01721197366713778,
+          "root_cause": "info:http_request"
+        },
+        {
+          "id": 1141,
+          "distance": 0.01855510141460104,
+          "root_cause": "info:http_request"
+        },
+        {
+          "id": 9290,
+          "distance": 0.019098398792934512,
+          "root_cause": "info:http_request"
+        },
+        {
+          "id": 4291,
+          "distance": 0.020341750322265595,
+          "root_cause": "info:http_request"
+        },
+        {
+          "id": 8602,
+          "distance": 0.020458158172696583,
+          "root_cause": "info:http_request"
+        },
+        {
+          "id": 3667,
+          "distance": 0.02080184097278892,
+          "root_cause": "info:http_request"
+        }
+      ]
+    },
+    {
+      "id": 1186,
+      "level": "INFO",
+      "root_cause": "info:user_login",
+      "message": "User usr_367017 logged in successfully from 126.82.49.254",
+      "kth_distance": 0.08171578511155553,
+      "ties_beyond_k": 0,
+      "neighbors": [
+        {
+          "id": 9281,
+          "distance": 0.04773590964528951,
+          "root_cause": "info:user_login"
+        },
+        {
+          "id": 945,
+          "distance": 0.06557537346541742,
+          "root_cause": "info:user_login"
+        },
+        {
+          "id": 3394,
+          "distance": 0.06652502613290656,
+          "root_cause": "info:user_login"
+        },
+        {
+          "id": 6988,
+          "distance": 0.07033708901217806,
+          "root_cause": "info:user_login"
+        },
+        {
+          "id": 928,
+          "distance": 0.07138380621027329,
+          "root_cause": "info:user_login"
+        },
+        {
+          "id": 4051,
+          "distance": 0.07700882050473834,
+          "root_cause": "info:user_login"
+        },
+        {
+          "id": 5415,
+          "distance": 0.07801729905708421,
+          "root_cause": "info:user_login"
+        },
+        {
+          "id": 3883,
+          "distance": 0.08039665701369392,
+          "root_cause": "info:user_login"
+        },
+        {
+          "id": 589,
+          "distance": 0.08049852615577135,
+          "root_cause": "info:user_login"
+        },
+        {
+          "id": 6018,
+          "distance": 0.08171578511155553,
+          "root_cause": "info:user_login"
+        }
+      ]
+    },
+    {
+      "id": 1216,
+      "level": "INFO",
+      "root_cause": "info:http_request",
+      "message": "POST /api/products/search 204 52ms",
+      "kth_distance": 0.03754519744899143,
+      "ties_beyond_k": 0,
+      "neighbors": [
+        {
+          "id": 7275,
+          "distance": 0.023796197915523565,
+          "root_cause": "info:http_request"
+        },
+        {
+          "id": 8112,
+          "distance": 0.025604480360870263,
+          "root_cause": "info:http_request"
+        },
+        {
+          "id": 8496,
+          "distance": 0.027587352538847143,
+          "root_cause": "info:http_request"
+        },
+        {
+          "id": 4914,
+          "distance": 0.02947562757278155,
+          "root_cause": "info:http_request"
+        },
+        {
+          "id": 4398,
+          "distance": 0.031091393893401098,
+          "root_cause": "info:http_request"
+        },
+        {
+          "id": 8246,
+          "distance": 0.03240245773802619,
+          "root_cause": "info:http_request"
+        },
+        {
+          "id": 24,
+          "distance": 0.0347139218619954,
+          "root_cause": "info:http_request"
+        },
+        {
+          "id": 534,
+          "distance": 0.03498038753805233,
+          "root_cause": "info:http_request"
+        },
+        {
+          "id": 8376,
+          "distance": 0.03699934041507269,
+          "root_cause": "info:http_request"
+        },
+        {
+          "id": 3855,
+          "distance": 0.03754519744899143,
+          "root_cause": "info:http_request"
+        }
+      ]
+    },
+    {
+      "id": 1393,
+      "level": "INFO",
+      "root_cause": "info:http_request",
+      "message": "PUT /api/orders 200 239ms",
+      "kth_distance": 0.03994672300019009,
+      "ties_beyond_k": 0,
+      "neighbors": [
+        {
+          "id": 3717,
+          "distance": 0.027671984531882354,
+          "root_cause": "info:http_request"
+        },
+        {
+          "id": 859,
+          "distance": 0.02961760053214324,
+          "root_cause": "info:http_request"
+        },
+        {
+          "id": 6880,
+          "distance": 0.030031733505305636,
+          "root_cause": "info:http_request"
+        },
+        {
+          "id": 5183,
+          "distance": 0.03315382405427625,
+          "root_cause": "info:http_request"
+        },
+        {
+          "id": 8050,
+          "distance": 0.03672324297788987,
+          "root_cause": "info:http_request"
+        },
+        {
+          "id": 5253,
+          "distance": 0.037248481139991574,
+          "root_cause": "info:http_request"
+        },
+        {
+          "id": 668,
+          "distance": 0.038274219447553604,
+          "root_cause": "info:http_request"
+        },
+        {
+          "id": 2530,
+          "distance": 0.0387073090003619,
+          "root_cause": "info:http_request"
+        },
+        {
+          "id": 4820,
+          "distance": 0.03992807151171729,
+          "root_cause": "info:http_request"
+        },
+        {
+          "id": 4563,
+          "distance": 0.03994672300019009,
+          "root_cause": "info:http_request"
+        }
+      ]
+    },
+    {
+      "id": 1400,
+      "level": "INFO",
+      "root_cause": "info:user_login",
+      "message": "User usr_438256 logged in successfully from 158.64.75.72",
+      "kth_distance": 0.08124190084676486,
+      "ties_beyond_k": 0,
+      "neighbors": [
+        {
+          "id": 3611,
+          "distance": 0.07092544457446692,
+          "root_cause": "info:user_login"
+        },
+        {
+          "id": 2204,
+          "distance": 0.07109041942793815,
+          "root_cause": "info:user_login"
+        },
+        {
+          "id": 3567,
+          "distance": 0.07385052690044625,
+          "root_cause": "info:user_login"
+        },
+        {
+          "id": 9736,
+          "distance": 0.07763456372796795,
+          "root_cause": "info:user_login"
+        },
+        {
+          "id": 7159,
+          "distance": 0.07834555943223975,
+          "root_cause": "info:user_login"
+        },
+        {
+          "id": 4668,
+          "distance": 0.0799236107054423,
+          "root_cause": "info:user_login"
+        },
+        {
+          "id": 4667,
+          "distance": 0.08032121057487396,
+          "root_cause": "info:user_login"
+        },
+        {
+          "id": 2414,
+          "distance": 0.08051022988191314,
+          "root_cause": "info:user_login"
+        },
+        {
+          "id": 5784,
+          "distance": 0.08089445092807757,
+          "root_cause": "info:user_login"
+        },
+        {
+          "id": 3986,
+          "distance": 0.08124190084676486,
+          "root_cause": "info:user_login"
+        }
+      ]
+    },
+    {
+      "id": 1560,
+      "level": "WARN",
+      "root_cause": "jwt_expired",
+      "message": "401 Unauthorized - session for user usr_281197 is no longer valid, re-login required",
+      "kth_distance": 0.07366594891743672,
+      "ties_beyond_k": 0,
+      "neighbors": [
+        {
+          "id": 9725,
+          "distance": 0.06303780895246047,
+          "root_cause": "jwt_expired"
+        },
+        {
+          "id": 3066,
+          "distance": 0.06605153488498505,
+          "root_cause": "jwt_expired"
+        },
+        {
+          "id": 423,
+          "distance": 0.06676495075225164,
+          "root_cause": "jwt_expired"
+        },
+        {
+          "id": 8917,
+          "distance": 0.06717001591086202,
+          "root_cause": "jwt_expired"
+        },
+        {
+          "id": 2934,
+          "distance": 0.06723111066447374,
+          "root_cause": "jwt_expired"
+        },
+        {
+          "id": 8864,
+          "distance": 0.06947065227871307,
+          "root_cause": "jwt_expired"
+        },
+        {
+          "id": 9570,
+          "distance": 0.06989208761091903,
+          "root_cause": "jwt_expired"
+        },
+        {
+          "id": 6905,
+          "distance": 0.07280887041195028,
+          "root_cause": "jwt_expired"
+        },
+        {
+          "id": 3288,
+          "distance": 0.07356399297713578,
+          "root_cause": "jwt_expired"
+        },
+        {
+          "id": 4250,
+          "distance": 0.07366594891743672,
+          "root_cause": "jwt_expired"
+        }
+      ]
+    },
+    {
+      "id": 1700,
+      "level": "INFO",
+      "root_cause": "info:user_login",
+      "message": "Login succeeded for Kellen_Ernser36@hotmail.com (mfa=false)",
+      "kth_distance": 0.17657806594109737,
+      "ties_beyond_k": 0,
+      "neighbors": [
+        {
+          "id": 8747,
+          "distance": 0.1500914022462575,
+          "root_cause": "info:user_login"
+        },
+        {
+          "id": 9004,
+          "distance": 0.15328326146999305,
+          "root_cause": "info:user_login"
+        },
+        {
+          "id": 5677,
+          "distance": 0.1533165665457571,
+          "root_cause": "info:user_login"
+        },
+        {
+          "id": 9166,
+          "distance": 0.15889169679780568,
+          "root_cause": "info:user_login"
+        },
+        {
+          "id": 5932,
+          "distance": 0.15980427504752281,
+          "root_cause": "info:user_login"
+        },
+        {
+          "id": 4774,
+          "distance": 0.1637723250660449,
+          "root_cause": "info:user_login"
+        },
+        {
+          "id": 8891,
+          "distance": 0.16410295107432638,
+          "root_cause": "info:user_login"
+        },
+        {
+          "id": 9939,
+          "distance": 0.17116198883509182,
+          "root_cause": "info:user_login"
+        },
+        {
+          "id": 4635,
+          "distance": 0.1724758456604073,
+          "root_cause": "info:user_login"
+        },
+        {
+          "id": 7558,
+          "distance": 0.17657806594109737,
+          "root_cause": "info:user_login"
+        }
+      ]
+    },
+    {
+      "id": 1816,
+      "level": "INFO",
+      "root_cause": "info:user_login",
+      "message": "Issued new access token for usr_179542, expires in 15m",
+      "kth_distance": 0.07239629564196304,
+      "ties_beyond_k": 0,
+      "neighbors": [
+        {
+          "id": 9728,
+          "distance": 0.06666249434128202,
+          "root_cause": "info:user_login"
+        },
+        {
+          "id": 8092,
+          "distance": 0.06699918103231639,
+          "root_cause": "info:user_login"
+        },
+        {
+          "id": 4414,
+          "distance": 0.06783182641836716,
+          "root_cause": "info:user_login"
+        },
+        {
+          "id": 6820,
+          "distance": 0.07017875136010188,
+          "root_cause": "info:user_login"
+        },
+        {
+          "id": 8497,
+          "distance": 0.07042361984815415,
+          "root_cause": "info:user_login"
+        },
+        {
+          "id": 4109,
+          "distance": 0.07105083543971058,
+          "root_cause": "info:user_login"
+        },
+        {
+          "id": 7147,
+          "distance": 0.07123411975516869,
+          "root_cause": "info:user_login"
+        },
+        {
+          "id": 4578,
+          "distance": 0.07200873756512849,
+          "root_cause": "info:user_login"
+        },
+        {
+          "id": 5442,
+          "distance": 0.07213544660090465,
+          "root_cause": "info:user_login"
+        },
+        {
+          "id": 3854,
+          "distance": 0.07239629564196304,
+          "root_cause": "info:user_login"
+        }
+      ]
+    },
+    {
+      "id": 1832,
+      "level": "INFO",
+      "root_cause": "info:http_request",
+      "message": "Handled /api/payments/charge in 171 ms (status 200)",
+      "kth_distance": 0.04817271806862444,
+      "ties_beyond_k": 0,
+      "neighbors": [
+        {
+          "id": 6057,
+          "distance": 0,
+          "root_cause": "info:http_request"
+        },
+        {
+          "id": 9524,
+          "distance": 0.041737792388316985,
+          "root_cause": "info:http_request"
+        },
+        {
+          "id": 9999,
+          "distance": 0.04194110631940029,
+          "root_cause": "info:http_request"
+        },
+        {
+          "id": 5790,
+          "distance": 0.04210101554369561,
+          "root_cause": "info:http_request"
+        },
+        {
+          "id": 6220,
+          "distance": 0.04210101554369561,
+          "root_cause": "info:http_request"
+        },
+        {
+          "id": 9860,
+          "distance": 0.042427415558401016,
+          "root_cause": "info:http_request"
+        },
+        {
+          "id": 9461,
+          "distance": 0.04371761754540504,
+          "root_cause": "info:http_request"
+        },
+        {
+          "id": 5954,
+          "distance": 0.04710117716730411,
+          "root_cause": "info:http_request"
+        },
+        {
+          "id": 6094,
+          "distance": 0.04740642936152384,
+          "root_cause": "info:http_request"
+        },
+        {
+          "id": 6221,
+          "distance": 0.04817271806862444,
+          "root_cause": "info:http_request"
+        }
+      ]
+    },
+    {
+      "id": 1840,
+      "level": "INFO",
+      "root_cause": "info:http_request",
+      "message": "Handled /api/users/usr_16959 in 225 ms (status 200)",
+      "kth_distance": 0.06296974420547485,
+      "ties_beyond_k": 0,
+      "neighbors": [
+        {
+          "id": 9933,
+          "distance": 0.05511287347491067,
+          "root_cause": "info:http_request"
+        },
+        {
+          "id": 6494,
+          "distance": 0.05579696422901603,
+          "root_cause": "info:http_request"
+        },
+        {
+          "id": 4797,
+          "distance": 0.05634915828704834,
+          "root_cause": "info:http_request"
+        },
+        {
+          "id": 7373,
+          "distance": 0.0565683279376209,
+          "root_cause": "info:http_request"
+        },
+        {
+          "id": 781,
+          "distance": 0.05775422202075686,
+          "root_cause": "info:http_request"
+        },
+        {
+          "id": 3592,
+          "distance": 0.060030614736429344,
+          "root_cause": "info:http_request"
+        },
+        {
+          "id": 5567,
+          "distance": 0.06186097491615994,
+          "root_cause": "info:http_request"
+        },
+        {
+          "id": 9545,
+          "distance": 0.062383294105529785,
+          "root_cause": "info:http_request"
+        },
+        {
+          "id": 5859,
+          "distance": 0.06247579679037185,
+          "root_cause": "info:http_request"
+        },
+        {
+          "id": 6347,
+          "distance": 0.06296974420547485,
+          "root_cause": "info:http_request"
+        }
+      ]
+    },
+    {
+      "id": 1949,
+      "level": "WARN",
+      "root_cause": "rate_limited",
+      "message": "429 Too Many Requests from client 65.167.221.217: limit 100 req/min exceeded",
+      "kth_distance": 0.028048758753896674,
+      "ties_beyond_k": 0,
+      "neighbors": [
+        {
+          "id": 1694,
+          "distance": 0.02017873886441912,
+          "root_cause": "rate_limited"
+        },
+        {
+          "id": 6167,
+          "distance": 0.02159619588803796,
+          "root_cause": "rate_limited"
+        },
+        {
+          "id": 4314,
+          "distance": 0.02177427062587456,
+          "root_cause": "rate_limited"
+        },
+        {
+          "id": 2899,
+          "distance": 0.02279907872658815,
+          "root_cause": "rate_limited"
+        },
+        {
+          "id": 3069,
+          "distance": 0.023607050336867275,
+          "root_cause": "rate_limited"
+        },
+        {
+          "id": 6568,
+          "distance": 0.023623757474284912,
+          "root_cause": "rate_limited"
+        },
+        {
+          "id": 6961,
+          "distance": 0.025002421438795053,
+          "root_cause": "rate_limited"
+        },
+        {
+          "id": 4156,
+          "distance": 0.025431640574823278,
+          "root_cause": "rate_limited"
+        },
+        {
+          "id": 2682,
+          "distance": 0.02730697556175299,
+          "root_cause": "rate_limited"
+        },
+        {
+          "id": 5353,
+          "distance": 0.028048758753896674,
+          "root_cause": "rate_limited"
+        }
+      ]
+    },
+    {
+      "id": 1974,
+      "level": "INFO",
+      "root_cause": "info:job_completed",
+      "message": "Job send-invoices finished in 9879ms, processed 2708 items",
+      "kth_distance": 0.040397582030425094,
+      "ties_beyond_k": 0,
+      "neighbors": [
+        {
+          "id": 9490,
+          "distance": 0.02526098339192595,
+          "root_cause": "info:job_completed"
+        },
+        {
+          "id": 8008,
+          "distance": 0.0334221740616234,
+          "root_cause": "info:job_completed"
+        },
+        {
+          "id": 8778,
+          "distance": 0.03434115238890534,
+          "root_cause": "info:job_completed"
+        },
+        {
+          "id": 8222,
+          "distance": 0.0353974146124002,
+          "root_cause": "info:job_completed"
+        },
+        {
+          "id": 6621,
+          "distance": 0.03565775497966883,
+          "root_cause": "info:job_completed"
+        },
+        {
+          "id": 7985,
+          "distance": 0.036876482068758265,
+          "root_cause": "info:job_completed"
+        },
+        {
+          "id": 2446,
+          "distance": 0.03756522236699522,
+          "root_cause": "info:job_completed"
+        },
+        {
+          "id": 942,
+          "distance": 0.037572500850393875,
+          "root_cause": "info:job_completed"
+        },
+        {
+          "id": 3696,
+          "distance": 0.03977952965037268,
+          "root_cause": "info:job_completed"
+        },
+        {
+          "id": 4244,
+          "distance": 0.040397582030425094,
+          "root_cause": "info:job_completed"
+        }
+      ]
+    },
+    {
+      "id": 1992,
+      "level": "WARN",
+      "root_cause": "queue_lag",
+      "message": "Message processing delayed 184s, backlog keeps growing on queue labels",
+      "kth_distance": 0.05933422203863825,
+      "ties_beyond_k": 0,
+      "neighbors": [
+        {
+          "id": 727,
+          "distance": 0.029607030416163083,
+          "root_cause": "queue_lag"
+        },
+        {
+          "id": 186,
+          "distance": 0.03624641895293501,
+          "root_cause": "queue_lag"
+        },
+        {
+          "id": 9923,
+          "distance": 0.04400276613199783,
+          "root_cause": "queue_lag"
+        },
+        {
+          "id": 8296,
+          "distance": 0.044086394066414236,
+          "root_cause": "queue_lag"
+        },
+        {
+          "id": 678,
+          "distance": 0.04900728779896668,
+          "root_cause": "queue_lag"
+        },
+        {
+          "id": 3259,
+          "distance": 0.04981685575548045,
+          "root_cause": "queue_lag"
+        },
+        {
+          "id": 4013,
+          "distance": 0.05410004951954395,
+          "root_cause": "queue_lag"
+        },
+        {
+          "id": 3283,
+          "distance": 0.056152337056093016,
+          "root_cause": "queue_lag"
+        },
+        {
+          "id": 2365,
+          "distance": 0.05748736858367254,
+          "root_cause": "queue_lag"
+        },
+        {
+          "id": 1285,
+          "distance": 0.05933422203863825,
+          "root_cause": "queue_lag"
+        }
+      ]
+    },
+    {
+      "id": 2121,
+      "level": "INFO",
+      "root_cause": "info:http_request",
+      "message": "Handled /api/products/search in 216 ms (status 200)",
+      "kth_distance": 0.040628838351699725,
+      "ties_beyond_k": 1,
+      "neighbors": [
+        {
+          "id": 4951,
+          "distance": 0,
+          "root_cause": "info:http_request"
+        },
+        {
+          "id": 7882,
+          "distance": 0.034128450188031234,
+          "root_cause": "info:http_request"
+        },
+        {
+          "id": 5046,
+          "distance": 0.03615521091631768,
+          "root_cause": "info:http_request"
+        },
+        {
+          "id": 9856,
+          "distance": 0.036256598380821625,
+          "root_cause": "info:http_request"
+        },
+        {
+          "id": 4020,
+          "distance": 0.036399684703381174,
+          "root_cause": "info:http_request"
+        },
+        {
+          "id": 4411,
+          "distance": 0.039343352396027154,
+          "root_cause": "info:http_request"
+        },
+        {
+          "id": 7579,
+          "distance": 0.03967921270403163,
+          "root_cause": "info:http_request"
+        },
+        {
+          "id": 6798,
+          "distance": 0.03986262562342924,
+          "root_cause": "info:http_request"
+        },
+        {
+          "id": 2813,
+          "distance": 0.04021095270846675,
+          "root_cause": "info:http_request"
+        },
+        {
+          "id": 1070,
+          "distance": 0.040628838351699725,
+          "root_cause": "info:http_request"
+        }
+      ]
+    },
+    {
+      "id": 2577,
+      "level": "WARN",
+      "root_cause": "rate_limited",
+      "message": "429 Too Many Requests from client 69.35.12.209: limit 60 req/min exceeded",
+      "kth_distance": 0.031037188090691004,
+      "ties_beyond_k": 0,
+      "neighbors": [
+        {
+          "id": 1264,
+          "distance": 0.017043950205318348,
+          "root_cause": "rate_limited"
+        },
+        {
+          "id": 250,
+          "distance": 0.020890776078243745,
+          "root_cause": "rate_limited"
+        },
+        {
+          "id": 2160,
+          "distance": 0.023735495543669383,
+          "root_cause": "rate_limited"
+        },
+        {
+          "id": 2162,
+          "distance": 0.024448307554268633,
+          "root_cause": "rate_limited"
+        },
+        {
+          "id": 1193,
+          "distance": 0.026082726664783062,
+          "root_cause": "rate_limited"
+        },
+        {
+          "id": 1051,
+          "distance": 0.027029670574274745,
+          "root_cause": "rate_limited"
+        },
+        {
+          "id": 6912,
+          "distance": 0.027256701477870182,
+          "root_cause": "rate_limited"
+        },
+        {
+          "id": 3139,
+          "distance": 0.028168879344368847,
+          "root_cause": "rate_limited"
+        },
+        {
+          "id": 2386,
+          "distance": 0.030404598426945095,
+          "root_cause": "rate_limited"
+        },
+        {
+          "id": 6224,
+          "distance": 0.031037188090691004,
+          "root_cause": "rate_limited"
+        }
+      ]
+    },
+    {
+      "id": 2697,
+      "level": "INFO",
+      "root_cause": "info:http_request",
+      "message": "Handled /api/products/search in 23 ms (status 200)",
+      "kth_distance": 0.03534090940247203,
+      "ties_beyond_k": 0,
+      "neighbors": [
+        {
+          "id": 8580,
+          "distance": 0.02522158021409593,
+          "root_cause": "info:http_request"
+        },
+        {
+          "id": 9755,
+          "distance": 0.025828630501884664,
+          "root_cause": "info:http_request"
+        },
+        {
+          "id": 6024,
+          "distance": 0.026249054223179358,
+          "root_cause": "info:http_request"
+        },
+        {
+          "id": 4976,
+          "distance": 0.02720808982849121,
+          "root_cause": "info:http_request"
+        },
+        {
+          "id": 8141,
+          "distance": 0.028340693910032244,
+          "root_cause": "info:http_request"
+        },
+        {
+          "id": 2485,
+          "distance": 0.032824845100189126,
+          "root_cause": "info:http_request"
+        },
+        {
+          "id": 4412,
+          "distance": 0.03291183906267947,
+          "root_cause": "info:http_request"
+        },
+        {
+          "id": 2813,
+          "distance": 0.03449654579162598,
+          "root_cause": "info:http_request"
+        },
+        {
+          "id": 6798,
+          "distance": 0.0350844880988872,
+          "root_cause": "info:http_request"
+        },
+        {
+          "id": 4995,
+          "distance": 0.03534090940247203,
+          "root_cause": "info:http_request"
+        }
+      ]
+    },
+    {
+      "id": 2792,
+      "level": "INFO",
+      "root_cause": "info:http_request",
+      "message": "Handled /api/cart/items in 396 ms (status 200)",
+      "kth_distance": 0.02180956494237385,
+      "ties_beyond_k": 0,
+      "neighbors": [
+        {
+          "id": 6808,
+          "distance": 0.013639146359321286,
+          "root_cause": "info:http_request"
+        },
+        {
+          "id": 9356,
+          "distance": 0.013639146359321286,
+          "root_cause": "info:http_request"
+        },
+        {
+          "id": 4389,
+          "distance": 0.013769118746821851,
+          "root_cause": "info:http_request"
+        },
+        {
+          "id": 883,
+          "distance": 0.01674848395619366,
+          "root_cause": "info:http_request"
+        },
+        {
+          "id": 2421,
+          "distance": 0.01674848395619366,
+          "root_cause": "info:http_request"
+        },
+        {
+          "id": 7871,
+          "distance": 0.01674848395619366,
+          "root_cause": "info:http_request"
+        },
+        {
+          "id": 6659,
+          "distance": 0.018223339848699394,
+          "root_cause": "info:http_request"
+        },
+        {
+          "id": 6766,
+          "distance": 0.018776651839573,
+          "root_cause": "info:http_request"
+        },
+        {
+          "id": 6462,
+          "distance": 0.021355207916119556,
+          "root_cause": "info:http_request"
+        },
+        {
+          "id": 5513,
+          "distance": 0.02180956494237385,
+          "root_cause": "info:http_request"
+        }
+      ]
+    },
+    {
+      "id": 2907,
+      "level": "ERROR",
+      "root_cause": "db_connection_timeout",
+      "message": "Connection to postgres at 10.1.64.200:5432 timed out after 17368ms",
+      "kth_distance": 0.04848355343839672,
+      "ties_beyond_k": 0,
+      "neighbors": [
+        {
+          "id": 382,
+          "distance": 0.03948604825222035,
+          "root_cause": "db_connection_timeout"
+        },
+        {
+          "id": 4978,
+          "distance": 0.04389345645904541,
+          "root_cause": "db_connection_timeout"
+        },
+        {
+          "id": 8482,
+          "distance": 0.044430834051261914,
+          "root_cause": "db_connection_timeout"
+        },
+        {
+          "id": 1554,
+          "distance": 0.04474574860879088,
+          "root_cause": "db_connection_timeout"
+        },
+        {
+          "id": 6134,
+          "distance": 0.045626225806844056,
+          "root_cause": "db_connection_timeout"
+        },
+        {
+          "id": 3328,
+          "distance": 0.04563433203901668,
+          "root_cause": "db_connection_timeout"
+        },
+        {
+          "id": 9642,
+          "distance": 0.047031567385283246,
+          "root_cause": "db_connection_timeout"
+        },
+        {
+          "id": 4371,
+          "distance": 0.04747015520752229,
+          "root_cause": "db_connection_timeout"
+        },
+        {
+          "id": 8484,
+          "distance": 0.04800116729729198,
+          "root_cause": "db_connection_timeout"
+        },
+        {
+          "id": 9100,
+          "distance": 0.04848355343839672,
+          "root_cause": "db_connection_timeout"
+        }
+      ]
+    },
+    {
+      "id": 2916,
+      "level": "INFO",
+      "root_cause": "info:user_login",
+      "message": "Issued new access token for usr_868220, expires in 15m",
+      "kth_distance": 0.03953466644116199,
+      "ties_beyond_k": 0,
+      "neighbors": [
+        {
+          "id": 9074,
+          "distance": 0.02217111586153586,
+          "root_cause": "info:user_login"
+        },
+        {
+          "id": 885,
+          "distance": 0.027628661848807412,
+          "root_cause": "info:user_login"
+        },
+        {
+          "id": 6422,
+          "distance": 0.027778741386024652,
+          "root_cause": "info:user_login"
+        },
+        {
+          "id": 9938,
+          "distance": 0.031053904420595968,
+          "root_cause": "info:user_login"
+        },
+        {
+          "id": 320,
+          "distance": 0.03193658590314019,
+          "root_cause": "info:user_login"
+        },
+        {
+          "id": 5914,
+          "distance": 0.032687314197376804,
+          "root_cause": "info:user_login"
+        },
+        {
+          "id": 8753,
+          "distance": 0.03803748119099282,
+          "root_cause": "info:user_login"
+        },
+        {
+          "id": 3169,
+          "distance": 0.03829760500717139,
+          "root_cause": "info:user_login"
+        },
+        {
+          "id": 6678,
+          "distance": 0.038487562772646644,
+          "root_cause": "info:user_login"
+        },
+        {
+          "id": 4211,
+          "distance": 0.03953466644116199,
+          "root_cause": "info:user_login"
+        }
+      ]
+    },
+    {
+      "id": 3036,
+      "level": "INFO",
+      "root_cause": "info:http_request",
+      "message": "request completed method=POST path=/api/orders status=200 duration_ms=113 request_id=ba802d4e-d2ea-4ad6-abac-a14f3751247d",
+      "kth_distance": 0.06438384419435539,
+      "ties_beyond_k": 0,
+      "neighbors": [
+        {
+          "id": 4050,
+          "distance": 0.05322048226648857,
+          "root_cause": "info:http_request"
+        },
+        {
+          "id": 8012,
+          "distance": 0.05561125115725829,
+          "root_cause": "info:http_request"
+        },
+        {
+          "id": 2909,
+          "distance": 0.058578519267389884,
+          "root_cause": "info:http_request"
+        },
+        {
+          "id": 2046,
+          "distance": 0.05878092259904377,
+          "root_cause": "info:http_request"
+        },
+        {
+          "id": 4134,
+          "distance": 0.05897516371392486,
+          "root_cause": "info:http_request"
+        },
+        {
+          "id": 9742,
+          "distance": 0.062456265081453854,
+          "root_cause": "info:http_request"
+        },
+        {
+          "id": 5394,
+          "distance": 0.06309511533800749,
+          "root_cause": "info:http_request"
+        },
+        {
+          "id": 2689,
+          "distance": 0.06310439326687334,
+          "root_cause": "info:http_request"
+        },
+        {
+          "id": 9023,
+          "distance": 0.06314246183623518,
+          "root_cause": "info:http_request"
+        },
+        {
+          "id": 2725,
+          "distance": 0.06438384419435539,
+          "root_cause": "info:http_request"
+        }
+      ]
+    },
+    {
+      "id": 3038,
+      "level": "INFO",
+      "root_cause": "info:user_login",
+      "message": "Issued new access token for usr_228440, expires in 15m",
+      "kth_distance": 0.06059923316200144,
+      "ties_beyond_k": 0,
+      "neighbors": [
+        {
+          "id": 8256,
+          "distance": 0.047685617484369947,
+          "root_cause": "info:user_login"
+        },
+        {
+          "id": 4059,
+          "distance": 0.05393794339710267,
+          "root_cause": "info:user_login"
+        },
+        {
+          "id": 3805,
+          "distance": 0.05548286437988281,
+          "root_cause": "info:user_login"
+        },
+        {
+          "id": 817,
+          "distance": 0.05758550934748341,
+          "root_cause": "info:user_login"
+        },
+        {
+          "id": 1644,
+          "distance": 0.05759197130250937,
+          "root_cause": "info:user_login"
+        },
+        {
+          "id": 1674,
+          "distance": 0.057673149386262224,
+          "root_cause": "info:user_login"
+        },
+        {
+          "id": 3044,
+          "distance": 0.0581666931211845,
+          "root_cause": "info:user_login"
+        },
+        {
+          "id": 429,
+          "distance": 0.05945950037723102,
+          "root_cause": "info:user_login"
+        },
+        {
+          "id": 6504,
+          "distance": 0.05954884099776847,
+          "root_cause": "info:user_login"
+        },
+        {
+          "id": 5985,
+          "distance": 0.06059923316200144,
+          "root_cause": "info:user_login"
+        }
+      ]
+    },
+    {
+      "id": 3084,
+      "level": "INFO",
+      "root_cause": "info:job_completed",
+      "message": "Batch of 18 messages processed, 0 failures",
+      "kth_distance": 0.06603651451628567,
+      "ties_beyond_k": 0,
+      "neighbors": [
+        {
+          "id": 7367,
+          "distance": 0.03561417974917924,
+          "root_cause": "info:job_completed"
+        },
+        {
+          "id": 5554,
+          "distance": 0.048311633475427995,
+          "root_cause": "info:job_completed"
+        },
+        {
+          "id": 7209,
+          "distance": 0.05700819325251738,
+          "root_cause": "info:job_completed"
+        },
+        {
+          "id": 3690,
+          "distance": 0.0590416648288572,
+          "root_cause": "info:job_completed"
+        },
+        {
+          "id": 1088,
+          "distance": 0.062047697765451715,
+          "root_cause": "info:job_completed"
+        },
+        {
+          "id": 3374,
+          "distance": 0.062047697765451715,
+          "root_cause": "info:job_completed"
+        },
+        {
+          "id": 3905,
+          "distance": 0.06420326232907492,
+          "root_cause": "info:job_completed"
+        },
+        {
+          "id": 2266,
+          "distance": 0.06442522234615344,
+          "root_cause": "info:job_completed"
+        },
+        {
+          "id": 5000,
+          "distance": 0.06442522234615344,
+          "root_cause": "info:job_completed"
+        },
+        {
+          "id": 5694,
+          "distance": 0.06603651451628567,
+          "root_cause": "info:job_completed"
+        }
+      ]
+    },
+    {
+      "id": 3103,
+      "level": "INFO",
+      "root_cause": "info:http_request",
+      "message": "request completed method=POST path=/api/orders/ord_48wpbv9ldr status=200 duration_ms=244 request_id=b8b6c93e-df9a-4d0e-9403-900a7d441855",
+      "kth_distance": 0.045020704867917094,
+      "ties_beyond_k": 0,
+      "neighbors": [
+        {
+          "id": 1766,
+          "distance": 0.031212333585295182,
+          "root_cause": "info:http_request"
+        },
+        {
+          "id": 4694,
+          "distance": 0.034868844716273495,
+          "root_cause": "info:http_request"
+        },
+        {
+          "id": 1123,
+          "distance": 0.03596979594049077,
+          "root_cause": "info:http_request"
+        },
+        {
+          "id": 2119,
+          "distance": 0.03742504119870316,
+          "root_cause": "info:http_request"
+        },
+        {
+          "id": 8563,
+          "distance": 0.03744000865936259,
+          "root_cause": "info:http_request"
+        },
+        {
+          "id": 9369,
+          "distance": 0.0395772504302494,
+          "root_cause": "info:http_request"
+        },
+        {
+          "id": 2107,
+          "distance": 0.04053556919095169,
+          "root_cause": "info:http_request"
+        },
+        {
+          "id": 2684,
+          "distance": 0.04391456959085582,
+          "root_cause": "info:http_request"
+        },
+        {
+          "id": 4451,
+          "distance": 0.04493283689816607,
+          "root_cause": "info:http_request"
+        },
+        {
+          "id": 148,
+          "distance": 0.045020704867917094,
+          "root_cause": "info:http_request"
+        }
+      ]
+    },
+    {
+      "id": 3225,
+      "level": "INFO",
+      "root_cause": "info:health_check",
+      "message": "Health check OK",
+      "kth_distance": 0,
+      "ties_beyond_k": 391,
+      "neighbors": [
+        {
+          "id": 9,
+          "distance": 0,
+          "root_cause": "info:health_check"
+        },
+        {
+          "id": 10,
+          "distance": 0,
+          "root_cause": "info:health_check"
+        },
+        {
+          "id": 42,
+          "distance": 0,
+          "root_cause": "info:health_check"
+        },
+        {
+          "id": 52,
+          "distance": 0,
+          "root_cause": "info:health_check"
+        },
+        {
+          "id": 81,
+          "distance": 0,
+          "root_cause": "info:health_check"
+        },
+        {
+          "id": 131,
+          "distance": 0,
+          "root_cause": "info:health_check"
+        },
+        {
+          "id": 138,
+          "distance": 0,
+          "root_cause": "info:health_check"
+        },
+        {
+          "id": 141,
+          "distance": 0,
+          "root_cause": "info:health_check"
+        },
+        {
+          "id": 168,
+          "distance": 0,
+          "root_cause": "info:health_check"
+        },
+        {
+          "id": 169,
+          "distance": 0,
+          "root_cause": "info:health_check"
+        }
+      ]
+    },
+    {
+      "id": 3235,
+      "level": "INFO",
+      "root_cause": "info:http_request",
+      "message": "POST /api/auth/refresh 200 248ms",
+      "kth_distance": 0.020170216600918667,
+      "ties_beyond_k": 0,
+      "neighbors": [
+        {
+          "id": 2036,
+          "distance": 0,
+          "root_cause": "info:http_request"
+        },
+        {
+          "id": 5170,
+          "distance": 0.015112578868865967,
+          "root_cause": "info:http_request"
+        },
+        {
+          "id": 3059,
+          "distance": 0.01647514203042466,
+          "root_cause": "info:http_request"
+        },
+        {
+          "id": 1440,
+          "distance": 0.017681360244750977,
+          "root_cause": "info:http_request"
+        },
+        {
+          "id": 2541,
+          "distance": 0.01773834228515625,
+          "root_cause": "info:http_request"
+        },
+        {
+          "id": 467,
+          "distance": 0.018520445183528356,
+          "root_cause": "info:http_request"
+        },
+        {
+          "id": 217,
+          "distance": 0.018542678821918512,
+          "root_cause": "info:http_request"
+        },
+        {
+          "id": 7391,
+          "distance": 0.01882493495941162,
+          "root_cause": "info:http_request"
+        },
+        {
+          "id": 5828,
+          "distance": 0.019967674018877557,
+          "root_cause": "info:http_request"
+        },
+        {
+          "id": 2996,
+          "distance": 0.020170216600918667,
+          "root_cause": "info:http_request"
+        }
+      ]
+    },
+    {
+      "id": 3282,
+      "level": "INFO",
+      "root_cause": "info:job_completed",
+      "message": "Job email-digest finished in 87333ms, processed 1439 items",
+      "kth_distance": 0.04258155822753906,
+      "ties_beyond_k": 0,
+      "neighbors": [
+        {
+          "id": 923,
+          "distance": 0.03663628201591207,
+          "root_cause": "info:job_completed"
+        },
+        {
+          "id": 7419,
+          "distance": 0.03747969642402382,
+          "root_cause": "info:job_completed"
+        },
+        {
+          "id": 7455,
+          "distance": 0.03791420747892327,
+          "root_cause": "info:job_completed"
+        },
+        {
+          "id": 8084,
+          "distance": 0.04042266835623198,
+          "root_cause": "info:job_completed"
+        },
+        {
+          "id": 2213,
+          "distance": 0.04135232424394908,
+          "root_cause": "info:job_completed"
+        },
+        {
+          "id": 2332,
+          "distance": 0.041855573654174805,
+          "root_cause": "info:job_completed"
+        },
+        {
+          "id": 3898,
+          "distance": 0.04215061162106171,
+          "root_cause": "info:job_completed"
+        },
+        {
+          "id": 2146,
+          "distance": 0.04230368137359619,
+          "root_cause": "info:job_completed"
+        },
+        {
+          "id": 6363,
+          "distance": 0.042432670883251866,
+          "root_cause": "info:job_completed"
+        },
+        {
+          "id": 1234,
+          "distance": 0.04258155822753906,
+          "root_cause": "info:job_completed"
+        }
+      ]
+    },
+    {
+      "id": 3546,
+      "level": "WARN",
+      "root_cause": "duplicate_key",
+      "message": "Idempotency conflict: order ord_aruc0a7ma1 was already submitted",
+      "kth_distance": 0.08338854959435482,
+      "ties_beyond_k": 0,
+      "neighbors": [
+        {
+          "id": 6577,
+          "distance": 0.061898127054719976,
+          "root_cause": "duplicate_key"
+        },
+        {
+          "id": 3573,
+          "distance": 0.0694829031054428,
+          "root_cause": "duplicate_key"
+        },
+        {
+          "id": 6906,
+          "distance": 0.06966241571338205,
+          "root_cause": "duplicate_key"
+        },
+        {
+          "id": 6126,
+          "distance": 0.06966505492701913,
+          "root_cause": "duplicate_key"
+        },
+        {
+          "id": 7711,
+          "distance": 0.0706788066636247,
+          "root_cause": "duplicate_key"
+        },
+        {
+          "id": 8406,
+          "distance": 0.07124241329503456,
+          "root_cause": "duplicate_key"
+        },
+        {
+          "id": 1348,
+          "distance": 0.0733665039191298,
+          "root_cause": "duplicate_key"
+        },
+        {
+          "id": 7797,
+          "distance": 0.07450492522207885,
+          "root_cause": "duplicate_key"
+        },
+        {
+          "id": 5347,
+          "distance": 0.07993027806070951,
+          "root_cause": "duplicate_key"
+        },
+        {
+          "id": 2093,
+          "distance": 0.08338854959435482,
+          "root_cause": "duplicate_key"
+        }
+      ]
+    },
+    {
+      "id": 3557,
+      "level": "WARN",
+      "root_cause": "duplicate_key",
+      "message": "Cannot create account: email Easter_Bins@yahoo.com is already registered",
+      "kth_distance": 0.253155304665139,
+      "ties_beyond_k": 0,
+      "neighbors": [
+        {
+          "id": 7825,
+          "distance": 0.19833052208109891,
+          "root_cause": "duplicate_key"
+        },
+        {
+          "id": 373,
+          "distance": 0.19992777110436388,
+          "root_cause": "duplicate_key"
+        },
+        {
+          "id": 4324,
+          "distance": 0.2059829217246394,
+          "root_cause": "duplicate_key"
+        },
+        {
+          "id": 2554,
+          "distance": 0.20878405361555163,
+          "root_cause": "duplicate_key"
+        },
+        {
+          "id": 5462,
+          "distance": 0.20901193457627198,
+          "root_cause": "duplicate_key"
+        },
+        {
+          "id": 8407,
+          "distance": 0.21711176123864473,
+          "root_cause": "duplicate_key"
+        },
+        {
+          "id": 1307,
+          "distance": 0.22233539486892395,
+          "root_cause": "duplicate_key"
+        },
+        {
+          "id": 8414,
+          "distance": 0.22947790095604004,
+          "root_cause": "duplicate_key"
+        },
+        {
+          "id": 4564,
+          "distance": 0.2523425071034989,
+          "root_cause": "duplicate_key"
+        },
+        {
+          "id": 4600,
+          "distance": 0.253155304665139,
+          "root_cause": "duplicate_key"
+        }
+      ]
+    },
+    {
+      "id": 3656,
+      "level": "WARN",
+      "root_cause": "payment_gateway_5xx",
+      "message": "Charge for order ord_gfpqiqj3uv failed: payment processor unavailable, will retry in 35s",
+      "kth_distance": 0.17531637924753574,
+      "ties_beyond_k": 0,
+      "neighbors": [
+        {
+          "id": 7629,
+          "distance": 0.12956670590042207,
+          "root_cause": "payment_gateway_5xx"
+        },
+        {
+          "id": 7855,
+          "distance": 0.14608553419967718,
+          "root_cause": "payment_gateway_5xx"
+        },
+        {
+          "id": 4522,
+          "distance": 0.15017127095630767,
+          "root_cause": "payment_gateway_5xx"
+        },
+        {
+          "id": 6900,
+          "distance": 0.15372433800324925,
+          "root_cause": "payment_gateway_5xx"
+        },
+        {
+          "id": 1042,
+          "distance": 0.16286430801578067,
+          "root_cause": "payment_gateway_5xx"
+        },
+        {
+          "id": 1562,
+          "distance": 0.16294999453871561,
+          "root_cause": "payment_gateway_5xx"
+        },
+        {
+          "id": 2453,
+          "distance": 0.16375951982976533,
+          "root_cause": "payment_gateway_5xx"
+        },
+        {
+          "id": 6240,
+          "distance": 0.1701450595216255,
+          "root_cause": "payment_gateway_5xx"
+        },
+        {
+          "id": 4736,
+          "distance": 0.17513163682660182,
+          "root_cause": "payment_gateway_5xx"
+        },
+        {
+          "id": 1332,
+          "distance": 0.17531637924753574,
+          "root_cause": "payment_gateway_5xx"
+        }
+      ]
+    },
+    {
+      "id": 3746,
+      "level": "INFO",
+      "root_cause": "info:http_request",
+      "message": "request completed method=POST path=/api/cart/items status=200 duration_ms=280 request_id=f76fdf6b-3de4-413a-94a5-e77517cf1c4d",
+      "kth_distance": 0.010584534476336893,
+      "ties_beyond_k": 0,
+      "neighbors": [
+        {
+          "id": 9315,
+          "distance": 0.009288731005365647,
+          "root_cause": "info:http_request"
+        },
+        {
+          "id": 7009,
+          "distance": 0.009758057536587539,
+          "root_cause": "info:http_request"
+        },
+        {
+          "id": 6459,
+          "distance": 0.009984048898674436,
+          "root_cause": "info:http_request"
+        },
+        {
+          "id": 299,
+          "distance": 0.010036558211938829,
+          "root_cause": "info:http_request"
+        },
+        {
+          "id": 9834,
+          "distance": 0.010078249559699604,
+          "root_cause": "info:http_request"
+        },
+        {
+          "id": 8438,
+          "distance": 0.010120927684249992,
+          "root_cause": "info:http_request"
+        },
+        {
+          "id": 898,
+          "distance": 0.010125992268059214,
+          "root_cause": "info:http_request"
+        },
+        {
+          "id": 6173,
+          "distance": 0.010204315185546875,
+          "root_cause": "info:http_request"
+        },
+        {
+          "id": 28,
+          "distance": 0.010485112042120659,
+          "root_cause": "info:http_request"
+        },
+        {
+          "id": 2229,
+          "distance": 0.010584534476336893,
+          "root_cause": "info:http_request"
+        }
+      ]
+    },
+    {
+      "id": 3864,
+      "level": "INFO",
+      "root_cause": "info:http_request",
+      "message": "request completed method=GET path=/api/checkout status=200 duration_ms=19 request_id=b082aef8-80cf-47cc-8cc3-c2b0eda1debf",
+      "kth_distance": 0.020128652957198567,
+      "ties_beyond_k": 0,
+      "neighbors": [
+        {
+          "id": 8385,
+          "distance": 0.01820218346092195,
+          "root_cause": "info:http_request"
+        },
+        {
+          "id": 2828,
+          "distance": 0.018250228062283935,
+          "root_cause": "info:http_request"
+        },
+        {
+          "id": 776,
+          "distance": 0.018448593431536597,
+          "root_cause": "info:http_request"
+        },
+        {
+          "id": 3781,
+          "distance": 0.018561064090663604,
+          "root_cause": "info:http_request"
+        },
+        {
+          "id": 7130,
+          "distance": 0.019242823123931885,
+          "root_cause": "info:http_request"
+        },
+        {
+          "id": 2017,
+          "distance": 0.01943689468878962,
+          "root_cause": "info:http_request"
+        },
+        {
+          "id": 8147,
+          "distance": 0.01961550291914871,
+          "root_cause": "info:http_request"
+        },
+        {
+          "id": 6464,
+          "distance": 0.019778492424301408,
+          "root_cause": "info:http_request"
+        },
+        {
+          "id": 1679,
+          "distance": 0.020089266289553098,
+          "root_cause": "info:http_request"
+        },
+        {
+          "id": 2161,
+          "distance": 0.020128652957198567,
+          "root_cause": "info:http_request"
+        }
+      ]
+    },
+    {
+      "id": 4234,
+      "level": "INFO",
+      "root_cause": "info:health_check",
+      "message": "Service started on port 8443 (version 3.17.7)",
+      "kth_distance": 0.03877345536391397,
+      "ties_beyond_k": 0,
+      "neighbors": [
+        {
+          "id": 5668,
+          "distance": 0.009330869833327649,
+          "root_cause": "info:health_check"
+        },
+        {
+          "id": 6393,
+          "distance": 0.03226500172643276,
+          "root_cause": "info:health_check"
+        },
+        {
+          "id": 465,
+          "distance": 0.032724201679229736,
+          "root_cause": "info:health_check"
+        },
+        {
+          "id": 4530,
+          "distance": 0.03451740947469362,
+          "root_cause": "info:health_check"
+        },
+        {
+          "id": 4584,
+          "distance": 0.034864779130835966,
+          "root_cause": "info:health_check"
+        },
+        {
+          "id": 1600,
+          "distance": 0.03703450715129797,
+          "root_cause": "info:health_check"
+        },
+        {
+          "id": 2373,
+          "distance": 0.037594132853588036,
+          "root_cause": "info:health_check"
+        },
+        {
+          "id": 3881,
+          "distance": 0.0386044979095459,
+          "root_cause": "info:health_check"
+        },
+        {
+          "id": 9088,
+          "distance": 0.0386044979095459,
+          "root_cause": "info:health_check"
+        },
+        {
+          "id": 162,
+          "distance": 0.03877345536391397,
+          "root_cause": "info:health_check"
+        }
+      ]
+    },
+    {
+      "id": 4312,
+      "level": "INFO",
+      "root_cause": "info:http_request",
+      "message": "Handled /api/orders/ord_hqsy7abgt8 in 285 ms (status 200)",
+      "kth_distance": 0.14102400228018874,
+      "ties_beyond_k": 1,
+      "neighbors": [
+        {
+          "id": 481,
+          "distance": 0.11010340840548594,
+          "root_cause": "info:http_request"
+        },
+        {
+          "id": 4277,
+          "distance": 0.11429366810003927,
+          "root_cause": "info:http_request"
+        },
+        {
+          "id": 2339,
+          "distance": 0.11836474233818162,
+          "root_cause": "info:http_request"
+        },
+        {
+          "id": 7244,
+          "distance": 0.12944452903338166,
+          "root_cause": "info:http_request"
+        },
+        {
+          "id": 5800,
+          "distance": 0.13334343234727108,
+          "root_cause": "info:http_request"
+        },
+        {
+          "id": 3406,
+          "distance": 0.13731574078138742,
+          "root_cause": "info:http_request"
+        },
+        {
+          "id": 3682,
+          "distance": 0.13757480720646853,
+          "root_cause": "info:http_request"
+        },
+        {
+          "id": 5879,
+          "distance": 0.13940319003451407,
+          "root_cause": "info:http_request"
+        },
+        {
+          "id": 9556,
+          "distance": 0.1408333354443001,
+          "root_cause": "info:http_request"
+        },
+        {
+          "id": 9521,
+          "distance": 0.14102400228018874,
+          "root_cause": "info:http_request"
+        }
+      ]
+    },
+    {
+      "id": 4385,
+      "level": "INFO",
+      "root_cause": "info:http_request",
+      "message": "PUT /api/checkout 200 359ms",
+      "kth_distance": 0.028982032901506805,
+      "ties_beyond_k": 0,
+      "neighbors": [
+        {
+          "id": 8493,
+          "distance": 0.01888334188361529,
+          "root_cause": "info:http_request"
+        },
+        {
+          "id": 5896,
+          "distance": 0.023549114609972444,
+          "root_cause": "info:http_request"
+        },
+        {
+          "id": 5421,
+          "distance": 0.023839683051064764,
+          "root_cause": "info:http_request"
+        },
+        {
+          "id": 7712,
+          "distance": 0.024018046376931168,
+          "root_cause": "info:http_request"
+        },
+        {
+          "id": 3670,
+          "distance": 0.02696385899291731,
+          "root_cause": "info:http_request"
+        },
+        {
+          "id": 6983,
+          "distance": 0.02753615051076308,
+          "root_cause": "info:http_request"
+        },
+        {
+          "id": 8162,
+          "distance": 0.02753615051076308,
+          "root_cause": "info:http_request"
+        },
+        {
+          "id": 3672,
+          "distance": 0.02778729879218711,
+          "root_cause": "info:http_request"
+        },
+        {
+          "id": 8511,
+          "distance": 0.028196993851241192,
+          "root_cause": "info:http_request"
+        },
+        {
+          "id": 5571,
+          "distance": 0.028982032901506805,
+          "root_cause": "info:http_request"
+        }
+      ]
+    },
+    {
+      "id": 4550,
+      "level": "INFO",
+      "root_cause": "info:http_request",
+      "message": "request completed method=GET path=/api/products/search status=200 duration_ms=35 request_id=abe64ab2-243c-4880-afd7-1b8aa250fce0",
+      "kth_distance": 0.02069604643535472,
+      "ties_beyond_k": 0,
+      "neighbors": [
+        {
+          "id": 627,
+          "distance": 0.018285272325778146,
+          "root_cause": "info:http_request"
+        },
+        {
+          "id": 2804,
+          "distance": 0.01968580484387472,
+          "root_cause": "info:http_request"
+        },
+        {
+          "id": 8003,
+          "distance": 0.019745471447159435,
+          "root_cause": "info:http_request"
+        },
+        {
+          "id": 740,
+          "distance": 0.019787133919410116,
+          "root_cause": "info:http_request"
+        },
+        {
+          "id": 9314,
+          "distance": 0.0198239088058193,
+          "root_cause": "info:http_request"
+        },
+        {
+          "id": 228,
+          "distance": 0.02003980280154849,
+          "root_cause": "info:http_request"
+        },
+        {
+          "id": 7673,
+          "distance": 0.020126588389838496,
+          "root_cause": "info:http_request"
+        },
+        {
+          "id": 5887,
+          "distance": 0.020596329080400322,
+          "root_cause": "info:http_request"
+        },
+        {
+          "id": 2384,
+          "distance": 0.0206697011792234,
+          "root_cause": "info:http_request"
+        },
+        {
+          "id": 5773,
+          "distance": 0.02069604643535472,
+          "root_cause": "info:http_request"
+        }
+      ]
+    },
+    {
+      "id": 4681,
+      "level": "INFO",
+      "root_cause": "info:health_check",
+      "message": "Service started on port 8080 (version 2.4.2)",
+      "kth_distance": 0.06297894749232558,
+      "ties_beyond_k": 0,
+      "neighbors": [
+        {
+          "id": 9945,
+          "distance": 0.020991918922427022,
+          "root_cause": "info:health_check"
+        },
+        {
+          "id": 1987,
+          "distance": 0.0473363371290807,
+          "root_cause": "info:health_check"
+        },
+        {
+          "id": 6531,
+          "distance": 0.050595813918606014,
+          "root_cause": "info:health_check"
+        },
+        {
+          "id": 6308,
+          "distance": 0.051573496494228155,
+          "root_cause": "info:health_check"
+        },
+        {
+          "id": 8346,
+          "distance": 0.05511999458785599,
+          "root_cause": "info:health_check"
+        },
+        {
+          "id": 857,
+          "distance": 0.056288411088868284,
+          "root_cause": "info:health_check"
+        },
+        {
+          "id": 2212,
+          "distance": 0.05855678813971943,
+          "root_cause": "info:health_check"
+        },
+        {
+          "id": 135,
+          "distance": 0.05886574002868916,
+          "root_cause": "info:health_check"
+        },
+        {
+          "id": 5748,
+          "distance": 0.060363825537915416,
+          "root_cause": "info:health_check"
+        },
+        {
+          "id": 416,
+          "distance": 0.06297894749232558,
+          "root_cause": "info:health_check"
+        }
+      ]
+    },
+    {
+      "id": 4892,
+      "level": "ERROR",
+      "root_cause": "duplicate_key",
+      "message": "duplicate key value violates unique constraint \"users_email_unique\"",
+      "kth_distance": 0,
+      "ties_beyond_k": 34,
+      "neighbors": [
+        {
+          "id": 176,
+          "distance": 0,
+          "root_cause": "duplicate_key"
+        },
+        {
+          "id": 704,
+          "distance": 0,
+          "root_cause": "duplicate_key"
+        },
+        {
+          "id": 800,
+          "distance": 0,
+          "root_cause": "duplicate_key"
+        },
+        {
+          "id": 1050,
+          "distance": 0,
+          "root_cause": "duplicate_key"
+        },
+        {
+          "id": 1125,
+          "distance": 0,
+          "root_cause": "duplicate_key"
+        },
+        {
+          "id": 1277,
+          "distance": 0,
+          "root_cause": "duplicate_key"
+        },
+        {
+          "id": 1333,
+          "distance": 0,
+          "root_cause": "duplicate_key"
+        },
+        {
+          "id": 1433,
+          "distance": 0,
+          "root_cause": "duplicate_key"
+        },
+        {
+          "id": 1745,
+          "distance": 0,
+          "root_cause": "duplicate_key"
+        },
+        {
+          "id": 1767,
+          "distance": 0,
+          "root_cause": "duplicate_key"
+        }
+      ]
+    },
+    {
+      "id": 4932,
+      "level": "WARN",
+      "root_cause": "queue_lag",
+      "message": "Message processing delayed 1512s, backlog keeps growing on queue webhooks",
+      "kth_distance": 0.05793309902346644,
+      "ties_beyond_k": 0,
+      "neighbors": [
+        {
+          "id": 1081,
+          "distance": 0.03529279793032092,
+          "root_cause": "queue_lag"
+        },
+        {
+          "id": 7801,
+          "distance": 0.03602809143400598,
+          "root_cause": "queue_lag"
+        },
+        {
+          "id": 6400,
+          "distance": 0.03603321743406773,
+          "root_cause": "queue_lag"
+        },
+        {
+          "id": 8383,
+          "distance": 0.036807907870198164,
+          "root_cause": "queue_lag"
+        },
+        {
+          "id": 4032,
+          "distance": 0.040584564208984375,
+          "root_cause": "queue_lag"
+        },
+        {
+          "id": 2117,
+          "distance": 0.042124639063960245,
+          "root_cause": "queue_lag"
+        },
+        {
+          "id": 195,
+          "distance": 0.048401832580566406,
+          "root_cause": "queue_lag"
+        },
+        {
+          "id": 2568,
+          "distance": 0.05120831422756056,
+          "root_cause": "queue_lag"
+        },
+        {
+          "id": 5866,
+          "distance": 0.05483919708962259,
+          "root_cause": "queue_lag"
+        },
+        {
+          "id": 4523,
+          "distance": 0.05793309902346644,
+          "root_cause": "queue_lag"
+        }
+      ]
+    },
+    {
+      "id": 5129,
+      "level": "INFO",
+      "root_cause": "info:http_request",
+      "message": "request completed method=GET path=/api/users/usr_578946 status=200 duration_ms=114 request_id=669e280b-ab72-4706-bd59-4280ecffbc83",
+      "kth_distance": 0.013725373850107081,
+      "ties_beyond_k": 0,
+      "neighbors": [
+        {
+          "id": 2887,
+          "distance": 0.010521326565063882,
+          "root_cause": "info:http_request"
+        },
+        {
+          "id": 7416,
+          "distance": 0.01181414688177529,
+          "root_cause": "info:http_request"
+        },
+        {
+          "id": 4249,
+          "distance": 0.011826309048636019,
+          "root_cause": "info:http_request"
+        },
+        {
+          "id": 2686,
+          "distance": 0.012165577307193032,
+          "root_cause": "info:http_request"
+        },
+        {
+          "id": 5339,
+          "distance": 0.012969529466120178,
+          "root_cause": "info:http_request"
+        },
+        {
+          "id": 5776,
+          "distance": 0.012969645583236211,
+          "root_cause": "info:http_request"
+        },
+        {
+          "id": 3766,
+          "distance": 0.013314490311557847,
+          "root_cause": "info:http_request"
+        },
+        {
+          "id": 1665,
+          "distance": 0.013390568883474119,
+          "root_cause": "info:http_request"
+        },
+        {
+          "id": 2101,
+          "distance": 0.013423417438788943,
+          "root_cause": "info:http_request"
+        },
+        {
+          "id": 48,
+          "distance": 0.013725373850107081,
+          "root_cause": "info:http_request"
+        }
+      ]
+    },
+    {
+      "id": 5177,
+      "level": "INFO",
+      "root_cause": "info:user_login",
+      "message": "Issued new access token for usr_645664, expires in 15m",
+      "kth_distance": 0.04323901034563915,
+      "ties_beyond_k": 0,
+      "neighbors": [
+        {
+          "id": 6113,
+          "distance": 0.02510933060709486,
+          "root_cause": "info:user_login"
+        },
+        {
+          "id": 7392,
+          "distance": 0.028051440963391183,
+          "root_cause": "info:user_login"
+        },
+        {
+          "id": 9482,
+          "distance": 0.03196484422053536,
+          "root_cause": "info:user_login"
+        },
+        {
+          "id": 9033,
+          "distance": 0.03522545309214198,
+          "root_cause": "info:user_login"
+        },
+        {
+          "id": 5328,
+          "distance": 0.03772884832192247,
+          "root_cause": "info:user_login"
+        },
+        {
+          "id": 409,
+          "distance": 0.039070432075286265,
+          "root_cause": "info:user_login"
+        },
+        {
+          "id": 6831,
+          "distance": 0.0400697112291174,
+          "root_cause": "info:user_login"
+        },
+        {
+          "id": 4973,
+          "distance": 0.04183363665133499,
+          "root_cause": "info:user_login"
+        },
+        {
+          "id": 7003,
+          "distance": 0.04212737836729752,
+          "root_cause": "info:user_login"
+        },
+        {
+          "id": 1470,
+          "distance": 0.04323901034563915,
+          "root_cause": "info:user_login"
+        }
+      ]
+    },
+    {
+      "id": 5178,
+      "level": "INFO",
+      "root_cause": "info:health_check",
+      "message": "readiness probe passed (db=up, cache=up) in 28ms",
+      "kth_distance": 0.0236660852233066,
+      "ties_beyond_k": 15,
+      "neighbors": [
+        {
+          "id": 187,
+          "distance": 0,
+          "root_cause": "info:health_check"
+        },
+        {
+          "id": 1606,
+          "distance": 0,
+          "root_cause": "info:health_check"
+        },
+        {
+          "id": 1874,
+          "distance": 0,
+          "root_cause": "info:health_check"
+        },
+        {
+          "id": 2855,
+          "distance": 0,
+          "root_cause": "info:health_check"
+        },
+        {
+          "id": 2976,
+          "distance": 0,
+          "root_cause": "info:health_check"
+        },
+        {
+          "id": 682,
+          "distance": 0.0236660852233066,
+          "root_cause": "info:health_check"
+        },
+        {
+          "id": 934,
+          "distance": 0.0236660852233066,
+          "root_cause": "info:health_check"
+        },
+        {
+          "id": 1164,
+          "distance": 0.0236660852233066,
+          "root_cause": "info:health_check"
+        },
+        {
+          "id": 1408,
+          "distance": 0.0236660852233066,
+          "root_cause": "info:health_check"
+        },
+        {
+          "id": 2489,
+          "distance": 0.0236660852233066,
+          "root_cause": "info:health_check"
+        }
+      ]
+    },
+    {
+      "id": 5239,
+      "level": "INFO",
+      "root_cause": "info:http_request",
+      "message": "POST /api/payments/charge 201 325ms",
+      "kth_distance": 0.0529267004277173,
+      "ties_beyond_k": 0,
+      "neighbors": [
+        {
+          "id": 3164,
+          "distance": 0.026573216498249952,
+          "root_cause": "info:http_request"
+        },
+        {
+          "id": 3950,
+          "distance": 0.029200295245740304,
+          "root_cause": "info:http_request"
+        },
+        {
+          "id": 4640,
+          "distance": 0.035214995624834655,
+          "root_cause": "info:http_request"
+        },
+        {
+          "id": 2379,
+          "distance": 0.03749302364818263,
+          "root_cause": "info:http_request"
+        },
+        {
+          "id": 2096,
+          "distance": 0.03789195982988591,
+          "root_cause": "info:http_request"
+        },
+        {
+          "id": 402,
+          "distance": 0.0409052730955245,
+          "root_cause": "info:http_request"
+        },
+        {
+          "id": 5846,
+          "distance": 0.04253540076839468,
+          "root_cause": "info:http_request"
+        },
+        {
+          "id": 4179,
+          "distance": 0.0472893459161019,
+          "root_cause": "info:http_request"
+        },
+        {
+          "id": 8927,
+          "distance": 0.0472893459161019,
+          "root_cause": "info:http_request"
+        },
+        {
+          "id": 5991,
+          "distance": 0.0529267004277173,
+          "root_cause": "info:http_request"
+        }
+      ]
+    },
+    {
+      "id": 5392,
+      "level": "INFO",
+      "root_cause": "info:user_login",
+      "message": "User usr_474992 logged in successfully from 123.235.207.140",
+      "kth_distance": 0.0806237829289238,
+      "ties_beyond_k": 0,
+      "neighbors": [
+        {
+          "id": 3986,
+          "distance": 0.06920291643211574,
+          "root_cause": "info:user_login"
+        },
+        {
+          "id": 2665,
+          "distance": 0.07004733981111344,
+          "root_cause": "info:user_login"
+        },
+        {
+          "id": 2294,
+          "distance": 0.07276123328438511,
+          "root_cause": "info:user_login"
+        },
+        {
+          "id": 253,
+          "distance": 0.07606476091951075,
+          "root_cause": "info:user_login"
+        },
+        {
+          "id": 6559,
+          "distance": 0.0777724431617508,
+          "root_cause": "info:user_login"
+        },
+        {
+          "id": 2843,
+          "distance": 0.07788650826231935,
+          "root_cause": "info:user_login"
+        },
+        {
+          "id": 4415,
+          "distance": 0.07887543188040635,
+          "root_cause": "info:user_login"
+        },
+        {
+          "id": 8629,
+          "distance": 0.07906259048731212,
+          "root_cause": "info:user_login"
+        },
+        {
+          "id": 4177,
+          "distance": 0.08011041285252718,
+          "root_cause": "info:user_login"
+        },
+        {
+          "id": 2653,
+          "distance": 0.0806237829289238,
+          "root_cause": "info:user_login"
+        }
+      ]
+    },
+    {
+      "id": 5441,
+      "level": "WARN",
+      "root_cause": "queue_lag",
+      "message": "Kafka consumer is falling behind: 116154 unprocessed events",
+      "kth_distance": 0.021408536383815346,
+      "ties_beyond_k": 0,
+      "neighbors": [
+        {
+          "id": 7747,
+          "distance": 0.0181944045134248,
+          "root_cause": "queue_lag"
+        },
+        {
+          "id": 3409,
+          "distance": 0.018627312983920175,
+          "root_cause": "queue_lag"
+        },
+        {
+          "id": 7278,
+          "distance": 0.01880318262633962,
+          "root_cause": "queue_lag"
+        },
+        {
+          "id": 5001,
+          "distance": 0.0202995295135866,
+          "root_cause": "queue_lag"
+        },
+        {
+          "id": 3210,
+          "distance": 0.020716102783327583,
+          "root_cause": "queue_lag"
+        },
+        {
+          "id": 9010,
+          "distance": 0.020743520922375636,
+          "root_cause": "queue_lag"
+        },
+        {
+          "id": 564,
+          "distance": 0.021014065176656826,
+          "root_cause": "queue_lag"
+        },
+        {
+          "id": 1618,
+          "distance": 0.021194011604596552,
+          "root_cause": "queue_lag"
+        },
+        {
+          "id": 47,
+          "distance": 0.021346300204187152,
+          "root_cause": "queue_lag"
+        },
+        {
+          "id": 2693,
+          "distance": 0.021408536383815346,
+          "root_cause": "queue_lag"
+        }
+      ]
+    },
+    {
+      "id": 5561,
+      "level": "INFO",
+      "root_cause": "info:http_request",
+      "message": "Handled /api/cart/items in 100 ms (status 200)",
+      "kth_distance": 0.04481035470961847,
+      "ties_beyond_k": 0,
+      "neighbors": [
+        {
+          "id": 1770,
+          "distance": 0.039755873723725244,
+          "root_cause": "info:http_request"
+        },
+        {
+          "id": 6778,
+          "distance": 0.039755873723725244,
+          "root_cause": "info:http_request"
+        },
+        {
+          "id": 7880,
+          "distance": 0.039917116155280596,
+          "root_cause": "info:http_request"
+        },
+        {
+          "id": 6608,
+          "distance": 0.04210962370975524,
+          "root_cause": "info:http_request"
+        },
+        {
+          "id": 7986,
+          "distance": 0.04330104847556471,
+          "root_cause": "info:http_request"
+        },
+        {
+          "id": 2108,
+          "distance": 0.044122760787339343,
+          "root_cause": "info:http_request"
+        },
+        {
+          "id": 2880,
+          "distance": 0.044122760787339343,
+          "root_cause": "info:http_request"
+        },
+        {
+          "id": 4226,
+          "distance": 0.044122760787339343,
+          "root_cause": "info:http_request"
+        },
+        {
+          "id": 5980,
+          "distance": 0.04481035470961847,
+          "root_cause": "info:http_request"
+        },
+        {
+          "id": 9392,
+          "distance": 0.04481035470961847,
+          "root_cause": "info:http_request"
+        }
+      ]
+    },
+    {
+      "id": 5908,
+      "level": "INFO",
+      "root_cause": "info:http_request",
+      "message": "POST /api/users/usr_341767 200 96ms",
+      "kth_distance": 0.03920003654954618,
+      "ties_beyond_k": 0,
+      "neighbors": [
+        {
+          "id": 7496,
+          "distance": 0.032178375021666095,
+          "root_cause": "info:http_request"
+        },
+        {
+          "id": 5881,
+          "distance": 0.032859783216037,
+          "root_cause": "info:http_request"
+        },
+        {
+          "id": 2972,
+          "distance": 0.03523376899067099,
+          "root_cause": "info:http_request"
+        },
+        {
+          "id": 2380,
+          "distance": 0.03561935147219675,
+          "root_cause": "info:http_request"
+        },
+        {
+          "id": 2280,
+          "distance": 0.036094466592373586,
+          "root_cause": "info:http_request"
+        },
+        {
+          "id": 1274,
+          "distance": 0.03656003859759027,
+          "root_cause": "info:http_request"
+        },
+        {
+          "id": 4306,
+          "distance": 0.037049445842153084,
+          "root_cause": "info:http_request"
+        },
+        {
+          "id": 9149,
+          "distance": 0.038376879208343095,
+          "root_cause": "info:http_request"
+        },
+        {
+          "id": 1172,
+          "distance": 0.038430874160630735,
+          "root_cause": "info:http_request"
+        },
+        {
+          "id": 612,
+          "distance": 0.03920003654954618,
+          "root_cause": "info:http_request"
+        }
+      ]
+    },
+    {
+      "id": 5947,
+      "level": "INFO",
+      "root_cause": "info:job_completed",
+      "message": "Cron refresh-search-index completed successfully",
+      "kth_distance": 0,
+      "ties_beyond_k": 111,
+      "neighbors": [
+        {
+          "id": 188,
+          "distance": 0,
+          "root_cause": "info:job_completed"
+        },
+        {
+          "id": 266,
+          "distance": 0,
+          "root_cause": "info:job_completed"
+        },
+        {
+          "id": 368,
+          "distance": 0,
+          "root_cause": "info:job_completed"
+        },
+        {
+          "id": 476,
+          "distance": 0,
+          "root_cause": "info:job_completed"
+        },
+        {
+          "id": 565,
+          "distance": 0,
+          "root_cause": "info:job_completed"
+        },
+        {
+          "id": 675,
+          "distance": 0,
+          "root_cause": "info:job_completed"
+        },
+        {
+          "id": 874,
+          "distance": 0,
+          "root_cause": "info:job_completed"
+        },
+        {
+          "id": 1013,
+          "distance": 0,
+          "root_cause": "info:job_completed"
+        },
+        {
+          "id": 1029,
+          "distance": 0,
+          "root_cause": "info:job_completed"
+        },
+        {
+          "id": 1102,
+          "distance": 0,
+          "root_cause": "info:job_completed"
+        }
+      ]
+    },
+    {
+      "id": 5985,
+      "level": "INFO",
+      "root_cause": "info:user_login",
+      "message": "Issued new access token for usr_216798, expires in 15m",
+      "kth_distance": 0.032241600166182494,
+      "ties_beyond_k": 0,
+      "neighbors": [
+        {
+          "id": 4280,
+          "distance": 0.0263480669727022,
+          "root_cause": "info:user_login"
+        },
+        {
+          "id": 5486,
+          "distance": 0.02654434199715827,
+          "root_cause": "info:user_login"
+        },
+        {
+          "id": 4638,
+          "distance": 0.028350428053923182,
+          "root_cause": "info:user_login"
+        },
+        {
+          "id": 5892,
+          "distance": 0.029165274897706928,
+          "root_cause": "info:user_login"
+        },
+        {
+          "id": 3277,
+          "distance": 0.030195364414124515,
+          "root_cause": "info:user_login"
+        },
+        {
+          "id": 2888,
+          "distance": 0.03052372650005175,
+          "root_cause": "info:user_login"
+        },
+        {
+          "id": 9352,
+          "distance": 0.03077624623898423,
+          "root_cause": "info:user_login"
+        },
+        {
+          "id": 1960,
+          "distance": 0.03085906968897012,
+          "root_cause": "info:user_login"
+        },
+        {
+          "id": 63,
+          "distance": 0.032137561160698325,
+          "root_cause": "info:user_login"
+        },
+        {
+          "id": 142,
+          "distance": 0.032241600166182494,
+          "root_cause": "info:user_login"
+        }
+      ]
+    },
+    {
+      "id": 6007,
+      "level": "INFO",
+      "root_cause": "info:job_completed",
+      "message": "Job label-printing finished in 74178ms, processed 1413 items",
+      "kth_distance": 0.048601323532839524,
+      "ties_beyond_k": 0,
+      "neighbors": [
+        {
+          "id": 7267,
+          "distance": 0.032274242368368955,
+          "root_cause": "info:job_completed"
+        },
+        {
+          "id": 5771,
+          "distance": 0.0364513288583217,
+          "root_cause": "info:job_completed"
+        },
+        {
+          "id": 3083,
+          "distance": 0.03945921440390343,
+          "root_cause": "info:job_completed"
+        },
+        {
+          "id": 1362,
+          "distance": 0.04225902741929488,
+          "root_cause": "info:job_completed"
+        },
+        {
+          "id": 948,
+          "distance": 0.04393176129733978,
+          "root_cause": "info:job_completed"
+        },
+        {
+          "id": 3178,
+          "distance": 0.04446282320273398,
+          "root_cause": "info:job_completed"
+        },
+        {
+          "id": 2054,
+          "distance": 0.04476807900615998,
+          "root_cause": "info:job_completed"
+        },
+        {
+          "id": 2629,
+          "distance": 0.04530881485078753,
+          "root_cause": "info:job_completed"
+        },
+        {
+          "id": 1052,
+          "distance": 0.045728206634413016,
+          "root_cause": "info:job_completed"
+        },
+        {
+          "id": 5449,
+          "distance": 0.048601323532839524,
+          "root_cause": "info:job_completed"
+        }
+      ]
+    },
+    {
+      "id": 6058,
+      "level": "INFO",
+      "root_cause": "info:user_login",
+      "message": "Login succeeded for Katrine.Schinner17@hotmail.com (mfa=false)",
+      "kth_distance": 0.18106515012542324,
+      "ties_beyond_k": 0,
+      "neighbors": [
+        {
+          "id": 4774,
+          "distance": 0.13938337491991337,
+          "root_cause": "info:user_login"
+        },
+        {
+          "id": 2977,
+          "distance": 0.14893276513793297,
+          "root_cause": "info:user_login"
+        },
+        {
+          "id": 445,
+          "distance": 0.15630770010206319,
+          "root_cause": "info:user_login"
+        },
+        {
+          "id": 6097,
+          "distance": 0.16624762106616764,
+          "root_cause": "info:user_login"
+        },
+        {
+          "id": 2324,
+          "distance": 0.17594926474208739,
+          "root_cause": "info:user_login"
+        },
+        {
+          "id": 8802,
+          "distance": 0.176330604919698,
+          "root_cause": "info:user_login"
+        },
+        {
+          "id": 8029,
+          "distance": 0.17814398222346783,
+          "root_cause": "info:user_login"
+        },
+        {
+          "id": 6215,
+          "distance": 0.1795638708310563,
+          "root_cause": "info:user_login"
+        },
+        {
+          "id": 5677,
+          "distance": 0.1797435682018219,
+          "root_cause": "info:user_login"
+        },
+        {
+          "id": 4886,
+          "distance": 0.18106515012542324,
+          "root_cause": "info:user_login"
+        }
+      ]
+    },
+    {
+      "id": 6107,
+      "level": "INFO",
+      "root_cause": "info:http_request",
+      "message": "PUT /api/payments/charge 204 64ms",
+      "kth_distance": 0.04707978157873327,
+      "ties_beyond_k": 0,
+      "neighbors": [
+        {
+          "id": 1110,
+          "distance": 0.027858434447100233,
+          "root_cause": "info:http_request"
+        },
+        {
+          "id": 4361,
+          "distance": 0.03130484000501421,
+          "root_cause": "info:http_request"
+        },
+        {
+          "id": 2657,
+          "distance": 0.034699620884618865,
+          "root_cause": "info:http_request"
+        },
+        {
+          "id": 7989,
+          "distance": 0.03660112837558205,
+          "root_cause": "info:http_request"
+        },
+        {
+          "id": 734,
+          "distance": 0.038954474707880826,
+          "root_cause": "info:http_request"
+        },
+        {
+          "id": 3339,
+          "distance": 0.03949815741148255,
+          "root_cause": "info:http_request"
+        },
+        {
+          "id": 1648,
+          "distance": 0.04159808158871792,
+          "root_cause": "info:http_request"
+        },
+        {
+          "id": 602,
+          "distance": 0.04169809818265102,
+          "root_cause": "info:http_request"
+        },
+        {
+          "id": 1256,
+          "distance": 0.04329166977480092,
+          "root_cause": "info:http_request"
+        },
+        {
+          "id": 7260,
+          "distance": 0.04707978157873327,
+          "root_cause": "info:http_request"
+        }
+      ]
+    },
+    {
+      "id": 6183,
+      "level": "INFO",
+      "root_cause": "info:health_check",
+      "message": "readiness probe passed (db=up, cache=up) in 13ms",
+      "kth_distance": 0,
+      "ties_beyond_k": 8,
+      "neighbors": [
+        {
+          "id": 117,
+          "distance": 0,
+          "root_cause": "info:health_check"
+        },
+        {
+          "id": 1739,
+          "distance": 0,
+          "root_cause": "info:health_check"
+        },
+        {
+          "id": 2401,
+          "distance": 0,
+          "root_cause": "info:health_check"
+        },
+        {
+          "id": 2557,
+          "distance": 0,
+          "root_cause": "info:health_check"
+        },
+        {
+          "id": 2827,
+          "distance": 0,
+          "root_cause": "info:health_check"
+        },
+        {
+          "id": 3435,
+          "distance": 0,
+          "root_cause": "info:health_check"
+        },
+        {
+          "id": 3464,
+          "distance": 0,
+          "root_cause": "info:health_check"
+        },
+        {
+          "id": 3618,
+          "distance": 0,
+          "root_cause": "info:health_check"
+        },
+        {
+          "id": 3841,
+          "distance": 0,
+          "root_cause": "info:health_check"
+        },
+        {
+          "id": 4127,
+          "distance": 0,
+          "root_cause": "info:health_check"
+        }
+      ]
+    },
+    {
+      "id": 6321,
+      "level": "INFO",
+      "root_cause": "info:http_request",
+      "message": "POST /api/cart/items 204 341ms",
+      "kth_distance": 0.04073482023446706,
+      "ties_beyond_k": 0,
+      "neighbors": [
+        {
+          "id": 9675,
+          "distance": 0.027491023245676982,
+          "root_cause": "info:http_request"
+        },
+        {
+          "id": 3919,
+          "distance": 0.03607580895673013,
+          "root_cause": "info:http_request"
+        },
+        {
+          "id": 4525,
+          "distance": 0.036820078369911635,
+          "root_cause": "info:http_request"
+        },
+        {
+          "id": 1371,
+          "distance": 0.03771599340399756,
+          "root_cause": "info:http_request"
+        },
+        {
+          "id": 8537,
+          "distance": 0.037860152848866124,
+          "root_cause": "info:http_request"
+        },
+        {
+          "id": 9376,
+          "distance": 0.03803395771569329,
+          "root_cause": "info:http_request"
+        },
+        {
+          "id": 3366,
+          "distance": 0.039291551282008674,
+          "root_cause": "info:http_request"
+        },
+        {
+          "id": 4728,
+          "distance": 0.040400371408322866,
+          "root_cause": "info:http_request"
+        },
+        {
+          "id": 851,
+          "distance": 0.040434203057271856,
+          "root_cause": "info:http_request"
+        },
+        {
+          "id": 122,
+          "distance": 0.04073482023446706,
+          "root_cause": "info:http_request"
+        }
+      ]
+    },
+    {
+      "id": 6596,
+      "level": "INFO",
+      "root_cause": "info:health_check",
+      "message": "Service started on port 8080 (version 5.14.2)",
+      "kth_distance": 0.04538608408917333,
+      "ties_beyond_k": 0,
+      "neighbors": [
+        {
+          "id": 7448,
+          "distance": 0.011450590068165178,
+          "root_cause": "info:health_check"
+        },
+        {
+          "id": 6069,
+          "distance": 0.01828688492099173,
+          "root_cause": "info:health_check"
+        },
+        {
+          "id": 3117,
+          "distance": 0.03279504668638422,
+          "root_cause": "info:health_check"
+        },
+        {
+          "id": 7864,
+          "distance": 0.03424359184350778,
+          "root_cause": "info:health_check"
+        },
+        {
+          "id": 5216,
+          "distance": 0.03605484532649961,
+          "root_cause": "info:health_check"
+        },
+        {
+          "id": 4571,
+          "distance": 0.04082321147354395,
+          "root_cause": "info:health_check"
+        },
+        {
+          "id": 3363,
+          "distance": 0.040847542336421294,
+          "root_cause": "info:health_check"
+        },
+        {
+          "id": 6810,
+          "distance": 0.04230153560635708,
+          "root_cause": "info:health_check"
+        },
+        {
+          "id": 7227,
+          "distance": 0.04452102580282258,
+          "root_cause": "info:health_check"
+        },
+        {
+          "id": 35,
+          "distance": 0.04538608408917333,
+          "root_cause": "info:health_check"
+        }
+      ]
+    },
+    {
+      "id": 6817,
+      "level": "INFO",
+      "root_cause": "info:health_check",
+      "message": "Health check OK",
+      "kth_distance": 0,
+      "ties_beyond_k": 391,
+      "neighbors": [
+        {
+          "id": 9,
+          "distance": 0,
+          "root_cause": "info:health_check"
+        },
+        {
+          "id": 10,
+          "distance": 0,
+          "root_cause": "info:health_check"
+        },
+        {
+          "id": 42,
+          "distance": 0,
+          "root_cause": "info:health_check"
+        },
+        {
+          "id": 52,
+          "distance": 0,
+          "root_cause": "info:health_check"
+        },
+        {
+          "id": 81,
+          "distance": 0,
+          "root_cause": "info:health_check"
+        },
+        {
+          "id": 131,
+          "distance": 0,
+          "root_cause": "info:health_check"
+        },
+        {
+          "id": 138,
+          "distance": 0,
+          "root_cause": "info:health_check"
+        },
+        {
+          "id": 141,
+          "distance": 0,
+          "root_cause": "info:health_check"
+        },
+        {
+          "id": 168,
+          "distance": 0,
+          "root_cause": "info:health_check"
+        },
+        {
+          "id": 169,
+          "distance": 0,
+          "root_cause": "info:health_check"
+        }
+      ]
+    },
+    {
+      "id": 7017,
+      "level": "INFO",
+      "root_cause": "info:health_check",
+      "message": "Health check OK",
+      "kth_distance": 0,
+      "ties_beyond_k": 391,
+      "neighbors": [
+        {
+          "id": 9,
+          "distance": 0,
+          "root_cause": "info:health_check"
+        },
+        {
+          "id": 10,
+          "distance": 0,
+          "root_cause": "info:health_check"
+        },
+        {
+          "id": 42,
+          "distance": 0,
+          "root_cause": "info:health_check"
+        },
+        {
+          "id": 52,
+          "distance": 0,
+          "root_cause": "info:health_check"
+        },
+        {
+          "id": 81,
+          "distance": 0,
+          "root_cause": "info:health_check"
+        },
+        {
+          "id": 131,
+          "distance": 0,
+          "root_cause": "info:health_check"
+        },
+        {
+          "id": 138,
+          "distance": 0,
+          "root_cause": "info:health_check"
+        },
+        {
+          "id": 141,
+          "distance": 0,
+          "root_cause": "info:health_check"
+        },
+        {
+          "id": 168,
+          "distance": 0,
+          "root_cause": "info:health_check"
+        },
+        {
+          "id": 169,
+          "distance": 0,
+          "root_cause": "info:health_check"
+        }
+      ]
+    },
+    {
+      "id": 7068,
+      "level": "INFO",
+      "root_cause": "info:http_request",
+      "message": "request completed method=POST path=/api/users/usr_592527 status=200 duration_ms=30 request_id=3ec99452-ea4b-4db4-8316-e370d952a8f7",
+      "kth_distance": 0.027509811819769414,
+      "ties_beyond_k": 0,
+      "neighbors": [
+        {
+          "id": 8516,
+          "distance": 0.024905630912382626,
+          "root_cause": "info:http_request"
+        },
+        {
+          "id": 2127,
+          "distance": 0.025471690353356613,
+          "root_cause": "info:http_request"
+        },
+        {
+          "id": 1449,
+          "distance": 0.026296016419381063,
+          "root_cause": "info:http_request"
+        },
+        {
+          "id": 4916,
+          "distance": 0.02665680488007871,
+          "root_cause": "info:http_request"
+        },
+        {
+          "id": 194,
+          "distance": 0.02677106538161067,
+          "root_cause": "info:http_request"
+        },
+        {
+          "id": 8164,
+          "distance": 0.02699596494314449,
+          "root_cause": "info:http_request"
+        },
+        {
+          "id": 2077,
+          "distance": 0.027005783615688173,
+          "root_cause": "info:http_request"
+        },
+        {
+          "id": 6002,
+          "distance": 0.027088946602086494,
+          "root_cause": "info:http_request"
+        },
+        {
+          "id": 4738,
+          "distance": 0.0271869285591132,
+          "root_cause": "info:http_request"
+        },
+        {
+          "id": 8545,
+          "distance": 0.027509811819769414,
+          "root_cause": "info:http_request"
+        }
+      ]
+    },
+    {
+      "id": 7075,
+      "level": "INFO",
+      "root_cause": "info:http_request",
+      "message": "request completed method=GET path=/api/payments/charge status=200 duration_ms=155 request_id=99c1348e-cd55-4bdf-b5ab-eb6c7f51b4b1",
+      "kth_distance": 0.021113935908101733,
+      "ties_beyond_k": 0,
+      "neighbors": [
+        {
+          "id": 5590,
+          "distance": 0.019104248018295134,
+          "root_cause": "info:http_request"
+        },
+        {
+          "id": 158,
+          "distance": 0.01989418861092407,
+          "root_cause": "info:http_request"
+        },
+        {
+          "id": 2915,
+          "distance": 0.02036184679320474,
+          "root_cause": "info:http_request"
+        },
+        {
+          "id": 1533,
+          "distance": 0.020630847554063747,
+          "root_cause": "info:http_request"
+        },
+        {
+          "id": 8768,
+          "distance": 0.02084860889117468,
+          "root_cause": "info:http_request"
+        },
+        {
+          "id": 8506,
+          "distance": 0.02101725465148041,
+          "root_cause": "info:http_request"
+        },
+        {
+          "id": 3273,
+          "distance": 0.0210242283953348,
+          "root_cause": "info:http_request"
+        },
+        {
+          "id": 9318,
+          "distance": 0.0210724548360266,
+          "root_cause": "info:http_request"
+        },
+        {
+          "id": 7169,
+          "distance": 0.021091825095319483,
+          "root_cause": "info:http_request"
+        },
+        {
+          "id": 2767,
+          "distance": 0.021113935908101733,
+          "root_cause": "info:http_request"
+        }
+      ]
+    },
+    {
+      "id": 7234,
+      "level": "INFO",
+      "root_cause": "info:http_request",
+      "message": "Handled /api/cart/items in 313 ms (status 200)",
+      "kth_distance": 0.043437703810552564,
+      "ties_beyond_k": 0,
+      "neighbors": [
+        {
+          "id": 1129,
+          "distance": 0.029697467196886596,
+          "root_cause": "info:http_request"
+        },
+        {
+          "id": 9763,
+          "distance": 0.029697467196886596,
+          "root_cause": "info:http_request"
+        },
+        {
+          "id": 2618,
+          "distance": 0.034631759960281894,
+          "root_cause": "info:http_request"
+        },
+        {
+          "id": 1472,
+          "distance": 0.039175710850026135,
+          "root_cause": "info:http_request"
+        },
+        {
+          "id": 1399,
+          "distance": 0.040572872025254614,
+          "root_cause": "info:http_request"
+        },
+        {
+          "id": 4541,
+          "distance": 0.04209750137965573,
+          "root_cause": "info:http_request"
+        },
+        {
+          "id": 5724,
+          "distance": 0.04209750137965573,
+          "root_cause": "info:http_request"
+        },
+        {
+          "id": 4232,
+          "distance": 0.04269967936288177,
+          "root_cause": "info:http_request"
+        },
+        {
+          "id": 688,
+          "distance": 0.043077251269164285,
+          "root_cause": "info:http_request"
+        },
+        {
+          "id": 116,
+          "distance": 0.043437703810552564,
+          "root_cause": "info:http_request"
+        }
+      ]
+    },
+    {
+      "id": 7236,
+      "level": "INFO",
+      "root_cause": "info:job_completed",
+      "message": "Cron cleanup-carts completed successfully",
+      "kth_distance": 0,
+      "ties_beyond_k": 98,
+      "neighbors": [
+        {
+          "id": 29,
+          "distance": 0,
+          "root_cause": "info:job_completed"
+        },
+        {
+          "id": 229,
+          "distance": 0,
+          "root_cause": "info:job_completed"
+        },
+        {
+          "id": 246,
+          "distance": 0,
+          "root_cause": "info:job_completed"
+        },
+        {
+          "id": 302,
+          "distance": 0,
+          "root_cause": "info:job_completed"
+        },
+        {
+          "id": 525,
+          "distance": 0,
+          "root_cause": "info:job_completed"
+        },
+        {
+          "id": 531,
+          "distance": 0,
+          "root_cause": "info:job_completed"
+        },
+        {
+          "id": 537,
+          "distance": 0,
+          "root_cause": "info:job_completed"
+        },
+        {
+          "id": 551,
+          "distance": 0,
+          "root_cause": "info:job_completed"
+        },
+        {
+          "id": 966,
+          "distance": 0,
+          "root_cause": "info:job_completed"
+        },
+        {
+          "id": 1003,
+          "distance": 0,
+          "root_cause": "info:job_completed"
+        }
+      ]
+    },
+    {
+      "id": 7319,
+      "level": "INFO",
+      "root_cause": "info:user_login",
+      "message": "Login succeeded for Lynda_Jerde@gmail.com (mfa=false)",
+      "kth_distance": 0.18134164007325348,
+      "ties_beyond_k": 0,
+      "neighbors": [
+        {
+          "id": 8866,
+          "distance": 0.1560954293097906,
+          "root_cause": "info:user_login"
+        },
+        {
+          "id": 3355,
+          "distance": 0.16286855800218125,
+          "root_cause": "info:user_login"
+        },
+        {
+          "id": 6215,
+          "distance": 0.1657111096375512,
+          "root_cause": "info:user_login"
+        },
+        {
+          "id": 6266,
+          "distance": 0.16660883526177872,
+          "root_cause": "info:user_login"
+        },
+        {
+          "id": 8026,
+          "distance": 0.1676140479236341,
+          "root_cause": "info:user_login"
+        },
+        {
+          "id": 7860,
+          "distance": 0.17664056311589438,
+          "root_cause": "info:user_login"
+        },
+        {
+          "id": 996,
+          "distance": 0.17951326797619638,
+          "root_cause": "info:user_login"
+        },
+        {
+          "id": 7030,
+          "distance": 0.1796278296791941,
+          "root_cause": "info:user_login"
+        },
+        {
+          "id": 8860,
+          "distance": 0.18007215800265763,
+          "root_cause": "info:user_login"
+        },
+        {
+          "id": 9421,
+          "distance": 0.18134164007325348,
+          "root_cause": "info:user_login"
+        }
+      ]
+    },
+    {
+      "id": 7538,
+      "level": "FATAL",
+      "root_cause": "out_of_memory",
+      "message": "Container vfmbjsce was OOMKilled (exit code 137), memory limit 512Mi",
+      "kth_distance": 0.2540021084542623,
+      "ties_beyond_k": 0,
+      "neighbors": [
+        {
+          "id": 1247,
+          "distance": 0.21973484887995343,
+          "root_cause": "out_of_memory"
+        },
+        {
+          "id": 7064,
+          "distance": 0.22002632140480738,
+          "root_cause": "out_of_memory"
+        },
+        {
+          "id": 8919,
+          "distance": 0.2202752828596637,
+          "root_cause": "out_of_memory"
+        },
+        {
+          "id": 6756,
+          "distance": 0.22229139007635645,
+          "root_cause": "out_of_memory"
+        },
+        {
+          "id": 2062,
+          "distance": 0.2339243369463213,
+          "root_cause": "out_of_memory"
+        },
+        {
+          "id": 8538,
+          "distance": 0.23404681175241981,
+          "root_cause": "out_of_memory"
+        },
+        {
+          "id": 4104,
+          "distance": 0.23660434157203702,
+          "root_cause": "out_of_memory"
+        },
+        {
+          "id": 2269,
+          "distance": 0.2392462400665174,
+          "root_cause": "out_of_memory"
+        },
+        {
+          "id": 1445,
+          "distance": 0.24025671242126545,
+          "root_cause": "out_of_memory"
+        },
+        {
+          "id": 3704,
+          "distance": 0.2540021084542623,
+          "root_cause": "out_of_memory"
+        }
+      ]
+    },
+    {
+      "id": 7638,
+      "level": "INFO",
+      "root_cause": "info:http_request",
+      "message": "Handled /api/products/search in 180 ms (status 200)",
+      "kth_distance": 0.05175606237098784,
+      "ties_beyond_k": 0,
+      "neighbors": [
+        {
+          "id": 1411,
+          "distance": 0.041219033540990435,
+          "root_cause": "info:http_request"
+        },
+        {
+          "id": 5398,
+          "distance": 0.041821298490642755,
+          "root_cause": "info:http_request"
+        },
+        {
+          "id": 6798,
+          "distance": 0.04572385004471813,
+          "root_cause": "info:http_request"
+        },
+        {
+          "id": 4803,
+          "distance": 0.04614394903176888,
+          "root_cause": "info:http_request"
+        },
+        {
+          "id": 8551,
+          "distance": 0.04614394903176888,
+          "root_cause": "info:http_request"
+        },
+        {
+          "id": 1912,
+          "distance": 0.04690478275218557,
+          "root_cause": "info:http_request"
+        },
+        {
+          "id": 171,
+          "distance": 0.047970527652412054,
+          "root_cause": "info:http_request"
+        },
+        {
+          "id": 6769,
+          "distance": 0.047970527652412054,
+          "root_cause": "info:http_request"
+        },
+        {
+          "id": 7579,
+          "distance": 0.05159346404309362,
+          "root_cause": "info:http_request"
+        },
+        {
+          "id": 9528,
+          "distance": 0.05175606237098784,
+          "root_cause": "info:http_request"
+        }
+      ]
+    },
+    {
+      "id": 7655,
+      "level": "INFO",
+      "root_cause": "info:http_request",
+      "message": "PUT /api/users/usr_911689 201 311ms",
+      "kth_distance": 0.09745432688967814,
+      "ties_beyond_k": 0,
+      "neighbors": [
+        {
+          "id": 1952,
+          "distance": 0.0705364388546792,
+          "root_cause": "info:http_request"
+        },
+        {
+          "id": 448,
+          "distance": 0.08165129959033712,
+          "root_cause": "info:http_request"
+        },
+        {
+          "id": 9089,
+          "distance": 0.08882065215478607,
+          "root_cause": "info:http_request"
+        },
+        {
+          "id": 937,
+          "distance": 0.08888513909398577,
+          "root_cause": "info:http_request"
+        },
+        {
+          "id": 9928,
+          "distance": 0.0918674578508426,
+          "root_cause": "info:http_request"
+        },
+        {
+          "id": 4745,
+          "distance": 0.09379454144140376,
+          "root_cause": "info:http_request"
+        },
+        {
+          "id": 3356,
+          "distance": 0.09394160292444331,
+          "root_cause": "info:http_request"
+        },
+        {
+          "id": 461,
+          "distance": 0.09506226152548714,
+          "root_cause": "info:http_request"
+        },
+        {
+          "id": 4247,
+          "distance": 0.09701614815861526,
+          "root_cause": "info:http_request"
+        },
+        {
+          "id": 4570,
+          "distance": 0.09745432688967814,
+          "root_cause": "info:http_request"
+        }
+      ]
+    },
+    {
+      "id": 7669,
+      "level": "INFO",
+      "root_cause": "info:job_completed",
+      "message": "Cron nightly-reconcile completed successfully",
+      "kth_distance": 0,
+      "ties_beyond_k": 96,
+      "neighbors": [
+        {
+          "id": 151,
+          "distance": 0,
+          "root_cause": "info:job_completed"
+        },
+        {
+          "id": 184,
+          "distance": 0,
+          "root_cause": "info:job_completed"
+        },
+        {
+          "id": 359,
+          "distance": 0,
+          "root_cause": "info:job_completed"
+        },
+        {
+          "id": 418,
+          "distance": 0,
+          "root_cause": "info:job_completed"
+        },
+        {
+          "id": 442,
+          "distance": 0,
+          "root_cause": "info:job_completed"
+        },
+        {
+          "id": 520,
+          "distance": 0,
+          "root_cause": "info:job_completed"
+        },
+        {
+          "id": 613,
+          "distance": 0,
+          "root_cause": "info:job_completed"
+        },
+        {
+          "id": 635,
+          "distance": 0,
+          "root_cause": "info:job_completed"
+        },
+        {
+          "id": 664,
+          "distance": 0,
+          "root_cause": "info:job_completed"
+        },
+        {
+          "id": 780,
+          "distance": 0,
+          "root_cause": "info:job_completed"
+        }
+      ]
+    },
+    {
+      "id": 7712,
+      "level": "INFO",
+      "root_cause": "info:http_request",
+      "message": "PUT /api/checkout 200 194ms",
+      "kth_distance": 0.02877729445042365,
+      "ties_beyond_k": 0,
+      "neighbors": [
+        {
+          "id": 4385,
+          "distance": 0.024018046376931168,
+          "root_cause": "info:http_request"
+        },
+        {
+          "id": 8493,
+          "distance": 0.024305875723487858,
+          "root_cause": "info:http_request"
+        },
+        {
+          "id": 7912,
+          "distance": 0.025718092918395996,
+          "root_cause": "info:http_request"
+        },
+        {
+          "id": 3672,
+          "distance": 0.025810096533600113,
+          "root_cause": "info:http_request"
+        },
+        {
+          "id": 9389,
+          "distance": 0.028307376604830847,
+          "root_cause": "info:http_request"
+        },
+        {
+          "id": 8511,
+          "distance": 0.02840853414736233,
+          "root_cause": "info:http_request"
+        },
+        {
+          "id": 1034,
+          "distance": 0.02841907909030017,
+          "root_cause": "info:http_request"
+        },
+        {
+          "id": 6983,
+          "distance": 0.028540611267089844,
+          "root_cause": "info:http_request"
+        },
+        {
+          "id": 8162,
+          "distance": 0.028540611267089844,
+          "root_cause": "info:http_request"
+        },
+        {
+          "id": 5571,
+          "distance": 0.02877729445042365,
+          "root_cause": "info:http_request"
+        }
+      ]
+    },
+    {
+      "id": 7833,
+      "level": "WARN",
+      "root_cause": "cache_unavailable",
+      "message": "ReplyError: LOADING Redis is loading the dataset in memory",
+      "kth_distance": 0,
+      "ties_beyond_k": 39,
+      "neighbors": [
+        {
+          "id": 74,
+          "distance": 0,
+          "root_cause": "cache_unavailable"
+        },
+        {
+          "id": 380,
+          "distance": 0,
+          "root_cause": "cache_unavailable"
+        },
+        {
+          "id": 419,
+          "distance": 0,
+          "root_cause": "cache_unavailable"
+        },
+        {
+          "id": 687,
+          "distance": 0,
+          "root_cause": "cache_unavailable"
+        },
+        {
+          "id": 786,
+          "distance": 0,
+          "root_cause": "cache_unavailable"
+        },
+        {
+          "id": 1963,
+          "distance": 0,
+          "root_cause": "cache_unavailable"
+        },
+        {
+          "id": 2015,
+          "distance": 0,
+          "root_cause": "cache_unavailable"
+        },
+        {
+          "id": 2070,
+          "distance": 0,
+          "root_cause": "cache_unavailable"
+        },
+        {
+          "id": 2180,
+          "distance": 0,
+          "root_cause": "cache_unavailable"
+        },
+        {
+          "id": 2245,
+          "distance": 0,
+          "root_cause": "cache_unavailable"
+        }
+      ]
+    },
+    {
+      "id": 7969,
+      "level": "ERROR",
+      "root_cause": "db_connection_timeout",
+      "message": "KnexTimeoutError: Knex: Timeout acquiring a connection. The pool is probably full. Are you missing a .transacting(trx) call?\n    at Order.create (/app/src/services/order.service.ts:192:6)\n    at User.validate (/app/src/repositories/user.repository.ts:348:39)\n    at Order.run (/app/src/services/order.service.ts:49:40)\n    at processTicksAndRejections (node:internal/process/task_queues:95:5)",
+      "kth_distance": 0.09840721478505066,
+      "ties_beyond_k": 0,
+      "neighbors": [
+        {
+          "id": 3584,
+          "distance": 0.040556793279265535,
+          "root_cause": "db_connection_timeout"
+        },
+        {
+          "id": 5150,
+          "distance": 0.06342970568776973,
+          "root_cause": "db_connection_timeout"
+        },
+        {
+          "id": 4093,
+          "distance": 0.07106601768337095,
+          "root_cause": "db_connection_timeout"
+        },
+        {
+          "id": 7413,
+          "distance": 0.08009599684521962,
+          "root_cause": "db_connection_timeout"
+        },
+        {
+          "id": 1861,
+          "distance": 0.09046131911643096,
+          "root_cause": "db_connection_timeout"
+        },
+        {
+          "id": 8712,
+          "distance": 0.09393149614333463,
+          "root_cause": "db_connection_timeout"
+        },
+        {
+          "id": 2133,
+          "distance": 0.09468133386151001,
+          "root_cause": "db_connection_timeout"
+        },
+        {
+          "id": 6025,
+          "distance": 0.09751277580779683,
+          "root_cause": "db_connection_timeout"
+        },
+        {
+          "id": 5341,
+          "distance": 0.09803447653093511,
+          "root_cause": "db_connection_timeout"
+        },
+        {
+          "id": 8826,
+          "distance": 0.09840721478505066,
+          "root_cause": "db_connection_timeout"
+        }
+      ]
+    },
+    {
+      "id": 8056,
+      "level": "INFO",
+      "root_cause": "info:user_login",
+      "message": "User usr_778743 logged in successfully from 120.17.47.52",
+      "kth_distance": 0.0956052313792154,
+      "ties_beyond_k": 0,
+      "neighbors": [
+        {
+          "id": 891,
+          "distance": 0.06571374756962123,
+          "root_cause": "info:user_login"
+        },
+        {
+          "id": 4407,
+          "distance": 0.08109638819955312,
+          "root_cause": "info:user_login"
+        },
+        {
+          "id": 945,
+          "distance": 0.08349266144938017,
+          "root_cause": "info:user_login"
+        },
+        {
+          "id": 6323,
+          "distance": 0.0871407337700737,
+          "root_cause": "info:user_login"
+        },
+        {
+          "id": 2862,
+          "distance": 0.08814823627469337,
+          "root_cause": "info:user_login"
+        },
+        {
+          "id": 8422,
+          "distance": 0.09421555503328494,
+          "root_cause": "info:user_login"
+        },
+        {
+          "id": 7615,
+          "distance": 0.09496238977837701,
+          "root_cause": "info:user_login"
+        },
+        {
+          "id": 8250,
+          "distance": 0.09497284323137489,
+          "root_cause": "info:user_login"
+        },
+        {
+          "id": 7369,
+          "distance": 0.09532156726075036,
+          "root_cause": "info:user_login"
+        },
+        {
+          "id": 4611,
+          "distance": 0.0956052313792154,
+          "root_cause": "info:user_login"
+        }
+      ]
+    },
+    {
+      "id": 8096,
+      "level": "ERROR",
+      "root_cause": "dns_failure",
+      "message": "DNS lookup for api.sendgrid.com failed (EAI_AGAIN): temporary failure in name resolution",
+      "kth_distance": 0.3482210582896216,
+      "ties_beyond_k": 0,
+      "neighbors": [
+        {
+          "id": 7449,
+          "distance": 0.2726722522182292,
+          "root_cause": "dns_failure"
+        },
+        {
+          "id": 6681,
+          "distance": 0.27423275573859873,
+          "root_cause": "dns_failure"
+        },
+        {
+          "id": 5959,
+          "distance": 0.2789499621629691,
+          "root_cause": "dns_failure"
+        },
+        {
+          "id": 6924,
+          "distance": 0.3229771265705934,
+          "root_cause": "dns_failure"
+        },
+        {
+          "id": 5401,
+          "distance": 0.33473799567424367,
+          "root_cause": "dns_failure"
+        },
+        {
+          "id": 1124,
+          "distance": 0.3482210582896216,
+          "root_cause": "tls_cert_expired"
+        },
+        {
+          "id": 1448,
+          "distance": 0.3482210582896216,
+          "root_cause": "tls_cert_expired"
+        },
+        {
+          "id": 2256,
+          "distance": 0.3482210582896216,
+          "root_cause": "tls_cert_expired"
+        },
+        {
+          "id": 3456,
+          "distance": 0.3482210582896216,
+          "root_cause": "tls_cert_expired"
+        },
+        {
+          "id": 8318,
+          "distance": 0.3482210582896216,
+          "root_cause": "tls_cert_expired"
+        }
+      ]
+    },
+    {
+      "id": 8236,
+      "level": "INFO",
+      "root_cause": "info:job_completed",
+      "message": "Cron nightly-reconcile completed successfully",
+      "kth_distance": 0,
+      "ties_beyond_k": 96,
+      "neighbors": [
+        {
+          "id": 151,
+          "distance": 0,
+          "root_cause": "info:job_completed"
+        },
+        {
+          "id": 184,
+          "distance": 0,
+          "root_cause": "info:job_completed"
+        },
+        {
+          "id": 359,
+          "distance": 0,
+          "root_cause": "info:job_completed"
+        },
+        {
+          "id": 418,
+          "distance": 0,
+          "root_cause": "info:job_completed"
+        },
+        {
+          "id": 442,
+          "distance": 0,
+          "root_cause": "info:job_completed"
+        },
+        {
+          "id": 520,
+          "distance": 0,
+          "root_cause": "info:job_completed"
+        },
+        {
+          "id": 613,
+          "distance": 0,
+          "root_cause": "info:job_completed"
+        },
+        {
+          "id": 635,
+          "distance": 0,
+          "root_cause": "info:job_completed"
+        },
+        {
+          "id": 664,
+          "distance": 0,
+          "root_cause": "info:job_completed"
+        },
+        {
+          "id": 780,
+          "distance": 0,
+          "root_cause": "info:job_completed"
+        }
+      ]
+    },
+    {
+      "id": 8315,
+      "level": "ERROR",
+      "root_cause": "payment_gateway_5xx",
+      "message": "Payment provider responded 502 Bad Gateway for charge ch_9F0NJpPHYEC6TC",
+      "kth_distance": 0.0563974032046628,
+      "ties_beyond_k": 0,
+      "neighbors": [
+        {
+          "id": 3762,
+          "distance": 0.025158037179319748,
+          "root_cause": "payment_gateway_5xx"
+        },
+        {
+          "id": 7058,
+          "distance": 0.026116546855377565,
+          "root_cause": "payment_gateway_5xx"
+        },
+        {
+          "id": 294,
+          "distance": 0.027964885002691564,
+          "root_cause": "payment_gateway_5xx"
+        },
+        {
+          "id": 2890,
+          "distance": 0.04016756532578203,
+          "root_cause": "payment_gateway_5xx"
+        },
+        {
+          "id": 8486,
+          "distance": 0.045316185475918314,
+          "root_cause": "payment_gateway_5xx"
+        },
+        {
+          "id": 6775,
+          "distance": 0.0477903938918115,
+          "root_cause": "payment_gateway_5xx"
+        },
+        {
+          "id": 8976,
+          "distance": 0.05121597189759408,
+          "root_cause": "payment_gateway_5xx"
+        },
+        {
+          "id": 1529,
+          "distance": 0.05245721652844615,
+          "root_cause": "payment_gateway_5xx"
+        },
+        {
+          "id": 6622,
+          "distance": 0.055265602155574856,
+          "root_cause": "payment_gateway_5xx"
+        },
+        {
+          "id": 918,
+          "distance": 0.0563974032046628,
+          "root_cause": "payment_gateway_5xx"
+        }
+      ]
+    },
+    {
+      "id": 8562,
+      "level": "INFO",
+      "root_cause": "info:user_login",
+      "message": "Issued new access token for usr_156686, expires in 15m",
+      "kth_distance": 0.03593081235882878,
+      "ties_beyond_k": 0,
+      "neighbors": [
+        {
+          "id": 6963,
+          "distance": 0.015341397442484528,
+          "root_cause": "info:user_login"
+        },
+        {
+          "id": 9352,
+          "distance": 0.01773491343244593,
+          "root_cause": "info:user_login"
+        },
+        {
+          "id": 6445,
+          "distance": 0.020715892314883022,
+          "root_cause": "info:user_login"
+        },
+        {
+          "id": 3666,
+          "distance": 0.026877944507146645,
+          "root_cause": "info:user_login"
+        },
+        {
+          "id": 8092,
+          "distance": 0.031486200070163006,
+          "root_cause": "info:user_login"
+        },
+        {
+          "id": 3449,
+          "distance": 0.03461777751233164,
+          "root_cause": "info:user_login"
+        },
+        {
+          "id": 8060,
+          "distance": 0.034742766366700706,
+          "root_cause": "info:user_login"
+        },
+        {
+          "id": 8169,
+          "distance": 0.0351253664194664,
+          "root_cause": "info:user_login"
+        },
+        {
+          "id": 7392,
+          "distance": 0.035548325115635104,
+          "root_cause": "info:user_login"
+        },
+        {
+          "id": 1960,
+          "distance": 0.03593081235882878,
+          "root_cause": "info:user_login"
+        }
+      ]
+    },
+    {
+      "id": 8656,
+      "level": "INFO",
+      "root_cause": "info:job_completed",
+      "message": "Job label-printing finished in 84768ms, processed 2196 items",
+      "kth_distance": 0.04187793288424013,
+      "ties_beyond_k": 0,
+      "neighbors": [
+        {
+          "id": 3620,
+          "distance": 0.03436154946357972,
+          "root_cause": "info:job_completed"
+        },
+        {
+          "id": 6875,
+          "distance": 0.039094815038337116,
+          "root_cause": "info:job_completed"
+        },
+        {
+          "id": 948,
+          "distance": 0.04064196590421498,
+          "root_cause": "info:job_completed"
+        },
+        {
+          "id": 2702,
+          "distance": 0.040711107296275584,
+          "root_cause": "info:job_completed"
+        },
+        {
+          "id": 3345,
+          "distance": 0.040910048783105,
+          "root_cause": "info:job_completed"
+        },
+        {
+          "id": 7873,
+          "distance": 0.041031015226504874,
+          "root_cause": "info:job_completed"
+        },
+        {
+          "id": 5449,
+          "distance": 0.041310923646462494,
+          "root_cause": "info:job_completed"
+        },
+        {
+          "id": 5771,
+          "distance": 0.04137064012775016,
+          "root_cause": "info:job_completed"
+        },
+        {
+          "id": 8331,
+          "distance": 0.04187392689275948,
+          "root_cause": "info:job_completed"
+        },
+        {
+          "id": 451,
+          "distance": 0.04187793288424013,
+          "root_cause": "info:job_completed"
+        }
+      ]
+    },
+    {
+      "id": 8795,
+      "level": "INFO",
+      "root_cause": "info:health_check",
+      "message": "readiness probe passed (db=up, cache=up) in 6ms",
+      "kth_distance": 0.04529009629841496,
+      "ties_beyond_k": 9,
+      "neighbors": [
+        {
+          "id": 1631,
+          "distance": 0,
+          "root_cause": "info:health_check"
+        },
+        {
+          "id": 1894,
+          "distance": 0,
+          "root_cause": "info:health_check"
+        },
+        {
+          "id": 2139,
+          "distance": 0,
+          "root_cause": "info:health_check"
+        },
+        {
+          "id": 3063,
+          "distance": 0,
+          "root_cause": "info:health_check"
+        },
+        {
+          "id": 3276,
+          "distance": 0,
+          "root_cause": "info:health_check"
+        },
+        {
+          "id": 4459,
+          "distance": 0,
+          "root_cause": "info:health_check"
+        },
+        {
+          "id": 5050,
+          "distance": 0,
+          "root_cause": "info:health_check"
+        },
+        {
+          "id": 9429,
+          "distance": 0,
+          "root_cause": "info:health_check"
+        },
+        {
+          "id": 721,
+          "distance": 0.04529009629841496,
+          "root_cause": "info:health_check"
+        },
+        {
+          "id": 1627,
+          "distance": 0.04529009629841496,
+          "root_cause": "info:health_check"
+        }
+      ]
+    },
+    {
+      "id": 8901,
+      "level": "INFO",
+      "root_cause": "info:health_check",
+      "message": "Service started on port 8443 (version 2.9.8)",
+      "kth_distance": 0.030950479280772436,
+      "ties_beyond_k": 0,
+      "neighbors": [
+        {
+          "id": 3182,
+          "distance": 0.016642205924051634,
+          "root_cause": "info:health_check"
+        },
+        {
+          "id": 1754,
+          "distance": 0.018968397686319416,
+          "root_cause": "info:health_check"
+        },
+        {
+          "id": 2134,
+          "distance": 0.019143931030763395,
+          "root_cause": "info:health_check"
+        },
+        {
+          "id": 479,
+          "distance": 0.025615476651756564,
+          "root_cause": "info:health_check"
+        },
+        {
+          "id": 2228,
+          "distance": 0.0256761281875304,
+          "root_cause": "info:health_check"
+        },
+        {
+          "id": 7652,
+          "distance": 0.026083279694126937,
+          "root_cause": "info:health_check"
+        },
+        {
+          "id": 6402,
+          "distance": 0.02653438010995801,
+          "root_cause": "info:health_check"
+        },
+        {
+          "id": 6200,
+          "distance": 0.028426700013408523,
+          "root_cause": "info:health_check"
+        },
+        {
+          "id": 4237,
+          "distance": 0.028487849270391163,
+          "root_cause": "info:health_check"
+        },
+        {
+          "id": 9494,
+          "distance": 0.030950479280772436,
+          "root_cause": "info:health_check"
+        }
+      ]
+    },
+    {
+      "id": 9055,
+      "level": "INFO",
+      "root_cause": "info:http_request",
+      "message": "request completed method=POST path=/api/cart/items status=200 duration_ms=386 request_id=bacad0e3-8d5f-4338-910a-7bffb677ddba",
+      "kth_distance": 0.019730867131402374,
+      "ties_beyond_k": 0,
+      "neighbors": [
+        {
+          "id": 9834,
+          "distance": 0.016945061037811793,
+          "root_cause": "info:http_request"
+        },
+        {
+          "id": 2738,
+          "distance": 0.017117948870471578,
+          "root_cause": "info:http_request"
+        },
+        {
+          "id": 372,
+          "distance": 0.018048827182939098,
+          "root_cause": "info:http_request"
+        },
+        {
+          "id": 7021,
+          "distance": 0.0186591126133,
+          "root_cause": "info:http_request"
+        },
+        {
+          "id": 7303,
+          "distance": 0.01896882170252756,
+          "root_cause": "info:http_request"
+        },
+        {
+          "id": 6885,
+          "distance": 0.019136488437652588,
+          "root_cause": "info:http_request"
+        },
+        {
+          "id": 5096,
+          "distance": 0.019433021545410156,
+          "root_cause": "info:http_request"
+        },
+        {
+          "id": 299,
+          "distance": 0.01944187341457182,
+          "root_cause": "info:http_request"
+        },
+        {
+          "id": 2229,
+          "distance": 0.01959216828252197,
+          "root_cause": "info:http_request"
+        },
+        {
+          "id": 8245,
+          "distance": 0.019730867131402374,
+          "root_cause": "info:http_request"
+        }
+      ]
+    },
+    {
+      "id": 9169,
+      "level": "INFO",
+      "root_cause": "info:user_login",
+      "message": "Login succeeded for Dawn69@gmail.com (mfa=false)",
+      "kth_distance": 0.17933637664778024,
+      "ties_beyond_k": 0,
+      "neighbors": [
+        {
+          "id": 5532,
+          "distance": 0.11128094465277627,
+          "root_cause": "info:user_login"
+        },
+        {
+          "id": 9421,
+          "distance": 0.1481324257691815,
+          "root_cause": "info:user_login"
+        },
+        {
+          "id": 6215,
+          "distance": 0.15561174023501134,
+          "root_cause": "info:user_login"
+        },
+        {
+          "id": 9819,
+          "distance": 0.16022476438725397,
+          "root_cause": "info:user_login"
+        },
+        {
+          "id": 5750,
+          "distance": 0.16067555439629777,
+          "root_cause": "info:user_login"
+        },
+        {
+          "id": 7860,
+          "distance": 0.16431174703686902,
+          "root_cause": "info:user_login"
+        },
+        {
+          "id": 8866,
+          "distance": 0.16612079729808382,
+          "root_cause": "info:user_login"
+        },
+        {
+          "id": 1480,
+          "distance": 0.1703297990363234,
+          "root_cause": "info:user_login"
+        },
+        {
+          "id": 3355,
+          "distance": 0.1706608402702955,
+          "root_cause": "info:user_login"
+        },
+        {
+          "id": 7011,
+          "distance": 0.17933637664778024,
+          "root_cause": "info:user_login"
+        }
+      ]
+    },
+    {
+      "id": 9347,
+      "level": "INFO",
+      "root_cause": "info:http_request",
+      "message": "Handled /api/auth/refresh in 370 ms (status 200)",
+      "kth_distance": 0.02302843195030324,
+      "ties_beyond_k": 2,
+      "neighbors": [
+        {
+          "id": 580,
+          "distance": 0.01838099956512451,
+          "root_cause": "info:http_request"
+        },
+        {
+          "id": 361,
+          "distance": 0.020721256732940674,
+          "root_cause": "info:http_request"
+        },
+        {
+          "id": 1935,
+          "distance": 0.020721256732940674,
+          "root_cause": "info:http_request"
+        },
+        {
+          "id": 317,
+          "distance": 0.021853208541870117,
+          "root_cause": "info:http_request"
+        },
+        {
+          "id": 9991,
+          "distance": 0.021853208541870117,
+          "root_cause": "info:http_request"
+        },
+        {
+          "id": 7523,
+          "distance": 0.0222583346788644,
+          "root_cause": "info:http_request"
+        },
+        {
+          "id": 9663,
+          "distance": 0.0222583346788644,
+          "root_cause": "info:http_request"
+        },
+        {
+          "id": 2626,
+          "distance": 0.022345811794572956,
+          "root_cause": "info:http_request"
+        },
+        {
+          "id": 5518,
+          "distance": 0.022345811794572956,
+          "root_cause": "info:http_request"
+        },
+        {
+          "id": 5189,
+          "distance": 0.02302843195030324,
+          "root_cause": "info:http_request"
+        }
+      ]
+    },
+    {
+      "id": 9458,
+      "level": "INFO",
+      "root_cause": "info:http_request",
+      "message": "Handled /api/orders in 225 ms (status 200)",
+      "kth_distance": 0.034809531856149656,
+      "ties_beyond_k": 0,
+      "neighbors": [
+        {
+          "id": 9737,
+          "distance": 0,
+          "root_cause": "info:http_request"
+        },
+        {
+          "id": 8455,
+          "distance": 0.02499324083328247,
+          "root_cause": "info:http_request"
+        },
+        {
+          "id": 6263,
+          "distance": 0.0260512248308179,
+          "root_cause": "info:http_request"
+        },
+        {
+          "id": 1614,
+          "distance": 0.02840524911880493,
+          "root_cause": "info:http_request"
+        },
+        {
+          "id": 5969,
+          "distance": 0.02840524911880493,
+          "root_cause": "info:http_request"
+        },
+        {
+          "id": 1047,
+          "distance": 0.03149006052225978,
+          "root_cause": "info:http_request"
+        },
+        {
+          "id": 5447,
+          "distance": 0.03149006052225978,
+          "root_cause": "info:http_request"
+        },
+        {
+          "id": 1617,
+          "distance": 0.03187114190287077,
+          "root_cause": "info:http_request"
+        },
+        {
+          "id": 1519,
+          "distance": 0.032526012357941836,
+          "root_cause": "info:http_request"
+        },
+        {
+          "id": 6829,
+          "distance": 0.034809531856149656,
+          "root_cause": "info:http_request"
+        }
+      ]
+    },
+    {
+      "id": 9507,
+      "level": "INFO",
+      "root_cause": "info:http_request",
+      "message": "request completed method=POST path=/api/auth/refresh status=200 duration_ms=300 request_id=4c554900-b0b4-4cac-b7d4-4035d2849fc3",
+      "kth_distance": 0.022726782343428953,
+      "ties_beyond_k": 0,
+      "neighbors": [
+        {
+          "id": 618,
+          "distance": 0.019028485955462138,
+          "root_cause": "info:http_request"
+        },
+        {
+          "id": 6739,
+          "distance": 0.020295505594128738,
+          "root_cause": "info:http_request"
+        },
+        {
+          "id": 8072,
+          "distance": 0.021476332213207106,
+          "root_cause": "info:http_request"
+        },
+        {
+          "id": 3518,
+          "distance": 0.021844364413261208,
+          "root_cause": "info:http_request"
+        },
+        {
+          "id": 1044,
+          "distance": 0.022044365893444273,
+          "root_cause": "info:http_request"
+        },
+        {
+          "id": 1165,
+          "distance": 0.022279416202174107,
+          "root_cause": "info:http_request"
+        },
+        {
+          "id": 5619,
+          "distance": 0.02233109610206019,
+          "root_cause": "info:http_request"
+        },
+        {
+          "id": 6463,
+          "distance": 0.022511360345805587,
+          "root_cause": "info:http_request"
+        },
+        {
+          "id": 1650,
+          "distance": 0.022512441280463258,
+          "root_cause": "info:http_request"
+        },
+        {
+          "id": 584,
+          "distance": 0.022726782343428953,
+          "root_cause": "info:http_request"
+        }
+      ]
+    },
+    {
+      "id": 9624,
+      "level": "WARN",
+      "root_cause": "jwt_expired",
+      "message": "401 Unauthorized - session for user usr_856354 is no longer valid, re-login required",
+      "kth_distance": 0.05353600105857692,
+      "ties_beyond_k": 0,
+      "neighbors": [
+        {
+          "id": 6989,
+          "distance": 0.03208339214324951,
+          "root_cause": "jwt_expired"
+        },
+        {
+          "id": 4297,
+          "distance": 0.03401851045752824,
+          "root_cause": "jwt_expired"
+        },
+        {
+          "id": 9820,
+          "distance": 0.036179070017220094,
+          "root_cause": "jwt_expired"
+        },
+        {
+          "id": 5863,
+          "distance": 0.0362215530211637,
+          "root_cause": "jwt_expired"
+        },
+        {
+          "id": 5298,
+          "distance": 0.037519631533643016,
+          "root_cause": "jwt_expired"
+        },
+        {
+          "id": 8936,
+          "distance": 0.04555593834971139,
+          "root_cause": "jwt_expired"
+        },
+        {
+          "id": 5792,
+          "distance": 0.050609418858766686,
+          "root_cause": "jwt_expired"
+        },
+        {
+          "id": 1784,
+          "distance": 0.05238288328749474,
+          "root_cause": "jwt_expired"
+        },
+        {
+          "id": 1118,
+          "distance": 0.053361061415733935,
+          "root_cause": "jwt_expired"
+        },
+        {
+          "id": 423,
+          "distance": 0.05353600105857692,
+          "root_cause": "jwt_expired"
+        }
+      ]
+    },
+    {
+      "id": 9648,
+      "level": "INFO",
+      "root_cause": "info:http_request",
+      "message": "request completed method=POST path=/api/cart/items status=200 duration_ms=53 request_id=7f417e2b-67cf-4460-853b-b5addc57a6ac",
+      "kth_distance": 0.01245668938825173,
+      "ties_beyond_k": 1,
+      "neighbors": [
+        {
+          "id": 7110,
+          "distance": 0.007464677762803462,
+          "root_cause": "info:http_request"
+        },
+        {
+          "id": 3086,
+          "distance": 0.010616513321267895,
+          "root_cause": "info:http_request"
+        },
+        {
+          "id": 6459,
+          "distance": 0.011005763175148564,
+          "root_cause": "info:http_request"
+        },
+        {
+          "id": 2229,
+          "distance": 0.0119244779190818,
+          "root_cause": "info:http_request"
+        },
+        {
+          "id": 6173,
+          "distance": 0.011989266752233108,
+          "root_cause": "info:http_request"
+        },
+        {
+          "id": 8438,
+          "distance": 0.012006849408342846,
+          "root_cause": "info:http_request"
+        },
+        {
+          "id": 898,
+          "distance": 0.012260941824123517,
+          "root_cause": "info:http_request"
+        },
+        {
+          "id": 28,
+          "distance": 0.01236614621775678,
+          "root_cause": "info:http_request"
+        },
+        {
+          "id": 299,
+          "distance": 0.012436570219582999,
+          "root_cause": "info:http_request"
+        },
+        {
+          "id": 1672,
+          "distance": 0.01245668938825173,
+          "root_cause": "info:http_request"
+        }
+      ]
+    },
+    {
+      "id": 9689,
+      "level": "INFO",
+      "root_cause": "info:user_login",
+      "message": "Login succeeded for Angela43@yahoo.com (mfa=false)",
+      "kth_distance": 0.2154842101373171,
+      "ties_beyond_k": 0,
+      "neighbors": [
+        {
+          "id": 3812,
+          "distance": 0.18590475236798198,
+          "root_cause": "info:user_login"
+        },
+        {
+          "id": 3152,
+          "distance": 0.19985708000831226,
+          "root_cause": "info:user_login"
+        },
+        {
+          "id": 2209,
+          "distance": 0.20537992779964231,
+          "root_cause": "info:user_login"
+        },
+        {
+          "id": 6432,
+          "distance": 0.2086756465233498,
+          "root_cause": "info:user_login"
+        },
+        {
+          "id": 6530,
+          "distance": 0.21018179473010257,
+          "root_cause": "info:user_login"
+        },
+        {
+          "id": 232,
+          "distance": 0.21202158569646168,
+          "root_cause": "info:user_login"
+        },
+        {
+          "id": 7974,
+          "distance": 0.21371585995772835,
+          "root_cause": "info:user_login"
+        },
+        {
+          "id": 4085,
+          "distance": 0.21463824161571465,
+          "root_cause": "info:user_login"
+        },
+        {
+          "id": 508,
+          "distance": 0.21464120062342817,
+          "root_cause": "info:user_login"
+        },
+        {
+          "id": 1228,
+          "distance": 0.2154842101373171,
+          "root_cause": "info:user_login"
+        }
+      ]
+    },
+    {
+      "id": 9801,
+      "level": "INFO",
+      "root_cause": "info:user_login",
+      "message": "Login succeeded for Novella.Dibbert-Nitzsche@hotmail.com (mfa=true)",
+      "kth_distance": 0.3009790535073025,
+      "ties_beyond_k": 0,
+      "neighbors": [
+        {
+          "id": 2822,
+          "distance": 0.23821367534151117,
+          "root_cause": "info:user_login"
+        },
+        {
+          "id": 9939,
+          "distance": 0.27948768872462404,
+          "root_cause": "info:user_login"
+        },
+        {
+          "id": 2977,
+          "distance": 0.28125206194755425,
+          "root_cause": "info:user_login"
+        },
+        {
+          "id": 6029,
+          "distance": 0.29184514028334596,
+          "root_cause": "info:user_login"
+        },
+        {
+          "id": 445,
+          "distance": 0.29365624416246716,
+          "root_cause": "info:user_login"
+        },
+        {
+          "id": 6058,
+          "distance": 0.29408543951071864,
+          "root_cause": "info:user_login"
+        },
+        {
+          "id": 1557,
+          "distance": 0.2990978304335574,
+          "root_cause": "info:user_login"
+        },
+        {
+          "id": 1100,
+          "distance": 0.30014591213560216,
+          "root_cause": "info:user_login"
+        },
+        {
+          "id": 257,
+          "distance": 0.300923883914868,
+          "root_cause": "info:user_login"
+        },
+        {
+          "id": 9004,
+          "distance": 0.3009790535073025,
+          "root_cause": "info:user_login"
+        }
+      ]
+    },
+    {
+      "id": 9996,
+      "level": "INFO",
+      "root_cause": "info:http_request",
+      "message": "POST /api/orders 200 258ms",
+      "kth_distance": 0.03534537343108102,
+      "ties_beyond_k": 0,
+      "neighbors": [
+        {
+          "id": 2871,
+          "distance": 0.02535062575029501,
+          "root_cause": "info:http_request"
+        },
+        {
+          "id": 9158,
+          "distance": 0.026643224550045308,
+          "root_cause": "info:http_request"
+        },
+        {
+          "id": 3751,
+          "distance": 0.028842151164946483,
+          "root_cause": "info:http_request"
+        },
+        {
+          "id": 1623,
+          "distance": 0.031276157118033554,
+          "root_cause": "info:http_request"
+        },
+        {
+          "id": 3467,
+          "distance": 0.032282817739432645,
+          "root_cause": "info:http_request"
+        },
+        {
+          "id": 4378,
+          "distance": 0.03370296352451152,
+          "root_cause": "info:http_request"
+        },
+        {
+          "id": 575,
+          "distance": 0.033791893638614456,
+          "root_cause": "info:http_request"
+        },
+        {
+          "id": 7621,
+          "distance": 0.03419213060468773,
+          "root_cause": "info:http_request"
+        },
+        {
+          "id": 6978,
+          "distance": 0.034988158645347656,
+          "root_cause": "info:http_request"
+        },
+        {
+          "id": 7907,
+          "distance": 0.03534537343108102,
+          "root_cause": "info:http_request"
+        }
+      ]
+    }
+  ]
+}

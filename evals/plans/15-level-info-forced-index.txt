@@ -1,0 +1,16 @@
+-- level = 'INFO' with the index forced
+-- setup: CREATE INDEX idx_logs_level ON logs (level)
+-- setup: ANALYZE logs
+-- setup: SET LOCAL enable_seqscan = off
+
+SELECT id, service FROM logs WHERE level = 'INFO';
+
+Bitmap Heap Scan on logs  (cost=8225.66..268887.01 rows=737708 width=18) (actual time=121.785..382.090 rows=739475 loops=1)
+  Recheck Cond: (level = 'INFO'::text)
+  Heap Blocks: exact=248239
+  Buffers: shared hit=248865
+  ->  Bitmap Index Scan on idx_logs_level  (cost=0.00..8041.23 rows=737708 width=0) (actual time=66.118..66.118 rows=739475 loops=1)
+        Index Cond: (level = 'INFO'::text)
+        Buffers: shared hit=626
+Planning Time: 0.056 ms
+Execution Time: 404.129 ms

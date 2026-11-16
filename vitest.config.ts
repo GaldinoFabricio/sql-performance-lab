@@ -1,4 +1,9 @@
+import dotenv from "dotenv";
 import { defineConfig } from "vitest/config";
+
+// Read .env first, so the tests use the same database as pnpm migrate.
+// Variables already set in the shell (CI) still win.
+dotenv.config({ quiet: true });
 
 export default defineConfig({
    test: {

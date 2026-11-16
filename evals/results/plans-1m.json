@@ -1,0 +1,660 @@
+{
+  "created_at": "2026-11-15T18:31:20.739Z",
+  "rows": 1000000,
+  "plans": [
+    {
+      "id": "01-latest-by-service-no-index",
+      "title": "Latest 50 logs of a service, without the composite index",
+      "sql": "SELECT id, created_at, level, message FROM logs WHERE service = 'payments' ORDER BY created_at DESC LIMIT 50",
+      "setup": [
+        "DROP INDEX idx_logs_service_created_at"
+      ],
+      "nodes": [
+        "Limit",
+        "Gather Merge",
+        "Sort",
+        "Parallel Seq Scan"
+      ],
+      "indexes": [],
+      "execution_ms": 178.407,
+      "p50_ms": 210.057,
+      "rows": 50,
+      "buffers": {
+        "hit": 10327,
+        "read": 241187
+      }
+    },
+    {
+      "id": "02-latest-by-service-composite",
+      "title": "Latest 50 logs of a service, with (service, created_at DESC)",
+      "sql": "SELECT id, created_at, level, message FROM logs WHERE service = 'payments' ORDER BY created_at DESC LIMIT 50",
+      "setup": [],
+      "nodes": [
+        "Limit",
+        "Index Scan"
+      ],
+      "indexes": [
+        "idx_logs_service_created_at"
+      ],
+      "execution_ms": 0.074,
+      "p50_ms": 1.083,
+      "rows": 50,
+      "buffers": {
+        "hit": 48,
+        "read": 0
+      }
+    },
+    {
+      "id": "03-prefix-service-and-time",
+      "title": "Leftmost prefix: service = and a time range use both columns",
+      "sql": "SELECT id, created_at, level FROM logs WHERE service = 'payments' AND created_at >= '2026-11-13T23:59:58.677Z'::timestamptz - interval '1 hour' ORDER BY created_at DESC",
+      "setup": [],
+      "nodes": [
+        "Index Scan"
+      ],
+      "indexes": [
+        "idx_logs_service_created_at"
+      ],
+      "execution_ms": 0.1,
+      "p50_ms": 1.075,
+      "rows": 113,
+      "buffers": {
+        "hit": 103,
+        "read": 0
+      }
+    },
+    {
+      "id": "04-prefix-time-only",
+      "title": "Leftmost prefix: created_at alone can't seek into (service, created_at)",
+      "sql": "SELECT id, created_at, level FROM logs WHERE created_at >= '2026-11-13T23:59:58.677Z'::timestamptz - interval '1 hour' ORDER BY created_at DESC",
+      "setup": [],
+      "nodes": [
+        "Sort",
+        "Index Scan"
+      ],
+      "indexes": [
+        "idx_logs_service_created_at"
+      ],
+      "execution_ms": 34.576,
+      "p50_ms": 39.553,
+      "rows": 1389,
+      "buffers": {
+        "hit": 7087,
+        "read": 0
+      }
+    },
+    {
+      "id": "05-prefix-service-only",
+      "title": "Leftmost prefix: service alone uses the index (first column)",
+      "sql": "SELECT count(*) FROM logs WHERE service = 'shipping'",
+      "setup": [],
+      "nodes": [
+        "Aggregate",
+        "Index Only Scan"
+      ],
+      "indexes": [
+        "idx_logs_service_created_at"
+      ],
+      "execution_ms": 7.975,
+      "p50_ms": 12.351,
+      "rows": 1,
+      "buffers": {
+        "hit": 971,
+        "read": 0
+      }
+    },
+    {
+      "id": "06-redundant-service-index",
+      "title": "With both (service) and (service, created_at): the planner picks one",
+      "sql": "SELECT count(*) FROM logs WHERE service = 'shipping'",
+      "setup": [
+        "CREATE INDEX idx_logs_service ON logs (service)",
+        "ANALYZE logs"
+      ],
+      "nodes": [
+        "Aggregate",
+        "Index Only Scan"
+      ],
+      "indexes": [
+        "idx_logs_service"
+      ],
+      "execution_ms": 7.31,
+      "p50_ms": 8.105,
+      "rows": 1,
+      "buffers": {
+        "hit": 93,
+        "read": 0
+      }
+    },
+    {
+      "id": "07-500-common-service",
+      "title": "500 rows, service = 'api-gateway' (36% of rows)",
+      "sql": "SELECT id, created_at, level FROM logs_500 WHERE service = 'api-gateway'",
+      "setup": [],
+      "nodes": [
+        "Seq Scan"
+      ],
+      "indexes": [],
+      "execution_ms": 0.336,
+      "p50_ms": 4.311,
+      "rows": 182,
+      "buffers": {
+        "hit": 16,
+        "read": 0
+      }
+    },
+    {
+      "id": "08-500-rare-service",
+      "title": "500 rows, service = 'shipping' (~4% of rows)",
+      "sql": "SELECT id, created_at, level FROM logs_500 WHERE service = 'shipping'",
+      "setup": [],
+      "nodes": [
+        "Bitmap Heap Scan",
+        "Bitmap Index Scan"
+      ],
+      "indexes": [
+        "idx_logs_500_service_created_at"
+      ],
+      "execution_ms": 0.071,
+      "p50_ms": 0.963,
+      "rows": 19,
+      "buffers": {
+        "hit": 11,
+        "read": 0
+      }
+    },
+    {
+      "id": "09-500-rare-service-no-index",
+      "title": "500 rows, service = 'shipping', index scans disabled",
+      "sql": "SELECT id, created_at, level FROM logs_500 WHERE service = 'shipping'",
+      "setup": [
+        "SET LOCAL enable_indexscan = off",
+        "SET LOCAL enable_bitmapscan = off",
+        "SET LOCAL enable_indexonlyscan = off"
+      ],
+      "nodes": [
+        "Seq Scan"
+      ],
+      "indexes": [],
+      "execution_ms": 0.106,
+      "p50_ms": 0.756,
+      "rows": 19,
+      "buffers": {
+        "hit": 16,
+        "read": 0
+      }
+    },
+    {
+      "id": "10-full-common-service",
+      "title": "full table, service = 'api-gateway' (36% of rows)",
+      "sql": "SELECT id, created_at, level FROM logs WHERE service = 'api-gateway'",
+      "setup": [],
+      "nodes": [
+        "Seq Scan"
+      ],
+      "indexes": [],
+      "execution_ms": 446.18,
+      "p50_ms": 799.511,
+      "rows": 311095,
+      "buffers": {
+        "hit": 10616,
+        "read": 240824
+      }
+    },
+    {
+      "id": "11-full-rare-service",
+      "title": "full table, service = 'shipping' (~4% of rows)",
+      "sql": "SELECT id, created_at, level FROM logs WHERE service = 'shipping'",
+      "setup": [],
+      "nodes": [
+        "Bitmap Heap Scan",
+        "Bitmap Index Scan"
+      ],
+      "indexes": [
+        "idx_logs_service_created_at"
+      ],
+      "execution_ms": 41.976,
+      "p50_ms": 117.104,
+      "rows": 43080,
+      "buffers": {
+        "hit": 40558,
+        "read": 0
+      }
+    },
+    {
+      "id": "12-full-rare-service-no-index",
+      "title": "full table, service = 'shipping', index scans disabled",
+      "sql": "SELECT id, created_at, level FROM logs WHERE service = 'shipping'",
+      "setup": [
+        "SET LOCAL enable_indexscan = off",
+        "SET LOCAL enable_bitmapscan = off",
+        "SET LOCAL enable_indexonlyscan = off"
+      ],
+      "nodes": [
+        "Seq Scan"
+      ],
+      "indexes": [],
+      "execution_ms": 423.399,
+      "p50_ms": 457.476,
+      "rows": 43080,
+      "buffers": {
+        "hit": 49374,
+        "read": 202066
+      }
+    },
+    {
+      "id": "13-level-info-74pct",
+      "title": "level = 'INFO' (most rows): index ignored",
+      "sql": "SELECT id, service FROM logs WHERE level = 'INFO'",
+      "setup": [
+        "CREATE INDEX idx_logs_level ON logs (level)",
+        "ANALYZE logs"
+      ],
+      "nodes": [
+        "Seq Scan"
+      ],
+      "indexes": [],
+      "execution_ms": 479.746,
+      "p50_ms": 645.695,
+      "rows": 739475,
+      "buffers": {
+        "hit": 50078,
+        "read": 201362
+      }
+    },
+    {
+      "id": "14-level-fatal-1pct",
+      "title": "level = 'FATAL' (few rows): index used",
+      "sql": "SELECT id, service FROM logs WHERE level = 'FATAL'",
+      "setup": [
+        "CREATE INDEX idx_logs_level ON logs (level)",
+        "ANALYZE logs"
+      ],
+      "nodes": [
+        "Index Scan"
+      ],
+      "indexes": [
+        "idx_logs_level"
+      ],
+      "execution_ms": 8.677,
+      "p50_ms": 13.89,
+      "rows": 14065,
+      "buffers": {
+        "hit": 13800,
+        "read": 0
+      }
+    },
+    {
+      "id": "15-level-info-forced-index",
+      "title": "level = 'INFO' with the index forced",
+      "sql": "SELECT id, service FROM logs WHERE level = 'INFO'",
+      "setup": [
+        "CREATE INDEX idx_logs_level ON logs (level)",
+        "ANALYZE logs",
+        "SET LOCAL enable_seqscan = off"
+      ],
+      "nodes": [
+        "Bitmap Heap Scan",
+        "Bitmap Index Scan"
+      ],
+      "indexes": [
+        "idx_logs_level"
+      ],
+      "execution_ms": 404.129,
+      "p50_ms": 801.138,
+      "rows": 739475,
+      "buffers": {
+        "hit": 248865,
+        "read": 0
+      }
+    },
+    {
+      "id": "16-filter-vector-ef40",
+      "title": "HNSW + WHERE service, ef_search = 40",
+      "sql": "SELECT id, embedding <=> '[…384 floats…]'::vector AS distance FROM logs WHERE service = 'shipping' ORDER BY embedding <=> '[…384 floats…]'::vector LIMIT 10",
+      "setup": [
+        "SET LOCAL hnsw.ef_search = 40",
+        "SET LOCAL hnsw.iterative_scan = off"
+      ],
+      "nodes": [
+        "Limit",
+        "Index Scan"
+      ],
+      "indexes": [
+        "idx_logs_embedding_hnsw"
+      ],
+      "execution_ms": 0.549,
+      "p50_ms": 1.101,
+      "rows": 0,
+      "buffers": {
+        "hit": 1112,
+        "read": 0
+      }
+    },
+    {
+      "id": "17-filter-vector-ef400",
+      "title": "Mitigation: larger ef_search (400)",
+      "sql": "SELECT id, embedding <=> '[…384 floats…]'::vector AS distance FROM logs WHERE service = 'shipping' ORDER BY embedding <=> '[…384 floats…]'::vector LIMIT 10",
+      "setup": [
+        "SET LOCAL hnsw.ef_search = 400",
+        "SET LOCAL hnsw.iterative_scan = off"
+      ],
+      "nodes": [
+        "Limit",
+        "Index Scan"
+      ],
+      "indexes": [
+        "idx_logs_embedding_hnsw"
+      ],
+      "execution_ms": 2.867,
+      "p50_ms": 3.521,
+      "rows": 8,
+      "buffers": {
+        "hit": 4051,
+        "read": 0
+      }
+    },
+    {
+      "id": "18-filter-vector-iterative",
+      "title": "Mitigation: iterative scan (pgvector 0.8, relaxed order)",
+      "sql": "SELECT id, embedding <=> '[…384 floats…]'::vector AS distance FROM logs WHERE service = 'shipping' ORDER BY embedding <=> '[…384 floats…]'::vector LIMIT 10",
+      "setup": [
+        "SET LOCAL hnsw.ef_search = 40",
+        "SET LOCAL hnsw.iterative_scan = relaxed_order"
+      ],
+      "nodes": [
+        "Limit",
+        "Index Scan"
+      ],
+      "indexes": [
+        "idx_logs_embedding_hnsw"
+      ],
+      "execution_ms": 4.016,
+      "p50_ms": 4.507,
+      "rows": 10,
+      "buffers": {
+        "hit": 4768,
+        "read": 0
+      }
+    },
+    {
+      "id": "19-filter-vector-partial-index",
+      "title": "Mitigation: partial HNSW index WHERE service = 'shipping'",
+      "sql": "SELECT id, embedding <=> '[…384 floats…]'::vector AS distance FROM logs WHERE service = 'shipping' ORDER BY embedding <=> '[…384 floats…]'::vector LIMIT 10",
+      "setup": [
+        "SET LOCAL maintenance_work_mem = '512MB'",
+        "CREATE INDEX idx_logs_embedding_hnsw_shipping ON logs USING hnsw (embedding vector_cosine_ops) WITH (m = 16, ef_construction = 64) WHERE service = 'shipping'",
+        "SET LOCAL hnsw.ef_search = 40",
+        "SET LOCAL hnsw.iterative_scan = off"
+      ],
+      "nodes": [
+        "Limit",
+        "Index Scan"
+      ],
+      "indexes": [
+        "idx_logs_embedding_hnsw_shipping"
+      ],
+      "execution_ms": 0.155,
+      "p50_ms": 0.743,
+      "rows": 10,
+      "buffers": {
+        "hit": 237,
+        "read": 0
+      }
+    },
+    {
+      "id": "20-filter-vector-btree-exact",
+      "title": "Mitigation: no HNSW, the B-tree finds the service and distances are sorted exactly",
+      "sql": "SELECT id, embedding <=> '[…384 floats…]'::vector AS distance FROM logs WHERE service = 'shipping' ORDER BY embedding <=> '[…384 floats…]'::vector LIMIT 10",
+      "setup": [
+        "DROP INDEX idx_logs_embedding_hnsw"
+      ],
+      "nodes": [
+        "Limit",
+        "Sort",
+        "Bitmap Heap Scan",
+        "Bitmap Index Scan"
+      ],
+      "indexes": [
+        "idx_logs_service_created_at"
+      ],
+      "execution_ms": 58.963,
+      "p50_ms": 54.844,
+      "rows": 10,
+      "buffers": {
+        "hit": 40992,
+        "read": 0
+      }
+    }
+  ],
+  "insert_throughput": [
+    {
+      "variant": "primary key only",
+      "rows": 50000,
+      "repeats": 7,
+      "rows_per_s": 89896,
+      "rows_per_s_range": [
+        16610,
+        110911
+      ],
+      "wal_bytes_per_row": 1803
+    },
+    {
+      "variant": "+ (service, created_at)",
+      "rows": 50000,
+      "repeats": 7,
+      "rows_per_s": 62376,
+      "rows_per_s_range": [
+        12022,
+        69867
+      ],
+      "wal_bytes_per_row": 1943
+    },
+    {
+      "variant": "+ (service, created_at) + (service)",
+      "rows": 50000,
+      "repeats": 7,
+      "rows_per_s": 55621,
+      "rows_per_s_range": [
+        5457,
+        67108
+      ],
+      "wal_bytes_per_row": 1956
+    },
+    {
+      "variant": "+ GIN full-text",
+      "rows": 50000,
+      "repeats": 7,
+      "rows_per_s": 8956,
+      "rows_per_s_range": [
+        5405,
+        19436
+      ],
+      "wal_bytes_per_row": 3271
+    },
+    {
+      "variant": "+ GIN full-text + HNSW (all production indexes)",
+      "rows": 5000,
+      "repeats": 3,
+      "rows_per_s": 441,
+      "rows_per_s_range": [
+        428,
+        469
+      ],
+      "wal_bytes_per_row": 15309
+    }
+  ],
+  "redundant_sizes": {
+    "idx_logs_service": 7053312,
+    "idx_logs_service_created_at": 49266688
+  },
+  "table_pages": {
+    "logs_500": 16,
+    "logs": 251440
+  },
+  "level_distribution": [
+    {
+      "level": "INFO",
+      "n": 739475
+    },
+    {
+      "level": "ERROR",
+      "n": 131587
+    },
+    {
+      "level": "WARN",
+      "n": 114873
+    },
+    {
+      "level": "FATAL",
+      "n": 14065
+    }
+  ],
+  "filtered_service": {
+    "service": "shipping",
+    "share": 0.0431
+  },
+  "filtered_vector": {
+    "k": 10,
+    "queries": 60,
+    "variants": [
+      {
+        "id": "16-filter-vector-ef40",
+        "title": "HNSW + WHERE service, ef_search = 40",
+        "indexes": [
+          "idx_logs_embedding_hnsw"
+        ],
+        "avg_rows": 2.88,
+        "queries_under_k": 51,
+        "recall_at_k": 0.1367,
+        "p50_ms": 3.339,
+        "p95_ms": 6.695
+      },
+      {
+        "id": "17-filter-vector-ef400",
+        "title": "Mitigation: larger ef_search (400)",
+        "indexes": [
+          "idx_logs_embedding_hnsw"
+        ],
+        "avg_rows": 5.5,
+        "queries_under_k": 36,
+        "recall_at_k": 0.35,
+        "p50_ms": 5.908,
+        "p95_ms": 17.732
+      },
+      {
+        "id": "18-filter-vector-iterative",
+        "title": "Mitigation: iterative scan (pgvector 0.8, relaxed order)",
+        "indexes": [
+          "idx_logs_embedding_hnsw"
+        ],
+        "avg_rows": 9.25,
+        "queries_under_k": 6,
+        "recall_at_k": 0.485,
+        "p50_ms": 5.918,
+        "p95_ms": 82.891
+      },
+      {
+        "id": "19-filter-vector-partial-index",
+        "title": "Mitigation: partial HNSW index WHERE service = 'shipping'",
+        "indexes": [
+          "idx_logs_embedding_hnsw_shipping"
+        ],
+        "avg_rows": 10,
+        "queries_under_k": 0,
+        "recall_at_k": 0.4817,
+        "p50_ms": 1.512,
+        "p95_ms": 4.16,
+        "setup_ms": 2843
+      },
+      {
+        "id": "20-filter-vector-btree-exact",
+        "title": "Mitigation: no HNSW, the B-tree finds the service and distances are sorted exactly",
+        "indexes": [
+          "idx_logs_service_created_at"
+        ],
+        "avg_rows": 10,
+        "queries_under_k": 0,
+        "recall_at_k": 1,
+        "p50_ms": 54.891,
+        "p95_ms": 57.249
+      }
+    ]
+  },
+  "pg_stat_statements": {
+    "by_total": [
+      {
+        "query": "SELECT count(*) FROM logs WHERE level IN ($2, $3) AND created_at >= $1::timestamptz - interval $4",
+        "calls": "300",
+        "total_ms": "10064.4",
+        "mean_ms": "33.548",
+        "pct_total": "92.9"
+      },
+      {
+        "query": "SELECT id, message FROM logs WHERE message ILIKE $1 LIMIT $2",
+        "calls": "3",
+        "total_ms": "322.7",
+        "mean_ms": "107.576",
+        "pct_total": "3.0"
+      },
+      {
+        "query": "SELECT service, level, count(*) FROM logs WHERE created_at >= $1::timestamptz - ($2 || $3)::interval GROUP BY ",
+        "calls": "3",
+        "total_ms": "196.8",
+        "mean_ms": "65.603",
+        "pct_total": "1.8"
+      },
+      {
+        "query": "SELECT id, created_at, message FROM logs WHERE service = $1 AND level = $2 ORDER BY created_at DESC LIMIT $3",
+        "calls": "1500",
+        "total_ms": "168.0",
+        "mean_ms": "0.112",
+        "pct_total": "1.6"
+      },
+      {
+        "query": "SELECT id, message FROM logs WHERE id = $1",
+        "calls": "3000",
+        "total_ms": "85.0",
+        "mean_ms": "0.028",
+        "pct_total": "0.8"
+      }
+    ],
+    "by_mean": [
+      {
+        "query": "SELECT id, message FROM logs WHERE message ILIKE $1 LIMIT $2",
+        "calls": "3",
+        "total_ms": "322.7",
+        "mean_ms": "107.576",
+        "pct_total": "3.0"
+      },
+      {
+        "query": "SELECT service, level, count(*) FROM logs WHERE created_at >= $1::timestamptz - ($2 || $3)::interval GROUP BY ",
+        "calls": "3",
+        "total_ms": "196.8",
+        "mean_ms": "65.603",
+        "pct_total": "1.8"
+      },
+      {
+        "query": "SELECT count(*) FROM logs WHERE level IN ($2, $3) AND created_at >= $1::timestamptz - interval $4",
+        "calls": "300",
+        "total_ms": "10064.4",
+        "mean_ms": "33.548",
+        "pct_total": "92.9"
+      },
+      {
+        "query": "SELECT id, created_at, message FROM logs WHERE service = $1 AND level = $2 ORDER BY created_at DESC LIMIT $3",
+        "calls": "1500",
+        "total_ms": "168.0",
+        "mean_ms": "0.112",
+        "pct_total": "1.6"
+      },
+      {
+        "query": "SELECT min(id)::int AS lo, max(id)::int AS hi FROM logs",
+        "calls": "1",
+        "total_ms": "0.0",
+        "mean_ms": "0.044",
+        "pct_total": "0.0"
+      }
+    ]
+  }
+}

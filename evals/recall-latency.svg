@@ -1,0 +1,384 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1064 650" width="1064" height="650" font-family="system-ui, -apple-system, 'Segoe UI', sans-serif" role="img" aria-labelledby="t d">
+<title id="t">HNSW recall@10 vs p50 latency</title>
+<desc id="d">recall@10 against exact search versus median query latency, per HNSW build config and ef_search, for each table size; free-text queries on top, log queries below. Exact search is the gray reference point.</desc>
+<style>
+  .bg { fill: #fcfcfb; }
+  .grid { stroke: #e1e0d9; stroke-width: 1; }
+  .axis { stroke: #c3c2b7; stroke-width: 1; }
+  .tick { fill: #898781; font-size: 11px; font-variant-numeric: tabular-nums; }
+  .h1 { fill: #0b0b0b; font-size: 15px; font-weight: 600; }
+  .h2 { fill: #0b0b0b; font-size: 13px; font-weight: 600; }
+  .lab { fill: #52514e; font-size: 11px; }
+  .ring { stroke: #fcfcfb; stroke-width: 2; }
+  .ref { fill: #898781; }
+  .l1 { stroke: #2a78d6; stroke-width: 2; fill: none; stroke-linejoin: round; stroke-linecap: round; } .f1 { fill: #2a78d6; }
+  .l2 { stroke: #eb6834; stroke-width: 2; fill: none; stroke-linejoin: round; stroke-linecap: round; } .f2 { fill: #eb6834; }
+  .l3 { stroke: #1baf7a; stroke-width: 2; fill: none; stroke-linejoin: round; stroke-linecap: round; } .f3 { fill: #1baf7a; }
+  @media (prefers-color-scheme: dark) {
+  .bg { fill: #1a1a19; }
+  .grid { stroke: #2c2c2a; stroke-width: 1; }
+  .axis { stroke: #383835; stroke-width: 1; }
+  .tick { fill: #898781; font-size: 11px; font-variant-numeric: tabular-nums; }
+  .h1 { fill: #f0efec; font-size: 15px; font-weight: 600; }
+  .h2 { fill: #f0efec; font-size: 13px; font-weight: 600; }
+  .lab { fill: #c3c2b7; font-size: 11px; }
+  .ring { stroke: #1a1a19; stroke-width: 2; }
+  .ref { fill: #898781; }
+  .l1 { stroke: #3987e5; stroke-width: 2; fill: none; stroke-linejoin: round; stroke-linecap: round; } .f1 { fill: #3987e5; }
+  .l2 { stroke: #d95926; stroke-width: 2; fill: none; stroke-linejoin: round; stroke-linecap: round; } .f2 { fill: #d95926; }
+  .l3 { stroke: #199e70; stroke-width: 2; fill: none; stroke-linejoin: round; stroke-linecap: round; } .f3 { fill: #199e70; }
+  }
+</style>
+<rect class="bg" width="1064" height="650"/>
+<text class="h1" x="64" y="24">HNSW recall@10 vs p50 latency (each point is one ef_search: 10, 20, 40, 80, 160)</text>
+<line class="l1" x1="64" y1="50" x2="86" y2="50"/>
+<circle class="f1 ring" cx="75.0" cy="50.0" r="4"><title>m=16 efc=64</title></circle>
+<text class="lab" x="94" y="54">HNSW m=16 efc=64 (pgvector default)</text>
+<line class="l2" x1="338.5" y1="50" x2="360.5" y2="50"/>
+<rect class="f2 ring" x="345.5" y="46.0" width="8" height="8" rx="1.5"><title>m=16 efc=200</title></rect>
+<text class="lab" x="368.5" y="54">HNSW m=16 efc=200</text>
+<line class="l3" x1="499.6" y1="50" x2="521.6" y2="50"/>
+<polygon class="f3 ring" points="510.6,44.8 505.6,53.8 515.6,53.8"><title>m=32 efc=200</title></polygon>
+<text class="lab" x="529.6" y="54">HNSW m=32 efc=200</text>
+<circle class="ref ring" cx="666.7" cy="50" r="4"/><text class="lab" x="676.7" y="54">exact search (seq scan)</text>
+<text class="h2" x="64" y="76">Free-text queries (60 typed searches)</text>
+<g transform="translate(64,110)">
+<line class="grid" x1="0" x2="280" y1="190.0" y2="190.0"/>
+<text class="tick" x="-8" y="194.0" text-anchor="end">20%</text>
+<line class="grid" x1="0" x2="280" y1="166.3" y2="166.3"/>
+<text class="tick" x="-8" y="170.3" text-anchor="end">30%</text>
+<line class="grid" x1="0" x2="280" y1="142.5" y2="142.5"/>
+<text class="tick" x="-8" y="146.5" text-anchor="end">40%</text>
+<line class="grid" x1="0" x2="280" y1="118.8" y2="118.8"/>
+<text class="tick" x="-8" y="122.8" text-anchor="end">50%</text>
+<line class="grid" x1="0" x2="280" y1="95.0" y2="95.0"/>
+<text class="tick" x="-8" y="99.0" text-anchor="end">60%</text>
+<line class="grid" x1="0" x2="280" y1="71.3" y2="71.3"/>
+<text class="tick" x="-8" y="75.3" text-anchor="end">70%</text>
+<line class="grid" x1="0" x2="280" y1="47.5" y2="47.5"/>
+<text class="tick" x="-8" y="51.5" text-anchor="end">80%</text>
+<line class="grid" x1="0" x2="280" y1="23.8" y2="23.8"/>
+<text class="tick" x="-8" y="27.8" text-anchor="end">90%</text>
+<line class="grid" x1="0" x2="280" y1="0.0" y2="0.0"/>
+<text class="tick" x="-8" y="4.0" text-anchor="end">100%</text>
+<line class="axis" x1="0" x2="280" y1="190" y2="190"/>
+<line class="axis" x1="0.0" x2="0.0" y1="190" y2="194"/>
+<text class="tick" x="0.0" y="207" text-anchor="middle">0.3</text>
+<line class="axis" x1="41.6" x2="41.6" y1="190" y2="194"/>
+<text class="tick" x="41.6" y="207" text-anchor="middle">1</text>
+<line class="axis" x1="79.5" x2="79.5" y1="190" y2="194"/>
+<text class="tick" x="79.5" y="207" text-anchor="middle">3</text>
+<line class="axis" x1="121.0" x2="121.0" y1="190" y2="194"/>
+<text class="tick" x="121.0" y="207" text-anchor="middle">10</text>
+<line class="axis" x1="159.0" x2="159.0" y1="190" y2="194"/>
+<text class="tick" x="159.0" y="207" text-anchor="middle">30</text>
+<line class="axis" x1="200.5" x2="200.5" y1="190" y2="194"/>
+<text class="tick" x="200.5" y="207" text-anchor="middle">100</text>
+<line class="axis" x1="238.4" x2="238.4" y1="190" y2="194"/>
+<text class="tick" x="238.4" y="207" text-anchor="middle">300</text>
+<line class="axis" x1="280.0" x2="280.0" y1="190" y2="194"/>
+<text class="tick" x="280.0" y="207" text-anchor="middle">1s</text>
+<text class="lab" x="280" y="224" text-anchor="end">p50 latency, ms (log scale)</text>
+<text class="lab" x="0" y="-10" font-weight="600">10k rows</text>
+<path class="l1" d="M16.0,77.1 L14.0,65.6 L15.5,50.7 L22.2,36.0 L29.6,21.5"/>
+<circle class="f1 ring" cx="16.0" cy="77.1" r="4"><title>10k · m=16 efc=64 · ef_search=10: recall 67.6%, p50 0.48 ms</title></circle>
+<circle class="f1 ring" cx="14.0" cy="65.6" r="4"><title>10k · m=16 efc=64 · ef_search=20: recall 72.4%, p50 0.45 ms</title></circle>
+<circle class="f1 ring" cx="15.5" cy="50.7" r="4"><title>10k · m=16 efc=64 · ef_search=40: recall 78.7%, p50 0.47 ms</title></circle>
+<circle class="f1 ring" cx="22.2" cy="36.0" r="4"><title>10k · m=16 efc=64 · ef_search=80: recall 84.8%, p50 0.57 ms</title></circle>
+<circle class="f1 ring" cx="29.6" cy="21.5" r="4"><title>10k · m=16 efc=64 · ef_search=160: recall 90.9%, p50 0.71 ms</title></circle>
+<path class="l2" d="M9.9,44.1 L11.4,28.0 L15.3,24.4 L21.6,17.9 L31.9,12.7"/>
+<rect class="f2 ring" x="5.9" y="40.1" width="8" height="8" rx="1.5"><title>10k · m=16 efc=200 · ef_search=10: recall 81.4%, p50 0.40 ms</title></rect>
+<rect class="f2 ring" x="7.4" y="24.0" width="8" height="8" rx="1.5"><title>10k · m=16 efc=200 · ef_search=20: recall 88.2%, p50 0.42 ms</title></rect>
+<rect class="f2 ring" x="11.3" y="20.4" width="8" height="8" rx="1.5"><title>10k · m=16 efc=200 · ef_search=40: recall 89.7%, p50 0.47 ms</title></rect>
+<rect class="f2 ring" x="17.6" y="13.9" width="8" height="8" rx="1.5"><title>10k · m=16 efc=200 · ef_search=80: recall 92.4%, p50 0.56 ms</title></rect>
+<rect class="f2 ring" x="27.9" y="8.7" width="8" height="8" rx="1.5"><title>10k · m=16 efc=200 · ef_search=160: recall 94.7%, p50 0.76 ms</title></rect>
+<path class="l3" d="M13.1,43.5 L15.3,29.0 L20.2,18.2 L27.4,12.9 L40.9,7.9"/>
+<polygon class="f3 ring" points="13.1,38.3 8.1,47.3 18.1,47.3"><title>10k · m=32 efc=200 · ef_search=10: recall 81.7%, p50 0.44 ms</title></polygon>
+<polygon class="f3 ring" points="15.3,23.8 10.3,32.8 20.3,32.8"><title>10k · m=32 efc=200 · ef_search=20: recall 87.8%, p50 0.47 ms</title></polygon>
+<polygon class="f3 ring" points="20.2,13.0 15.2,22.0 25.2,22.0"><title>10k · m=32 efc=200 · ef_search=40: recall 92.3%, p50 0.54 ms</title></polygon>
+<polygon class="f3 ring" points="27.4,7.7 22.4,16.7 32.4,16.7"><title>10k · m=32 efc=200 · ef_search=80: recall 94.6%, p50 0.66 ms</title></polygon>
+<polygon class="f3 ring" points="40.9,2.7 35.9,11.7 45.9,11.7"><title>10k · m=32 efc=200 · ef_search=160: recall 96.7%, p50 0.98 ms</title></polygon>
+<polygon class="f3 ring" points="54.9,2.7 49.9,11.7 59.9,11.7"><title>m=32 efc=200</title></polygon>
+<text class="lab" x="62.9" y="11.9">96.7%</text>
+<rect class="f2 ring" x="50.9" y="15.9" width="8" height="8" rx="1.5"><title>m=16 efc=200</title></rect>
+<text class="lab" x="62.9" y="23.9">94.7%</text>
+<circle class="f1 ring" cx="54.9" cy="31.9" r="4"><title>m=16 efc=64</title></circle>
+<text class="lab" x="62.9" y="35.9">90.9%</text>
+<circle class="ref ring" cx="101.0" cy="0.0" r="4"><title>10k · exact: recall 100%, p50 5.60 ms</title></circle>
+<text class="lab" x="120.0" y="-10.0" text-anchor="middle">exact, 5.60 ms</text>
+</g>
+<g transform="translate(384,110)">
+<line class="grid" x1="0" x2="280" y1="190.0" y2="190.0"/>
+<line class="grid" x1="0" x2="280" y1="166.3" y2="166.3"/>
+<line class="grid" x1="0" x2="280" y1="142.5" y2="142.5"/>
+<line class="grid" x1="0" x2="280" y1="118.8" y2="118.8"/>
+<line class="grid" x1="0" x2="280" y1="95.0" y2="95.0"/>
+<line class="grid" x1="0" x2="280" y1="71.3" y2="71.3"/>
+<line class="grid" x1="0" x2="280" y1="47.5" y2="47.5"/>
+<line class="grid" x1="0" x2="280" y1="23.8" y2="23.8"/>
+<line class="grid" x1="0" x2="280" y1="0.0" y2="0.0"/>
+<line class="axis" x1="0" x2="280" y1="190" y2="190"/>
+<line class="axis" x1="0.0" x2="0.0" y1="190" y2="194"/>
+<text class="tick" x="0.0" y="207" text-anchor="middle">0.3</text>
+<line class="axis" x1="41.6" x2="41.6" y1="190" y2="194"/>
+<text class="tick" x="41.6" y="207" text-anchor="middle">1</text>
+<line class="axis" x1="79.5" x2="79.5" y1="190" y2="194"/>
+<text class="tick" x="79.5" y="207" text-anchor="middle">3</text>
+<line class="axis" x1="121.0" x2="121.0" y1="190" y2="194"/>
+<text class="tick" x="121.0" y="207" text-anchor="middle">10</text>
+<line class="axis" x1="159.0" x2="159.0" y1="190" y2="194"/>
+<text class="tick" x="159.0" y="207" text-anchor="middle">30</text>
+<line class="axis" x1="200.5" x2="200.5" y1="190" y2="194"/>
+<text class="tick" x="200.5" y="207" text-anchor="middle">100</text>
+<line class="axis" x1="238.4" x2="238.4" y1="190" y2="194"/>
+<text class="tick" x="238.4" y="207" text-anchor="middle">300</text>
+<line class="axis" x1="280.0" x2="280.0" y1="190" y2="194"/>
+<text class="tick" x="280.0" y="207" text-anchor="middle">1s</text>
+<text class="lab" x="280" y="224" text-anchor="end">p50 latency, ms (log scale)</text>
+<text class="lab" x="0" y="-10" font-weight="600">100k rows</text>
+<path class="l1" d="M15.8,131.5 L19.3,118.0 L24.8,103.2 L31.9,94.1 L39.7,83.4"/>
+<circle class="f1 ring" cx="15.8" cy="131.5" r="4"><title>100k · m=16 efc=64 · ef_search=10: recall 44.6%, p50 0.47 ms</title></circle>
+<circle class="f1 ring" cx="19.3" cy="118.0" r="4"><title>100k · m=16 efc=64 · ef_search=20: recall 50.3%, p50 0.53 ms</title></circle>
+<circle class="f1 ring" cx="24.8" cy="103.2" r="4"><title>100k · m=16 efc=64 · ef_search=40: recall 56.6%, p50 0.62 ms</title></circle>
+<circle class="f1 ring" cx="31.9" cy="94.1" r="4"><title>100k · m=16 efc=64 · ef_search=80: recall 60.4%, p50 0.76 ms</title></circle>
+<circle class="f1 ring" cx="39.7" cy="83.4" r="4"><title>100k · m=16 efc=64 · ef_search=160: recall 64.9%, p50 0.95 ms</title></circle>
+<path class="l2" d="M15.6,106.9 L18.5,88.1 L24.4,76.0 L31.2,69.8 L39.0,59.4"/>
+<rect class="f2 ring" x="11.6" y="102.9" width="8" height="8" rx="1.5"><title>100k · m=16 efc=200 · ef_search=10: recall 55.0%, p50 0.47 ms</title></rect>
+<rect class="f2 ring" x="14.5" y="84.1" width="8" height="8" rx="1.5"><title>100k · m=16 efc=200 · ef_search=20: recall 62.9%, p50 0.51 ms</title></rect>
+<rect class="f2 ring" x="20.4" y="72.0" width="8" height="8" rx="1.5"><title>100k · m=16 efc=200 · ef_search=40: recall 68.0%, p50 0.61 ms</title></rect>
+<rect class="f2 ring" x="27.2" y="65.8" width="8" height="8" rx="1.5"><title>100k · m=16 efc=200 · ef_search=80: recall 70.6%, p50 0.74 ms</title></rect>
+<rect class="f2 ring" x="35.0" y="55.4" width="8" height="8" rx="1.5"><title>100k · m=16 efc=200 · ef_search=160: recall 75.0%, p50 0.93 ms</title></rect>
+<path class="l3" d="M19.1,74.9 L23.0,61.8 L28.0,49.2 L35.8,40.4 L43.8,31.5"/>
+<polygon class="f3 ring" points="19.1,69.7 14.1,78.7 24.1,78.7"><title>100k · m=32 efc=200 · ef_search=10: recall 68.4%, p50 0.52 ms</title></polygon>
+<polygon class="f3 ring" points="23.0,56.6 18.0,65.6 28.0,65.6"><title>100k · m=32 efc=200 · ef_search=20: recall 74.0%, p50 0.58 ms</title></polygon>
+<polygon class="f3 ring" points="28.0,44.0 23.0,53.0 33.0,53.0"><title>100k · m=32 efc=200 · ef_search=40: recall 79.3%, p50 0.68 ms</title></polygon>
+<polygon class="f3 ring" points="35.8,35.2 30.8,44.2 40.8,44.2"><title>100k · m=32 efc=200 · ef_search=80: recall 83.0%, p50 0.85 ms</title></polygon>
+<polygon class="f3 ring" points="43.8,26.3 38.8,35.3 48.8,35.3"><title>100k · m=32 efc=200 · ef_search=160: recall 86.7%, p50 1.07 ms</title></polygon>
+<polygon class="f3 ring" points="57.8,26.3 52.8,35.3 62.8,35.3"><title>m=32 efc=200</title></polygon>
+<text class="lab" x="65.8" y="35.5">86.7%</text>
+<rect class="f2 ring" x="53.8" y="55.4" width="8" height="8" rx="1.5"><title>m=16 efc=200</title></rect>
+<text class="lab" x="65.8" y="63.4">75.0%</text>
+<circle class="f1 ring" cx="57.8" cy="83.4" r="4"><title>m=16 efc=64</title></circle>
+<text class="lab" x="65.8" y="87.4">64.9%</text>
+<circle class="ref ring" cx="155.3" cy="0.0" r="4"><title>100k · exact: recall 100%, p50 27.0 ms</title></circle>
+<text class="lab" x="155.3" y="-10.0" text-anchor="middle">exact, 27.0 ms</text>
+</g>
+<g transform="translate(704,110)">
+<line class="grid" x1="0" x2="280" y1="190.0" y2="190.0"/>
+<line class="grid" x1="0" x2="280" y1="166.3" y2="166.3"/>
+<line class="grid" x1="0" x2="280" y1="142.5" y2="142.5"/>
+<line class="grid" x1="0" x2="280" y1="118.8" y2="118.8"/>
+<line class="grid" x1="0" x2="280" y1="95.0" y2="95.0"/>
+<line class="grid" x1="0" x2="280" y1="71.3" y2="71.3"/>
+<line class="grid" x1="0" x2="280" y1="47.5" y2="47.5"/>
+<line class="grid" x1="0" x2="280" y1="23.8" y2="23.8"/>
+<line class="grid" x1="0" x2="280" y1="0.0" y2="0.0"/>
+<line class="axis" x1="0" x2="280" y1="190" y2="190"/>
+<line class="axis" x1="0.0" x2="0.0" y1="190" y2="194"/>
+<text class="tick" x="0.0" y="207" text-anchor="middle">0.3</text>
+<line class="axis" x1="41.6" x2="41.6" y1="190" y2="194"/>
+<text class="tick" x="41.6" y="207" text-anchor="middle">1</text>
+<line class="axis" x1="79.5" x2="79.5" y1="190" y2="194"/>
+<text class="tick" x="79.5" y="207" text-anchor="middle">3</text>
+<line class="axis" x1="121.0" x2="121.0" y1="190" y2="194"/>
+<text class="tick" x="121.0" y="207" text-anchor="middle">10</text>
+<line class="axis" x1="159.0" x2="159.0" y1="190" y2="194"/>
+<text class="tick" x="159.0" y="207" text-anchor="middle">30</text>
+<line class="axis" x1="200.5" x2="200.5" y1="190" y2="194"/>
+<text class="tick" x="200.5" y="207" text-anchor="middle">100</text>
+<line class="axis" x1="238.4" x2="238.4" y1="190" y2="194"/>
+<text class="tick" x="238.4" y="207" text-anchor="middle">300</text>
+<line class="axis" x1="280.0" x2="280.0" y1="190" y2="194"/>
+<text class="tick" x="280.0" y="207" text-anchor="middle">1s</text>
+<text class="lab" x="280" y="224" text-anchor="end">p50 latency, ms (log scale)</text>
+<text class="lab" x="0" y="-10" font-weight="600">1M rows</text>
+<path class="l1" d="M39.7,167.4 L29.6,146.5 L37.3,140.5 L45.2,120.3 L57.2,110.0"/>
+<circle class="f1 ring" cx="39.7" cy="167.4" r="4"><title>1M · m=16 efc=64 · ef_search=10: recall 29.5%, p50 0.95 ms</title></circle>
+<circle class="f1 ring" cx="29.6" cy="146.5" r="4"><title>1M · m=16 efc=64 · ef_search=20: recall 38.3%, p50 0.71 ms</title></circle>
+<circle class="f1 ring" cx="37.3" cy="140.5" r="4"><title>1M · m=16 efc=64 · ef_search=40: recall 40.8%, p50 0.88 ms</title></circle>
+<circle class="f1 ring" cx="45.2" cy="120.3" r="4"><title>1M · m=16 efc=64 · ef_search=80: recall 49.3%, p50 1.11 ms</title></circle>
+<circle class="f1 ring" cx="57.2" cy="110.0" r="4"><title>1M · m=16 efc=64 · ef_search=160: recall 53.7%, p50 1.57 ms</title></circle>
+<path class="l2" d="M22.2,155.2 L27.2,139.7 L34.6,120.3 L45.7,103.7 L57.3,93.8"/>
+<rect class="f2 ring" x="18.2" y="151.2" width="8" height="8" rx="1.5"><title>1M · m=16 efc=200 · ef_search=10: recall 34.7%, p50 0.57 ms</title></rect>
+<rect class="f2 ring" x="23.2" y="135.7" width="8" height="8" rx="1.5"><title>1M · m=16 efc=200 · ef_search=20: recall 41.2%, p50 0.66 ms</title></rect>
+<rect class="f2 ring" x="30.6" y="116.3" width="8" height="8" rx="1.5"><title>1M · m=16 efc=200 · ef_search=40: recall 49.3%, p50 0.82 ms</title></rect>
+<rect class="f2 ring" x="41.7" y="99.7" width="8" height="8" rx="1.5"><title>1M · m=16 efc=200 · ef_search=80: recall 56.3%, p50 1.13 ms</title></rect>
+<rect class="f2 ring" x="53.3" y="89.8" width="8" height="8" rx="1.5"><title>1M · m=16 efc=200 · ef_search=160: recall 60.5%, p50 1.58 ms</title></rect>
+<path class="l3" d="M35.0,129.8 L37.3,119.1 L44.8,111.2 L54.3,101.7 L63.3,86.3"/>
+<polygon class="f3 ring" points="35.0,124.6 30.0,133.6 40.0,133.6"><title>1M · m=32 efc=200 · ef_search=10: recall 45.3%, p50 0.83 ms</title></polygon>
+<polygon class="f3 ring" points="37.3,113.9 32.3,122.9 42.3,122.9"><title>1M · m=32 efc=200 · ef_search=20: recall 49.8%, p50 0.89 ms</title></polygon>
+<polygon class="f3 ring" points="44.8,106.0 39.8,115.0 49.8,115.0"><title>1M · m=32 efc=200 · ef_search=40: recall 53.2%, p50 1.10 ms</title></polygon>
+<polygon class="f3 ring" points="54.3,96.5 49.3,105.5 59.3,105.5"><title>1M · m=32 efc=200 · ef_search=80: recall 57.2%, p50 1.45 ms</title></polygon>
+<polygon class="f3 ring" points="63.3,81.1 58.3,90.1 68.3,90.1"><title>1M · m=32 efc=200 · ef_search=160: recall 63.7%, p50 1.88 ms</title></polygon>
+<polygon class="f3 ring" points="77.3,81.1 72.3,90.1 82.3,90.1"><title>m=32 efc=200</title></polygon>
+<text class="lab" x="85.3" y="90.3">63.7%</text>
+<rect class="f2 ring" x="73.3" y="94.3" width="8" height="8" rx="1.5"><title>m=16 efc=200</title></rect>
+<text class="lab" x="85.3" y="102.3">60.5%</text>
+<circle class="f1 ring" cx="77.3" cy="110.3" r="4"><title>m=16 efc=64</title></circle>
+<text class="lab" x="85.3" y="114.3">53.7%</text>
+<circle class="ref ring" cx="227.8" cy="0.0" r="4"><title>1M · exact: recall 100%, p50 220 ms</title></circle>
+<text class="lab" x="227.8" y="-10.0" text-anchor="middle">exact, 220 ms</text>
+</g>
+<text class="h2" x="64" y="366">Log queries (100 logs from the table)</text>
+<g transform="translate(64,400)">
+<line class="grid" x1="0" x2="280" y1="190.0" y2="190.0"/>
+<text class="tick" x="-8" y="194.0" text-anchor="end">80%</text>
+<line class="grid" x1="0" x2="280" y1="142.5" y2="142.5"/>
+<text class="tick" x="-8" y="146.5" text-anchor="end">85%</text>
+<line class="grid" x1="0" x2="280" y1="95.0" y2="95.0"/>
+<text class="tick" x="-8" y="99.0" text-anchor="end">90%</text>
+<line class="grid" x1="0" x2="280" y1="47.5" y2="47.5"/>
+<text class="tick" x="-8" y="51.5" text-anchor="end">95%</text>
+<line class="grid" x1="0" x2="280" y1="0.0" y2="0.0"/>
+<text class="tick" x="-8" y="4.0" text-anchor="end">100%</text>
+<line class="axis" x1="0" x2="280" y1="190" y2="190"/>
+<line class="axis" x1="0.0" x2="0.0" y1="190" y2="194"/>
+<text class="tick" x="0.0" y="207" text-anchor="middle">0.3</text>
+<line class="axis" x1="41.6" x2="41.6" y1="190" y2="194"/>
+<text class="tick" x="41.6" y="207" text-anchor="middle">1</text>
+<line class="axis" x1="79.5" x2="79.5" y1="190" y2="194"/>
+<text class="tick" x="79.5" y="207" text-anchor="middle">3</text>
+<line class="axis" x1="121.0" x2="121.0" y1="190" y2="194"/>
+<text class="tick" x="121.0" y="207" text-anchor="middle">10</text>
+<line class="axis" x1="159.0" x2="159.0" y1="190" y2="194"/>
+<text class="tick" x="159.0" y="207" text-anchor="middle">30</text>
+<line class="axis" x1="200.5" x2="200.5" y1="190" y2="194"/>
+<text class="tick" x="200.5" y="207" text-anchor="middle">100</text>
+<line class="axis" x1="238.4" x2="238.4" y1="190" y2="194"/>
+<text class="tick" x="238.4" y="207" text-anchor="middle">300</text>
+<line class="axis" x1="280.0" x2="280.0" y1="190" y2="194"/>
+<text class="tick" x="280.0" y="207" text-anchor="middle">1s</text>
+<text class="lab" x="280" y="224" text-anchor="end">p50 latency, ms (log scale)</text>
+<text class="lab" x="0" y="-10" font-weight="600">10k rows</text>
+<path class="l1" d="M35.9,80.4 L13.4,11.4 L11.0,5.1 L17.0,1.9 L25.6,0.3"/>
+<circle class="f1 ring" cx="35.9" cy="80.4" r="4"><title>10k · m=16 efc=64 · ef_search=10: recall 91.5%, p50 0.85 ms</title></circle>
+<circle class="f1 ring" cx="13.4" cy="11.4" r="4"><title>10k · m=16 efc=64 · ef_search=20: recall 98.8%, p50 0.44 ms</title></circle>
+<circle class="f1 ring" cx="11.0" cy="5.1" r="4"><title>10k · m=16 efc=64 · ef_search=40: recall 99.5%, p50 0.41 ms</title></circle>
+<circle class="f1 ring" cx="17.0" cy="1.9" r="4"><title>10k · m=16 efc=64 · ef_search=80: recall 99.8%, p50 0.49 ms</title></circle>
+<circle class="f1 ring" cx="25.6" cy="0.3" r="4"><title>10k · m=16 efc=64 · ef_search=160: recall 100.0%, p50 0.63 ms</title></circle>
+<path class="l2" d="M13.5,76.0 L9.8,6.3 L13.1,0.0 L18.9,0.0 L27.4,0.0"/>
+<rect class="f2 ring" x="9.5" y="72.0" width="8" height="8" rx="1.5"><title>10k · m=16 efc=200 · ef_search=10: recall 92.0%, p50 0.44 ms</title></rect>
+<rect class="f2 ring" x="5.8" y="2.3" width="8" height="8" rx="1.5"><title>10k · m=16 efc=200 · ef_search=20: recall 99.3%, p50 0.40 ms</title></rect>
+<rect class="f2 ring" x="9.1" y="-4.0" width="8" height="8" rx="1.5"><title>10k · m=16 efc=200 · ef_search=40: recall 100.0%, p50 0.44 ms</title></rect>
+<rect class="f2 ring" x="14.9" y="-4.0" width="8" height="8" rx="1.5"><title>10k · m=16 efc=200 · ef_search=80: recall 100.0%, p50 0.52 ms</title></rect>
+<rect class="f2 ring" x="23.4" y="-4.0" width="8" height="8" rx="1.5"><title>10k · m=16 efc=200 · ef_search=160: recall 100.0%, p50 0.66 ms</title></rect>
+<path class="l3" d="M26.7,70.0 L12.7,0.0 L16.2,0.0 L23.2,0.0 L33.0,0.0"/>
+<polygon class="f3 ring" points="26.7,64.8 21.7,73.8 31.7,73.8"><title>10k · m=32 efc=200 · ef_search=10: recall 92.6%, p50 0.65 ms</title></polygon>
+<polygon class="f3 ring" points="12.7,-5.2 7.7,3.8 17.7,3.8"><title>10k · m=32 efc=200 · ef_search=20: recall 100.0%, p50 0.43 ms</title></polygon>
+<polygon class="f3 ring" points="16.2,-5.2 11.2,3.8 21.2,3.8"><title>10k · m=32 efc=200 · ef_search=40: recall 100.0%, p50 0.48 ms</title></polygon>
+<polygon class="f3 ring" points="23.2,-5.2 18.2,3.8 28.2,3.8"><title>10k · m=32 efc=200 · ef_search=80: recall 100.0%, p50 0.59 ms</title></polygon>
+<polygon class="f3 ring" points="33.0,-5.2 28.0,3.8 38.0,3.8"><title>10k · m=32 efc=200 · ef_search=160: recall 100.0%, p50 0.78 ms</title></polygon>
+<rect class="f2 ring" x="43.0" y="-4.0" width="8" height="8" rx="1.5"><title>m=16 efc=200</title></rect>
+<text class="lab" x="55.0" y="4.0">100.0%</text>
+<polygon class="f3 ring" points="47.0,6.8 42.0,15.8 52.0,15.8"><title>m=32 efc=200</title></polygon>
+<text class="lab" x="55.0" y="16.0">100.0%</text>
+<circle class="f1 ring" cx="47.0" cy="24.0" r="4"><title>m=16 efc=64</title></circle>
+<text class="lab" x="55.0" y="28.0">100.0%</text>
+<circle class="ref ring" cx="101.2" cy="0.0" r="4"><title>10k · exact: recall 100%, p50 5.63 ms</title></circle>
+<text class="lab" x="120.0" y="-10.0" text-anchor="middle">exact, 5.63 ms</text>
+</g>
+<g transform="translate(384,400)">
+<line class="grid" x1="0" x2="280" y1="190.0" y2="190.0"/>
+<line class="grid" x1="0" x2="280" y1="142.5" y2="142.5"/>
+<line class="grid" x1="0" x2="280" y1="95.0" y2="95.0"/>
+<line class="grid" x1="0" x2="280" y1="47.5" y2="47.5"/>
+<line class="grid" x1="0" x2="280" y1="0.0" y2="0.0"/>
+<line class="axis" x1="0" x2="280" y1="190" y2="190"/>
+<line class="axis" x1="0.0" x2="0.0" y1="190" y2="194"/>
+<text class="tick" x="0.0" y="207" text-anchor="middle">0.3</text>
+<line class="axis" x1="41.6" x2="41.6" y1="190" y2="194"/>
+<text class="tick" x="41.6" y="207" text-anchor="middle">1</text>
+<line class="axis" x1="79.5" x2="79.5" y1="190" y2="194"/>
+<text class="tick" x="79.5" y="207" text-anchor="middle">3</text>
+<line class="axis" x1="121.0" x2="121.0" y1="190" y2="194"/>
+<text class="tick" x="121.0" y="207" text-anchor="middle">10</text>
+<line class="axis" x1="159.0" x2="159.0" y1="190" y2="194"/>
+<text class="tick" x="159.0" y="207" text-anchor="middle">30</text>
+<line class="axis" x1="200.5" x2="200.5" y1="190" y2="194"/>
+<text class="tick" x="200.5" y="207" text-anchor="middle">100</text>
+<line class="axis" x1="238.4" x2="238.4" y1="190" y2="194"/>
+<text class="tick" x="238.4" y="207" text-anchor="middle">300</text>
+<line class="axis" x1="280.0" x2="280.0" y1="190" y2="194"/>
+<text class="tick" x="280.0" y="207" text-anchor="middle">1s</text>
+<text class="lab" x="280" y="224" text-anchor="end">p50 latency, ms (log scale)</text>
+<text class="lab" x="0" y="-10" font-weight="600">100k rows</text>
+<path class="l1" d="M16.0,103.5 L17.4,51.3 L22.3,44.0 L28.7,38.0 L37.1,35.2"/>
+<circle class="f1 ring" cx="16.0" cy="103.5" r="4"><title>100k · m=16 efc=64 · ef_search=10: recall 89.1%, p50 0.48 ms</title></circle>
+<circle class="f1 ring" cx="17.4" cy="51.3" r="4"><title>100k · m=16 efc=64 · ef_search=20: recall 94.6%, p50 0.50 ms</title></circle>
+<circle class="f1 ring" cx="22.3" cy="44.0" r="4"><title>100k · m=16 efc=64 · ef_search=40: recall 95.4%, p50 0.57 ms</title></circle>
+<circle class="f1 ring" cx="28.7" cy="38.0" r="4"><title>100k · m=16 efc=64 · ef_search=80: recall 96.0%, p50 0.69 ms</title></circle>
+<circle class="f1 ring" cx="37.1" cy="35.2" r="4"><title>100k · m=16 efc=64 · ef_search=160: recall 96.3%, p50 0.88 ms</title></circle>
+<path class="l2" d="M14.8,98.5 L17.3,44.3 L22.5,30.7 L29.0,23.4 L37.6,20.3"/>
+<rect class="f2 ring" x="10.8" y="94.5" width="8" height="8" rx="1.5"><title>100k · m=16 efc=200 · ef_search=10: recall 89.6%, p50 0.46 ms</title></rect>
+<rect class="f2 ring" x="13.3" y="40.3" width="8" height="8" rx="1.5"><title>100k · m=16 efc=200 · ef_search=20: recall 95.3%, p50 0.49 ms</title></rect>
+<rect class="f2 ring" x="18.5" y="26.7" width="8" height="8" rx="1.5"><title>100k · m=16 efc=200 · ef_search=40: recall 96.8%, p50 0.58 ms</title></rect>
+<rect class="f2 ring" x="25.0" y="19.4" width="8" height="8" rx="1.5"><title>100k · m=16 efc=200 · ef_search=80: recall 97.5%, p50 0.70 ms</title></rect>
+<rect class="f2 ring" x="33.6" y="16.3" width="8" height="8" rx="1.5"><title>100k · m=16 efc=200 · ef_search=160: recall 97.9%, p50 0.89 ms</title></rect>
+<path class="l3" d="M18.3,92.1 L21.5,22.2 L26.5,15.8 L33.0,12.7 L42.1,3.2"/>
+<polygon class="f3 ring" points="18.3,86.9 13.3,95.9 23.3,95.9"><title>100k · m=32 efc=200 · ef_search=10: recall 90.3%, p50 0.51 ms</title></polygon>
+<polygon class="f3 ring" points="21.5,17.0 16.5,26.0 26.5,26.0"><title>100k · m=32 efc=200 · ef_search=20: recall 97.7%, p50 0.56 ms</title></polygon>
+<polygon class="f3 ring" points="26.5,10.6 21.5,19.6 31.5,19.6"><title>100k · m=32 efc=200 · ef_search=40: recall 98.3%, p50 0.65 ms</title></polygon>
+<polygon class="f3 ring" points="33.0,7.5 28.0,16.5 38.0,16.5"><title>100k · m=32 efc=200 · ef_search=80: recall 98.7%, p50 0.78 ms</title></polygon>
+<polygon class="f3 ring" points="42.1,-2.0 37.1,7.0 47.1,7.0"><title>100k · m=32 efc=200 · ef_search=160: recall 99.7%, p50 1.02 ms</title></polygon>
+<polygon class="f3 ring" points="56.1,-2.0 51.1,7.0 61.1,7.0"><title>m=32 efc=200</title></polygon>
+<text class="lab" x="64.1" y="7.2">99.7%</text>
+<rect class="f2 ring" x="52.1" y="16.3" width="8" height="8" rx="1.5"><title>m=16 efc=200</title></rect>
+<text class="lab" x="64.1" y="24.3">97.9%</text>
+<circle class="f1 ring" cx="56.1" cy="35.2" r="4"><title>m=16 efc=64</title></circle>
+<text class="lab" x="64.1" y="39.2">96.3%</text>
+<circle class="ref ring" cx="155.4" cy="0.0" r="4"><title>100k · exact: recall 100%, p50 27.0 ms</title></circle>
+<text class="lab" x="155.4" y="-10.0" text-anchor="middle">exact, 27.0 ms</text>
+</g>
+<g transform="translate(704,400)">
+<line class="grid" x1="0" x2="280" y1="190.0" y2="190.0"/>
+<line class="grid" x1="0" x2="280" y1="142.5" y2="142.5"/>
+<line class="grid" x1="0" x2="280" y1="95.0" y2="95.0"/>
+<line class="grid" x1="0" x2="280" y1="47.5" y2="47.5"/>
+<line class="grid" x1="0" x2="280" y1="0.0" y2="0.0"/>
+<line class="axis" x1="0" x2="280" y1="190" y2="190"/>
+<line class="axis" x1="0.0" x2="0.0" y1="190" y2="194"/>
+<text class="tick" x="0.0" y="207" text-anchor="middle">0.3</text>
+<line class="axis" x1="41.6" x2="41.6" y1="190" y2="194"/>
+<text class="tick" x="41.6" y="207" text-anchor="middle">1</text>
+<line class="axis" x1="79.5" x2="79.5" y1="190" y2="194"/>
+<text class="tick" x="79.5" y="207" text-anchor="middle">3</text>
+<line class="axis" x1="121.0" x2="121.0" y1="190" y2="194"/>
+<text class="tick" x="121.0" y="207" text-anchor="middle">10</text>
+<line class="axis" x1="159.0" x2="159.0" y1="190" y2="194"/>
+<text class="tick" x="159.0" y="207" text-anchor="middle">30</text>
+<line class="axis" x1="200.5" x2="200.5" y1="190" y2="194"/>
+<text class="tick" x="200.5" y="207" text-anchor="middle">100</text>
+<line class="axis" x1="238.4" x2="238.4" y1="190" y2="194"/>
+<text class="tick" x="238.4" y="207" text-anchor="middle">300</text>
+<line class="axis" x1="280.0" x2="280.0" y1="190" y2="194"/>
+<text class="tick" x="280.0" y="207" text-anchor="middle">1s</text>
+<text class="lab" x="280" y="224" text-anchor="end">p50 latency, ms (log scale)</text>
+<text class="lab" x="0" y="-10" font-weight="600">1M rows</text>
+<path class="l1" d="M20.4,151.0 L25.5,95.9 L27.3,78.8 L37.0,77.9 L47.4,62.7"/>
+<circle class="f1 ring" cx="20.4" cy="151.0" r="4"><title>1M · m=16 efc=64 · ef_search=10: recall 84.1%, p50 0.54 ms</title></circle>
+<circle class="f1 ring" cx="25.5" cy="95.9" r="4"><title>1M · m=16 efc=64 · ef_search=20: recall 89.9%, p50 0.63 ms</title></circle>
+<circle class="f1 ring" cx="27.3" cy="78.8" r="4"><title>1M · m=16 efc=64 · ef_search=40: recall 91.7%, p50 0.66 ms</title></circle>
+<circle class="f1 ring" cx="37.0" cy="77.9" r="4"><title>1M · m=16 efc=64 · ef_search=80: recall 91.8%, p50 0.88 ms</title></circle>
+<circle class="f1 ring" cx="47.4" cy="62.7" r="4"><title>1M · m=16 efc=64 · ef_search=160: recall 93.4%, p50 1.19 ms</title></circle>
+<path class="l2" d="M45.9,153.0 L31.2,98.8 L26.7,84.6 L37.9,75.1 L51.3,63.7"/>
+<rect class="f2 ring" x="41.9" y="149.0" width="8" height="8" rx="1.5"><title>1M · m=16 efc=200 · ef_search=10: recall 83.9%, p50 1.13 ms</title></rect>
+<rect class="f2 ring" x="27.2" y="94.8" width="8" height="8" rx="1.5"><title>1M · m=16 efc=200 · ef_search=20: recall 89.6%, p50 0.74 ms</title></rect>
+<rect class="f2 ring" x="22.7" y="80.6" width="8" height="8" rx="1.5"><title>1M · m=16 efc=200 · ef_search=40: recall 91.1%, p50 0.65 ms</title></rect>
+<rect class="f2 ring" x="33.9" y="71.1" width="8" height="8" rx="1.5"><title>1M · m=16 efc=200 · ef_search=80: recall 92.1%, p50 0.90 ms</title></rect>
+<rect class="f2 ring" x="47.3" y="59.7" width="8" height="8" rx="1.5"><title>1M · m=16 efc=200 · ef_search=160: recall 93.3%, p50 1.33 ms</title></rect>
+<path class="l3" d="M27.0,153.9 L28.7,110.2 L35.1,105.4 L44.3,95.0 L55.0,66.5"/>
+<polygon class="f3 ring" points="27.0,148.7 22.0,157.7 32.0,157.7"><title>1M · m=32 efc=200 · ef_search=10: recall 83.8%, p50 0.66 ms</title></polygon>
+<polygon class="f3 ring" points="28.7,105.0 23.7,114.0 33.7,114.0"><title>1M · m=32 efc=200 · ef_search=20: recall 88.4%, p50 0.69 ms</title></polygon>
+<polygon class="f3 ring" points="35.1,100.2 30.1,109.2 40.1,109.2"><title>1M · m=32 efc=200 · ef_search=40: recall 88.9%, p50 0.83 ms</title></polygon>
+<polygon class="f3 ring" points="44.3,89.8 39.3,98.8 49.3,98.8"><title>1M · m=32 efc=200 · ef_search=80: recall 90.0%, p50 1.08 ms</title></polygon>
+<polygon class="f3 ring" points="55.0,61.3 50.0,70.3 60.0,70.3"><title>1M · m=32 efc=200 · ef_search=160: recall 93.0%, p50 1.48 ms</title></polygon>
+<circle class="f1 ring" cx="69.0" cy="62.7" r="4"><title>m=16 efc=64</title></circle>
+<text class="lab" x="77.0" y="66.7">93.4%</text>
+<rect class="f2 ring" x="65.0" y="70.7" width="8" height="8" rx="1.5"><title>m=16 efc=200</title></rect>
+<text class="lab" x="77.0" y="78.7">93.3%</text>
+<polygon class="f3 ring" points="69.0,81.5 64.0,90.5 74.0,90.5"><title>m=32 efc=200</title></polygon>
+<text class="lab" x="77.0" y="90.7">93.0%</text>
+<circle class="ref ring" cx="228.0" cy="0.0" r="4"><title>1M · exact: recall 100%, p50 222 ms</title></circle>
+<text class="lab" x="228.0" y="-10.0" text-anchor="middle">exact, 222 ms</text>
+</g>
+</svg>
