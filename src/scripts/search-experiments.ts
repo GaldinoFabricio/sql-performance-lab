@@ -19,6 +19,7 @@ import {
    likeSearch,
    vectorSearch,
 } from "../search/search";
+import { looksLikeIdentifier, routeWeights } from "../search/routing";
 
 /**
  * Phase 3 of the semantic search chapter: LIKE, full-text (GIN), exact
@@ -105,6 +106,8 @@ interface MethodResult {
    method: string;
    builds?: number;
    recall_range?: [number, number];
+   /** Precision across builds; recall_range's twin. */
+   precision_range?: [number, number];
    queries: number;
    recall_at_k: number | null;
    precision_at_k: number;
@@ -137,6 +140,10 @@ function aggregate(runs: MethodResult[]): MethodResult {
          ? [Math.min(...recalls), Math.max(...recalls)]
          : undefined,
       precision_at_k: mean(runs.map((r) => r.precision_at_k)),
+      precision_range: [
+         Math.min(...runs.map((r) => r.precision_at_k)),
+         Math.max(...runs.map((r) => r.precision_at_k)),
+      ],
       latency_ms: {
          p50: ms(percentile(times, 50)),
          p95: ms(percentile(times, 95)),
@@ -487,6 +494,10 @@ async function run() {
    // --- 3 & 4: HNSW (per build config) and hybrid ----------------------------
    const builds = [];
    let hybridName = "";
+   let routedName = "";
+   // Per-build free-text runs, before averaging: the routing report needs the
+   // spread across builds (the noise) and paired per-build differences.
+   const textRunsByName = new Map<string, MethodResult[]>();
    for (const cfg of HNSW_CONFIGS) {
       const tag = `m=${cfg.m} efc=${cfg.ef_construction}`;
       const logRuns = new Map<string, MethodResult[]>();
@@ -514,6 +525,15 @@ async function run() {
                hybridSearch(c, q.text, q.vec, k, q.excludeId, HYBRID),
             planMustHave: [INDEX, "idx_logs_message_fts"],
          });
+         // Same RRF and index, but the weights come from the query (routing.ts).
+         routedName = `hybrid routed (${tag} ef=${HYBRID.ef_search})`;
+         if (!HYBRID_LAST_ONLY || cfg === HNSW_CONFIGS[HNSW_CONFIGS.length - 1]) specs.push({
+            name: routedName,
+            setup: efSearch(HYBRID.ef_search),
+            run: (c, q) =>
+               hybridSearch(c, q.text, q.vec, k, q.excludeId, { ...HYBRID, ...routeWeights(q.text) }),
+            planMustHave: [INDEX, "idx_logs_message_fts"],
+         });
          for (const spec of specs) {
             process.stdout.write(`  ${spec.name}...`);
             logRuns.set(spec.name, [
@@ -529,6 +549,7 @@ async function run() {
       }
       for (const runs of logRuns.values()) logResults.push(aggregate(runs));
       for (const runs of textRuns.values()) textResults.push(aggregate(runs));
+      for (const [name, runs] of textRuns) textRunsByName.set(name, runs);
    }
 
    if (!KEEP_INDEX) await db.raw(`DROP INDEX IF EXISTS ${INDEX}`);
@@ -595,6 +616,19 @@ async function run() {
       }
    });
 
+   const routing = reportRouting({
+      textSpec,
+      k,
+      perBuild: (name) => textRunsByName.get(name) ?? [pick(textResults, name)],
+      methods: [
+         { label: "fts", name: fts.name },
+         { label: "vector exact", name: exact.name },
+         { label: "hnsw", name: hnsw40 },
+         { label: "hybrid fixed", name: hybridName },
+         { label: "hybrid routed", name: routedName },
+      ],
+   });
+
    const outDir = path.join(ROOT, "evals/results");
    mkdirSync(outDir, { recursive: true });
    const out = flag("out")
@@ -623,6 +657,7 @@ async function run() {
                p95: ms(percentile(embedTimes, 95)),
             },
             repeats,
+            routing,
             log_queries: logResults.map(({ times, ...r }) => r),
             text_queries: textResults.map(({ times, ...r }) => ({
                ...r,
@@ -638,6 +673,109 @@ async function run() {
       ) + "\n",
    );
    console.log(`\nwrote ${path.relative(ROOT, out)}`);
+}
+
+// --- routing report ------------------------------------------------------------
+
+const KINDS = ["keyword", "mixed", "paraphrase"] as const;
+const pts = (n: number) => `${n >= 0 ? "+" : ""}${(n * 100).toFixed(1)}`;
+const range = ([a, b]: [number, number]) => `[${(a * 100).toFixed(1)}-${(b * 100).toFixed(1)}]`;
+const minMax = (xs: number[]): [number, number] => [Math.min(...xs), Math.max(...xs)];
+
+/**
+ * Hybrid fixed (1/1) vs hybrid routed, on the free-text queries.
+ *
+ * Precision does not change between measured rounds (same index, same SQL,
+ * same rows): the only run-to-run noise is the HNSW build, since pgvector
+ * draws each node's level at random. So "noise" here is the spread across
+ * builds (--repeats), and fixed vs routed is compared per build (both ran on
+ * the same build, so the difference is paired). fts and exact search do not
+ * use the HNSW index: their spread is 0.
+ *
+ * A difference counts as above the noise when, on every build, it has the
+ * same sign, and its mean is larger than the build-to-build spread of
+ * either method.
+ */
+function reportRouting(o: {
+   textSpec: { text: string; kind: string }[];
+   k: number;
+   perBuild: (name: string) => MethodResult[];
+   methods: { label: string; name: string }[];
+}) {
+   const { textSpec, k } = o;
+   const idxOf = (kind?: string) =>
+      textSpec.map((t, i) => (!kind || t.kind === kind ? i : -1)).filter((i) => i >= 0);
+   // precision of one build's run over a subset of the queries
+   const precOn = (run: MethodResult, idx: number[]) => mean(idx.map((i) => run.per_query[i].precision));
+   const groups = [{ label: "all", idx: idxOf() }, ...KINDS.map((kind) => ({ label: kind, idx: idxOf(kind) }))];
+
+   console.log(`\nROUTING: free-text precision@${k}, mean [min-max across ${o.perBuild(o.methods[4].name).length} HNSW builds]`);
+   console.log(`${"method".padEnd(15)}${groups.map((g) => `${g.label} (n=${g.idx.length})`.padEnd(22)).join("")}`);
+   const table: Record<string, Record<string, { mean: number; range: [number, number] }>> = {};
+   for (const m of o.methods) {
+      const runs = o.perBuild(m.name);
+      table[m.label] = {};
+      const cells = groups.map((g) => {
+         const per = runs.map((r) => precOn(r, g.idx));
+         const cell = { mean: mean(per), range: minMax(per) };
+         table[m.label][g.label] = cell;
+         return `${pct(cell.mean)} ${range(cell.range)}`.padEnd(22);
+      });
+      console.log(`${m.label.padEnd(15)}${cells.join("")}`);
+   }
+
+   // Router decisions.
+   const ids = textSpec.map((t) => looksLikeIdentifier(t.text));
+   const byKind = Object.fromEntries(KINDS.map((kind) => [kind, textSpec.filter((t, i) => t.kind === kind && ids[i]).length]));
+   console.log(
+      `\nrouter: ${ids.filter(Boolean).length} of ${textSpec.length} queries classified as identifier ` +
+         `(${KINDS.map((kind) => `${kind} ${byKind[kind]}`).join(", ")})`,
+   );
+
+   // Paired difference routed - fixed, per build, and the verdict.
+   const fixedRuns = o.perBuild(o.methods[3].name);
+   const routedRuns = o.perBuild(o.methods[4].name);
+   console.log("\nrouted - fixed, paired per build (points of precision):");
+   const diffs: Record<string, { mean: number; range: [number, number]; noise: number; above_noise: boolean }> = {};
+   for (const g of groups) {
+      const d = routedRuns.map((r, b) => precOn(r, g.idx) - precOn(fixedRuns[b], g.idx));
+      const [lo, hi] = minMax(d);
+      const noise = Math.max(
+         table["hybrid fixed"][g.label].range[1] - table["hybrid fixed"][g.label].range[0],
+         table["hybrid routed"][g.label].range[1] - table["hybrid routed"][g.label].range[0],
+      );
+      const sameSign = lo > 0 || hi < 0;
+      const above = sameSign && Math.abs(mean(d)) > noise;
+      diffs[g.label] = { mean: mean(d), range: [lo, hi], noise, above_noise: above };
+      console.log(
+         `  ${g.label.padEnd(11)} ${pts(mean(d)).padStart(6)} [${pts(lo)} to ${pts(hi)}]  noise ${(noise * 100).toFixed(1)}  ` +
+            `→ ${above ? "ABOVE the noise" : "within the noise"}`,
+      );
+   }
+   console.log(`  (one query changing one of its ${k} results moves a group of n queries by ${(100 / k).toFixed(0)}/n points)`);
+
+   // Queries where routing made precision worse (mean over builds).
+   const perQuery = textSpec.map((t, i) => {
+      const f = fixedRuns.map((r) => r.per_query[i].precision);
+      const r = routedRuns.map((x) => x.per_query[i].precision);
+      return { text: t.text, kind: t.kind, identifier: ids[i], fixed: mean(f), routed: mean(r), worse_on_builds: r.filter((x, b) => x < f[b]).length };
+   });
+   const worse = perQuery.filter((p) => p.routed < p.fixed).sort((a, b) => a.routed - a.fixed - (b.routed - b.fixed));
+   const better = perQuery.filter((p) => p.routed > p.fixed).length;
+   console.log(`\nrouting made precision WORSE on ${worse.length} queries (better on ${better}, same on ${textSpec.length - worse.length - better}):`);
+   for (const p of worse) {
+      console.log(
+         `  ${pct(p.fixed)} → ${pct(p.routed)}  (worse on ${p.worse_on_builds}/${fixedRuns.length} builds)  ` +
+            `[${p.kind}, ${p.identifier ? "identifier" : "natural"}] ${p.text}`,
+      );
+   }
+
+   return {
+      precision: table,
+      router: { identifiers: ids.filter(Boolean).length, of: textSpec.length, by_kind: byKind },
+      routed_minus_fixed: diffs,
+      worse,
+   };
 }
 
 main()
