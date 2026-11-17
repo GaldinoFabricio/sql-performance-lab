@@ -233,6 +233,33 @@ Embedding a typed query with the local model adds ~1.65 ms (p50) before any vect
 - Narrowing first is better still: a service or time window makes exact search over the remaining rows cheap. Phase 5 measures this ([evals/plans/README.md](evals/plans/README.md), experiments 16–20).
 - When the index must be rebuilt often (a new embedding model means re-embedding and rebuilding), the default m = 16 / ef_construction = 64 with a larger ef_search gets close to the same recall for 3x the query latency and a fraction of the build time.
 
+## API
+
+`GET /search/logs` (validated with celebrate, `src/validators/search.validator.ts`). An invalid or unknown param returns `400 { "error": "<message>" }`.
+
+| Param | Default | Range | What it does |
+| --- | --- | --- | --- |
+| `q` | required | 1–500 characters, trimmed | the search text |
+| `mode` | `hybrid` | `hybrid`, `vector`, `fulltext`, `like` | which search runs |
+| `k` | 10 | 1–50 | number of results |
+| `ef_search` | 160 | 10–1000 | HNSW candidate list, per transaction (hybrid uses at least 40) |
+| `vw`, `fw` | 1 / 1 | 0–5, not both 0 | hybrid only: RRF weight of the vector and full-text lists. Setting either one turns routing off; the one left out stays 1 |
+| `rrf_k` | 60 | 1–1000 | hybrid only: RRF constant, `score = weight / (rrf_k + rank)` |
+| `route` | `false` | `true`/`false` (or `1`/`0`) | hybrid only: pick the weights from the query (`src/search/routing.ts`) when `vw`/`fw` are not given |
+
+In hybrid mode the response has `hybrid: { vector_weight, keyword_weight, weights_from, rrf_k }`, where `weights_from` is `explicit` (from `vw`/`fw`), `routed` or `fixed`. For the other modes, `hybrid` is `null`.
+
+**Why routing is off by default.** The router favors full-text (weights 0.5/1) when the query has a token shaped like a code (`ECONNRESET`, `HTTP_502`, `x509`) and the vector side (1/0.5) otherwise. On the 60 free-text queries at 10k rows (3 HNSW builds, `evals/results/search-10k-routing.json`), routed minus fixed was:
+
+| Queries | Precision@10, routed − fixed | Build-to-build noise | Above the noise? |
+| --- | --- | --- | --- |
+| all (60) | +2.7 points | 6.7 | no |
+| keyword | +5.7 | 4.2 | yes |
+| mixed | −2.1 | 5.3 | no |
+| paraphrase | +3.7 | 17.6 | no |
+
+Routing made 6 queries worse, the worst being "redis is down" (67% → 33%). The shape rule also has known misses: lowercase codes (`econnreset`) and sentences with an acronym ("partner API is throttling our calls"). So `route=true` is opt-in until an eval at a larger size shows a gain above the noise.
+
 ## Reproduce
 
 ```bash
