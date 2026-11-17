@@ -17,7 +17,13 @@ export async function seed(knex: Knex): Promise<void> {
    const start = performance.now();
    // RESTART IDENTITY: the same seed must produce the same ids, or the
    // golden dataset (which stores ids) would point at different rows.
-   await knex.raw("TRUNCATE logs RESTART IDENTITY");
+   //
+   // The template tables (pnpm templates:build) are derived from logs and point at
+   // their ids, which restart here: truncate them too, or they would silently
+   // point at different rows. They are rebuilt by running templates:build again.
+   const derived = ["log_template_map", "log_template_variants", "log_templates"];
+   const { rows } = await knex.raw("SELECT t FROM unnest(?::text[]) AS t WHERE to_regclass(t) IS NOT NULL", [derived]);
+   await knex.raw(`TRUNCATE ${["logs", ...rows.map((r: { t: string }) => r.t)].join(", ")} RESTART IDENTITY`);
 
    let batch = [];
    // template_key is an eval-only label (see generator.ts), not a column
