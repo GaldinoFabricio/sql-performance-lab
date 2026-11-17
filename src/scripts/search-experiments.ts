@@ -20,6 +20,7 @@ import {
    vectorSearch,
 } from "../search/search";
 import { looksLikeIdentifier, routeWeights } from "../search/routing";
+import { templateSearch, templatesCurrent } from "../search/templates";
 
 /**
  * Phase 3 of the semantic search chapter: LIKE, full-text (GIN), exact
@@ -45,6 +46,14 @@ import { looksLikeIdentifier, routeWeights } from "../search/routing";
  * Usage: pnpm eval:search [--truth=evals/ground_truth.json] [--rounds=3]
  *        [--hnsw=16:64,16:200,32:200] [--ef=10,20,40,80,160] [--repeats=N]
  *        [--hybrid-last-only] [--keep-index] [--out=evals/results/x.json]
+ *        [--templates-only]
+ *
+ * "template" (one embedding per log template, pnpm templates:build) runs
+ * next to the exact methods when the templates are current for the table.
+ * --templates-only measures just that method on the free-text queries,
+ * without the ground truth or the logs' own embeddings: template search
+ * doesn't need them, so it can run at 1M rows right after seed:logs and
+ * templates:build. Recall is not computed there (it needs the exact top-k).
  *
  * pgvector assigns HNSW levels at random, so two builds of the same config
  * are different graphs with different recall. Each config is built
@@ -64,6 +73,7 @@ const KEEP_INDEX = process.argv.includes("--keep-index");
 // Hybrid inherits the full-text side's cost, which grows with the table
 // (seconds per query at 1M); this runs it on the last HNSW config only.
 const HYBRID_LAST_ONLY = process.argv.includes("--hybrid-last-only");
+const TEMPLATES_ONLY = process.argv.includes("--templates-only");
 
 const EF_SEARCH = (flag("ef") ?? "10,20,40,80,160").split(",").map(Number);
 if (EF_SEARCH.some((ef) => !Number.isInteger(ef) || ef < 1)) throw new Error("bad --ef");
@@ -189,6 +199,13 @@ const efSearch =
       await trx.raw("SET LOCAL hnsw.iterative_scan = off");
    };
 const defaults: Setup = async () => {};
+
+const template = (k: number): MethodSpec => ({
+   name: "template (exact over templates)",
+   setup: defaults,
+   run: (c, q) => templateSearch(c, q.vec, k, q.excludeId),
+   planMustHave: ["log_templates", "idx_log_template_map_template"],
+});
 
 /** Captures the SQL of the first call, to EXPLAIN it with the same settings. */
 async function explainFirst(
@@ -370,7 +387,49 @@ function printTable(title: string, rows: MethodResult[]) {
    }
 }
 
+/** Template search alone, on the free-text queries: see --templates-only. */
+async function runTemplatesOnly() {
+   if (!(await templatesCurrent(db))) throw new Error("templates are stale or missing: run pnpm templates:build");
+   const { rows: [info] } = await db.raw("SELECT count(*)::int AS rows, (SELECT count(*)::int FROM log_templates) AS templates FROM logs");
+   const k = 10;
+   const textSpec: { text: string; expected: string; kind: string }[] = JSON.parse(readFileSync(TEXT_QUERIES_PATH, "utf8")).queries;
+   const queries: Query[] = [];
+   for (const t of textSpec) {
+      queries.push({ key: t.text, text: t.text, vec: toPgVector((await embed([t.text]))[0]), expected: t.expected, excludeId: null });
+   }
+   console.log(`${info.rows.toLocaleString("en-US")} rows, ${info.templates} templates, ${queries.length} free-text queries, ${ROUNDS} measured rounds`);
+   const r = await runMethod(template(k), queries, k);
+   printTable("free-text queries", [r]);
+   for (const kind of ["keyword", "mixed", "paraphrase"]) {
+      const idx = textSpec.flatMap((t, i) => (t.kind === kind ? [i] : []));
+      console.log(`  ${kind.padEnd(10)} n=${idx.length}  precision@${k} ${pct(mean(idx.map((i) => r.per_query[i].precision)))}`);
+   }
+   console.log(`  no relevant result: ${r.per_query.filter((p) => p.precision === 0).length} of ${queries.length}`);
+   const size = info.rows >= 1_000_000 ? `${info.rows / 1_000_000}m` : `${info.rows / 1000}k`;
+   const out = flag("out") ? path.resolve(flag("out")!) : path.join(ROOT, `evals/results/search-${size}-templates-only.json`);
+   const { times, ...rest } = r;
+   writeFileSync(
+      out,
+      JSON.stringify(
+         {
+            created_at: new Date().toISOString(),
+            rows: info.rows,
+            templates: info.templates,
+            model: MODEL_ID,
+            k,
+            rounds: ROUNDS,
+            text_queries: [{ ...rest, per_query: rest.per_query.map((p, i) => ({ ...p, kind: textSpec[i].kind, expected: textSpec[i].expected })) }],
+         },
+         null,
+         2,
+      ) + "\n",
+   );
+   console.log(`\nwrote ${path.relative(ROOT, out)}`);
+}
+
 async function main() {
+   // Template search doesn't touch the HNSW index: no need to drop and rebuild it.
+   if (TEMPLATES_ONLY) return runTemplatesOnly();
    // The production HNSW index would compete with the one under test.
    const {
       rows: [prod],
@@ -484,7 +543,10 @@ async function run() {
 
    const logResults: MethodResult[] = [];
    const textResults: MethodResult[] = [];
-   for (const spec of [like, fts, exact]) {
+   const exactMethods = [like, fts, exact];
+   if (await templatesCurrent(db)) exactMethods.push(template(k));
+   else console.warn("skipping template search: run pnpm templates:build to include it");
+   for (const spec of exactMethods) {
       process.stdout.write(`running ${spec.name}...`);
       logResults.push(await runMethod(spec, logQueries, k));
       textResults.push(await runMethod(spec, textQueries, k));
@@ -589,7 +651,8 @@ async function run() {
    console.log(
       `\nfree-text precision@${k} by kind (vector/hybrid: ${hnsw40.replace("HNSW ", "")}):`,
    );
-   console.log("kind        n    LIKE     fts  exact   hnsw  hybrid");
+   const tpl = textResults.find((r) => r.method === template(k).name);
+   console.log(`kind        n    LIKE     fts  exact   hnsw  hybrid${tpl ? "  template" : ""}`);
    for (const kind of ["keyword", "mixed", "paraphrase"]) {
       const idx = textSpec
          .map((t, i) => (t.kind === kind ? i : -1))
@@ -601,7 +664,8 @@ async function run() {
             ),
          );
       console.log(
-         `${kind.padEnd(10)} ${String(idx.length).padStart(2)}  ${p(like.name)} ${p(fts.name)} ${p(exact.name)} ${p(hnsw40)} ${p(hybridName)}`,
+         `${kind.padEnd(10)} ${String(idx.length).padStart(2)}  ${p(like.name)} ${p(fts.name)} ${p(exact.name)} ${p(hnsw40)} ${p(hybridName)}` +
+            (tpl ? `    ${p(tpl.method)}` : ""),
       );
    }
    console.log(`\nwhere each one wins (precision@${k}, free text):`);

@@ -233,6 +233,75 @@ Embedding a typed query with the local model adds ~1.65 ms (p50) before any vect
 - Narrowing first is better still: a service or time window makes exact search over the remaining rows cheap. Phase 5 measures this ([evals/plans/README.md](evals/plans/README.md), experiments 16–20).
 - When the index must be rebuilt often (a new embedding model means re-embedding and rebuilding), the default m = 16 / ef_construction = 64 with a larger ef_search gets close to the same recall for 3x the query latency and a fraction of the build time.
 
+## One embedding per log template
+
+Logs are not free text. Almost every message is a fixed sentence with a few values filled in: `Connection to redis-cache-03 timed out after 5000ms` and `Connection to redis-cache-01 timed out after 3000ms` say the same thing. A table of 1M logs has 1M vectors but only a few dozen distinct meanings. `mode=template` searches the meanings instead of the rows.
+
+### How it works
+
+1. **Mask the obvious values** (`src/logs/template.ts`, `toTemplate`). Regexes replace numbers, ids, IPs, hosts, durations, paths and quoted strings with placeholders, on the first line of the message only.
+2. **Find the values the regexes miss** (`src/logs/miner.ts`, `TemplateMiner`). A Drain-style online miner groups masked messages by `level|error_code`, first token and length, and merges two of them when at least 60% of their tokens match. Positions that differ become `<*>`. It aligns the common prefix and suffix first, so a multi-word name ("Acme Payments" vs "Globex") still merges into one `<*>`.
+3. **Put categories back** (`src/logs/values.ts`). A `<*>` with at most 10 distinct values is a category (a partner name, a table, an HTTP method), not an id. Its most frequent values (up to 5) replace the `<*>` in the text that gets embedded: `Rate limit hit when calling stripe / twilio / … API`. Without this, "stripe is throttling us" has nothing to match.
+4. **Build** (`pnpm templates:build`). Mines every log in id order, writes the tables below, and embeds each template's `embed_text`. A rebuild keeps embeddings whose text did not change.
+5. **Search.** Exact cosine distance over the template embeddings (a sequential scan of ~68 rows, no index), then the newest logs of the nearest templates through `log_template_map (template_id, log_id DESC)`.
+
+| table | holds |
+|---|---|
+| `log_templates` | one row per template: id (the miner's stable cluster id), text, `embed_text`, `embedding`, `log_count`, newest log id, an example, wildcard values |
+| `log_template_variants` | the miner's state: each masked variant and the template it joined, so a rebuild reproduces the same ids |
+| `log_template_map` | `log_id → template_id`, indexed on `(template_id, log_id DESC)` |
+
+### How many templates
+
+`pnpm eval:templates` (no database; `evals/results/templates.json`) runs both stages over the generator's output. The generator has 67 sentence templates, and each log is labelled with the one that produced it (`template_key`, used only by the eval).
+
+| rows | regex only | regex + miner | new in the last 10% of logs (miner) | purity by `root_cause` | purity by generator template |
+| ---: | ---: | ---: | ---: | ---: | ---: |
+| 10k | 372 | 68 | 0 | 100% | 99.2% |
+| 100k | 1,593 | 68 | 0 | 100% | 99.1% |
+| 1M | 12,072 | 68 | 0 | 100% | 99.1% |
+
+Regex alone keeps growing with the table (about 11 new templates per 1,000 logs at 1M) because three sentences carry free text: a company name, a city, a file name. The miner stops at 68 and stays there. The ~1% impurity is harmless: it merges the `TypeError` messages about `undefined` and `null` (same root cause) and splits HTTP logs by method.
+
+Measured at 1M rows: mining takes 6.5 s, writing the tables 20.5 s, embedding the 68 templates 0.5 s, and `log_template_map` takes 117 MB. Embedding every log took about 50 min at 1M.
+
+### Results
+
+Same 60 free-text queries and 100 log queries as above, m = 32 / ef_construction = 200 for HNSW (3 builds at 10k and 100k). At 1M only template mode was measured (`--templates-only`), so the other rows of that size come from the tables above.
+
+**Free-text queries, precision@10**
+
+| method | 10k | 100k | 1M | p50 ms at 100k | queries with nothing relevant (100k) |
+| :--- | ---: | ---: | ---: | ---: | ---: |
+| **template (exact over 68 templates)** | **95.0%** | **95.0%** | **95.0%** | **0.66** | **3** |
+| vector, exact (seq scan) | 92.0% | 92.5% | 91.7% | 27.0 | 4 |
+| HNSW ef_search=160 | 88.1% | 79.3% | 72.2% | 1.08 | 8 |
+| hybrid RRF | 86.4% | 77.7% | 74.3% | 26.9 | 2 |
+| full-text (GIN) | 80.0% | 80.5% | 80.5% | 26.5 | 7 |
+
+Template p50 is 0.67 ms at 10k, 0.66 ms at 100k and 0.81 ms at 1M: the search cost depends on the number of templates, not on the number of logs. By kind of query at 100k: keyword 95.8%, mixed 100%, paraphrase 88.2% (exact vectors: 91.7 / 97.9 / 87.6).
+
+Recall against the exact top-10 (34% at 10k, 16% at 100k) is not meaningful here and is left out of the table: template mode returns the *newest* logs of the nearest template, not the nearest logs, so it rarely returns the same ids. Precision is the metric that applies.
+
+**Log queries, precision@10:** template 82% (10k) and 88% (100k), against ~100% for exact and HNSW. 18 of the 100 queries at 10k got nothing relevant; all of them are INFO HTTP request logs.
+
+### Findings
+
+**1. Fewer, cleaner vectors beat a better index.** A template embedding is the average meaning of thousands of logs, with the noise of ids and hosts taken out. Template mode is more precise than exact search over every row (95.0% vs 92.5% at 100k), 40x faster (0.66 ms vs 27 ms) and stays flat to 1M, where HNSW has fallen to 72%. It needs no ANN index, so it has no recall loss to measure.
+
+**2. A template is only as good as its embed_text.** For a log used as a query, the HTTP template's `embed_text` lists routes in place of its `<*>`, and mean pooling makes its vector "about routes" rather than "about a request". The nearest template to an INFO HTTP log is then often the `jwt_expired` one, whose text also mentions routes. Fewer values in `embed_text` would help. A better fix for "logs similar to this log" needs no vector at all: run `toTemplate` on the log and look its variant up in `log_template_variants`.
+
+**3. The model's blind spots stay.** The same 3 free-text queries fail at every size: `ECONNRESET` (a bare code), "cannot find the address of the payment server" (DNS failure, phrased without "DNS") and one that varies with the data ("code crashed on a missing field", or `OOMKilled` at 10k). Templates change what gets embedded, not what the model understands. Codes still need full-text, or an `error_code` column.
+
+**4. Why a side table instead of `logs.template_id`.** Adding the column means an `UPDATE` on every row. The table's pages are full (fillfactor 100), so these updates can't be HOT: each new row version lands on another page and gets a new entry in every index of `logs`, including the 1.4 GB HNSW index. `log_template_map` is written once with `INSERT`s and touches no index of `logs`.
+
+### Limits
+
+- **New logs need `pnpm templates:build`.** There is no trigger. Until a rebuild, new logs are not in any template, and `eval:search` refuses to measure a stale build (`templatesCurrent` checks that the map covers every log and that no embedding is out of date).
+- **A `<*>` can hide meaning.** "Rate limit hit when calling <*> API" lost the partner name. Category values bring it back, but only for wildcards with ≤10 distinct values. Names with more values than that stay hidden.
+- **Some masks are wrong.** The prefixed-id rule masks `send-invoices` as `<id>`.
+- **The data is synthetic.** 67 generator templates is a best case. Real logs have long-tail messages, stack traces and free text, so expect more templates and lower purity. Measure with `pnpm eval:templates` before trusting the numbers above.
+
 ## API
 
 `GET /search/logs` (validated with celebrate, `src/validators/search.validator.ts`). An invalid or unknown param returns `400 { "error": "<message>" }`.
@@ -240,7 +309,7 @@ Embedding a typed query with the local model adds ~1.65 ms (p50) before any vect
 | Param | Default | Range | What it does |
 | --- | --- | --- | --- |
 | `q` | required | 1–500 characters, trimmed | the search text |
-| `mode` | `hybrid` | `hybrid`, `vector`, `fulltext`, `like` | which search runs |
+| `mode` | `hybrid` | `hybrid`, `vector`, `fulltext`, `like`, `template` | which search runs. `template` needs `pnpm templates:build` and returns `503` until it has run |
 | `k` | 10 | 1–50 | number of results |
 | `ef_search` | 160 | 10–1000 | HNSW candidate list, per transaction (hybrid uses at least 40) |
 | `vw`, `fw` | 1 / 1 | 0–5, not both 0 | hybrid only: RRF weight of the vector and full-text lists. Setting either one turns routing off; the one left out stays 1 |
@@ -272,4 +341,9 @@ pnpm eval:ground-truth --out=evals/ground_truth.100k.json
 pnpm eval:search --truth=evals/ground_truth.100k.json
 pnpm eval:report                   # chart + the tables above
 pnpm eval:hnsw-dive --rebuild=3     # exact vs HNSW up close: EXPLAIN, missed logs, build noise
+pnpm eval:templates                 # regex vs miner template counts and purity, no DB needed
+pnpm templates:build                # mine the logs, one embedding per template (rerun after new logs)
+pnpm eval:search --truth=evals/ground_truth.100k.json --hnsw=32:200 --ef=40,160 \
+  --out=evals/results/search-100k-templates.json   # adds the template method
+pnpm eval:search --templates-only   # template mode alone on free text, e.g. at 1M without per-log embeddings
 ```

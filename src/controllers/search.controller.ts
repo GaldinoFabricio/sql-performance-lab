@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import { searchLogs } from "../services/search.service";
+import { searchLogs, SearchUnavailableError } from "../services/search.service";
 import type { LogSearchQuery } from "../validators/search.validator";
 
 // Params already validated and converted by validateLogSearch (src/validators/search.validator.ts).
@@ -8,6 +8,7 @@ export async function getLogSearch(req: Request, res: Response) {
    try {
       res.json(await searchLogs({ q, mode, k, efSearch, vectorWeight: vw, keywordWeight: fw, rrfK, route }));
    } catch (err) {
+      if (err instanceof SearchUnavailableError) return res.status(503).json({ error: err.message });
       res.status(500).json({ error: "Search failed", detail: String(err) });
    }
 }

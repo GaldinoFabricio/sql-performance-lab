@@ -3,6 +3,7 @@ import { embed, toPgVector } from "../embeddings/embedder";
 import { likePattern } from "../evals/metrics";
 import { routeWeights } from "../search/routing";
 import { fullTextSearch, Hit, hybridSearch, likeSearch, vectorSearch } from "../search/search";
+import { templateSearch, templatesReady, TemplateHit } from "../search/templates";
 
 /**
  * Log search behind GET /search/logs.
@@ -15,8 +16,10 @@ import { fullTextSearch, Hit, hybridSearch, likeSearch, vectorSearch } from "../
  *    20261115130000): the largest value measured at every table size, and
  *    still under 2 ms p50 at 1M rows, less than embedding the query. Recall
  *    on typed queries had not flattened at 1M, so callers may go up to 1000.
+ *  - template: exact search over one embedding per log template
+ *    (pnpm templates:build), then the newest logs of the nearest templates.
  */
-export const SEARCH_MODES = ["hybrid", "vector", "fulltext", "like"] as const;
+export const SEARCH_MODES = ["hybrid", "vector", "fulltext", "like", "template"] as const;
 export type SearchMode = (typeof SEARCH_MODES)[number];
 
 export const SEARCH_DEFAULTS = {
@@ -81,7 +84,12 @@ export interface LogResult {
    level: string;
    error_code: string | null;
    message: string;
+   /** Template mode only: the template this log matched through. */
+   template?: { id: number; text: string; log_count: number; distance: number };
 }
+
+/** The search can't run yet (e.g. templates not built); maps to HTTP 503. */
+export class SearchUnavailableError extends Error {}
 
 export interface SearchResponse {
    query: string;
@@ -98,7 +106,12 @@ const round = (n: number) => Math.round(n * 100) / 100;
 
 export async function searchLogs(p: SearchParams): Promise<SearchResponse> {
    const start = performance.now();
-   const needsVector = p.mode === "vector" || p.mode === "hybrid";
+   const needsVector = p.mode === "vector" || p.mode === "hybrid" || p.mode === "template";
+   // template search is exact over a few dozen rows: no HNSW, no ef_search
+   const usesHnsw = p.mode === "vector" || p.mode === "hybrid";
+   if (p.mode === "template" && !(await templatesReady(db))) {
+      throw new SearchUnavailableError("templates are not built: run pnpm templates:build");
+   }
 
    let embedMs = 0;
    let vec = "";
@@ -114,8 +127,8 @@ export async function searchLogs(p: SearchParams): Promise<SearchResponse> {
    const efSearch = p.mode === "hybrid" ? Math.max(p.efSearch, SEARCH_DEFAULTS.hybridCandidates) : p.efSearch;
    const weights = p.mode === "hybrid" ? hybridWeights(p) : null;
    const t = performance.now();
-   const hits: Hit[] = await db.transaction(async (trx) => {
-      if (needsVector) {
+   const hits: (Hit | TemplateHit)[] = await db.transaction(async (trx) => {
+      if (usesHnsw) {
          await trx.raw(`SET LOCAL hnsw.ef_search = ${Number(efSearch)}`);
       }
       switch (p.mode) {
@@ -132,6 +145,8 @@ export async function searchLogs(p: SearchParams): Promise<SearchResponse> {
             return fullTextSearch(trx, p.q, p.k);
          case "like":
             return likeSearch(trx, likePattern(p.q, Number.MAX_SAFE_INTEGER), p.k);
+         case "template":
+            return templateSearch(trx, vec, p.k);
       }
    });
 
@@ -144,13 +159,14 @@ export async function searchLogs(p: SearchParams): Promise<SearchResponse> {
       [ids],
    );
    const byId = new Map<number, LogResult>(rows.map((r: any) => [Number(r.id), { ...r, id: Number(r.id) }]));
+   for (const h of hits) if ("template" in h && byId.has(h.id)) byId.get(h.id)!.template = h.template;
    const searchMs = performance.now() - t;
 
    return {
       query: p.q,
       mode: p.mode,
       k: p.k,
-      ef_search: needsVector ? efSearch : null,
+      ef_search: usesHnsw ? efSearch : null,
       hybrid: weights && {
          vector_weight: weights.vectorWeight,
          keyword_weight: weights.keywordWeight,

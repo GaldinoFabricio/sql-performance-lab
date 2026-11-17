@@ -1,0 +1,3027 @@
+{
+  "created_at": "2026-11-17T01:33:56.090Z",
+  "seed": 42,
+  "generator_templates": 67,
+  "sizes": [
+    {
+      "stage": "regex",
+      "rows": 10000,
+      "templates": 372,
+      "generator_templates_seen": 67,
+      "purity_root_cause": 1,
+      "purity_generator_template": 1,
+      "impure_templates": [],
+      "new_templates_last_10pct": 14,
+      "fragmentation": [
+        {
+          "key": "rate_limited#2",
+          "templates": 76,
+          "examples": [
+            "Throttling tenant Kerluke Group: <num> requests in the last minute (quota <num>)",
+            "Throttling tenant Will, Berge and Franey: <num> requests in the last minute (quota <num>)",
+            "Throttling tenant Roob Inc: <num> requests in the last minute (quota <num>)"
+          ]
+        },
+        {
+          "key": "null_reference#2",
+          "templates": 41,
+          "examples": [
+            "Unhandled exception: tried to access 'address' on an undefined product object",
+            "Unhandled exception: tried to access 'address' on an undefined payment object",
+            "Unhandled exception: tried to access 'items' on an undefined user object"
+          ]
+        },
+        {
+          "key": "null_reference#3",
+          "templates": 40,
+          "examples": [
+            "java.lang.NullPointerException: Cannot invoke \"Invoice.getId()\" because \"order\" is null",
+            "java.lang.NullPointerException: Cannot invoke \"Customer.getId()\" because \"product\" is null",
+            "java.lang.NullPointerException: Cannot invoke \"Customer.getAddress()\" because \"order\" is null"
+          ]
+        },
+        {
+          "key": "stock_inconsistency#2",
+          "templates": 30,
+          "examples": [
+            "Stock reconciliation mismatch in warehouse North Kellifurt: expected <num>, counted <num>",
+            "Stock reconciliation mismatch in warehouse East Olive: expected <num>, counted <num>",
+            "Stock reconciliation mismatch in warehouse North Kaitlinhaven: expected <num>, counted <num>"
+          ]
+        },
+        {
+          "key": "info:http_request#0",
+          "templates": 24,
+          "examples": [
+            "POST /api/orders <num> <num>ms",
+            "GET /api/orders/<id> <num> <num>ms",
+            "PUT /api/users/<id> <num> <num>ms"
+          ]
+        },
+        {
+          "key": "disk_full#1",
+          "templates": 21,
+          "examples": [
+            "Failed to persist upload greatly.bz2: disk quota exceeded on volume uploads",
+            "Failed to persist upload usually_gadzooks.mpkg: disk quota exceeded on volume pgdata",
+            "Failed to persist upload gadzooks.svgz: disk quota exceeded on volume data-<num>"
+          ]
+        },
+        {
+          "key": "info:http_request#1",
+          "templates": 16,
+          "examples": [
+            "request completed method=GET path=/api/auth/refresh status=<num> duration_ms=<num> request_id=<uuid>",
+            "request completed method=POST path=/api/payments/charge status=<num> duration_ms=<num> request_id=<uuid>",
+            "request completed method=POST path=/api/users/<id> status=<num> duration_ms=<num> request_id=<uuid>"
+          ]
+        },
+        {
+          "key": "queue_lag#0",
+          "templates": 9,
+          "examples": [
+            "Consumer group orders-cg lag is <num> messages on topic invoice-requests",
+            "Consumer group invoices-cg lag is <num> messages on topic order-events",
+            "Consumer group orders-cg lag is <num> messages on topic email-outbox"
+          ]
+        },
+        {
+          "key": "info:http_request#2",
+          "templates": 8,
+          "examples": [
+            "Handled /api/orders/<id> in <num> ms (status <num>)",
+            "Handled /api/users/<id> in <num> ms (status <num>)",
+            "Handled /api/checkout in <num> ms (status <num>)"
+          ]
+        },
+        {
+          "key": "null_reference#0",
+          "templates": 8,
+          "examples": [
+            "TypeError: Cannot read properties of undefined (reading 'status')",
+            "TypeError: Cannot read properties of undefined (reading 'id')",
+            "TypeError: Cannot read properties of undefined (reading 'price')"
+          ]
+        },
+        {
+          "key": "jwt_expired#1",
+          "templates": 8,
+          "examples": [
+            "Rejected request to /api/payments/charge: access token expired <num> minutes ago",
+            "Rejected request to /api/products/search: access token expired <num> minutes ago",
+            "Rejected request to /api/orders/<id>: access token expired <num> minutes ago"
+          ]
+        },
+        {
+          "key": "null_reference#1",
+          "templates": 8,
+          "examples": [
+            "TypeError: Cannot read properties of null (reading 'token')",
+            "TypeError: Cannot read properties of null (reading 'address')",
+            "TypeError: Cannot read properties of null (reading 'items')"
+          ]
+        },
+        {
+          "key": "rate_limited#1",
+          "templates": 6,
+          "examples": [
+            "Rate limit hit when calling sendgrid API, backing off for <num>s",
+            "Rate limit hit when calling fedex API, backing off for <num>s",
+            "Rate limit hit when calling correios API, backing off for <num>s"
+          ]
+        },
+        {
+          "key": "cache_unavailable#1",
+          "templates": 6,
+          "examples": [
+            "Cache unreachable at <ip>:<num>, falling back to database for product lookups",
+            "Cache unreachable at <ip>:<num>, falling back to database for shipment lookups",
+            "Cache unreachable at <ip>:<num>, falling back to database for payment lookups"
+          ]
+        },
+        {
+          "key": "dns_failure#2",
+          "templates": 6,
+          "examples": [
+            "Unable to resolve hostname <host> while calling sendgrid",
+            "Unable to resolve hostname <host> while calling adyen",
+            "Unable to resolve hostname <host> while calling twilio"
+          ]
+        },
+        {
+          "key": "info:job_completed#0",
+          "templates": 4,
+          "examples": [
+            "Job <id> finished in <num>ms, processed <num> items",
+            "Job sync-stock finished in <num>ms, processed <num> items",
+            "Job label-printing finished in <num>ms, processed <num> items"
+          ]
+        },
+        {
+          "key": "info:job_completed#1",
+          "templates": 3,
+          "examples": [
+            "Cron cleanup-carts completed successfully",
+            "Cron nightly-reconcile completed successfully",
+            "Cron refresh-search-index completed successfully"
+          ]
+        },
+        {
+          "key": "queue_lag#2",
+          "templates": 3,
+          "examples": [
+            "Message processing delayed <num>s, backlog keeps growing on queue emails",
+            "Message processing delayed <num>s, backlog keeps growing on queue labels",
+            "Message processing delayed <num>s, backlog keeps growing on queue webhooks"
+          ]
+        },
+        {
+          "key": "slow_query#2",
+          "templates": 3,
+          "examples": [
+            "Database call to order_items exceeded <num>s budget",
+            "Database call to orders exceeded <num>s budget",
+            "Database call to products exceeded <num>s budget"
+          ]
+        },
+        {
+          "key": "disk_full#0",
+          "templates": 3,
+          "examples": [
+            "ENOSPC: no space left on device, write '/var/log/app/out.log'",
+            "ENOSPC: no space left on device, write '/var/log/worker/out.log'",
+            "ENOSPC: no space left on device, write '/var/log/nginx/out.log'"
+          ]
+        },
+        {
+          "key": "info:user_login#1",
+          "templates": 2,
+          "examples": [
+            "Login succeeded for <email> (mfa=true)",
+            "Login succeeded for <email> (mfa=false)"
+          ]
+        },
+        {
+          "key": "out_of_memory#1",
+          "templates": 2,
+          "examples": [
+            "Container <id> was OOMKilled (exit code <num>), memory limit <num>Mi",
+            "Container vfmbjsce was OOMKilled (exit code <num>), memory limit <num>Mi"
+          ]
+        },
+        {
+          "key": "info:health_check#0",
+          "templates": 1,
+          "examples": [
+            "Health check OK"
+          ]
+        },
+        {
+          "key": "info:health_check#1",
+          "templates": 1,
+          "examples": [
+            "readiness probe passed (db=up, cache=up) in <num>ms"
+          ]
+        },
+        {
+          "key": "info:user_login#0",
+          "templates": 1,
+          "examples": [
+            "User <id> logged in successfully from <ip>"
+          ]
+        },
+        {
+          "key": "db_connection_timeout#2",
+          "templates": 1,
+          "examples": [
+            "KnexTimeoutError: Knex: Timeout acquiring a connection. The pool is probably full. Are you missing a .transacting(trx) call?"
+          ]
+        },
+        {
+          "key": "deadlock#1",
+          "templates": 1,
+          "examples": [
+            "Transaction aborted due to deadlock while updating order <id>, retrying (<num>/<num>)"
+          ]
+        },
+        {
+          "key": "db_connection_timeout#5",
+          "templates": 1,
+          "examples": [
+            "Could not reach primary database, giving up after <num> retries"
+          ]
+        },
+        {
+          "key": "info:health_check#2",
+          "templates": 1,
+          "examples": [
+            "Service started on port <num> (version <num>.<num>)"
+          ]
+        },
+        {
+          "key": "queue_lag#1",
+          "templates": 1,
+          "examples": [
+            "Kafka consumer is falling behind: <num> unprocessed events"
+          ]
+        },
+        {
+          "key": "rate_limited#0",
+          "templates": 1,
+          "examples": [
+            "<num> Too Many Requests from client <ip>: limit <num> req/min exceeded"
+          ]
+        },
+        {
+          "key": "info:user_login#2",
+          "templates": 1,
+          "examples": [
+            "Issued new access token for <id>, expires in <num>m"
+          ]
+        },
+        {
+          "key": "jwt_expired#2",
+          "templates": 1,
+          "examples": [
+            "<num> Unauthorized - session for user <id> is no longer valid, re-login required"
+          ]
+        },
+        {
+          "key": "info:job_completed#2",
+          "templates": 1,
+          "examples": [
+            "Batch of <num> messages processed, <num> failures"
+          ]
+        },
+        {
+          "key": "cache_unavailable#2",
+          "templates": 1,
+          "examples": [
+            "ReplyError: LOADING Redis is loading the dataset in memory"
+          ]
+        },
+        {
+          "key": "deadlock#0",
+          "templates": 1,
+          "examples": [
+            "deadlock detected: Process <num> waits for ShareLock on transaction <num>; blocked by process <num>"
+          ]
+        },
+        {
+          "key": "db_connection_timeout#4",
+          "templates": 1,
+          "examples": [
+            "FATAL: remaining connection slots are reserved for <id> superuser connections"
+          ]
+        },
+        {
+          "key": "jwt_expired#3",
+          "templates": 1,
+          "examples": [
+            "Bearer token rejected: exp claim is in the past (user <id>)"
+          ]
+        },
+        {
+          "key": "db_connection_timeout#1",
+          "templates": 1,
+          "examples": [
+            "connect ECONNREFUSED <ip>:<num>"
+          ]
+        },
+        {
+          "key": "slow_query#1",
+          "templates": 1,
+          "examples": [
+            "canceling statement due to statement timeout"
+          ]
+        },
+        {
+          "key": "payment_gateway_5xx#0",
+          "templates": 1,
+          "examples": [
+            "Payment provider responded <num> Bad Gateway for charge <id>"
+          ]
+        },
+        {
+          "key": "payment_gateway_5xx#1",
+          "templates": 1,
+          "examples": [
+            "Stripe API request failed: upstream returned <num> Service Unavailable (request_id=<id>)"
+          ]
+        },
+        {
+          "key": "cache_unavailable#0",
+          "templates": 1,
+          "examples": [
+            "Redis connection lost (ECONNRESET), reconnecting in <num>ms"
+          ]
+        },
+        {
+          "key": "disk_full#2",
+          "templates": 1,
+          "examples": [
+            "PANIC: could not write to file \"pg_wal/xlogtemp.<num>\": No space left on device"
+          ]
+        },
+        {
+          "key": "jwt_expired#0",
+          "templates": 1,
+          "examples": [
+            "TokenExpiredError: jwt expired at <time>"
+          ]
+        },
+        {
+          "key": "duplicate_key#0",
+          "templates": 1,
+          "examples": [
+            "duplicate key value violates unique constraint \"users_email_unique\""
+          ]
+        },
+        {
+          "key": "out_of_memory#0",
+          "templates": 1,
+          "examples": [
+            "FATAL ERROR: Reached heap limit Allocation failed - JavaScript heap out of memory"
+          ]
+        },
+        {
+          "key": "duplicate_key#1",
+          "templates": 1,
+          "examples": [
+            "Cannot create account: email <email> is already registered"
+          ]
+        },
+        {
+          "key": "payment_gateway_5xx#3",
+          "templates": 1,
+          "examples": [
+            "Gateway timeout (<num>) while capturing payment intent <id>"
+          ]
+        },
+        {
+          "key": "tls_cert_expired#0",
+          "templates": 1,
+          "examples": [
+            "Error: certificate has expired (CERT_HAS_EXPIRED) when connecting to <host>:<num>"
+          ]
+        },
+        {
+          "key": "db_connection_timeout#0",
+          "templates": 1,
+          "examples": [
+            "Connection to postgres at <ip>:<num> timed out after <num>ms"
+          ]
+        },
+        {
+          "key": "dns_failure#0",
+          "templates": 1,
+          "examples": [
+            "getaddrinfo ENOTFOUND <host>"
+          ]
+        },
+        {
+          "key": "duplicate_key#2",
+          "templates": 1,
+          "examples": [
+            "UniqueViolation: Key (sku)=(<id>) already exists."
+          ]
+        },
+        {
+          "key": "cache_unavailable#3",
+          "templates": 1,
+          "examples": [
+            "Failed to read session from cache: Connection is closed."
+          ]
+        },
+        {
+          "key": "out_of_memory#2",
+          "templates": 1,
+          "examples": [
+            "java.lang.OutOfMemoryError: Java heap space"
+          ]
+        },
+        {
+          "key": "tls_cert_expired#1",
+          "templates": 1,
+          "examples": [
+            "TLS handshake with <host> failed: x509: certificate has expired or is not yet valid"
+          ]
+        },
+        {
+          "key": "deadlock#2",
+          "templates": 1,
+          "examples": [
+            "Concurrent updates to inventory row <id> caused a deadlock; one transaction was rolled back"
+          ]
+        },
+        {
+          "key": "db_connection_timeout#3",
+          "templates": 1,
+          "examples": [
+            "Database pool exhausted: <num>/<num> clients busy, request waited <num>ms"
+          ]
+        },
+        {
+          "key": "slow_query#0",
+          "templates": 1,
+          "examples": [
+            "Slow query took <num>ms: SELECT * FROM orders WHERE user_id = $<num> ORDER BY created_at DESC"
+          ]
+        },
+        {
+          "key": "dns_failure#1",
+          "templates": 1,
+          "examples": [
+            "DNS lookup for <host> failed (EAI_AGAIN): temporary failure in name resolution"
+          ]
+        },
+        {
+          "key": "stock_inconsistency#0",
+          "templates": 1,
+          "examples": [
+            "Inventory for <id> went negative (<num>) after reservation"
+          ]
+        },
+        {
+          "key": "tls_cert_expired#2",
+          "templates": 1,
+          "examples": [
+            "SSL certificate for <host> expired on <time>; outbound calls are being rejected"
+          ]
+        },
+        {
+          "key": "payment_gateway_5xx#2",
+          "templates": 1,
+          "examples": [
+            "Charge for order <id> failed: payment processor unavailable, will retry in <num>s"
+          ]
+        },
+        {
+          "key": "duplicate_key#3",
+          "templates": 1,
+          "examples": [
+            "Idempotency conflict: order <id> was already submitted"
+          ]
+        },
+        {
+          "key": "out_of_memory#3",
+          "templates": 1,
+          "examples": [
+            "Worker process exceeded memory limit (<num> MB > <num> MB) and was restarted"
+          ]
+        },
+        {
+          "key": "stock_inconsistency#1",
+          "templates": 1,
+          "examples": [
+            "Oversold product <id>: <num> units ordered but only <num> in stock"
+          ]
+        },
+        {
+          "key": "disk_full#3",
+          "templates": 1,
+          "examples": [
+            "Disk usage at <num>% on /var/lib/data, writes are failing"
+          ]
+        }
+      ]
+    },
+    {
+      "stage": "mined",
+      "rows": 10000,
+      "templates": 68,
+      "generator_templates_seen": 67,
+      "purity_root_cause": 1,
+      "purity_generator_template": 0.9918,
+      "impure_templates": [],
+      "new_templates_last_10pct": 0,
+      "fragmentation": [
+        {
+          "key": "info:http_request#0",
+          "templates": 3,
+          "examples": [
+            "POST <*> <num> <num>ms",
+            "GET <*> <num> <num>ms",
+            "PUT <*> <num> <num>ms"
+          ]
+        },
+        {
+          "key": "info:http_request#2",
+          "templates": 1,
+          "examples": [
+            "Handled <*> in <num> ms (status <num>)"
+          ]
+        },
+        {
+          "key": "info:user_login#1",
+          "templates": 1,
+          "examples": [
+            "Login succeeded for <email> <*>"
+          ]
+        },
+        {
+          "key": "info:http_request#1",
+          "templates": 1,
+          "examples": [
+            "request completed <*> status=<num> duration_ms=<num> request_id=<uuid>"
+          ]
+        },
+        {
+          "key": "info:health_check#0",
+          "templates": 1,
+          "examples": [
+            "Health check OK"
+          ]
+        },
+        {
+          "key": "null_reference#0",
+          "templates": 1,
+          "examples": [
+            "TypeError: Cannot read properties of <*> (reading <*>"
+          ]
+        },
+        {
+          "key": "null_reference#1",
+          "templates": 1,
+          "examples": [
+            "TypeError: Cannot read properties of <*> (reading <*>"
+          ]
+        },
+        {
+          "key": "info:job_completed#0",
+          "templates": 1,
+          "examples": [
+            "Job <*> finished in <num>ms, processed <num> items"
+          ]
+        },
+        {
+          "key": "info:health_check#1",
+          "templates": 1,
+          "examples": [
+            "readiness probe passed (db=up, cache=up) in <num>ms"
+          ]
+        },
+        {
+          "key": "info:user_login#0",
+          "templates": 1,
+          "examples": [
+            "User <id> logged in successfully from <ip>"
+          ]
+        },
+        {
+          "key": "null_reference#2",
+          "templates": 1,
+          "examples": [
+            "Unhandled exception: tried to access <*> on an undefined <*> object"
+          ]
+        },
+        {
+          "key": "db_connection_timeout#2",
+          "templates": 1,
+          "examples": [
+            "KnexTimeoutError: Knex: Timeout acquiring a connection. The pool is probably full. Are you missing a .transacting(trx) call?"
+          ]
+        },
+        {
+          "key": "jwt_expired#1",
+          "templates": 1,
+          "examples": [
+            "Rejected request to <*> access token expired <num> minutes ago"
+          ]
+        },
+        {
+          "key": "deadlock#1",
+          "templates": 1,
+          "examples": [
+            "Transaction aborted due to deadlock while updating order <id>, retrying (<num>/<num>)"
+          ]
+        },
+        {
+          "key": "info:job_completed#1",
+          "templates": 1,
+          "examples": [
+            "Cron <*> completed successfully"
+          ]
+        },
+        {
+          "key": "rate_limited#1",
+          "templates": 1,
+          "examples": [
+            "Rate limit hit when calling <*> API, backing off for <num>s"
+          ]
+        },
+        {
+          "key": "db_connection_timeout#5",
+          "templates": 1,
+          "examples": [
+            "Could not reach primary database, giving up after <num> retries"
+          ]
+        },
+        {
+          "key": "info:health_check#2",
+          "templates": 1,
+          "examples": [
+            "Service started on port <num> (version <num>.<num>)"
+          ]
+        },
+        {
+          "key": "queue_lag#1",
+          "templates": 1,
+          "examples": [
+            "Kafka consumer is falling behind: <num> unprocessed events"
+          ]
+        },
+        {
+          "key": "rate_limited#0",
+          "templates": 1,
+          "examples": [
+            "<num> Too Many Requests from client <ip>: limit <num> req/min exceeded"
+          ]
+        },
+        {
+          "key": "queue_lag#0",
+          "templates": 1,
+          "examples": [
+            "Consumer group <*> lag is <num> messages on topic <*>"
+          ]
+        },
+        {
+          "key": "info:user_login#2",
+          "templates": 1,
+          "examples": [
+            "Issued new access token for <id>, expires in <num>m"
+          ]
+        },
+        {
+          "key": "jwt_expired#2",
+          "templates": 1,
+          "examples": [
+            "<num> Unauthorized - session for user <id> is no longer valid, re-login required"
+          ]
+        },
+        {
+          "key": "info:job_completed#2",
+          "templates": 1,
+          "examples": [
+            "Batch of <num> messages processed, <num> failures"
+          ]
+        },
+        {
+          "key": "cache_unavailable#2",
+          "templates": 1,
+          "examples": [
+            "ReplyError: LOADING Redis is loading the dataset in memory"
+          ]
+        },
+        {
+          "key": "deadlock#0",
+          "templates": 1,
+          "examples": [
+            "deadlock detected: Process <num> waits for ShareLock on transaction <num>; blocked by process <num>"
+          ]
+        },
+        {
+          "key": "queue_lag#2",
+          "templates": 1,
+          "examples": [
+            "Message processing delayed <num>s, backlog keeps growing on queue <*>"
+          ]
+        },
+        {
+          "key": "db_connection_timeout#4",
+          "templates": 1,
+          "examples": [
+            "FATAL: remaining connection slots are reserved for <id> superuser connections"
+          ]
+        },
+        {
+          "key": "jwt_expired#3",
+          "templates": 1,
+          "examples": [
+            "Bearer token rejected: exp claim is in the past (user <id>)"
+          ]
+        },
+        {
+          "key": "rate_limited#2",
+          "templates": 1,
+          "examples": [
+            "Throttling tenant <*> <num> requests in the last minute (quota <num>)"
+          ]
+        },
+        {
+          "key": "db_connection_timeout#1",
+          "templates": 1,
+          "examples": [
+            "connect ECONNREFUSED <ip>:<num>"
+          ]
+        },
+        {
+          "key": "slow_query#1",
+          "templates": 1,
+          "examples": [
+            "canceling statement due to statement timeout"
+          ]
+        },
+        {
+          "key": "payment_gateway_5xx#0",
+          "templates": 1,
+          "examples": [
+            "Payment provider responded <num> Bad Gateway for charge <id>"
+          ]
+        },
+        {
+          "key": "payment_gateway_5xx#1",
+          "templates": 1,
+          "examples": [
+            "Stripe API request failed: upstream returned <num> Service Unavailable (request_id=<id>)"
+          ]
+        },
+        {
+          "key": "cache_unavailable#0",
+          "templates": 1,
+          "examples": [
+            "Redis connection lost (ECONNRESET), reconnecting in <num>ms"
+          ]
+        },
+        {
+          "key": "disk_full#2",
+          "templates": 1,
+          "examples": [
+            "PANIC: could not write to file \"pg_wal/xlogtemp.<num>\": No space left on device"
+          ]
+        },
+        {
+          "key": "jwt_expired#0",
+          "templates": 1,
+          "examples": [
+            "TokenExpiredError: jwt expired at <time>"
+          ]
+        },
+        {
+          "key": "duplicate_key#0",
+          "templates": 1,
+          "examples": [
+            "duplicate key value violates unique constraint \"users_email_unique\""
+          ]
+        },
+        {
+          "key": "out_of_memory#0",
+          "templates": 1,
+          "examples": [
+            "FATAL ERROR: Reached heap limit Allocation failed - JavaScript heap out of memory"
+          ]
+        },
+        {
+          "key": "duplicate_key#1",
+          "templates": 1,
+          "examples": [
+            "Cannot create account: email <email> is already registered"
+          ]
+        },
+        {
+          "key": "stock_inconsistency#2",
+          "templates": 1,
+          "examples": [
+            "Stock reconciliation mismatch in warehouse <*> expected <num>, counted <num>"
+          ]
+        },
+        {
+          "key": "payment_gateway_5xx#3",
+          "templates": 1,
+          "examples": [
+            "Gateway timeout (<num>) while capturing payment intent <id>"
+          ]
+        },
+        {
+          "key": "tls_cert_expired#0",
+          "templates": 1,
+          "examples": [
+            "Error: certificate has expired (CERT_HAS_EXPIRED) when connecting to <host>:<num>"
+          ]
+        },
+        {
+          "key": "db_connection_timeout#0",
+          "templates": 1,
+          "examples": [
+            "Connection to postgres at <ip>:<num> timed out after <num>ms"
+          ]
+        },
+        {
+          "key": "slow_query#2",
+          "templates": 1,
+          "examples": [
+            "Database call to <*> exceeded <num>s budget"
+          ]
+        },
+        {
+          "key": "dns_failure#0",
+          "templates": 1,
+          "examples": [
+            "getaddrinfo ENOTFOUND <host>"
+          ]
+        },
+        {
+          "key": "duplicate_key#2",
+          "templates": 1,
+          "examples": [
+            "UniqueViolation: Key (sku)=(<id>) already exists."
+          ]
+        },
+        {
+          "key": "cache_unavailable#3",
+          "templates": 1,
+          "examples": [
+            "Failed to read session from cache: Connection is closed."
+          ]
+        },
+        {
+          "key": "out_of_memory#2",
+          "templates": 1,
+          "examples": [
+            "java.lang.OutOfMemoryError: Java heap space"
+          ]
+        },
+        {
+          "key": "tls_cert_expired#1",
+          "templates": 1,
+          "examples": [
+            "TLS handshake with <host> failed: x509: certificate has expired or is not yet valid"
+          ]
+        },
+        {
+          "key": "null_reference#3",
+          "templates": 1,
+          "examples": [
+            "java.lang.NullPointerException: Cannot invoke <*> because <*> is null"
+          ]
+        },
+        {
+          "key": "cache_unavailable#1",
+          "templates": 1,
+          "examples": [
+            "Cache unreachable at <ip>:<num>, falling back to database for <*> lookups"
+          ]
+        },
+        {
+          "key": "deadlock#2",
+          "templates": 1,
+          "examples": [
+            "Concurrent updates to inventory row <id> caused a deadlock; one transaction was rolled back"
+          ]
+        },
+        {
+          "key": "db_connection_timeout#3",
+          "templates": 1,
+          "examples": [
+            "Database pool exhausted: <num>/<num> clients busy, request waited <num>ms"
+          ]
+        },
+        {
+          "key": "slow_query#0",
+          "templates": 1,
+          "examples": [
+            "Slow query took <num>ms: SELECT * FROM orders WHERE user_id = $<num> ORDER BY created_at DESC"
+          ]
+        },
+        {
+          "key": "dns_failure#1",
+          "templates": 1,
+          "examples": [
+            "DNS lookup for <host> failed (EAI_AGAIN): temporary failure in name resolution"
+          ]
+        },
+        {
+          "key": "out_of_memory#1",
+          "templates": 1,
+          "examples": [
+            "Container <*> was OOMKilled (exit code <num>), memory limit <num>Mi"
+          ]
+        },
+        {
+          "key": "stock_inconsistency#0",
+          "templates": 1,
+          "examples": [
+            "Inventory for <id> went negative (<num>) after reservation"
+          ]
+        },
+        {
+          "key": "tls_cert_expired#2",
+          "templates": 1,
+          "examples": [
+            "SSL certificate for <host> expired on <time>; outbound calls are being rejected"
+          ]
+        },
+        {
+          "key": "dns_failure#2",
+          "templates": 1,
+          "examples": [
+            "Unable to resolve hostname <host> while calling <*>"
+          ]
+        },
+        {
+          "key": "payment_gateway_5xx#2",
+          "templates": 1,
+          "examples": [
+            "Charge for order <id> failed: payment processor unavailable, will retry in <num>s"
+          ]
+        },
+        {
+          "key": "duplicate_key#3",
+          "templates": 1,
+          "examples": [
+            "Idempotency conflict: order <id> was already submitted"
+          ]
+        },
+        {
+          "key": "out_of_memory#3",
+          "templates": 1,
+          "examples": [
+            "Worker process exceeded memory limit (<num> MB > <num> MB) and was restarted"
+          ]
+        },
+        {
+          "key": "stock_inconsistency#1",
+          "templates": 1,
+          "examples": [
+            "Oversold product <id>: <num> units ordered but only <num> in stock"
+          ]
+        },
+        {
+          "key": "disk_full#1",
+          "templates": 1,
+          "examples": [
+            "Failed to persist upload <*> disk quota exceeded on volume <*>"
+          ]
+        },
+        {
+          "key": "disk_full#0",
+          "templates": 1,
+          "examples": [
+            "ENOSPC: no space left on device, write <*>"
+          ]
+        },
+        {
+          "key": "disk_full#3",
+          "templates": 1,
+          "examples": [
+            "Disk usage at <num>% on /var/lib/data, writes are failing"
+          ]
+        }
+      ]
+    },
+    {
+      "stage": "regex",
+      "rows": 100000,
+      "templates": 1593,
+      "generator_templates_seen": 67,
+      "purity_root_cause": 1,
+      "purity_generator_template": 1,
+      "impure_templates": [],
+      "new_templates_last_10pct": 154,
+      "fragmentation": [
+        {
+          "key": "rate_limited#2",
+          "templates": 829,
+          "examples": [
+            "Throttling tenant Kerluke Group: <num> requests in the last minute (quota <num>)",
+            "Throttling tenant Will, Berge and Franey: <num> requests in the last minute (quota <num>)",
+            "Throttling tenant Roob Inc: <num> requests in the last minute (quota <num>)"
+          ]
+        },
+        {
+          "key": "stock_inconsistency#2",
+          "templates": 253,
+          "examples": [
+            "Stock reconciliation mismatch in warehouse North Kellifurt: expected <num>, counted <num>",
+            "Stock reconciliation mismatch in warehouse East Olive: expected <num>, counted <num>",
+            "Stock reconciliation mismatch in warehouse North Kaitlinhaven: expected <num>, counted <num>"
+          ]
+        },
+        {
+          "key": "disk_full#1",
+          "templates": 225,
+          "examples": [
+            "Failed to persist upload greatly.bz2: disk quota exceeded on volume uploads",
+            "Failed to persist upload usually_gadzooks.mpkg: disk quota exceeded on volume pgdata",
+            "Failed to persist upload gadzooks.svgz: disk quota exceeded on volume data-<num>"
+          ]
+        },
+        {
+          "key": "null_reference#3",
+          "templates": 54,
+          "examples": [
+            "java.lang.NullPointerException: Cannot invoke \"Invoice.getId()\" because \"order\" is null",
+            "java.lang.NullPointerException: Cannot invoke \"Customer.getId()\" because \"product\" is null",
+            "java.lang.NullPointerException: Cannot invoke \"Customer.getAddress()\" because \"order\" is null"
+          ]
+        },
+        {
+          "key": "null_reference#2",
+          "templates": 48,
+          "examples": [
+            "Unhandled exception: tried to access 'address' on an undefined product object",
+            "Unhandled exception: tried to access 'address' on an undefined payment object",
+            "Unhandled exception: tried to access 'items' on an undefined user object"
+          ]
+        },
+        {
+          "key": "info:http_request#0",
+          "templates": 24,
+          "examples": [
+            "POST /api/orders <num> <num>ms",
+            "GET /api/orders/<id> <num> <num>ms",
+            "PUT /api/users/<id> <num> <num>ms"
+          ]
+        },
+        {
+          "key": "out_of_memory#1",
+          "templates": 22,
+          "examples": [
+            "Container <id> was OOMKilled (exit code <num>), memory limit <num>Mi",
+            "Container vfmbjsce was OOMKilled (exit code <num>), memory limit <num>Mi",
+            "Container jsilocac was OOMKilled (exit code <num>), memory limit <num>Mi"
+          ]
+        },
+        {
+          "key": "info:http_request#1",
+          "templates": 16,
+          "examples": [
+            "request completed method=GET path=/api/auth/refresh status=<num> duration_ms=<num> request_id=<uuid>",
+            "request completed method=POST path=/api/payments/charge status=<num> duration_ms=<num> request_id=<uuid>",
+            "request completed method=POST path=/api/users/<id> status=<num> duration_ms=<num> request_id=<uuid>"
+          ]
+        },
+        {
+          "key": "queue_lag#0",
+          "templates": 9,
+          "examples": [
+            "Consumer group orders-cg lag is <num> messages on topic invoice-requests",
+            "Consumer group invoices-cg lag is <num> messages on topic order-events",
+            "Consumer group orders-cg lag is <num> messages on topic email-outbox"
+          ]
+        },
+        {
+          "key": "info:http_request#2",
+          "templates": 8,
+          "examples": [
+            "Handled /api/orders/<id> in <num> ms (status <num>)",
+            "Handled /api/users/<id> in <num> ms (status <num>)",
+            "Handled /api/checkout in <num> ms (status <num>)"
+          ]
+        },
+        {
+          "key": "null_reference#0",
+          "templates": 8,
+          "examples": [
+            "TypeError: Cannot read properties of undefined (reading 'status')",
+            "TypeError: Cannot read properties of undefined (reading 'id')",
+            "TypeError: Cannot read properties of undefined (reading 'price')"
+          ]
+        },
+        {
+          "key": "jwt_expired#1",
+          "templates": 8,
+          "examples": [
+            "Rejected request to /api/payments/charge: access token expired <num> minutes ago",
+            "Rejected request to /api/products/search: access token expired <num> minutes ago",
+            "Rejected request to /api/orders/<id>: access token expired <num> minutes ago"
+          ]
+        },
+        {
+          "key": "null_reference#1",
+          "templates": 8,
+          "examples": [
+            "TypeError: Cannot read properties of null (reading 'token')",
+            "TypeError: Cannot read properties of null (reading 'address')",
+            "TypeError: Cannot read properties of null (reading 'items')"
+          ]
+        },
+        {
+          "key": "rate_limited#1",
+          "templates": 6,
+          "examples": [
+            "Rate limit hit when calling sendgrid API, backing off for <num>s",
+            "Rate limit hit when calling fedex API, backing off for <num>s",
+            "Rate limit hit when calling correios API, backing off for <num>s"
+          ]
+        },
+        {
+          "key": "cache_unavailable#1",
+          "templates": 6,
+          "examples": [
+            "Cache unreachable at <ip>:<num>, falling back to database for product lookups",
+            "Cache unreachable at <ip>:<num>, falling back to database for shipment lookups",
+            "Cache unreachable at <ip>:<num>, falling back to database for payment lookups"
+          ]
+        },
+        {
+          "key": "dns_failure#2",
+          "templates": 6,
+          "examples": [
+            "Unable to resolve hostname <host> while calling sendgrid",
+            "Unable to resolve hostname <host> while calling adyen",
+            "Unable to resolve hostname <host> while calling twilio"
+          ]
+        },
+        {
+          "key": "info:job_completed#0",
+          "templates": 4,
+          "examples": [
+            "Job <id> finished in <num>ms, processed <num> items",
+            "Job sync-stock finished in <num>ms, processed <num> items",
+            "Job label-printing finished in <num>ms, processed <num> items"
+          ]
+        },
+        {
+          "key": "info:job_completed#1",
+          "templates": 3,
+          "examples": [
+            "Cron cleanup-carts completed successfully",
+            "Cron nightly-reconcile completed successfully",
+            "Cron refresh-search-index completed successfully"
+          ]
+        },
+        {
+          "key": "queue_lag#2",
+          "templates": 3,
+          "examples": [
+            "Message processing delayed <num>s, backlog keeps growing on queue emails",
+            "Message processing delayed <num>s, backlog keeps growing on queue labels",
+            "Message processing delayed <num>s, backlog keeps growing on queue webhooks"
+          ]
+        },
+        {
+          "key": "slow_query#2",
+          "templates": 3,
+          "examples": [
+            "Database call to order_items exceeded <num>s budget",
+            "Database call to orders exceeded <num>s budget",
+            "Database call to products exceeded <num>s budget"
+          ]
+        },
+        {
+          "key": "disk_full#0",
+          "templates": 3,
+          "examples": [
+            "ENOSPC: no space left on device, write '/var/log/app/out.log'",
+            "ENOSPC: no space left on device, write '/var/log/worker/out.log'",
+            "ENOSPC: no space left on device, write '/var/log/nginx/out.log'"
+          ]
+        },
+        {
+          "key": "info:user_login#1",
+          "templates": 2,
+          "examples": [
+            "Login succeeded for <email> (mfa=true)",
+            "Login succeeded for <email> (mfa=false)"
+          ]
+        },
+        {
+          "key": "info:health_check#0",
+          "templates": 1,
+          "examples": [
+            "Health check OK"
+          ]
+        },
+        {
+          "key": "info:health_check#1",
+          "templates": 1,
+          "examples": [
+            "readiness probe passed (db=up, cache=up) in <num>ms"
+          ]
+        },
+        {
+          "key": "info:user_login#0",
+          "templates": 1,
+          "examples": [
+            "User <id> logged in successfully from <ip>"
+          ]
+        },
+        {
+          "key": "db_connection_timeout#2",
+          "templates": 1,
+          "examples": [
+            "KnexTimeoutError: Knex: Timeout acquiring a connection. The pool is probably full. Are you missing a .transacting(trx) call?"
+          ]
+        },
+        {
+          "key": "deadlock#1",
+          "templates": 1,
+          "examples": [
+            "Transaction aborted due to deadlock while updating order <id>, retrying (<num>/<num>)"
+          ]
+        },
+        {
+          "key": "db_connection_timeout#5",
+          "templates": 1,
+          "examples": [
+            "Could not reach primary database, giving up after <num> retries"
+          ]
+        },
+        {
+          "key": "info:health_check#2",
+          "templates": 1,
+          "examples": [
+            "Service started on port <num> (version <num>.<num>)"
+          ]
+        },
+        {
+          "key": "queue_lag#1",
+          "templates": 1,
+          "examples": [
+            "Kafka consumer is falling behind: <num> unprocessed events"
+          ]
+        },
+        {
+          "key": "rate_limited#0",
+          "templates": 1,
+          "examples": [
+            "<num> Too Many Requests from client <ip>: limit <num> req/min exceeded"
+          ]
+        },
+        {
+          "key": "info:user_login#2",
+          "templates": 1,
+          "examples": [
+            "Issued new access token for <id>, expires in <num>m"
+          ]
+        },
+        {
+          "key": "jwt_expired#2",
+          "templates": 1,
+          "examples": [
+            "<num> Unauthorized - session for user <id> is no longer valid, re-login required"
+          ]
+        },
+        {
+          "key": "info:job_completed#2",
+          "templates": 1,
+          "examples": [
+            "Batch of <num> messages processed, <num> failures"
+          ]
+        },
+        {
+          "key": "cache_unavailable#2",
+          "templates": 1,
+          "examples": [
+            "ReplyError: LOADING Redis is loading the dataset in memory"
+          ]
+        },
+        {
+          "key": "deadlock#0",
+          "templates": 1,
+          "examples": [
+            "deadlock detected: Process <num> waits for ShareLock on transaction <num>; blocked by process <num>"
+          ]
+        },
+        {
+          "key": "db_connection_timeout#4",
+          "templates": 1,
+          "examples": [
+            "FATAL: remaining connection slots are reserved for <id> superuser connections"
+          ]
+        },
+        {
+          "key": "jwt_expired#3",
+          "templates": 1,
+          "examples": [
+            "Bearer token rejected: exp claim is in the past (user <id>)"
+          ]
+        },
+        {
+          "key": "db_connection_timeout#1",
+          "templates": 1,
+          "examples": [
+            "connect ECONNREFUSED <ip>:<num>"
+          ]
+        },
+        {
+          "key": "slow_query#1",
+          "templates": 1,
+          "examples": [
+            "canceling statement due to statement timeout"
+          ]
+        },
+        {
+          "key": "payment_gateway_5xx#0",
+          "templates": 1,
+          "examples": [
+            "Payment provider responded <num> Bad Gateway for charge <id>"
+          ]
+        },
+        {
+          "key": "payment_gateway_5xx#1",
+          "templates": 1,
+          "examples": [
+            "Stripe API request failed: upstream returned <num> Service Unavailable (request_id=<id>)"
+          ]
+        },
+        {
+          "key": "cache_unavailable#0",
+          "templates": 1,
+          "examples": [
+            "Redis connection lost (ECONNRESET), reconnecting in <num>ms"
+          ]
+        },
+        {
+          "key": "disk_full#2",
+          "templates": 1,
+          "examples": [
+            "PANIC: could not write to file \"pg_wal/xlogtemp.<num>\": No space left on device"
+          ]
+        },
+        {
+          "key": "jwt_expired#0",
+          "templates": 1,
+          "examples": [
+            "TokenExpiredError: jwt expired at <time>"
+          ]
+        },
+        {
+          "key": "duplicate_key#0",
+          "templates": 1,
+          "examples": [
+            "duplicate key value violates unique constraint \"users_email_unique\""
+          ]
+        },
+        {
+          "key": "out_of_memory#0",
+          "templates": 1,
+          "examples": [
+            "FATAL ERROR: Reached heap limit Allocation failed - JavaScript heap out of memory"
+          ]
+        },
+        {
+          "key": "duplicate_key#1",
+          "templates": 1,
+          "examples": [
+            "Cannot create account: email <email> is already registered"
+          ]
+        },
+        {
+          "key": "payment_gateway_5xx#3",
+          "templates": 1,
+          "examples": [
+            "Gateway timeout (<num>) while capturing payment intent <id>"
+          ]
+        },
+        {
+          "key": "tls_cert_expired#0",
+          "templates": 1,
+          "examples": [
+            "Error: certificate has expired (CERT_HAS_EXPIRED) when connecting to <host>:<num>"
+          ]
+        },
+        {
+          "key": "db_connection_timeout#0",
+          "templates": 1,
+          "examples": [
+            "Connection to postgres at <ip>:<num> timed out after <num>ms"
+          ]
+        },
+        {
+          "key": "dns_failure#0",
+          "templates": 1,
+          "examples": [
+            "getaddrinfo ENOTFOUND <host>"
+          ]
+        },
+        {
+          "key": "duplicate_key#2",
+          "templates": 1,
+          "examples": [
+            "UniqueViolation: Key (sku)=(<id>) already exists."
+          ]
+        },
+        {
+          "key": "cache_unavailable#3",
+          "templates": 1,
+          "examples": [
+            "Failed to read session from cache: Connection is closed."
+          ]
+        },
+        {
+          "key": "out_of_memory#2",
+          "templates": 1,
+          "examples": [
+            "java.lang.OutOfMemoryError: Java heap space"
+          ]
+        },
+        {
+          "key": "tls_cert_expired#1",
+          "templates": 1,
+          "examples": [
+            "TLS handshake with <host> failed: x509: certificate has expired or is not yet valid"
+          ]
+        },
+        {
+          "key": "deadlock#2",
+          "templates": 1,
+          "examples": [
+            "Concurrent updates to inventory row <id> caused a deadlock; one transaction was rolled back"
+          ]
+        },
+        {
+          "key": "db_connection_timeout#3",
+          "templates": 1,
+          "examples": [
+            "Database pool exhausted: <num>/<num> clients busy, request waited <num>ms"
+          ]
+        },
+        {
+          "key": "slow_query#0",
+          "templates": 1,
+          "examples": [
+            "Slow query took <num>ms: SELECT * FROM orders WHERE user_id = $<num> ORDER BY created_at DESC"
+          ]
+        },
+        {
+          "key": "dns_failure#1",
+          "templates": 1,
+          "examples": [
+            "DNS lookup for <host> failed (EAI_AGAIN): temporary failure in name resolution"
+          ]
+        },
+        {
+          "key": "stock_inconsistency#0",
+          "templates": 1,
+          "examples": [
+            "Inventory for <id> went negative (<num>) after reservation"
+          ]
+        },
+        {
+          "key": "tls_cert_expired#2",
+          "templates": 1,
+          "examples": [
+            "SSL certificate for <host> expired on <time>; outbound calls are being rejected"
+          ]
+        },
+        {
+          "key": "payment_gateway_5xx#2",
+          "templates": 1,
+          "examples": [
+            "Charge for order <id> failed: payment processor unavailable, will retry in <num>s"
+          ]
+        },
+        {
+          "key": "duplicate_key#3",
+          "templates": 1,
+          "examples": [
+            "Idempotency conflict: order <id> was already submitted"
+          ]
+        },
+        {
+          "key": "out_of_memory#3",
+          "templates": 1,
+          "examples": [
+            "Worker process exceeded memory limit (<num> MB > <num> MB) and was restarted"
+          ]
+        },
+        {
+          "key": "stock_inconsistency#1",
+          "templates": 1,
+          "examples": [
+            "Oversold product <id>: <num> units ordered but only <num> in stock"
+          ]
+        },
+        {
+          "key": "disk_full#3",
+          "templates": 1,
+          "examples": [
+            "Disk usage at <num>% on /var/lib/data, writes are failing"
+          ]
+        }
+      ]
+    },
+    {
+      "stage": "mined",
+      "rows": 100000,
+      "templates": 68,
+      "generator_templates_seen": 67,
+      "purity_root_cause": 1,
+      "purity_generator_template": 0.99106,
+      "impure_templates": [],
+      "new_templates_last_10pct": 0,
+      "fragmentation": [
+        {
+          "key": "info:http_request#0",
+          "templates": 3,
+          "examples": [
+            "POST <*> <num> <num>ms",
+            "GET <*> <num> <num>ms",
+            "PUT <*> <num> <num>ms"
+          ]
+        },
+        {
+          "key": "info:http_request#2",
+          "templates": 1,
+          "examples": [
+            "Handled <*> in <num> ms (status <num>)"
+          ]
+        },
+        {
+          "key": "info:user_login#1",
+          "templates": 1,
+          "examples": [
+            "Login succeeded for <email> <*>"
+          ]
+        },
+        {
+          "key": "info:http_request#1",
+          "templates": 1,
+          "examples": [
+            "request completed <*> status=<num> duration_ms=<num> request_id=<uuid>"
+          ]
+        },
+        {
+          "key": "info:health_check#0",
+          "templates": 1,
+          "examples": [
+            "Health check OK"
+          ]
+        },
+        {
+          "key": "null_reference#0",
+          "templates": 1,
+          "examples": [
+            "TypeError: Cannot read properties of <*> (reading <*>"
+          ]
+        },
+        {
+          "key": "null_reference#1",
+          "templates": 1,
+          "examples": [
+            "TypeError: Cannot read properties of <*> (reading <*>"
+          ]
+        },
+        {
+          "key": "info:job_completed#0",
+          "templates": 1,
+          "examples": [
+            "Job <*> finished in <num>ms, processed <num> items"
+          ]
+        },
+        {
+          "key": "info:health_check#1",
+          "templates": 1,
+          "examples": [
+            "readiness probe passed (db=up, cache=up) in <num>ms"
+          ]
+        },
+        {
+          "key": "info:user_login#0",
+          "templates": 1,
+          "examples": [
+            "User <id> logged in successfully from <ip>"
+          ]
+        },
+        {
+          "key": "null_reference#2",
+          "templates": 1,
+          "examples": [
+            "Unhandled exception: tried to access <*> on an undefined <*> object"
+          ]
+        },
+        {
+          "key": "db_connection_timeout#2",
+          "templates": 1,
+          "examples": [
+            "KnexTimeoutError: Knex: Timeout acquiring a connection. The pool is probably full. Are you missing a .transacting(trx) call?"
+          ]
+        },
+        {
+          "key": "jwt_expired#1",
+          "templates": 1,
+          "examples": [
+            "Rejected request to <*> access token expired <num> minutes ago"
+          ]
+        },
+        {
+          "key": "deadlock#1",
+          "templates": 1,
+          "examples": [
+            "Transaction aborted due to deadlock while updating order <id>, retrying (<num>/<num>)"
+          ]
+        },
+        {
+          "key": "info:job_completed#1",
+          "templates": 1,
+          "examples": [
+            "Cron <*> completed successfully"
+          ]
+        },
+        {
+          "key": "rate_limited#1",
+          "templates": 1,
+          "examples": [
+            "Rate limit hit when calling <*> API, backing off for <num>s"
+          ]
+        },
+        {
+          "key": "db_connection_timeout#5",
+          "templates": 1,
+          "examples": [
+            "Could not reach primary database, giving up after <num> retries"
+          ]
+        },
+        {
+          "key": "info:health_check#2",
+          "templates": 1,
+          "examples": [
+            "Service started on port <num> (version <num>.<num>)"
+          ]
+        },
+        {
+          "key": "queue_lag#1",
+          "templates": 1,
+          "examples": [
+            "Kafka consumer is falling behind: <num> unprocessed events"
+          ]
+        },
+        {
+          "key": "rate_limited#0",
+          "templates": 1,
+          "examples": [
+            "<num> Too Many Requests from client <ip>: limit <num> req/min exceeded"
+          ]
+        },
+        {
+          "key": "queue_lag#0",
+          "templates": 1,
+          "examples": [
+            "Consumer group <*> lag is <num> messages on topic <*>"
+          ]
+        },
+        {
+          "key": "info:user_login#2",
+          "templates": 1,
+          "examples": [
+            "Issued new access token for <id>, expires in <num>m"
+          ]
+        },
+        {
+          "key": "jwt_expired#2",
+          "templates": 1,
+          "examples": [
+            "<num> Unauthorized - session for user <id> is no longer valid, re-login required"
+          ]
+        },
+        {
+          "key": "info:job_completed#2",
+          "templates": 1,
+          "examples": [
+            "Batch of <num> messages processed, <num> failures"
+          ]
+        },
+        {
+          "key": "cache_unavailable#2",
+          "templates": 1,
+          "examples": [
+            "ReplyError: LOADING Redis is loading the dataset in memory"
+          ]
+        },
+        {
+          "key": "deadlock#0",
+          "templates": 1,
+          "examples": [
+            "deadlock detected: Process <num> waits for ShareLock on transaction <num>; blocked by process <num>"
+          ]
+        },
+        {
+          "key": "queue_lag#2",
+          "templates": 1,
+          "examples": [
+            "Message processing delayed <num>s, backlog keeps growing on queue <*>"
+          ]
+        },
+        {
+          "key": "db_connection_timeout#4",
+          "templates": 1,
+          "examples": [
+            "FATAL: remaining connection slots are reserved for <id> superuser connections"
+          ]
+        },
+        {
+          "key": "jwt_expired#3",
+          "templates": 1,
+          "examples": [
+            "Bearer token rejected: exp claim is in the past (user <id>)"
+          ]
+        },
+        {
+          "key": "rate_limited#2",
+          "templates": 1,
+          "examples": [
+            "Throttling tenant <*> <num> requests in the last minute (quota <num>)"
+          ]
+        },
+        {
+          "key": "db_connection_timeout#1",
+          "templates": 1,
+          "examples": [
+            "connect ECONNREFUSED <ip>:<num>"
+          ]
+        },
+        {
+          "key": "slow_query#1",
+          "templates": 1,
+          "examples": [
+            "canceling statement due to statement timeout"
+          ]
+        },
+        {
+          "key": "payment_gateway_5xx#0",
+          "templates": 1,
+          "examples": [
+            "Payment provider responded <num> Bad Gateway for charge <id>"
+          ]
+        },
+        {
+          "key": "payment_gateway_5xx#1",
+          "templates": 1,
+          "examples": [
+            "Stripe API request failed: upstream returned <num> Service Unavailable (request_id=<id>)"
+          ]
+        },
+        {
+          "key": "cache_unavailable#0",
+          "templates": 1,
+          "examples": [
+            "Redis connection lost (ECONNRESET), reconnecting in <num>ms"
+          ]
+        },
+        {
+          "key": "disk_full#2",
+          "templates": 1,
+          "examples": [
+            "PANIC: could not write to file \"pg_wal/xlogtemp.<num>\": No space left on device"
+          ]
+        },
+        {
+          "key": "jwt_expired#0",
+          "templates": 1,
+          "examples": [
+            "TokenExpiredError: jwt expired at <time>"
+          ]
+        },
+        {
+          "key": "duplicate_key#0",
+          "templates": 1,
+          "examples": [
+            "duplicate key value violates unique constraint \"users_email_unique\""
+          ]
+        },
+        {
+          "key": "out_of_memory#0",
+          "templates": 1,
+          "examples": [
+            "FATAL ERROR: Reached heap limit Allocation failed - JavaScript heap out of memory"
+          ]
+        },
+        {
+          "key": "duplicate_key#1",
+          "templates": 1,
+          "examples": [
+            "Cannot create account: email <email> is already registered"
+          ]
+        },
+        {
+          "key": "stock_inconsistency#2",
+          "templates": 1,
+          "examples": [
+            "Stock reconciliation mismatch in warehouse <*> expected <num>, counted <num>"
+          ]
+        },
+        {
+          "key": "payment_gateway_5xx#3",
+          "templates": 1,
+          "examples": [
+            "Gateway timeout (<num>) while capturing payment intent <id>"
+          ]
+        },
+        {
+          "key": "tls_cert_expired#0",
+          "templates": 1,
+          "examples": [
+            "Error: certificate has expired (CERT_HAS_EXPIRED) when connecting to <host>:<num>"
+          ]
+        },
+        {
+          "key": "db_connection_timeout#0",
+          "templates": 1,
+          "examples": [
+            "Connection to postgres at <ip>:<num> timed out after <num>ms"
+          ]
+        },
+        {
+          "key": "slow_query#2",
+          "templates": 1,
+          "examples": [
+            "Database call to <*> exceeded <num>s budget"
+          ]
+        },
+        {
+          "key": "dns_failure#0",
+          "templates": 1,
+          "examples": [
+            "getaddrinfo ENOTFOUND <host>"
+          ]
+        },
+        {
+          "key": "duplicate_key#2",
+          "templates": 1,
+          "examples": [
+            "UniqueViolation: Key (sku)=(<id>) already exists."
+          ]
+        },
+        {
+          "key": "cache_unavailable#3",
+          "templates": 1,
+          "examples": [
+            "Failed to read session from cache: Connection is closed."
+          ]
+        },
+        {
+          "key": "out_of_memory#2",
+          "templates": 1,
+          "examples": [
+            "java.lang.OutOfMemoryError: Java heap space"
+          ]
+        },
+        {
+          "key": "tls_cert_expired#1",
+          "templates": 1,
+          "examples": [
+            "TLS handshake with <host> failed: x509: certificate has expired or is not yet valid"
+          ]
+        },
+        {
+          "key": "null_reference#3",
+          "templates": 1,
+          "examples": [
+            "java.lang.NullPointerException: Cannot invoke <*> because <*> is null"
+          ]
+        },
+        {
+          "key": "cache_unavailable#1",
+          "templates": 1,
+          "examples": [
+            "Cache unreachable at <ip>:<num>, falling back to database for <*> lookups"
+          ]
+        },
+        {
+          "key": "deadlock#2",
+          "templates": 1,
+          "examples": [
+            "Concurrent updates to inventory row <id> caused a deadlock; one transaction was rolled back"
+          ]
+        },
+        {
+          "key": "db_connection_timeout#3",
+          "templates": 1,
+          "examples": [
+            "Database pool exhausted: <num>/<num> clients busy, request waited <num>ms"
+          ]
+        },
+        {
+          "key": "slow_query#0",
+          "templates": 1,
+          "examples": [
+            "Slow query took <num>ms: SELECT * FROM orders WHERE user_id = $<num> ORDER BY created_at DESC"
+          ]
+        },
+        {
+          "key": "dns_failure#1",
+          "templates": 1,
+          "examples": [
+            "DNS lookup for <host> failed (EAI_AGAIN): temporary failure in name resolution"
+          ]
+        },
+        {
+          "key": "out_of_memory#1",
+          "templates": 1,
+          "examples": [
+            "Container <*> was OOMKilled (exit code <num>), memory limit <num>Mi"
+          ]
+        },
+        {
+          "key": "stock_inconsistency#0",
+          "templates": 1,
+          "examples": [
+            "Inventory for <id> went negative (<num>) after reservation"
+          ]
+        },
+        {
+          "key": "tls_cert_expired#2",
+          "templates": 1,
+          "examples": [
+            "SSL certificate for <host> expired on <time>; outbound calls are being rejected"
+          ]
+        },
+        {
+          "key": "dns_failure#2",
+          "templates": 1,
+          "examples": [
+            "Unable to resolve hostname <host> while calling <*>"
+          ]
+        },
+        {
+          "key": "payment_gateway_5xx#2",
+          "templates": 1,
+          "examples": [
+            "Charge for order <id> failed: payment processor unavailable, will retry in <num>s"
+          ]
+        },
+        {
+          "key": "duplicate_key#3",
+          "templates": 1,
+          "examples": [
+            "Idempotency conflict: order <id> was already submitted"
+          ]
+        },
+        {
+          "key": "out_of_memory#3",
+          "templates": 1,
+          "examples": [
+            "Worker process exceeded memory limit (<num> MB > <num> MB) and was restarted"
+          ]
+        },
+        {
+          "key": "stock_inconsistency#1",
+          "templates": 1,
+          "examples": [
+            "Oversold product <id>: <num> units ordered but only <num> in stock"
+          ]
+        },
+        {
+          "key": "disk_full#1",
+          "templates": 1,
+          "examples": [
+            "Failed to persist upload <*> disk quota exceeded on volume <*>"
+          ]
+        },
+        {
+          "key": "disk_full#0",
+          "templates": 1,
+          "examples": [
+            "ENOSPC: no space left on device, write <*>"
+          ]
+        },
+        {
+          "key": "disk_full#3",
+          "templates": 1,
+          "examples": [
+            "Disk usage at <num>% on /var/lib/data, writes are failing"
+          ]
+        }
+      ]
+    },
+    {
+      "stage": "regex",
+      "rows": 1000000,
+      "templates": 12072,
+      "generator_templates_seen": 67,
+      "purity_root_cause": 1,
+      "purity_generator_template": 1,
+      "impure_templates": [],
+      "new_templates_last_10pct": 1109,
+      "fragmentation": [
+        {
+          "key": "rate_limited#2",
+          "templates": 7075,
+          "examples": [
+            "Throttling tenant Kerluke Group: <num> requests in the last minute (quota <num>)",
+            "Throttling tenant Will, Berge and Franey: <num> requests in the last minute (quota <num>)",
+            "Throttling tenant Roob Inc: <num> requests in the last minute (quota <num>)"
+          ]
+        },
+        {
+          "key": "stock_inconsistency#2",
+          "templates": 2500,
+          "examples": [
+            "Stock reconciliation mismatch in warehouse North Kellifurt: expected <num>, counted <num>",
+            "Stock reconciliation mismatch in warehouse East Olive: expected <num>, counted <num>",
+            "Stock reconciliation mismatch in warehouse North Kaitlinhaven: expected <num>, counted <num>"
+          ]
+        },
+        {
+          "key": "disk_full#1",
+          "templates": 2042,
+          "examples": [
+            "Failed to persist upload greatly.bz2: disk quota exceeded on volume uploads",
+            "Failed to persist upload usually_gadzooks.mpkg: disk quota exceeded on volume pgdata",
+            "Failed to persist upload gadzooks.svgz: disk quota exceeded on volume data-<num>"
+          ]
+        },
+        {
+          "key": "out_of_memory#1",
+          "templates": 191,
+          "examples": [
+            "Container <id> was OOMKilled (exit code <num>), memory limit <num>Mi",
+            "Container vfmbjsce was OOMKilled (exit code <num>), memory limit <num>Mi",
+            "Container jsilocac was OOMKilled (exit code <num>), memory limit <num>Mi"
+          ]
+        },
+        {
+          "key": "null_reference#3",
+          "templates": 54,
+          "examples": [
+            "java.lang.NullPointerException: Cannot invoke \"Invoice.getId()\" because \"order\" is null",
+            "java.lang.NullPointerException: Cannot invoke \"Customer.getId()\" because \"product\" is null",
+            "java.lang.NullPointerException: Cannot invoke \"Customer.getAddress()\" because \"order\" is null"
+          ]
+        },
+        {
+          "key": "null_reference#2",
+          "templates": 48,
+          "examples": [
+            "Unhandled exception: tried to access 'address' on an undefined product object",
+            "Unhandled exception: tried to access 'address' on an undefined payment object",
+            "Unhandled exception: tried to access 'items' on an undefined user object"
+          ]
+        },
+        {
+          "key": "info:http_request#0",
+          "templates": 24,
+          "examples": [
+            "POST /api/orders <num> <num>ms",
+            "GET /api/orders/<id> <num> <num>ms",
+            "PUT /api/users/<id> <num> <num>ms"
+          ]
+        },
+        {
+          "key": "info:http_request#1",
+          "templates": 16,
+          "examples": [
+            "request completed method=GET path=/api/auth/refresh status=<num> duration_ms=<num> request_id=<uuid>",
+            "request completed method=POST path=/api/payments/charge status=<num> duration_ms=<num> request_id=<uuid>",
+            "request completed method=POST path=/api/users/<id> status=<num> duration_ms=<num> request_id=<uuid>"
+          ]
+        },
+        {
+          "key": "queue_lag#0",
+          "templates": 9,
+          "examples": [
+            "Consumer group orders-cg lag is <num> messages on topic invoice-requests",
+            "Consumer group invoices-cg lag is <num> messages on topic order-events",
+            "Consumer group orders-cg lag is <num> messages on topic email-outbox"
+          ]
+        },
+        {
+          "key": "info:http_request#2",
+          "templates": 8,
+          "examples": [
+            "Handled /api/orders/<id> in <num> ms (status <num>)",
+            "Handled /api/users/<id> in <num> ms (status <num>)",
+            "Handled /api/checkout in <num> ms (status <num>)"
+          ]
+        },
+        {
+          "key": "null_reference#0",
+          "templates": 8,
+          "examples": [
+            "TypeError: Cannot read properties of undefined (reading 'status')",
+            "TypeError: Cannot read properties of undefined (reading 'id')",
+            "TypeError: Cannot read properties of undefined (reading 'price')"
+          ]
+        },
+        {
+          "key": "jwt_expired#1",
+          "templates": 8,
+          "examples": [
+            "Rejected request to /api/payments/charge: access token expired <num> minutes ago",
+            "Rejected request to /api/products/search: access token expired <num> minutes ago",
+            "Rejected request to /api/orders/<id>: access token expired <num> minutes ago"
+          ]
+        },
+        {
+          "key": "null_reference#1",
+          "templates": 8,
+          "examples": [
+            "TypeError: Cannot read properties of null (reading 'token')",
+            "TypeError: Cannot read properties of null (reading 'address')",
+            "TypeError: Cannot read properties of null (reading 'items')"
+          ]
+        },
+        {
+          "key": "rate_limited#1",
+          "templates": 6,
+          "examples": [
+            "Rate limit hit when calling sendgrid API, backing off for <num>s",
+            "Rate limit hit when calling fedex API, backing off for <num>s",
+            "Rate limit hit when calling correios API, backing off for <num>s"
+          ]
+        },
+        {
+          "key": "cache_unavailable#1",
+          "templates": 6,
+          "examples": [
+            "Cache unreachable at <ip>:<num>, falling back to database for product lookups",
+            "Cache unreachable at <ip>:<num>, falling back to database for shipment lookups",
+            "Cache unreachable at <ip>:<num>, falling back to database for payment lookups"
+          ]
+        },
+        {
+          "key": "dns_failure#2",
+          "templates": 6,
+          "examples": [
+            "Unable to resolve hostname <host> while calling sendgrid",
+            "Unable to resolve hostname <host> while calling adyen",
+            "Unable to resolve hostname <host> while calling twilio"
+          ]
+        },
+        {
+          "key": "info:job_completed#0",
+          "templates": 4,
+          "examples": [
+            "Job <id> finished in <num>ms, processed <num> items",
+            "Job sync-stock finished in <num>ms, processed <num> items",
+            "Job label-printing finished in <num>ms, processed <num> items"
+          ]
+        },
+        {
+          "key": "info:job_completed#1",
+          "templates": 3,
+          "examples": [
+            "Cron cleanup-carts completed successfully",
+            "Cron nightly-reconcile completed successfully",
+            "Cron refresh-search-index completed successfully"
+          ]
+        },
+        {
+          "key": "queue_lag#2",
+          "templates": 3,
+          "examples": [
+            "Message processing delayed <num>s, backlog keeps growing on queue emails",
+            "Message processing delayed <num>s, backlog keeps growing on queue labels",
+            "Message processing delayed <num>s, backlog keeps growing on queue webhooks"
+          ]
+        },
+        {
+          "key": "slow_query#2",
+          "templates": 3,
+          "examples": [
+            "Database call to order_items exceeded <num>s budget",
+            "Database call to orders exceeded <num>s budget",
+            "Database call to products exceeded <num>s budget"
+          ]
+        },
+        {
+          "key": "disk_full#0",
+          "templates": 3,
+          "examples": [
+            "ENOSPC: no space left on device, write '/var/log/app/out.log'",
+            "ENOSPC: no space left on device, write '/var/log/worker/out.log'",
+            "ENOSPC: no space left on device, write '/var/log/nginx/out.log'"
+          ]
+        },
+        {
+          "key": "info:user_login#1",
+          "templates": 2,
+          "examples": [
+            "Login succeeded for <email> (mfa=true)",
+            "Login succeeded for <email> (mfa=false)"
+          ]
+        },
+        {
+          "key": "info:health_check#0",
+          "templates": 1,
+          "examples": [
+            "Health check OK"
+          ]
+        },
+        {
+          "key": "info:health_check#1",
+          "templates": 1,
+          "examples": [
+            "readiness probe passed (db=up, cache=up) in <num>ms"
+          ]
+        },
+        {
+          "key": "info:user_login#0",
+          "templates": 1,
+          "examples": [
+            "User <id> logged in successfully from <ip>"
+          ]
+        },
+        {
+          "key": "db_connection_timeout#2",
+          "templates": 1,
+          "examples": [
+            "KnexTimeoutError: Knex: Timeout acquiring a connection. The pool is probably full. Are you missing a .transacting(trx) call?"
+          ]
+        },
+        {
+          "key": "deadlock#1",
+          "templates": 1,
+          "examples": [
+            "Transaction aborted due to deadlock while updating order <id>, retrying (<num>/<num>)"
+          ]
+        },
+        {
+          "key": "db_connection_timeout#5",
+          "templates": 1,
+          "examples": [
+            "Could not reach primary database, giving up after <num> retries"
+          ]
+        },
+        {
+          "key": "info:health_check#2",
+          "templates": 1,
+          "examples": [
+            "Service started on port <num> (version <num>.<num>)"
+          ]
+        },
+        {
+          "key": "queue_lag#1",
+          "templates": 1,
+          "examples": [
+            "Kafka consumer is falling behind: <num> unprocessed events"
+          ]
+        },
+        {
+          "key": "rate_limited#0",
+          "templates": 1,
+          "examples": [
+            "<num> Too Many Requests from client <ip>: limit <num> req/min exceeded"
+          ]
+        },
+        {
+          "key": "info:user_login#2",
+          "templates": 1,
+          "examples": [
+            "Issued new access token for <id>, expires in <num>m"
+          ]
+        },
+        {
+          "key": "jwt_expired#2",
+          "templates": 1,
+          "examples": [
+            "<num> Unauthorized - session for user <id> is no longer valid, re-login required"
+          ]
+        },
+        {
+          "key": "info:job_completed#2",
+          "templates": 1,
+          "examples": [
+            "Batch of <num> messages processed, <num> failures"
+          ]
+        },
+        {
+          "key": "cache_unavailable#2",
+          "templates": 1,
+          "examples": [
+            "ReplyError: LOADING Redis is loading the dataset in memory"
+          ]
+        },
+        {
+          "key": "deadlock#0",
+          "templates": 1,
+          "examples": [
+            "deadlock detected: Process <num> waits for ShareLock on transaction <num>; blocked by process <num>"
+          ]
+        },
+        {
+          "key": "db_connection_timeout#4",
+          "templates": 1,
+          "examples": [
+            "FATAL: remaining connection slots are reserved for <id> superuser connections"
+          ]
+        },
+        {
+          "key": "jwt_expired#3",
+          "templates": 1,
+          "examples": [
+            "Bearer token rejected: exp claim is in the past (user <id>)"
+          ]
+        },
+        {
+          "key": "db_connection_timeout#1",
+          "templates": 1,
+          "examples": [
+            "connect ECONNREFUSED <ip>:<num>"
+          ]
+        },
+        {
+          "key": "slow_query#1",
+          "templates": 1,
+          "examples": [
+            "canceling statement due to statement timeout"
+          ]
+        },
+        {
+          "key": "payment_gateway_5xx#0",
+          "templates": 1,
+          "examples": [
+            "Payment provider responded <num> Bad Gateway for charge <id>"
+          ]
+        },
+        {
+          "key": "payment_gateway_5xx#1",
+          "templates": 1,
+          "examples": [
+            "Stripe API request failed: upstream returned <num> Service Unavailable (request_id=<id>)"
+          ]
+        },
+        {
+          "key": "cache_unavailable#0",
+          "templates": 1,
+          "examples": [
+            "Redis connection lost (ECONNRESET), reconnecting in <num>ms"
+          ]
+        },
+        {
+          "key": "disk_full#2",
+          "templates": 1,
+          "examples": [
+            "PANIC: could not write to file \"pg_wal/xlogtemp.<num>\": No space left on device"
+          ]
+        },
+        {
+          "key": "jwt_expired#0",
+          "templates": 1,
+          "examples": [
+            "TokenExpiredError: jwt expired at <time>"
+          ]
+        },
+        {
+          "key": "duplicate_key#0",
+          "templates": 1,
+          "examples": [
+            "duplicate key value violates unique constraint \"users_email_unique\""
+          ]
+        },
+        {
+          "key": "out_of_memory#0",
+          "templates": 1,
+          "examples": [
+            "FATAL ERROR: Reached heap limit Allocation failed - JavaScript heap out of memory"
+          ]
+        },
+        {
+          "key": "duplicate_key#1",
+          "templates": 1,
+          "examples": [
+            "Cannot create account: email <email> is already registered"
+          ]
+        },
+        {
+          "key": "payment_gateway_5xx#3",
+          "templates": 1,
+          "examples": [
+            "Gateway timeout (<num>) while capturing payment intent <id>"
+          ]
+        },
+        {
+          "key": "tls_cert_expired#0",
+          "templates": 1,
+          "examples": [
+            "Error: certificate has expired (CERT_HAS_EXPIRED) when connecting to <host>:<num>"
+          ]
+        },
+        {
+          "key": "db_connection_timeout#0",
+          "templates": 1,
+          "examples": [
+            "Connection to postgres at <ip>:<num> timed out after <num>ms"
+          ]
+        },
+        {
+          "key": "dns_failure#0",
+          "templates": 1,
+          "examples": [
+            "getaddrinfo ENOTFOUND <host>"
+          ]
+        },
+        {
+          "key": "duplicate_key#2",
+          "templates": 1,
+          "examples": [
+            "UniqueViolation: Key (sku)=(<id>) already exists."
+          ]
+        },
+        {
+          "key": "cache_unavailable#3",
+          "templates": 1,
+          "examples": [
+            "Failed to read session from cache: Connection is closed."
+          ]
+        },
+        {
+          "key": "out_of_memory#2",
+          "templates": 1,
+          "examples": [
+            "java.lang.OutOfMemoryError: Java heap space"
+          ]
+        },
+        {
+          "key": "tls_cert_expired#1",
+          "templates": 1,
+          "examples": [
+            "TLS handshake with <host> failed: x509: certificate has expired or is not yet valid"
+          ]
+        },
+        {
+          "key": "deadlock#2",
+          "templates": 1,
+          "examples": [
+            "Concurrent updates to inventory row <id> caused a deadlock; one transaction was rolled back"
+          ]
+        },
+        {
+          "key": "db_connection_timeout#3",
+          "templates": 1,
+          "examples": [
+            "Database pool exhausted: <num>/<num> clients busy, request waited <num>ms"
+          ]
+        },
+        {
+          "key": "slow_query#0",
+          "templates": 1,
+          "examples": [
+            "Slow query took <num>ms: SELECT * FROM orders WHERE user_id = $<num> ORDER BY created_at DESC"
+          ]
+        },
+        {
+          "key": "dns_failure#1",
+          "templates": 1,
+          "examples": [
+            "DNS lookup for <host> failed (EAI_AGAIN): temporary failure in name resolution"
+          ]
+        },
+        {
+          "key": "stock_inconsistency#0",
+          "templates": 1,
+          "examples": [
+            "Inventory for <id> went negative (<num>) after reservation"
+          ]
+        },
+        {
+          "key": "tls_cert_expired#2",
+          "templates": 1,
+          "examples": [
+            "SSL certificate for <host> expired on <time>; outbound calls are being rejected"
+          ]
+        },
+        {
+          "key": "payment_gateway_5xx#2",
+          "templates": 1,
+          "examples": [
+            "Charge for order <id> failed: payment processor unavailable, will retry in <num>s"
+          ]
+        },
+        {
+          "key": "duplicate_key#3",
+          "templates": 1,
+          "examples": [
+            "Idempotency conflict: order <id> was already submitted"
+          ]
+        },
+        {
+          "key": "out_of_memory#3",
+          "templates": 1,
+          "examples": [
+            "Worker process exceeded memory limit (<num> MB > <num> MB) and was restarted"
+          ]
+        },
+        {
+          "key": "stock_inconsistency#1",
+          "templates": 1,
+          "examples": [
+            "Oversold product <id>: <num> units ordered but only <num> in stock"
+          ]
+        },
+        {
+          "key": "disk_full#3",
+          "templates": 1,
+          "examples": [
+            "Disk usage at <num>% on /var/lib/data, writes are failing"
+          ]
+        }
+      ]
+    },
+    {
+      "stage": "mined",
+      "rows": 1000000,
+      "templates": 68,
+      "generator_templates_seen": 67,
+      "purity_root_cause": 1,
+      "purity_generator_template": 0.991337,
+      "impure_templates": [],
+      "new_templates_last_10pct": 0,
+      "fragmentation": [
+        {
+          "key": "info:http_request#0",
+          "templates": 3,
+          "examples": [
+            "POST <*> <num> <num>ms",
+            "GET <*> <num> <num>ms",
+            "PUT <*> <num> <num>ms"
+          ]
+        },
+        {
+          "key": "info:http_request#2",
+          "templates": 1,
+          "examples": [
+            "Handled <*> in <num> ms (status <num>)"
+          ]
+        },
+        {
+          "key": "info:user_login#1",
+          "templates": 1,
+          "examples": [
+            "Login succeeded for <email> <*>"
+          ]
+        },
+        {
+          "key": "info:http_request#1",
+          "templates": 1,
+          "examples": [
+            "request completed <*> status=<num> duration_ms=<num> request_id=<uuid>"
+          ]
+        },
+        {
+          "key": "info:health_check#0",
+          "templates": 1,
+          "examples": [
+            "Health check OK"
+          ]
+        },
+        {
+          "key": "null_reference#0",
+          "templates": 1,
+          "examples": [
+            "TypeError: Cannot read properties of <*> (reading <*>"
+          ]
+        },
+        {
+          "key": "null_reference#1",
+          "templates": 1,
+          "examples": [
+            "TypeError: Cannot read properties of <*> (reading <*>"
+          ]
+        },
+        {
+          "key": "info:job_completed#0",
+          "templates": 1,
+          "examples": [
+            "Job <*> finished in <num>ms, processed <num> items"
+          ]
+        },
+        {
+          "key": "info:health_check#1",
+          "templates": 1,
+          "examples": [
+            "readiness probe passed (db=up, cache=up) in <num>ms"
+          ]
+        },
+        {
+          "key": "info:user_login#0",
+          "templates": 1,
+          "examples": [
+            "User <id> logged in successfully from <ip>"
+          ]
+        },
+        {
+          "key": "null_reference#2",
+          "templates": 1,
+          "examples": [
+            "Unhandled exception: tried to access <*> on an undefined <*> object"
+          ]
+        },
+        {
+          "key": "db_connection_timeout#2",
+          "templates": 1,
+          "examples": [
+            "KnexTimeoutError: Knex: Timeout acquiring a connection. The pool is probably full. Are you missing a .transacting(trx) call?"
+          ]
+        },
+        {
+          "key": "jwt_expired#1",
+          "templates": 1,
+          "examples": [
+            "Rejected request to <*> access token expired <num> minutes ago"
+          ]
+        },
+        {
+          "key": "deadlock#1",
+          "templates": 1,
+          "examples": [
+            "Transaction aborted due to deadlock while updating order <id>, retrying (<num>/<num>)"
+          ]
+        },
+        {
+          "key": "info:job_completed#1",
+          "templates": 1,
+          "examples": [
+            "Cron <*> completed successfully"
+          ]
+        },
+        {
+          "key": "rate_limited#1",
+          "templates": 1,
+          "examples": [
+            "Rate limit hit when calling <*> API, backing off for <num>s"
+          ]
+        },
+        {
+          "key": "db_connection_timeout#5",
+          "templates": 1,
+          "examples": [
+            "Could not reach primary database, giving up after <num> retries"
+          ]
+        },
+        {
+          "key": "info:health_check#2",
+          "templates": 1,
+          "examples": [
+            "Service started on port <num> (version <num>.<num>)"
+          ]
+        },
+        {
+          "key": "queue_lag#1",
+          "templates": 1,
+          "examples": [
+            "Kafka consumer is falling behind: <num> unprocessed events"
+          ]
+        },
+        {
+          "key": "rate_limited#0",
+          "templates": 1,
+          "examples": [
+            "<num> Too Many Requests from client <ip>: limit <num> req/min exceeded"
+          ]
+        },
+        {
+          "key": "queue_lag#0",
+          "templates": 1,
+          "examples": [
+            "Consumer group <*> lag is <num> messages on topic <*>"
+          ]
+        },
+        {
+          "key": "info:user_login#2",
+          "templates": 1,
+          "examples": [
+            "Issued new access token for <id>, expires in <num>m"
+          ]
+        },
+        {
+          "key": "jwt_expired#2",
+          "templates": 1,
+          "examples": [
+            "<num> Unauthorized - session for user <id> is no longer valid, re-login required"
+          ]
+        },
+        {
+          "key": "info:job_completed#2",
+          "templates": 1,
+          "examples": [
+            "Batch of <num> messages processed, <num> failures"
+          ]
+        },
+        {
+          "key": "cache_unavailable#2",
+          "templates": 1,
+          "examples": [
+            "ReplyError: LOADING Redis is loading the dataset in memory"
+          ]
+        },
+        {
+          "key": "deadlock#0",
+          "templates": 1,
+          "examples": [
+            "deadlock detected: Process <num> waits for ShareLock on transaction <num>; blocked by process <num>"
+          ]
+        },
+        {
+          "key": "queue_lag#2",
+          "templates": 1,
+          "examples": [
+            "Message processing delayed <num>s, backlog keeps growing on queue <*>"
+          ]
+        },
+        {
+          "key": "db_connection_timeout#4",
+          "templates": 1,
+          "examples": [
+            "FATAL: remaining connection slots are reserved for <id> superuser connections"
+          ]
+        },
+        {
+          "key": "jwt_expired#3",
+          "templates": 1,
+          "examples": [
+            "Bearer token rejected: exp claim is in the past (user <id>)"
+          ]
+        },
+        {
+          "key": "rate_limited#2",
+          "templates": 1,
+          "examples": [
+            "Throttling tenant <*> <num> requests in the last minute (quota <num>)"
+          ]
+        },
+        {
+          "key": "db_connection_timeout#1",
+          "templates": 1,
+          "examples": [
+            "connect ECONNREFUSED <ip>:<num>"
+          ]
+        },
+        {
+          "key": "slow_query#1",
+          "templates": 1,
+          "examples": [
+            "canceling statement due to statement timeout"
+          ]
+        },
+        {
+          "key": "payment_gateway_5xx#0",
+          "templates": 1,
+          "examples": [
+            "Payment provider responded <num> Bad Gateway for charge <id>"
+          ]
+        },
+        {
+          "key": "payment_gateway_5xx#1",
+          "templates": 1,
+          "examples": [
+            "Stripe API request failed: upstream returned <num> Service Unavailable (request_id=<id>)"
+          ]
+        },
+        {
+          "key": "cache_unavailable#0",
+          "templates": 1,
+          "examples": [
+            "Redis connection lost (ECONNRESET), reconnecting in <num>ms"
+          ]
+        },
+        {
+          "key": "disk_full#2",
+          "templates": 1,
+          "examples": [
+            "PANIC: could not write to file \"pg_wal/xlogtemp.<num>\": No space left on device"
+          ]
+        },
+        {
+          "key": "jwt_expired#0",
+          "templates": 1,
+          "examples": [
+            "TokenExpiredError: jwt expired at <time>"
+          ]
+        },
+        {
+          "key": "duplicate_key#0",
+          "templates": 1,
+          "examples": [
+            "duplicate key value violates unique constraint \"users_email_unique\""
+          ]
+        },
+        {
+          "key": "out_of_memory#0",
+          "templates": 1,
+          "examples": [
+            "FATAL ERROR: Reached heap limit Allocation failed - JavaScript heap out of memory"
+          ]
+        },
+        {
+          "key": "duplicate_key#1",
+          "templates": 1,
+          "examples": [
+            "Cannot create account: email <email> is already registered"
+          ]
+        },
+        {
+          "key": "stock_inconsistency#2",
+          "templates": 1,
+          "examples": [
+            "Stock reconciliation mismatch in warehouse <*> expected <num>, counted <num>"
+          ]
+        },
+        {
+          "key": "payment_gateway_5xx#3",
+          "templates": 1,
+          "examples": [
+            "Gateway timeout (<num>) while capturing payment intent <id>"
+          ]
+        },
+        {
+          "key": "tls_cert_expired#0",
+          "templates": 1,
+          "examples": [
+            "Error: certificate has expired (CERT_HAS_EXPIRED) when connecting to <host>:<num>"
+          ]
+        },
+        {
+          "key": "db_connection_timeout#0",
+          "templates": 1,
+          "examples": [
+            "Connection to postgres at <ip>:<num> timed out after <num>ms"
+          ]
+        },
+        {
+          "key": "slow_query#2",
+          "templates": 1,
+          "examples": [
+            "Database call to <*> exceeded <num>s budget"
+          ]
+        },
+        {
+          "key": "dns_failure#0",
+          "templates": 1,
+          "examples": [
+            "getaddrinfo ENOTFOUND <host>"
+          ]
+        },
+        {
+          "key": "duplicate_key#2",
+          "templates": 1,
+          "examples": [
+            "UniqueViolation: Key (sku)=(<id>) already exists."
+          ]
+        },
+        {
+          "key": "cache_unavailable#3",
+          "templates": 1,
+          "examples": [
+            "Failed to read session from cache: Connection is closed."
+          ]
+        },
+        {
+          "key": "out_of_memory#2",
+          "templates": 1,
+          "examples": [
+            "java.lang.OutOfMemoryError: Java heap space"
+          ]
+        },
+        {
+          "key": "tls_cert_expired#1",
+          "templates": 1,
+          "examples": [
+            "TLS handshake with <host> failed: x509: certificate has expired or is not yet valid"
+          ]
+        },
+        {
+          "key": "null_reference#3",
+          "templates": 1,
+          "examples": [
+            "java.lang.NullPointerException: Cannot invoke <*> because <*> is null"
+          ]
+        },
+        {
+          "key": "cache_unavailable#1",
+          "templates": 1,
+          "examples": [
+            "Cache unreachable at <ip>:<num>, falling back to database for <*> lookups"
+          ]
+        },
+        {
+          "key": "deadlock#2",
+          "templates": 1,
+          "examples": [
+            "Concurrent updates to inventory row <id> caused a deadlock; one transaction was rolled back"
+          ]
+        },
+        {
+          "key": "db_connection_timeout#3",
+          "templates": 1,
+          "examples": [
+            "Database pool exhausted: <num>/<num> clients busy, request waited <num>ms"
+          ]
+        },
+        {
+          "key": "slow_query#0",
+          "templates": 1,
+          "examples": [
+            "Slow query took <num>ms: SELECT * FROM orders WHERE user_id = $<num> ORDER BY created_at DESC"
+          ]
+        },
+        {
+          "key": "dns_failure#1",
+          "templates": 1,
+          "examples": [
+            "DNS lookup for <host> failed (EAI_AGAIN): temporary failure in name resolution"
+          ]
+        },
+        {
+          "key": "out_of_memory#1",
+          "templates": 1,
+          "examples": [
+            "Container <*> was OOMKilled (exit code <num>), memory limit <num>Mi"
+          ]
+        },
+        {
+          "key": "stock_inconsistency#0",
+          "templates": 1,
+          "examples": [
+            "Inventory for <id> went negative (<num>) after reservation"
+          ]
+        },
+        {
+          "key": "tls_cert_expired#2",
+          "templates": 1,
+          "examples": [
+            "SSL certificate for <host> expired on <time>; outbound calls are being rejected"
+          ]
+        },
+        {
+          "key": "dns_failure#2",
+          "templates": 1,
+          "examples": [
+            "Unable to resolve hostname <host> while calling <*>"
+          ]
+        },
+        {
+          "key": "payment_gateway_5xx#2",
+          "templates": 1,
+          "examples": [
+            "Charge for order <id> failed: payment processor unavailable, will retry in <num>s"
+          ]
+        },
+        {
+          "key": "duplicate_key#3",
+          "templates": 1,
+          "examples": [
+            "Idempotency conflict: order <id> was already submitted"
+          ]
+        },
+        {
+          "key": "out_of_memory#3",
+          "templates": 1,
+          "examples": [
+            "Worker process exceeded memory limit (<num> MB > <num> MB) and was restarted"
+          ]
+        },
+        {
+          "key": "stock_inconsistency#1",
+          "templates": 1,
+          "examples": [
+            "Oversold product <id>: <num> units ordered but only <num> in stock"
+          ]
+        },
+        {
+          "key": "disk_full#1",
+          "templates": 1,
+          "examples": [
+            "Failed to persist upload <*> disk quota exceeded on volume <*>"
+          ]
+        },
+        {
+          "key": "disk_full#0",
+          "templates": 1,
+          "examples": [
+            "ENOSPC: no space left on device, write <*>"
+          ]
+        },
+        {
+          "key": "disk_full#3",
+          "templates": 1,
+          "examples": [
+            "Disk usage at <num>% on /var/lib/data, writes are failing"
+          ]
+        }
+      ]
+    }
+  ]
+}
