@@ -135,3 +135,54 @@ export async function embedTemplates(db: Knex): Promise<{ embedded: number; ms: 
    }
    return { embedded: rows.length, ms: Math.round(performance.now() - t0) };
 }
+
+export interface TemplateHit {
+   id: number;
+   root_cause: string | null;
+   template: { id: number; text: string; log_count: number; distance: number };
+}
+
+/**
+ * Search by template: exact cosine distance to every template's embedding
+ * (a few dozen rows, so no index), then the newest logs of the nearest
+ * templates, nearest template first, until k logs.
+ *
+ * Exact on purpose: with ~70 vectors a full scan is cheaper than any index
+ * and has recall 100% by definition, which is the point of the phase.
+ * Logs inserted after the last templates:build are not in log_template_map
+ * yet, so they can't be found this way until the next build.
+ */
+export async function templateSearch(db: Knex | Knex.Transaction, embedding: string, k: number): Promise<TemplateHit[]> {
+   const { rows } = await db.raw(
+      `WITH nearest AS (
+          SELECT id, template, log_count, embedding <=> :vec::vector AS distance
+          FROM log_templates
+          WHERE embedding IS NOT NULL
+          ORDER BY distance, id
+          LIMIT :k
+       )
+       SELECT l.id, l.root_cause, t.id AS template_id, t.template, t.log_count, t.distance
+       FROM nearest t
+       CROSS JOIN LATERAL (
+          SELECT log_id FROM log_template_map m
+          WHERE m.template_id = t.id
+          ORDER BY log_id DESC
+          LIMIT :k
+       ) m
+       JOIN logs l ON l.id = m.log_id
+       ORDER BY t.distance, t.id, m.log_id DESC
+       LIMIT :k`,
+      { vec: embedding, k },
+   );
+   return rows.map((r: any) => ({
+      id: Number(r.id),
+      root_cause: r.root_cause,
+      template: { id: r.template_id, text: r.template, log_count: r.log_count, distance: Number(r.distance) },
+   }));
+}
+
+/** Whether template search can run: templates built and embedded. */
+export async function templatesReady(db: Knex | Knex.Transaction): Promise<boolean> {
+   const { rows } = await db.raw("SELECT EXISTS (SELECT 1 FROM log_templates WHERE embedding IS NOT NULL) AS ok");
+   return rows[0].ok;
+}
