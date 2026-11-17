@@ -124,7 +124,7 @@ describe.skipIf(!ready)("GET /search/logs: resultados", () => {
    });
 
    it("hybrid roteado: frase favorece o vetor (customers cannot pay → pagamento)", async () => {
-      const res = await search({ q: "customers cannot pay" });
+      const res = await search({ q: "customers cannot pay", route: "true" });
 
       expect(res.status).toBe(200);
       expect(res.body.hybrid).toEqual({ vector_weight: 1, keyword_weight: 0.5, weights_from: "routed", rrf_k: 60 });
@@ -133,7 +133,7 @@ describe.skipIf(!ready)("GET /search/logs: resultados", () => {
    });
 
    it("hybrid roteado: código favorece o full-text (ECONNRESET nos 10 resultados)", async () => {
-      const res = await search({ q: "ECONNRESET" });
+      const res = await search({ q: "ECONNRESET", route: "true" });
 
       expect(res.body.hybrid).toEqual({ vector_weight: 0.5, keyword_weight: 1, weights_from: "routed", rrf_k: 60 });
       expect(res.body.results).toHaveLength(10);
@@ -141,17 +141,20 @@ describe.skipIf(!ready)("GET /search/logs: resultados", () => {
    });
 
    it("vw/fw explícitos sempre ganham do roteamento", async () => {
-      const res = await search({ q: "ECONNRESET", vw: 2, fw: 0.25 });
+      const res = await search({ q: "ECONNRESET", vw: 2, fw: 0.25, route: "true" });
       expect(res.body.hybrid).toMatchObject({ vector_weight: 2, keyword_weight: 0.25, weights_from: "explicit" });
 
       // só um dos dois: o outro fica no padrão fixo, sem roteamento
-      const half = await search({ q: "ECONNRESET", vw: 1 });
+      const half = await search({ q: "ECONNRESET", vw: 1, route: "true" });
       expect(half.body.hybrid).toMatchObject({ vector_weight: 1, keyword_weight: 1, weights_from: "explicit" });
    });
 
-   it("route=false volta ao hybrid fixo 1/1", async () => {
-      const res = await search({ q: "ECONNRESET", route: "false" });
-      expect(res.body.hybrid).toMatchObject({ vector_weight: 1, keyword_weight: 1, weights_from: "fixed" });
+   it("sem route, o hybrid usa os pesos fixos 1/1 (roteamento desligado por padrão)", async () => {
+      const res = await search({ q: "ECONNRESET" });
+      expect(res.body.hybrid).toEqual({ vector_weight: 1, keyword_weight: 1, weights_from: "fixed", rrf_k: 60 });
+
+      const off = await search({ q: "ECONNRESET", route: "false" });
+      expect(off.body.hybrid).toMatchObject({ weights_from: "fixed" });
    });
 
    it("hybrid é null fora do modo hybrid", async () => {

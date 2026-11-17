@@ -44,7 +44,7 @@ export interface SearchParams {
    keywordWeight?: number;
    /** RRF constant for the hybrid mode: score = weight / (rrfK + rank). */
    rrfK: number;
-   /** Hybrid only: pick the weights from the query (routing.ts) when none are given. */
+   /** Hybrid only: pick the weights from the query (routing.ts) when none are given. Off by default. */
    route: boolean;
 }
 
@@ -60,7 +60,7 @@ export interface HybridWeights {
 /**
  * Explicit vw/fw always win (manual tests). If only one is given, the other
  * takes the fixed default, so a half-explicit request never mixes in routing.
- * Otherwise route the query, or fall back to the fixed 1/1 when route=false.
+ * Otherwise route the query when route=true, or use the fixed 1/1 (the default).
  */
 export function hybridWeights(p: Pick<SearchParams, "q" | "vectorWeight" | "keywordWeight" | "route">): HybridWeights {
    if (p.vectorWeight !== undefined || p.keywordWeight !== undefined) {

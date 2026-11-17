@@ -46,8 +46,10 @@ export const validateLogSearch = celebrate({
       ef_search: intParam("ef_search", efMin, efMax, SEARCH_DEFAULTS.efSearch),
       vw: weightParam("vw"),
       fw: weightParam("fw"),
-      // route=false turns query routing off: hybrid with fixed weights (1/1).
-      route: Joi.boolean().truthy("1").falsy("0").empty("").default(true).messages({
+      // route=true picks the hybrid weights from the query (routing.ts). Off by default:
+      // at 10k rows routing gained +2.7 precision points, within the build-to-build
+      // noise (6.7), so the fixed 1/1 stays the default until a larger eval says otherwise.
+      route: Joi.boolean().truthy("1").falsy("0").empty("").default(false).messages({
          "boolean.base": "route must be true or false",
       }),
       rrf_k: intParam("rrf_k", rrfMin, rrfMax, SEARCH_DEFAULTS.rrfK),
