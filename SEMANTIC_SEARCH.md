@@ -244,4 +244,5 @@ pnpm embed:logs                    # ~5 min per 100k rows on 4 vCPU
 pnpm eval:ground-truth --out=evals/ground_truth.100k.json
 pnpm eval:search --truth=evals/ground_truth.100k.json
 pnpm eval:report                   # chart + the tables above
+pnpm eval:hnsw-dive --rebuild=3     # exact vs HNSW up close: EXPLAIN, missed logs, build noise
 ```

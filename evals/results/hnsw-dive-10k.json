@@ -1,0 +1,1505 @@
+{
+  "created_at": "2026-11-17T01:07:12.938Z",
+  "rows": 10000,
+  "index": {
+    "m": 32,
+    "ef_construction": 200,
+    "bytes": 17408000,
+    "builds_s": [
+      null
+    ]
+  },
+  "k": 10,
+  "summary": {
+    "all/ef40": {
+      "recall": 0.9283333333333332,
+      "recall_range": [
+        0.9283333333333332,
+        0.9283333333333332
+      ],
+      "precision": 0.8566666666666667,
+      "precision_range": [
+        0.8566666666666667,
+        0.8566666666666667
+      ]
+    },
+    "all/ef160": {
+      "recall": 0.9783333333333333,
+      "recall_range": [
+        0.9783333333333333,
+        0.9783333333333333
+      ],
+      "precision": 0.9049999999999999,
+      "precision_range": [
+        0.9049999999999999,
+        0.9049999999999999
+      ]
+    },
+    "all/exact": {
+      "precision": 0.9199999999999999
+    },
+    "keyword/ef40": {
+      "recall": 0.9083333333333333,
+      "recall_range": [
+        0.9083333333333333,
+        0.9083333333333333
+      ],
+      "precision": 0.8333333333333334,
+      "precision_range": [
+        0.8333333333333334,
+        0.8333333333333334
+      ]
+    },
+    "keyword/ef160": {
+      "recall": 0.9500000000000001,
+      "recall_range": [
+        0.9500000000000001,
+        0.9500000000000001
+      ],
+      "precision": 0.8708333333333332,
+      "precision_range": [
+        0.8708333333333332,
+        0.8708333333333332
+      ]
+    },
+    "keyword/exact": {
+      "precision": 0.9125
+    },
+    "mixed/ef40": {
+      "recall": 0.994736842105263,
+      "recall_range": [
+        0.994736842105263,
+        0.994736842105263
+      ],
+      "precision": 1,
+      "precision_range": [
+        1,
+        1
+      ]
+    },
+    "mixed/ef160": {
+      "recall": 0.994736842105263,
+      "recall_range": [
+        0.994736842105263,
+        0.994736842105263
+      ],
+      "precision": 1,
+      "precision_range": [
+        1,
+        1
+      ]
+    },
+    "mixed/exact": {
+      "precision": 0.994736842105263
+    },
+    "paraphrase/ef40": {
+      "recall": 0.8823529411764706,
+      "recall_range": [
+        0.8823529411764706,
+        0.8823529411764706
+      ],
+      "precision": 0.7294117647058824,
+      "precision_range": [
+        0.7294117647058824,
+        0.7294117647058824
+      ]
+    },
+    "paraphrase/ef160": {
+      "recall": 1,
+      "recall_range": [
+        1,
+        1
+      ],
+      "precision": 0.8470588235294118,
+      "precision_range": [
+        0.8470588235294118,
+        0.8470588235294118
+      ]
+    },
+    "paraphrase/exact": {
+      "precision": 0.8470588235294118
+    }
+  },
+  "per_query": [
+    {
+      "text": "ECONNRESET",
+      "kind": "keyword",
+      "expected": "cache_unavailable",
+      "exact_precision": 0,
+      "builds": [
+        {
+          "ef40": {
+            "recall": 1,
+            "precision": 0
+          },
+          "ef160": {
+            "recall": 1,
+            "precision": 0
+          }
+        }
+      ]
+    },
+    {
+      "text": "redis is down",
+      "kind": "mixed",
+      "expected": "cache_unavailable",
+      "exact_precision": 1,
+      "builds": [
+        {
+          "ef40": {
+            "recall": 1,
+            "precision": 1
+          },
+          "ef160": {
+            "recall": 1,
+            "precision": 1
+          }
+        }
+      ]
+    },
+    {
+      "text": "cannot connect to the cache",
+      "kind": "mixed",
+      "expected": "cache_unavailable",
+      "exact_precision": 1,
+      "builds": [
+        {
+          "ef40": {
+            "recall": 1,
+            "precision": 1
+          },
+          "ef160": {
+            "recall": 1,
+            "precision": 1
+          }
+        }
+      ]
+    },
+    {
+      "text": "session store unreachable",
+      "kind": "paraphrase",
+      "expected": "cache_unavailable",
+      "exact_precision": 1,
+      "builds": [
+        {
+          "ef40": {
+            "recall": 1,
+            "precision": 1
+          },
+          "ef160": {
+            "recall": 1,
+            "precision": 1
+          }
+        }
+      ]
+    },
+    {
+      "text": "ECONNREFUSED",
+      "kind": "keyword",
+      "expected": "db_connection_timeout",
+      "exact_precision": 1,
+      "builds": [
+        {
+          "ef40": {
+            "recall": 1,
+            "precision": 1
+          },
+          "ef160": {
+            "recall": 1,
+            "precision": 1
+          }
+        }
+      ]
+    },
+    {
+      "text": "KnexTimeoutError",
+      "kind": "keyword",
+      "expected": "db_connection_timeout",
+      "exact_precision": 1,
+      "builds": [
+        {
+          "ef40": {
+            "recall": 1,
+            "precision": 1
+          },
+          "ef160": {
+            "recall": 1,
+            "precision": 1
+          }
+        }
+      ]
+    },
+    {
+      "text": "db connection timeout",
+      "kind": "mixed",
+      "expected": "db_connection_timeout",
+      "exact_precision": 1,
+      "builds": [
+        {
+          "ef40": {
+            "recall": 1,
+            "precision": 1
+          },
+          "ef160": {
+            "recall": 1,
+            "precision": 1
+          }
+        }
+      ]
+    },
+    {
+      "text": "database is not accepting new connections",
+      "kind": "paraphrase",
+      "expected": "db_connection_timeout",
+      "exact_precision": 1,
+      "builds": [
+        {
+          "ef40": {
+            "recall": 1,
+            "precision": 1
+          },
+          "ef160": {
+            "recall": 1,
+            "precision": 1
+          }
+        }
+      ]
+    },
+    {
+      "text": "deadlock detected",
+      "kind": "keyword",
+      "expected": "deadlock",
+      "exact_precision": 1,
+      "builds": [
+        {
+          "ef40": {
+            "recall": 1,
+            "precision": 1
+          },
+          "ef160": {
+            "recall": 1,
+            "precision": 1
+          }
+        }
+      ]
+    },
+    {
+      "text": "transaction rolled back by concurrent updates",
+      "kind": "mixed",
+      "expected": "deadlock",
+      "exact_precision": 1,
+      "builds": [
+        {
+          "ef40": {
+            "recall": 1,
+            "precision": 1
+          },
+          "ef160": {
+            "recall": 1,
+            "precision": 1
+          }
+        }
+      ]
+    },
+    {
+      "text": "two transactions blocking each other",
+      "kind": "paraphrase",
+      "expected": "deadlock",
+      "exact_precision": 1,
+      "builds": [
+        {
+          "ef40": {
+            "recall": 1,
+            "precision": 1
+          },
+          "ef160": {
+            "recall": 1,
+            "precision": 1
+          }
+        }
+      ]
+    },
+    {
+      "text": "rows locked by each other forever",
+      "kind": "paraphrase",
+      "expected": "deadlock",
+      "exact_precision": 1,
+      "builds": [
+        {
+          "ef40": {
+            "recall": 1,
+            "precision": 1
+          },
+          "ef160": {
+            "recall": 1,
+            "precision": 1
+          }
+        }
+      ]
+    },
+    {
+      "text": "ENOSPC",
+      "kind": "keyword",
+      "expected": "disk_full",
+      "exact_precision": 1,
+      "builds": [
+        {
+          "ef40": {
+            "recall": 0,
+            "precision": 0
+          },
+          "ef160": {
+            "recall": 1,
+            "precision": 1
+          }
+        }
+      ]
+    },
+    {
+      "text": "no space left on device",
+      "kind": "keyword",
+      "expected": "disk_full",
+      "exact_precision": 1,
+      "builds": [
+        {
+          "ef40": {
+            "recall": 1,
+            "precision": 1
+          },
+          "ef160": {
+            "recall": 1,
+            "precision": 1
+          }
+        }
+      ]
+    },
+    {
+      "text": "storage volume is full",
+      "kind": "paraphrase",
+      "expected": "disk_full",
+      "exact_precision": 1,
+      "builds": [
+        {
+          "ef40": {
+            "recall": 1,
+            "precision": 1
+          },
+          "ef160": {
+            "recall": 1,
+            "precision": 1
+          }
+        }
+      ]
+    },
+    {
+      "text": "cannot write files anymore, the drive is at capacity",
+      "kind": "paraphrase",
+      "expected": "disk_full",
+      "exact_precision": 1,
+      "builds": [
+        {
+          "ef40": {
+            "recall": 0,
+            "precision": 0
+          },
+          "ef160": {
+            "recall": 1,
+            "precision": 1
+          }
+        }
+      ]
+    },
+    {
+      "text": "ENOTFOUND",
+      "kind": "keyword",
+      "expected": "dns_failure",
+      "exact_precision": 0.9,
+      "builds": [
+        {
+          "ef40": {
+            "recall": 1,
+            "precision": 1
+          },
+          "ef160": {
+            "recall": 1,
+            "precision": 0.9
+          }
+        }
+      ]
+    },
+    {
+      "text": "temporary failure in name resolution",
+      "kind": "keyword",
+      "expected": "dns_failure",
+      "exact_precision": 1,
+      "builds": [
+        {
+          "ef40": {
+            "recall": 1,
+            "precision": 1
+          },
+          "ef160": {
+            "recall": 1,
+            "precision": 1
+          }
+        }
+      ]
+    },
+    {
+      "text": "hostname lookup failing",
+      "kind": "mixed",
+      "expected": "dns_failure",
+      "exact_precision": 1,
+      "builds": [
+        {
+          "ef40": {
+            "recall": 1,
+            "precision": 1
+          },
+          "ef160": {
+            "recall": 1,
+            "precision": 1
+          }
+        }
+      ]
+    },
+    {
+      "text": "cannot find the address of the payment server",
+      "kind": "paraphrase",
+      "expected": "dns_failure",
+      "exact_precision": 0,
+      "builds": [
+        {
+          "ef40": {
+            "recall": 1,
+            "precision": 0
+          },
+          "ef160": {
+            "recall": 1,
+            "precision": 0
+          }
+        }
+      ]
+    },
+    {
+      "text": "users_email_unique",
+      "kind": "keyword",
+      "expected": "duplicate_key",
+      "exact_precision": 1,
+      "builds": [
+        {
+          "ef40": {
+            "recall": 1,
+            "precision": 1
+          },
+          "ef160": {
+            "recall": 1,
+            "precision": 1
+          }
+        }
+      ]
+    },
+    {
+      "text": "duplicate key value violates unique constraint",
+      "kind": "keyword",
+      "expected": "duplicate_key",
+      "exact_precision": 1,
+      "builds": [
+        {
+          "ef40": {
+            "recall": 1,
+            "precision": 1
+          },
+          "ef160": {
+            "recall": 1,
+            "precision": 1
+          }
+        }
+      ]
+    },
+    {
+      "text": "warehouse reconciliation mismatch",
+      "kind": "keyword",
+      "expected": "stock_inconsistency",
+      "exact_precision": 1,
+      "builds": [
+        {
+          "ef40": {
+            "recall": 1,
+            "precision": 1
+          },
+          "ef160": {
+            "recall": 1,
+            "precision": 1
+          }
+        }
+      ]
+    },
+    {
+      "text": "email already registered",
+      "kind": "mixed",
+      "expected": "duplicate_key",
+      "exact_precision": 1,
+      "builds": [
+        {
+          "ef40": {
+            "recall": 1,
+            "precision": 1
+          },
+          "ef160": {
+            "recall": 1,
+            "precision": 1
+          }
+        }
+      ]
+    },
+    {
+      "text": "same order submitted twice",
+      "kind": "paraphrase",
+      "expected": "duplicate_key",
+      "exact_precision": 1,
+      "builds": [
+        {
+          "ef40": {
+            "recall": 0,
+            "precision": 0
+          },
+          "ef160": {
+            "recall": 1,
+            "precision": 1
+          }
+        }
+      ]
+    },
+    {
+      "text": "JWT expired",
+      "kind": "keyword",
+      "expected": "jwt_expired",
+      "exact_precision": 1,
+      "builds": [
+        {
+          "ef40": {
+            "recall": 1,
+            "precision": 1
+          },
+          "ef160": {
+            "recall": 1,
+            "precision": 1
+          }
+        }
+      ]
+    },
+    {
+      "text": "401 unauthorized after token expiry",
+      "kind": "mixed",
+      "expected": "jwt_expired",
+      "exact_precision": 0.9,
+      "builds": [
+        {
+          "ef40": {
+            "recall": 0.9,
+            "precision": 1
+          },
+          "ef160": {
+            "recall": 0.9,
+            "precision": 1
+          }
+        }
+      ]
+    },
+    {
+      "text": "login session no longer valid",
+      "kind": "mixed",
+      "expected": "jwt_expired",
+      "exact_precision": 1,
+      "builds": [
+        {
+          "ef40": {
+            "recall": 1,
+            "precision": 1
+          },
+          "ef160": {
+            "recall": 1,
+            "precision": 1
+          }
+        }
+      ]
+    },
+    {
+      "text": "users are being logged out unexpectedly",
+      "kind": "paraphrase",
+      "expected": "jwt_expired",
+      "exact_precision": 0,
+      "builds": [
+        {
+          "ef40": {
+            "recall": 1,
+            "precision": 0
+          },
+          "ef160": {
+            "recall": 1,
+            "precision": 0
+          }
+        }
+      ]
+    },
+    {
+      "text": "NullPointerException",
+      "kind": "keyword",
+      "expected": "null_reference",
+      "exact_precision": 1,
+      "builds": [
+        {
+          "ef40": {
+            "recall": 1,
+            "precision": 1
+          },
+          "ef160": {
+            "recall": 1,
+            "precision": 1
+          }
+        }
+      ]
+    },
+    {
+      "text": "Cannot read properties of undefined",
+      "kind": "keyword",
+      "expected": "null_reference",
+      "exact_precision": 1,
+      "builds": [
+        {
+          "ef40": {
+            "recall": 1,
+            "precision": 1
+          },
+          "ef160": {
+            "recall": 1,
+            "precision": 1
+          }
+        }
+      ]
+    },
+    {
+      "text": "accessing a property of an undefined object",
+      "kind": "mixed",
+      "expected": "null_reference",
+      "exact_precision": 1,
+      "builds": [
+        {
+          "ef40": {
+            "recall": 1,
+            "precision": 1
+          },
+          "ef160": {
+            "recall": 1,
+            "precision": 1
+          }
+        }
+      ]
+    },
+    {
+      "text": "code crashed on a missing field",
+      "kind": "paraphrase",
+      "expected": "null_reference",
+      "exact_precision": 1,
+      "builds": [
+        {
+          "ef40": {
+            "recall": 1,
+            "precision": 1
+          },
+          "ef160": {
+            "recall": 1,
+            "precision": 1
+          }
+        }
+      ]
+    },
+    {
+      "text": "OOMKilled",
+      "kind": "keyword",
+      "expected": "out_of_memory",
+      "exact_precision": 1,
+      "builds": [
+        {
+          "ef40": {
+            "recall": 1,
+            "precision": 1
+          },
+          "ef160": {
+            "recall": 1,
+            "precision": 1
+          }
+        }
+      ]
+    },
+    {
+      "text": "JavaScript heap out of memory",
+      "kind": "keyword",
+      "expected": "out_of_memory",
+      "exact_precision": 1,
+      "builds": [
+        {
+          "ef40": {
+            "recall": 1,
+            "precision": 1
+          },
+          "ef160": {
+            "recall": 1,
+            "precision": 1
+          }
+        }
+      ]
+    },
+    {
+      "text": "worker restarted for using too much memory",
+      "kind": "mixed",
+      "expected": "out_of_memory",
+      "exact_precision": 1,
+      "builds": [
+        {
+          "ef40": {
+            "recall": 1,
+            "precision": 1
+          },
+          "ef160": {
+            "recall": 1,
+            "precision": 1
+          }
+        }
+      ]
+    },
+    {
+      "text": "server ran out of RAM and crashed",
+      "kind": "paraphrase",
+      "expected": "out_of_memory",
+      "exact_precision": 1,
+      "builds": [
+        {
+          "ef40": {
+            "recall": 1,
+            "precision": 1
+          },
+          "ef160": {
+            "recall": 1,
+            "precision": 1
+          }
+        }
+      ]
+    },
+    {
+      "text": "502 Bad Gateway",
+      "kind": "keyword",
+      "expected": "payment_gateway_5xx",
+      "exact_precision": 1,
+      "builds": [
+        {
+          "ef40": {
+            "recall": 1,
+            "precision": 1
+          },
+          "ef160": {
+            "recall": 1,
+            "precision": 1
+          }
+        }
+      ]
+    },
+    {
+      "text": "stripe returning 503",
+      "kind": "mixed",
+      "expected": "payment_gateway_5xx",
+      "exact_precision": 1,
+      "builds": [
+        {
+          "ef40": {
+            "recall": 1,
+            "precision": 1
+          },
+          "ef160": {
+            "recall": 1,
+            "precision": 1
+          }
+        }
+      ]
+    },
+    {
+      "text": "charges failing because the provider is unavailable",
+      "kind": "mixed",
+      "expected": "payment_gateway_5xx",
+      "exact_precision": 1,
+      "builds": [
+        {
+          "ef40": {
+            "recall": 1,
+            "precision": 1
+          },
+          "ef160": {
+            "recall": 1,
+            "precision": 1
+          }
+        }
+      ]
+    },
+    {
+      "text": "customers cannot pay, card processor is down",
+      "kind": "paraphrase",
+      "expected": "payment_gateway_5xx",
+      "exact_precision": 1,
+      "builds": [
+        {
+          "ef40": {
+            "recall": 1,
+            "precision": 1
+          },
+          "ef160": {
+            "recall": 1,
+            "precision": 1
+          }
+        }
+      ]
+    },
+    {
+      "text": "kafka consumer lag",
+      "kind": "keyword",
+      "expected": "queue_lag",
+      "exact_precision": 1,
+      "builds": [
+        {
+          "ef40": {
+            "recall": 1,
+            "precision": 1
+          },
+          "ef160": {
+            "recall": 1,
+            "precision": 1
+          }
+        }
+      ]
+    },
+    {
+      "text": "backlog keeps growing",
+      "kind": "mixed",
+      "expected": "queue_lag",
+      "exact_precision": 1,
+      "builds": [
+        {
+          "ef40": {
+            "recall": 1,
+            "precision": 1
+          },
+          "ef160": {
+            "recall": 1,
+            "precision": 1
+          }
+        }
+      ]
+    },
+    {
+      "text": "background events are piling up and not being consumed",
+      "kind": "paraphrase",
+      "expected": "queue_lag",
+      "exact_precision": 1,
+      "builds": [
+        {
+          "ef40": {
+            "recall": 1,
+            "precision": 1
+          },
+          "ef160": {
+            "recall": 1,
+            "precision": 1
+          }
+        }
+      ]
+    },
+    {
+      "text": "emails are being sent hours late",
+      "kind": "paraphrase",
+      "expected": "queue_lag",
+      "exact_precision": 0.4,
+      "builds": [
+        {
+          "ef40": {
+            "recall": 1,
+            "precision": 0.4
+          },
+          "ef160": {
+            "recall": 1,
+            "precision": 0.4
+          }
+        }
+      ]
+    },
+    {
+      "text": "too many requests",
+      "kind": "keyword",
+      "expected": "rate_limited",
+      "exact_precision": 1,
+      "builds": [
+        {
+          "ef40": {
+            "recall": 0,
+            "precision": 0
+          },
+          "ef160": {
+            "recall": 0,
+            "precision": 0
+          }
+        }
+      ]
+    },
+    {
+      "text": "rate limit exceeded",
+      "kind": "keyword",
+      "expected": "rate_limited",
+      "exact_precision": 1,
+      "builds": [
+        {
+          "ef40": {
+            "recall": 1,
+            "precision": 1
+          },
+          "ef160": {
+            "recall": 1,
+            "precision": 1
+          }
+        }
+      ]
+    },
+    {
+      "text": "partner API is throttling our calls",
+      "kind": "mixed",
+      "expected": "rate_limited",
+      "exact_precision": 1,
+      "builds": [
+        {
+          "ef40": {
+            "recall": 1,
+            "precision": 1
+          },
+          "ef160": {
+            "recall": 1,
+            "precision": 1
+          }
+        }
+      ]
+    },
+    {
+      "text": "one client is flooding us with traffic",
+      "kind": "paraphrase",
+      "expected": "rate_limited",
+      "exact_precision": 1,
+      "builds": [
+        {
+          "ef40": {
+            "recall": 1,
+            "precision": 1
+          },
+          "ef160": {
+            "recall": 1,
+            "precision": 1
+          }
+        }
+      ]
+    },
+    {
+      "text": "statement timeout",
+      "kind": "keyword",
+      "expected": "slow_query",
+      "exact_precision": 1,
+      "builds": [
+        {
+          "ef40": {
+            "recall": 1,
+            "precision": 1
+          },
+          "ef160": {
+            "recall": 1,
+            "precision": 1
+          }
+        }
+      ]
+    },
+    {
+      "text": "query is too slow",
+      "kind": "mixed",
+      "expected": "slow_query",
+      "exact_precision": 1,
+      "builds": [
+        {
+          "ef40": {
+            "recall": 1,
+            "precision": 1
+          },
+          "ef160": {
+            "recall": 1,
+            "precision": 1
+          }
+        }
+      ]
+    },
+    {
+      "text": "database calls exceeding their latency budget",
+      "kind": "mixed",
+      "expected": "slow_query",
+      "exact_precision": 1,
+      "builds": [
+        {
+          "ef40": {
+            "recall": 1,
+            "precision": 1
+          },
+          "ef160": {
+            "recall": 1,
+            "precision": 1
+          }
+        }
+      ]
+    },
+    {
+      "text": "orders page takes forever to load from the database",
+      "kind": "paraphrase",
+      "expected": "slow_query",
+      "exact_precision": 1,
+      "builds": [
+        {
+          "ef40": {
+            "recall": 1,
+            "precision": 1
+          },
+          "ef160": {
+            "recall": 1,
+            "precision": 1
+          }
+        }
+      ]
+    },
+    {
+      "text": "inventory went negative",
+      "kind": "keyword",
+      "expected": "stock_inconsistency",
+      "exact_precision": 1,
+      "builds": [
+        {
+          "ef40": {
+            "recall": 1,
+            "precision": 1
+          },
+          "ef160": {
+            "recall": 1,
+            "precision": 1
+          }
+        }
+      ]
+    },
+    {
+      "text": "stock count does not match what we expected",
+      "kind": "mixed",
+      "expected": "stock_inconsistency",
+      "exact_precision": 1,
+      "builds": [
+        {
+          "ef40": {
+            "recall": 1,
+            "precision": 1
+          },
+          "ef160": {
+            "recall": 1,
+            "precision": 1
+          }
+        }
+      ]
+    },
+    {
+      "text": "we sold more items than we have in the warehouse",
+      "kind": "paraphrase",
+      "expected": "stock_inconsistency",
+      "exact_precision": 1,
+      "builds": [
+        {
+          "ef40": {
+            "recall": 1,
+            "precision": 1
+          },
+          "ef160": {
+            "recall": 1,
+            "precision": 1
+          }
+        }
+      ]
+    },
+    {
+      "text": "x509",
+      "kind": "keyword",
+      "expected": "tls_cert_expired",
+      "exact_precision": 0,
+      "builds": [
+        {
+          "ef40": {
+            "recall": 0.8,
+            "precision": 0
+          },
+          "ef160": {
+            "recall": 0.8,
+            "precision": 0
+          }
+        }
+      ]
+    },
+    {
+      "text": "CERT_HAS_EXPIRED",
+      "kind": "keyword",
+      "expected": "tls_cert_expired",
+      "exact_precision": 1,
+      "builds": [
+        {
+          "ef40": {
+            "recall": 1,
+            "precision": 1
+          },
+          "ef160": {
+            "recall": 1,
+            "precision": 1
+          }
+        }
+      ]
+    },
+    {
+      "text": "HTTPS certificate is no longer valid",
+      "kind": "mixed",
+      "expected": "tls_cert_expired",
+      "exact_precision": 1,
+      "builds": [
+        {
+          "ef40": {
+            "recall": 1,
+            "precision": 1
+          },
+          "ef160": {
+            "recall": 1,
+            "precision": 1
+          }
+        }
+      ]
+    },
+    {
+      "text": "outbound calls rejected because the SSL cert is old",
+      "kind": "mixed",
+      "expected": "tls_cert_expired",
+      "exact_precision": 1,
+      "builds": [
+        {
+          "ef40": {
+            "recall": 1,
+            "precision": 1
+          },
+          "ef160": {
+            "recall": 1,
+            "precision": 1
+          }
+        }
+      ]
+    }
+  ],
+  "deep_dive": [
+    {
+      "text": "too many requests",
+      "kind": "keyword",
+      "expected": "rate_limited",
+      "why": "biggest precision loss vs exact (the index failed)",
+      "nearest_distance": 0.3005205213713322,
+      "kth_distance": 0.31973638056136355,
+      "exact_precision": 1,
+      "hnsw_ef160": {
+        "recall": 0,
+        "precision": 0
+      },
+      "plans": {
+        "40": {
+          "ms": 0.183,
+          "pages": {
+            "hit": 228,
+            "read": 0
+          },
+          "workers": 0,
+          "plan": "Limit → Index Scan (idx_logs_embedding_hnsw)"
+        },
+        "160": {
+          "ms": 0.553,
+          "pages": {
+            "hit": 673,
+            "read": 0
+          },
+          "workers": 0,
+          "plan": "Limit → Index Scan (idx_logs_embedding_hnsw)"
+        },
+        "exact": {
+          "ms": 16.446,
+          "pages": {
+            "hit": 2707,
+            "read": 0
+          },
+          "workers": 0,
+          "plan": "Limit → Sort → Seq Scan"
+        }
+      },
+      "missed": [
+        {
+          "id": 1193,
+          "root_cause": "rate_limited",
+          "message": "429 Too Many Requests from client 194.99.7.134: limit 60 req/min exceeded",
+          "distance": 0.3005205213713322
+        },
+        {
+          "id": 8825,
+          "root_cause": "rate_limited",
+          "message": "429 Too Many Requests from client 145.247.223.215: limit 60 req/min exceeded",
+          "distance": 0.3030952684652116
+        },
+        {
+          "id": 9522,
+          "root_cause": "rate_limited",
+          "message": "429 Too Many Requests from client 198.170.124.102: limit 600 req/min exceeded",
+          "distance": 0.3035969915149691
+        },
+        {
+          "id": 9798,
+          "root_cause": "rate_limited",
+          "message": "429 Too Many Requests from client 17.218.129.158: limit 600 req/min exceeded",
+          "distance": 0.31197696924209106
+        },
+        {
+          "id": 7671,
+          "root_cause": "rate_limited",
+          "message": "429 Too Many Requests from client 132.209.118.48: limit 600 req/min exceeded",
+          "distance": 0.31605408537548274
+        },
+        {
+          "id": 2442,
+          "root_cause": "rate_limited",
+          "message": "429 Too Many Requests from client 253.197.198.195: limit 60 req/min exceeded",
+          "distance": 0.3164913654327344
+        },
+        {
+          "id": 8731,
+          "root_cause": "rate_limited",
+          "message": "429 Too Many Requests from client 147.236.195.184: limit 600 req/min exceeded",
+          "distance": 0.31800448894500244
+        },
+        {
+          "id": 1410,
+          "root_cause": "rate_limited",
+          "message": "429 Too Many Requests from client 164.250.212.131: limit 60 req/min exceeded",
+          "distance": 0.31952142962430063
+        },
+        {
+          "id": 1811,
+          "root_cause": "rate_limited",
+          "message": "429 Too Many Requests from client 194.240.102.209: limit 100 req/min exceeded",
+          "distance": 0.3195905685424756
+        },
+        {
+          "id": 3318,
+          "root_cause": "rate_limited",
+          "message": "429 Too Many Requests from client 133.94.31.150: limit 600 req/min exceeded",
+          "distance": 0.31973638056136355
+        }
+      ],
+      "instead": [
+        {
+          "id": 8338,
+          "root_cause": "info:http_request",
+          "message": "request completed method=POST path=/api/users/usr_783209 status=200 duration_ms=238 request_id=8ae5ac3b-6d4b-48bc-8144-0f839d2a2d39",
+          "distance": 0.523439225740525
+        },
+        {
+          "id": 8314,
+          "root_cause": "info:http_request",
+          "message": "request completed method=POST path=/api/users/usr_966410 status=200 duration_ms=63 request_id=d7c51fd3-dcc3-428b-8767-fef40f1f791e",
+          "distance": 0.5257999552846027
+        },
+        {
+          "id": 4536,
+          "root_cause": "info:http_request",
+          "message": "request completed method=POST path=/api/users/usr_123270 status=200 duration_ms=273 request_id=2ec82d11-b478-471b-b3bd-8b00352a4d86",
+          "distance": 0.5292996764183011
+        },
+        {
+          "id": 3738,
+          "root_cause": "info:http_request",
+          "message": "request completed method=POST path=/api/users/usr_883195 status=200 duration_ms=224 request_id=9edca9e3-3f87-4dd2-a2cc-3d77f8245f46",
+          "distance": 0.5303358295659917
+        },
+        {
+          "id": 2197,
+          "root_cause": "info:http_request",
+          "message": "request completed method=POST path=/api/users/usr_26815 status=200 duration_ms=240 request_id=cf57afea-d160-42ae-baa1-a7a5968265bb",
+          "distance": 0.5305767600697104
+        },
+        {
+          "id": 4902,
+          "root_cause": "info:http_request",
+          "message": "request completed method=POST path=/api/users/usr_809725 status=200 duration_ms=318 request_id=ef291ef7-fcb9-46f3-bc5c-25f87c678fc0",
+          "distance": 0.5307170943494113
+        },
+        {
+          "id": 1347,
+          "root_cause": "info:http_request",
+          "message": "request completed method=POST path=/api/users/usr_984277 status=200 duration_ms=266 request_id=455b789c-1c9a-4563-af7f-7380edb99f4c",
+          "distance": 0.5327354371547666
+        },
+        {
+          "id": 6405,
+          "root_cause": "info:http_request",
+          "message": "request completed method=POST path=/api/users/usr_783195 status=200 duration_ms=175 request_id=bfe56f32-7780-43c5-8e90-f55eea002cd3",
+          "distance": 0.5333564718557438
+        },
+        {
+          "id": 916,
+          "root_cause": "info:http_request",
+          "message": "request completed method=POST path=/api/users/usr_757548 status=200 duration_ms=314 request_id=b0e38a2f-70e9-4b8d-9047-1b640bd69390",
+          "distance": 0.5347158292105292
+        },
+        {
+          "id": 2523,
+          "root_cause": "info:http_request",
+          "message": "request completed method=POST path=/api/users/usr_934731 status=200 duration_ms=39 request_id=695beca8-474e-4e2d-abf7-b810144bbf4f",
+          "distance": 0.5351199486780189
+        }
+      ]
+    },
+    {
+      "text": "users are being logged out unexpectedly",
+      "kind": "paraphrase",
+      "expected": "jwt_expired",
+      "why": "median HNSW recall",
+      "nearest_distance": 0.4366142380425039,
+      "kth_distance": 0.44791289046541405,
+      "exact_precision": 0,
+      "hnsw_ef160": {
+        "recall": 1,
+        "precision": 0
+      },
+      "plans": {
+        "40": {
+          "ms": 0.324,
+          "pages": {
+            "hit": 459,
+            "read": 0
+          },
+          "workers": 0,
+          "plan": "Limit → Index Scan (idx_logs_embedding_hnsw)"
+        },
+        "160": {
+          "ms": 0.577,
+          "pages": {
+            "hit": 639,
+            "read": 0
+          },
+          "workers": 0,
+          "plan": "Limit → Index Scan (idx_logs_embedding_hnsw)"
+        },
+        "exact": {
+          "ms": 6.757,
+          "pages": {
+            "hit": 2707,
+            "read": 0
+          },
+          "workers": 0,
+          "plan": "Limit → Sort → Seq Scan"
+        }
+      },
+      "missed": [],
+      "instead": []
+    },
+    {
+      "text": "we sold more items than we have in the warehouse",
+      "kind": "paraphrase",
+      "expected": "stock_inconsistency",
+      "why": "paraphrase HNSW gets right",
+      "nearest_distance": 0.4930600960642222,
+      "kth_distance": 0.5396744083776004,
+      "exact_precision": 1,
+      "hnsw_ef160": {
+        "recall": 1,
+        "precision": 1
+      },
+      "plans": {
+        "40": {
+          "ms": 0.315,
+          "pages": {
+            "hit": 474,
+            "read": 0
+          },
+          "workers": 0,
+          "plan": "Limit → Index Scan (idx_logs_embedding_hnsw)"
+        },
+        "160": {
+          "ms": 0.654,
+          "pages": {
+            "hit": 809,
+            "read": 0
+          },
+          "workers": 0,
+          "plan": "Limit → Index Scan (idx_logs_embedding_hnsw)"
+        },
+        "exact": {
+          "ms": 6.934,
+          "pages": {
+            "hit": 2707,
+            "read": 0
+          },
+          "workers": 0,
+          "plan": "Limit → Sort → Seq Scan"
+        }
+      },
+      "missed": [],
+      "instead": []
+    },
+    {
+      "text": "ECONNRESET",
+      "kind": "keyword",
+      "expected": "cache_unavailable",
+      "why": "exact search fails too (the model failed)",
+      "nearest_distance": 0.3986466768630279,
+      "kth_distance": 0.4598564875382496,
+      "exact_precision": 0,
+      "hnsw_ef160": {
+        "recall": 1,
+        "precision": 0
+      },
+      "plans": {
+        "40": {
+          "ms": 0.297,
+          "pages": {
+            "hit": 413,
+            "read": 0
+          },
+          "workers": 0,
+          "plan": "Limit → Index Scan (idx_logs_embedding_hnsw)"
+        },
+        "160": {
+          "ms": 0.875,
+          "pages": {
+            "hit": 1205,
+            "read": 0
+          },
+          "workers": 0,
+          "plan": "Limit → Index Scan (idx_logs_embedding_hnsw)"
+        },
+        "exact": {
+          "ms": 6.833,
+          "pages": {
+            "hit": 2707,
+            "read": 0
+          },
+          "workers": 0,
+          "plan": "Limit → Sort → Seq Scan"
+        }
+      },
+      "missed": [],
+      "instead": []
+    }
+  ]
+}
