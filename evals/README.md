@@ -126,3 +126,38 @@ different fixes:
 Measured on 100k rows (8 builds, 2026-11-16): exact search read all 26,739
 pages in ~33 ms; HNSW at ef_search 160 read ~1,300 in ~1 ms, with tie-aware
 recall between 74% and 88% depending on the build.
+
+## `results/templates.json`
+
+Written by `pnpm eval:templates` (`src/scripts/templates-eval.ts`). It needs no
+database: it generates 10k, 100k and 1M logs in memory with the seed's
+generator and runs two stages over them, `toTemplate` (regex masking) and
+`toTemplate` + `TemplateMiner`. For each stage and size:
+
+- `templates`: how many distinct templates came out. The generator has 67.
+- `purity_root_cause`: the share of logs whose template's majority
+  `root_cause` is their own. 100% means a template never mixes causes.
+- `purity_generator_template`: the same against `template_key`, the
+  generator's label for the sentence that produced the log (eval only, never
+  stored in the table).
+- `new_templates_last_10pct`: templates first seen in the last 10% of the
+  logs. Near 0 means the set has stopped growing.
+- `fragmentation`: for each generator template, how many templates it was
+  split into, and `impure_templates`: up to 20 templates that mix root causes.
+
+## `results/search-<rows>-templates.json` and `search-1m-templates-only.json`
+
+`pnpm eval:search` adds a `template (exact over templates)` method whenever
+the template tables are current (`templatesCurrent`: the map covers every
+log and no embedding is stale; run `pnpm templates:build` first). These files
+were run with `--hnsw=32:200 --ef=40,160` and are kept apart from
+`search-<rows>.json`, so `pnpm eval:report` ignores them and the main tables
+are unchanged.
+
+`--templates-only` measures template mode alone on the 60 free-text queries.
+It needs no ground truth and no per-log embeddings, which is how the 1M file
+was made without embedding a million rows again.
+
+For template mode, read **precision@10**, not recall: it returns the newest
+logs of the nearest templates, not the nearest logs, so its overlap with the
+exact top-10 is low by design.
