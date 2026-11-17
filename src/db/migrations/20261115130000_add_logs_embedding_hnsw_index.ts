@@ -1,4 +1,4 @@
-import { Knex } from "knex";
+import type { Knex } from "knex";
 
 // HNSW index for vector search (GET /search/logs, modes vector and hybrid).
 // Parameters chosen from the experiments in SEMANTIC_SEARCH.md:

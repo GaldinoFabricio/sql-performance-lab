@@ -1,4 +1,4 @@
-import { Knex } from "knex";
+import type { Knex } from "knex";
 import { faker } from "@faker-js/faker";
 
 export async function seed(knex: Knex): Promise<void> {

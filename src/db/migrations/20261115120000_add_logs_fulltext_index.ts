@@ -1,4 +1,4 @@
-import { Knex } from "knex";
+import type { Knex } from "knex";
 
 // Full-text baseline for the semantic search chapter: a GIN index over the
 // message's English tsvector. An expression index (instead of a generated

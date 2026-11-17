@@ -39,6 +39,12 @@ describe("GET /search/logs: validação", () => {
       [{ q: "redis", k: 51 }, /k must be/],
       [{ q: "redis", k: "dez" }, /k must be/],
       [{ q: "redis", ef_search: 5 }, /ef_search must be/],
+      [{ q: "redis", vw: 6 }, /vw must be a number between 0 and 5/],
+      [{ q: "redis", fw: "abc" }, /fw must be a number between 0 and 5/],
+      [{ q: "redis", rrf_k: 0 }, /rrf_k must be an integer between 1 and 1000/],
+      [{ q: "redis", route: "talvez" }, /route must be true or false/],
+      [{ q: "redis", vw: 0, fw: 0 }, /vw and fw cannot both be 0/],
+      [{ q: "redis", ef_serach: 1000 }, /unknown parameter ef_serach; allowed: q, mode, k/],
    ])("400 para %j", async (query, message) => {
       const res = await search(query as Record<string, string | number>);
       expect(res.status).toBe(400);
@@ -117,6 +123,45 @@ describe.skipIf(!ready)("GET /search/logs: resultados", () => {
 
       expect(res.body.ef_search).toBe(40);
       expect(res.body.results).toHaveLength(10);
+   });
+
+   it("hybrid roteado: frase favorece o vetor (customers cannot pay → pagamento)", async () => {
+      const res = await search({ q: "customers cannot pay", route: "true" });
+
+      expect(res.status).toBe(200);
+      expect(res.body.hybrid).toEqual({ vector_weight: 1, keyword_weight: 0.5, weights_from: "routed", rrf_k: 60 });
+      const causes = await rootCauses(res.body.results.map((r: any) => r.id));
+      expect(causes.filter((c) => c === "payment_gateway_5xx").length).toBeGreaterThanOrEqual(8);
+   });
+
+   it("hybrid roteado: código favorece o full-text (ECONNRESET nos 10 resultados)", async () => {
+      const res = await search({ q: "ECONNRESET", route: "true" });
+
+      expect(res.body.hybrid).toEqual({ vector_weight: 0.5, keyword_weight: 1, weights_from: "routed", rrf_k: 60 });
+      expect(res.body.results).toHaveLength(10);
+      for (const r of res.body.results) expect(r.message).toMatch(/ECONNRESET/);
+   });
+
+   it("vw/fw explícitos sempre ganham do roteamento", async () => {
+      const res = await search({ q: "ECONNRESET", vw: 2, fw: 0.25, route: "true" });
+      expect(res.body.hybrid).toMatchObject({ vector_weight: 2, keyword_weight: 0.25, weights_from: "explicit" });
+
+      // só um dos dois: o outro fica no padrão fixo, sem roteamento
+      const half = await search({ q: "ECONNRESET", vw: 1, route: "true" });
+      expect(half.body.hybrid).toMatchObject({ vector_weight: 1, keyword_weight: 1, weights_from: "explicit" });
+   });
+
+   it("sem route, o hybrid usa os pesos fixos 1/1 (roteamento desligado por padrão)", async () => {
+      const res = await search({ q: "ECONNRESET" });
+      expect(res.body.hybrid).toEqual({ vector_weight: 1, keyword_weight: 1, weights_from: "fixed", rrf_k: 60 });
+
+      const off = await search({ q: "ECONNRESET", route: "false" });
+      expect(off.body.hybrid).toMatchObject({ weights_from: "fixed" });
+   });
+
+   it("hybrid é null fora do modo hybrid", async () => {
+      const res = await search({ q: "ECONNRESET", mode: "fulltext" });
+      expect(res.body.hybrid).toBeNull();
    });
 
    it("ef_search é por transação e não vaza para outras conexões", async () => {

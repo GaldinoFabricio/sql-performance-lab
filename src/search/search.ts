@@ -105,9 +105,10 @@ export async function hybridSearch(
    embedding: ArrayLike<number> | string,
    k: number,
    excludeId: number | null = null,
-   { candidates = 40, rrfK = 60 } = {},
+   { candidates = 40, rrfK = 60, vectorWeight = 1.0, keywordWeight = 1.0 } = {},
 ): Promise<Hit[]> {
    const vec = typeof embedding === "string" ? embedding : toPgVector(embedding);
+
    const { rows } = await db.raw(
       `WITH vector AS (
           SELECT id, row_number() OVER (ORDER BY distance, id) AS rank
@@ -122,8 +123,12 @@ export async function hybridSearch(
                 ORDER BY score DESC, l.id LIMIT :candidates) t
        ),
        fused AS (
-          SELECT id, sum(1.0 / (:rrfK + rank)) AS score
-          FROM (SELECT * FROM vector UNION ALL SELECT * FROM keyword) u
+          SELECT id, sum(weight / (:rrfK + rank)) AS score
+          FROM (
+            SELECT id, rank, :vectorWeight::float8  AS weight FROM vector
+            UNION ALL
+            SELECT id, rank, :keywordWeight::float8 AS weight FROM keyword
+          ) u
           WHERE id <> :exclude
           GROUP BY id
        )
@@ -131,7 +136,7 @@ export async function hybridSearch(
        FROM fused f JOIN logs l USING (id)
        ORDER BY f.score DESC, f.id
        LIMIT :k`,
-      { vec, text, k, candidates, rrfK, exclude: excludeId ?? 0 },
+      { vec, text, k, candidates, rrfK, vectorWeight, keywordWeight, exclude: excludeId ?? 0 },
    );
    return hits(rows);
 }
