@@ -5,6 +5,7 @@ import request from "supertest";
 import app from "../app";
 import db from "../db/knex";
 import { modelDir } from "../embeddings/model";
+import { buildTemplates, embedTemplates } from "../search/templates";
 
 // Search tests need the model (for typed queries) and embedded logs. CI runs
 // `pnpm model:fetch`, `seed:run` and `embed:logs` first; locally, without
@@ -168,5 +169,46 @@ describe.skipIf(!ready)("GET /search/logs: resultados", () => {
       await search({ q: "disk full", mode: "vector", ef_search: 777 });
       const { rows } = await db.raw("SHOW hnsw.ef_search");
       expect(rows[0]["hnsw.ef_search"]).not.toBe("777");
+   });
+});
+
+describe.skipIf(!ready)("GET /search/logs: mode=template", () => {
+   beforeAll(async () => {
+      await buildTemplates(db);
+      await embedTemplates(db);
+   });
+
+   // The two queries where HNSW lost every relevant log (pnpm eval:hnsw-dive):
+   // the template vectors are few enough for exact search.
+   it.each([
+      ["redis is down", "cache_unavailable"],
+      ["too many requests", "rate_limited"],
+   ])("%s → 10 logs de %s", async (q, cause) => {
+      const res = await search({ q, mode: "template" });
+      expect(res.status).toBe(200);
+      expect(res.body.results).toHaveLength(10);
+      const causes = await rootCauses(res.body.results.map((r: any) => r.id));
+      expect(causes.every((c) => c === cause)).toBe(true);
+   });
+
+   it("cada resultado diz por qual modelo veio, sem ef_search nem root_cause", async () => {
+      const res = await search({ q: "server ran out of RAM and crashed", mode: "template", k: 5 });
+      expect(res.body.ef_search).toBeNull();
+      expect(res.body.results).toHaveLength(5);
+      for (const r of res.body.results) {
+         expect(r.template).toMatchObject({ id: expect.any(Number), text: expect.any(String), log_count: expect.any(Number) });
+         expect(r).not.toHaveProperty("root_cause");
+      }
+      // nearest template first; inside a template, newest log first
+      const [a, b] = res.body.results;
+      expect(a.template.distance).toBeLessThanOrEqual(b.template.distance);
+      if (a.template.id === b.template.id) expect(a.id).toBeGreaterThan(b.id);
+   });
+
+   it("os resultados vêm de vários modelos quando o primeiro tem menos de k logs", async () => {
+      const res = await search({ q: "certificate has expired", mode: "template", k: 50 });
+      const templates = new Set(res.body.results.map((r: any) => r.template.id));
+      expect(res.body.results).toHaveLength(50);
+      expect(templates.size).toBeGreaterThan(1);
    });
 });
