@@ -43,6 +43,8 @@ describe("GET /search/logs: validação", () => {
       [{ q: "redis", fw: "abc" }, /fw must be a number between 0 and 5/],
       [{ q: "redis", rrf_k: 0 }, /rrf_k must be an integer between 1 and 1000/],
       [{ q: "redis", route: "talvez" }, /route must be true or false/],
+      [{ q: "redis", vw: 0, fw: 0 }, /vw and fw cannot both be 0/],
+      [{ q: "redis", ef_serach: 1000 }, /unknown parameter ef_serach; allowed: q, mode, k/],
    ])("400 para %j", async (query, message) => {
       const res = await search(query as Record<string, string | number>);
       expect(res.status).toBe(400);
