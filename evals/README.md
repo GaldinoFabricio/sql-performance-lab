@@ -99,3 +99,30 @@ several `(m, ef_construction)` builds, and hybrid RRF. Each entry keeps the
 pgvector assigns HNSW levels at random, so each build is a different graph.
 Up to 100k rows, each config is built 3 times and recall is reported as
 mean `[min-max]`.
+
+## `results/hnsw-dive-<rows>.json`
+
+Written by `pnpm eval:hnsw-dive` (`src/scripts/hnsw-dive.ts`). `eval:search`
+compares configs by their averages; this one looks at what HNSW does on the
+60 typed queries, with the production index (m = 32, ef_construction = 200):
+
+1. recall (tie-aware, as above) and precision per kind of query, at
+   ef_search 40 and 160. `--rebuild=N` drops and rebuilds the index N times
+   and reports `mean (min–max)` across builds, to show how much of a
+   difference is just a different random graph. The last build stays.
+2. a deep dive on up to 4 queries: `EXPLAIN (ANALYZE, BUFFERS)` for exact
+   search and HNSW (median time of 5 runs, pages read, plan), and the logs
+   HNSW missed next to the ones it returned instead.
+
+The deep dive picks one query of each kind of failure, because they have
+different fixes:
+
+| Case | Exact search | HNSW | Who failed | What helps |
+| --- | --- | --- | --- | --- |
+| index failed | finds relevant logs | loses them | the graph walk | higher `ef_search`, bigger `m` / `ef_construction`, exact search, or a filter first |
+| model failed | nothing relevant | nothing relevant (recall 100%) | the embedding | full-text or hybrid; no index setting helps |
+| both fine | relevant | relevant | nobody | |
+
+Measured on 100k rows (8 builds, 2026-11-16): exact search read all 26,739
+pages in ~33 ms; HNSW at ef_search 160 read ~1,300 in ~1 ms, with tie-aware
+recall between 74% and 88% depending on the build.

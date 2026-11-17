@@ -21,7 +21,8 @@
       "eval:ground-truth": "ts-node --transpile-only src/scripts/ground-truth.ts",
       "eval:search": "ts-node --transpile-only src/scripts/search-experiments.ts",
       "eval:report": "ts-node --transpile-only src/scripts/search-report.ts",
-      "eval:plans": "ts-node --transpile-only src/scripts/plan-experiments.ts"
+      "eval:plans": "ts-node --transpile-only src/scripts/plan-experiments.ts",
+      "eval:hnsw-dive": "ts-node --transpile-only src/scripts/hnsw-dive.ts"
    },
    "keywords": [],
    "author": "",
