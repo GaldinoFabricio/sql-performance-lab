@@ -152,14 +152,20 @@ export interface TemplateHit {
  * Logs inserted after the last templates:build are not in log_template_map
  * yet, so they can't be found this way until the next build.
  */
-export async function templateSearch(db: Knex | Knex.Transaction, embedding: string, k: number): Promise<TemplateHit[]> {
+export async function templateSearch(
+   db: Knex | Knex.Transaction,
+   embedding: string,
+   k: number,
+   excludeId: number | null = null, // evals: a log used as the query must not find itself
+): Promise<TemplateHit[]> {
+   const limit = excludeId === null ? k : k + 1;
    const { rows } = await db.raw(
       `WITH nearest AS (
           SELECT id, template, log_count, embedding <=> :vec::vector AS distance
           FROM log_templates
           WHERE embedding IS NOT NULL
           ORDER BY distance, id
-          LIMIT :k
+          LIMIT :limit
        )
        SELECT l.id, l.root_cause, t.id AS template_id, t.template, t.log_count, t.distance
        FROM nearest t
@@ -167,18 +173,31 @@ export async function templateSearch(db: Knex | Knex.Transaction, embedding: str
           SELECT log_id FROM log_template_map m
           WHERE m.template_id = t.id
           ORDER BY log_id DESC
-          LIMIT :k
+          LIMIT :limit
        ) m
        JOIN logs l ON l.id = m.log_id
        ORDER BY t.distance, t.id, m.log_id DESC
-       LIMIT :k`,
-      { vec: embedding, k },
+       LIMIT :limit`,
+      { vec: embedding, limit },
    );
-   return rows.map((r: any) => ({
+   const hits: TemplateHit[] = rows.map((r: any) => ({
       id: Number(r.id),
       root_cause: r.root_cause,
       template: { id: r.template_id, text: r.template, log_count: r.log_count, distance: Number(r.distance) },
    }));
+   return hits.filter((h) => h.id !== excludeId).slice(0, k);
+}
+
+/**
+ * Whether log_template_map covers exactly the logs table (same count and
+ * newest id): templates:build ran after the last seed or insert.
+ */
+export async function templatesCurrent(db: Knex | Knex.Transaction): Promise<boolean> {
+   const { rows: [r] } = await db.raw(`
+      SELECT (SELECT count(*) FROM logs) = (SELECT count(*) FROM log_template_map)
+         AND (SELECT max(id) FROM logs) IS NOT DISTINCT FROM (SELECT max(log_id) FROM log_template_map)
+         AND NOT EXISTS (SELECT 1 FROM log_templates WHERE embedded_text IS DISTINCT FROM embed_text) AS ok`);
+   return r.ok;
 }
 
 /** Whether template search can run: templates built and embedded. */
