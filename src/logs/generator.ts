@@ -22,6 +22,12 @@ export interface GeneratedLog {
    error_code: string | null;
    message: string;
    root_cause: string;
+   /**
+    * Which template rendered the message ("<root_cause>#<index>"). An eval-only
+    * label, like root_cause: it tells pnpm eval:templates how many templates a
+    * normalizer should find. Not stored in the table (seed_logs drops it).
+    */
+   template_key: string;
 }
 
 interface Template {
@@ -351,6 +357,8 @@ if (Math.abs(totalWeight - 1) > 1e-9) {
 }
 
 export const ROOT_CAUSE_NAMES = ROOT_CAUSES.map((r) => r.name);
+/** Every template_key the generator can produce. */
+export const TEMPLATE_KEYS = ROOT_CAUSES.flatMap((r) => r.templates.map((_, i) => `${r.name}#${i}`));
 
 export interface GeneratorOptions {
    count: number;
@@ -396,6 +404,8 @@ export function* generateLogs(opts: GeneratorOptions): Generator<GeneratedLog> {
          error_code: tpl.code ?? null,
          message: tpl.render(f),
          root_cause: cause.name,
+         // indexOf draws no random numbers, so the generated rows don't change
+         template_key: `${cause.name}#${cause.templates.indexOf(tpl)}`,
       };
    }
 }

@@ -20,7 +20,8 @@ export async function seed(knex: Knex): Promise<void> {
    await knex.raw("TRUNCATE logs RESTART IDENTITY");
 
    let batch = [];
-   for (const log of generateLogs({ count, seed: seedValue })) {
+   // template_key is an eval-only label (see generator.ts), not a column
+   for (const { template_key: _label, ...log } of generateLogs({ count, seed: seedValue })) {
       batch.push(log);
       if (batch.length === CHUNK) {
          await knex("logs").insert(batch);
