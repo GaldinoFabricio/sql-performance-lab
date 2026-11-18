@@ -1,6 +1,7 @@
 import db from "../db/knex";
 import { embed, toPgVector } from "../embeddings/embedder";
 import { likePattern } from "../evals/metrics";
+import { codesIn, KnownCodes, knownCodes } from "../search/codes";
 import { routeWeights } from "../search/routing";
 import { fullTextSearch, Hit, hybridSearch, likeSearch, vectorSearch } from "../search/search";
 import { templateSearch, templatesReady, TemplateHit } from "../search/templates";
@@ -36,6 +37,13 @@ export const SEARCH_DEFAULTS = {
    hybridCandidates: 40,
    vectorWeight: 1.0,
    keywordWeight: 1.0,
+   // Weight of the error-code list (pnpm eval:codes, evals/results/codes-10k.json).
+   // At 1 a code-only log ties with the top of a single other list, and 2 of 114
+   // code queries in a sentence still found nothing relevant; at 2 none did.
+   // Above 2 the code list simply wins, which that eval can't judge (its
+   // relevance is defined by the code), so the default stays at 2.
+   codeWeight: 2.0,
+   knownCodesTtlMs: 60_000,
    weightRange: [0, 5] as const,
    rrfK: 60,
    rrfKRange: [1, 1000] as const,
@@ -50,6 +58,8 @@ export interface SearchParams {
    /** RRF weights for the hybrid mode. Undefined = not set by the caller. */
    vectorWeight?: number;
    keywordWeight?: number;
+   /** Hybrid only: RRF weight of the error-code list (0 turns it off). */
+   codeWeight: number;
    /** RRF constant for the hybrid mode: score = weight / (rrfK + rank). */
    rrfK: number;
    /** Hybrid only: pick the weights from the query (routing.ts) when none are given. Off by default. */
@@ -105,12 +115,30 @@ export interface SearchResponse {
    ef_search: number | null;
    include_info: boolean;
    /** Hybrid only (null for the other modes): the RRF settings actually used. */
-   hybrid: { vector_weight: number; keyword_weight: number; weights_from: WeightsFrom; rrf_k: number } | null;
+   hybrid: {
+      vector_weight: number;
+      keyword_weight: number;
+      weights_from: WeightsFrom;
+      rrf_k: number;
+      /** Error codes found in the query (src/search/codes.ts) and the weight of their list. */
+      codes: string[];
+      code_weight: number;
+   } | null;
    ms: { embed: number; search: number; total: number };
    results: LogResult[];
 }
 
 const round = (n: number) => Math.round(n * 100) / 100;
+
+// The distinct error codes change only when new codes are logged: read them
+// at most once a minute (a skip scan, ~1 ms) instead of on every search.
+let codeCache: { at: number; codes: KnownCodes } | null = null;
+async function cachedKnownCodes(): Promise<KnownCodes> {
+   if (!codeCache || performance.now() - codeCache.at > SEARCH_DEFAULTS.knownCodesTtlMs) {
+      codeCache = { at: performance.now(), codes: await knownCodes(db) };
+   }
+   return codeCache.codes;
+}
 
 export async function searchLogs(p: SearchParams): Promise<SearchResponse> {
    const start = performance.now();
@@ -136,6 +164,7 @@ export async function searchLogs(p: SearchParams): Promise<SearchResponse> {
    // `hybridCandidates` rows, so ef_search must be at least that.
    const efSearch = p.mode === "hybrid" ? Math.max(p.efSearch, SEARCH_DEFAULTS.hybridCandidates) : p.efSearch;
    const weights = p.mode === "hybrid" ? hybridWeights(p) : null;
+   const codes = p.mode === "hybrid" ? codesIn(p.q, await cachedKnownCodes()) : [];
    const t = performance.now();
    const hits: (Hit | TemplateHit)[] = await db.transaction(async (trx) => {
       if (usesHnsw) {
@@ -151,6 +180,8 @@ export async function searchLogs(p: SearchParams): Promise<SearchResponse> {
                keywordWeight: weights!.keywordWeight,
                rrfK: p.rrfK,
                notInfo,
+               codes,
+               codeWeight: p.codeWeight,
             });
          case "fulltext":
             return fullTextSearch(trx, p.q, p.k, null, notInfo);
@@ -184,6 +215,8 @@ export async function searchLogs(p: SearchParams): Promise<SearchResponse> {
          keyword_weight: weights.keywordWeight,
          weights_from: weights.from,
          rrf_k: p.rrfK,
+         codes,
+         code_weight: p.codeWeight,
       },
       ms: { embed: round(embedMs), search: round(searchMs), total: round(performance.now() - start) },
       results: ids.map((id) => byId.get(id)!).filter(Boolean),

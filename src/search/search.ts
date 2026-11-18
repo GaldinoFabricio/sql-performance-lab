@@ -122,6 +122,12 @@ export async function vectorSearch(
  *
  * With HNSW, hnsw.ef_search must be >= candidates or the vector side returns
  * fewer rows than asked.
+ *
+ * `codes` (error codes found in the query, src/search/codes.ts) adds a third
+ * list: the newest `candidates` logs whose error_code is one of them, read
+ * from idx_logs_error_code. Many codes never appear in the message text, so
+ * neither of the other two lists can find them. With no codes the list is
+ * empty and the result is the same as without it.
  */
 export async function hybridSearch(
    db: Conn,
@@ -129,7 +135,15 @@ export async function hybridSearch(
    embedding: ArrayLike<number> | string,
    k: number,
    excludeId: number | null = null,
-   { candidates = 40, rrfK = 60, vectorWeight = 1.0, keywordWeight = 1.0, notInfo = false } = {},
+   {
+      candidates = 40,
+      rrfK = 60,
+      vectorWeight = 1.0,
+      keywordWeight = 1.0,
+      notInfo = false,
+      codes = [] as string[],
+      codeWeight = 1.0,
+   } = {},
 ): Promise<Hit[]> {
    const vec = typeof embedding === "string" ? embedding : toPgVector(embedding);
 
@@ -147,12 +161,25 @@ export async function hybridSearch(
                 WHERE to_tsvector('english', l.message) @@ ${OR_TSQUERY} ${notInfo ? `AND l.${NOT_INFO}` : ""}
                 ORDER BY score DESC, l.id LIMIT :candidates) t
        ),
+       code AS (
+          SELECT id, row_number() OVER (ORDER BY id DESC) AS rank
+          FROM (SELECT l.id
+                FROM jsonb_array_elements_text(:codes::jsonb) AS c(code)
+                CROSS JOIN LATERAL (
+                   SELECT id FROM logs
+                   WHERE error_code = c.code ${notInfo ? `AND ${NOT_INFO}` : ""}
+                   ORDER BY id DESC LIMIT :candidates
+                ) l
+                ORDER BY l.id DESC LIMIT :candidates) c
+       ),
        fused AS (
           SELECT id, sum(weight / (:rrfK + rank)) AS score
           FROM (
             SELECT id, rank, :vectorWeight::float8  AS weight FROM vector
             UNION ALL
             SELECT id, rank, :keywordWeight::float8 AS weight FROM keyword
+            UNION ALL
+            SELECT id, rank, :codeWeight::float8    AS weight FROM code
           ) u
           WHERE id <> :exclude
           GROUP BY id
@@ -161,7 +188,7 @@ export async function hybridSearch(
        FROM fused f JOIN logs l USING (id)
        ORDER BY f.score DESC, f.id
        LIMIT :k`,
-      { vec, text, k, candidates, rrfK, vectorWeight, keywordWeight, exclude: excludeId ?? 0 },
+      { vec, text, k, candidates, rrfK, vectorWeight, keywordWeight, codes: JSON.stringify(codes), codeWeight, exclude: excludeId ?? 0 },
    );
    return hits(rows);
 }

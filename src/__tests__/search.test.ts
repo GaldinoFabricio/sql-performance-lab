@@ -46,6 +46,7 @@ describe("GET /search/logs: validação", () => {
       [{ q: "redis", rrf_k: 0 }, /rrf_k must be an integer between 1 and 1000/],
       [{ q: "redis", route: "talvez" }, /route must be true or false/],
       [{ q: "redis", include_info: "talvez" }, /include_info must be true or false/],
+      [{ q: "redis", cw: 6 }, /cw must be a number between 0 and 5/],
       [{ q: "redis", vw: 0, fw: 0 }, /vw and fw cannot both be 0/],
       [{ q: "redis", ef_serach: 1000 }, /unknown parameter ef_serach; allowed: q, mode, k/],
    ])("400 para %j", async (query, message) => {
@@ -132,7 +133,7 @@ describe.skipIf(!ready)("GET /search/logs: resultados", () => {
       const res = await search({ q: "customers cannot pay", route: "true" });
 
       expect(res.status).toBe(200);
-      expect(res.body.hybrid).toEqual({ vector_weight: 1, keyword_weight: 0.5, weights_from: "routed", rrf_k: 60 });
+      expect(res.body.hybrid).toEqual({ vector_weight: 1, keyword_weight: 0.5, weights_from: "routed", rrf_k: 60, codes: [], code_weight: 2 });
       const causes = await rootCauses(res.body.results.map((r: any) => r.id));
       expect(causes.filter((c) => c === "payment_gateway_5xx").length).toBeGreaterThanOrEqual(8);
    });
@@ -140,7 +141,7 @@ describe.skipIf(!ready)("GET /search/logs: resultados", () => {
    it("hybrid roteado: código favorece o full-text (ECONNRESET nos 10 resultados)", async () => {
       const res = await search({ q: "ECONNRESET", route: "true" });
 
-      expect(res.body.hybrid).toEqual({ vector_weight: 0.5, keyword_weight: 1, weights_from: "routed", rrf_k: 60 });
+      expect(res.body.hybrid).toEqual({ vector_weight: 0.5, keyword_weight: 1, weights_from: "routed", rrf_k: 60, codes: ["ECONNRESET"], code_weight: 2 });
       expect(res.body.results).toHaveLength(10);
       for (const r of res.body.results) expect(r.message).toMatch(/ECONNRESET/);
    });
@@ -156,7 +157,7 @@ describe.skipIf(!ready)("GET /search/logs: resultados", () => {
 
    it("sem route, o hybrid usa os pesos fixos 1/1 (roteamento desligado por padrão)", async () => {
       const res = await search({ q: "ECONNRESET" });
-      expect(res.body.hybrid).toEqual({ vector_weight: 1, keyword_weight: 1, weights_from: "fixed", rrf_k: 60 });
+      expect(res.body.hybrid).toEqual({ vector_weight: 1, keyword_weight: 1, weights_from: "fixed", rrf_k: 60, codes: ["ECONNRESET"], code_weight: 2 });
 
       const off = await search({ q: "ECONNRESET", route: "false" });
       expect(off.body.hybrid).toMatchObject({ weights_from: "fixed" });
@@ -171,6 +172,35 @@ describe.skipIf(!ready)("GET /search/logs: resultados", () => {
       await search({ q: "disk full", mode: "vector", ef_search: 777 });
       const { rows } = await db.raw("SHOW hnsw.ef_search");
       expect(rows[0]["hnsw.ef_search"]).not.toBe("777");
+   });
+});
+
+describe.skipIf(!ready)("GET /search/logs: códigos de erro no hybrid", () => {
+   // 40P01 (Postgres deadlock) is only in error_code, never in the message text:
+   // without the code list, vectors and full-text can't find it (pnpm eval:codes).
+   it("um código que não está no texto acha os logs pelo error_code", async () => {
+      const res = await search({ q: "40P01" });
+      expect(res.body.hybrid).toMatchObject({ codes: ["40P01"], code_weight: 2 });
+      expect(res.body.results).toHaveLength(10);
+      expect(res.body.results.every((r: any) => r.error_code === "40P01")).toBe(true);
+   });
+
+   it("acha o código em minúsculas dentro de uma frase", async () => {
+      const res = await search({ q: "lots of econnreset errors since the deploy" });
+      expect(res.body.hybrid.codes).toEqual(["ECONNRESET"]);
+      const causes = await rootCauses(res.body.results.map((r: any) => r.id));
+      expect(causes.filter((c) => c === "cache_unavailable").length).toBeGreaterThanOrEqual(9);
+   });
+
+   it("cw=0 desliga a lista de códigos", async () => {
+      const res = await search({ q: "40P01", cw: 0 });
+      expect(res.body.hybrid).toMatchObject({ codes: ["40P01"], code_weight: 0 });
+      expect(res.body.results.some((r: any) => r.error_code === "40P01")).toBe(false);
+   });
+
+   it("sem código na consulta, a lista fica vazia", async () => {
+      const res = await search({ q: "redis is down" });
+      expect(res.body.hybrid.codes).toEqual([]);
    });
 });
 

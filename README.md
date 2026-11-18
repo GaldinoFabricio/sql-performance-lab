@@ -81,7 +81,7 @@ A single endpoint that runs both the slow and optimized versions multiple times 
 
 `GET /search/logs` searches a synthetic `logs` table four ways: `LIKE`, full-text (GIN), vectors (exact and HNSW) and a hybrid of both. Each is measured with recall and precision evals at 10k, 100k and 1M rows.
 
-Headline: with 1M rows, an HNSW index answers in ~2 ms instead of 220 ms, but finds only 64% of the true nearest neighbours for typed queries. Searching one embedding per log template (68 of them) instead of one per row gets 95% precision in under 1 ms at every size. A partial HNSW index without INFO logs (74% of the rows) raises HNSW precision at 1M from 72% to 87%, and builds in 68 s instead of 77 min. Full write-up, chart and conclusions: [SEMANTIC_SEARCH.md](./SEMANTIC_SEARCH.md).
+Headline: with 1M rows, an HNSW index answers in ~2 ms instead of 220 ms, but finds only 64% of the true nearest neighbours for typed queries. Searching one embedding per log template (68 of them) instead of one per row gets 95% precision in under 1 ms at every size. A partial HNSW index without INFO logs (74% of the rows) raises HNSW precision at 1M from 72% to 87%, and builds in 68 s instead of 77 min. Typed error codes such as `40P01`, which never appear in the message text, now match through the `error_code` column: precision on code queries went from 62% to 99.7% at 100k. Full write-up, chart and conclusions: [SEMANTIC_SEARCH.md](./SEMANTIC_SEARCH.md).
 
 ### 6. Query Plans on 1M Logs
 
@@ -157,7 +157,7 @@ pnpm dev
 | GET    | `/queries/join/optimized` | JOIN with composite index (index scan)              |
 | GET    | `/queries/explain/:type`  | Execution plan for `slow` or `fast`                 |
 | GET    | `/benchmarks/run`         | Side-by-side benchmark comparison (5 iterations)    |
-| GET    | `/search/logs?q=&mode=`   | Log search: `hybrid` (default), `vector`, `fulltext`, `like`, `template`; optional `k`, `ef_search`, `include_info` (INFO logs are left out by default), and for hybrid `vw`, `fw`, `rrf_k`, `route` ([SEMANTIC_SEARCH.md](SEMANTIC_SEARCH.md#api)) |
+| GET    | `/search/logs?q=&mode=`   | Log search: `hybrid` (default), `vector`, `fulltext`, `like`, `template`; optional `k`, `ef_search`, `include_info` (INFO logs are left out by default), and for hybrid `vw`, `fw`, `cw`, `rrf_k`, `route` ([SEMANTIC_SEARCH.md](SEMANTIC_SEARCH.md#api)) |
 
 **Example response from `/benchmarks/run`:**
 

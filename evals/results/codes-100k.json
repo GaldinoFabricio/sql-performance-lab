@@ -1,0 +1,6666 @@
+{
+  "created_at": "2026-11-18T01:59:30.263Z",
+  "rows": 100000,
+  "k": 10,
+  "settings": {
+    "not_info": true,
+    "ef_search": 160,
+    "hybrid_candidates": 40,
+    "rrf_k": 60
+  },
+  "latency_note": "client-side wall time, median of 3 runs per query after a warm-up run",
+  "summary": [
+    {
+      "method": "vector",
+      "precision": 0.6236842105263157,
+      "by_form": {
+        "exact": 0.631578947368421,
+        "lower": 0.631578947368421,
+        "sentence": 0.6078947368421052
+      },
+      "exact_code_share": 0.4666666666666666,
+      "zero_relevant": {
+        "all": 42,
+        "exact": 14,
+        "lower": 14,
+        "sentence": 14
+      },
+      "p50_ms": 1.6204969999998866
+    },
+    {
+      "method": "hybrid",
+      "precision": 0.6210526315789473,
+      "by_form": {
+        "exact": 0.6684210526315789,
+        "lower": 0.6684210526315789,
+        "sentence": 0.5263157894736843
+      },
+      "exact_code_share": 0.5210526315789474,
+      "zero_relevant": {
+        "all": 28,
+        "exact": 9,
+        "lower": 9,
+        "sentence": 10
+      },
+      "p50_ms": 12.067000999995798
+    },
+    {
+      "method": "hybrid routed",
+      "precision": 0.6140350877192984,
+      "by_form": {
+        "exact": 0.7131578947368421,
+        "lower": 0.6605263157894737,
+        "sentence": 0.46842105263157896
+      },
+      "exact_code_share": 0.562280701754386,
+      "zero_relevant": {
+        "all": 34,
+        "exact": 10,
+        "lower": 12,
+        "sentence": 12
+      },
+      "p50_ms": 12.211945999995805
+    },
+    {
+      "method": "hybrid + codes, cw=1",
+      "precision": 0.767543859649123,
+      "by_form": {
+        "exact": 0.8131578947368421,
+        "lower": 0.8131578947368421,
+        "sentence": 0.6763157894736842
+      },
+      "exact_code_share": 0.7078947368421055,
+      "zero_relevant": {
+        "all": 3,
+        "exact": 1,
+        "lower": 1,
+        "sentence": 1
+      },
+      "p50_ms": 12.126325000001088
+    },
+    {
+      "method": "hybrid + codes, cw=2",
+      "precision": 0.9973684210526317,
+      "by_form": {
+        "exact": 0.9973684210526316,
+        "lower": 0.9973684210526316,
+        "sentence": 0.9973684210526316
+      },
+      "exact_code_share": 0.9973684210526317,
+      "zero_relevant": {
+        "all": 0,
+        "exact": 0,
+        "lower": 0,
+        "sentence": 0
+      },
+      "p50_ms": 11.784615999999005
+    },
+    {
+      "method": "hybrid + codes, cw=3",
+      "precision": 1,
+      "by_form": {
+        "exact": 1,
+        "lower": 1,
+        "sentence": 1
+      },
+      "exact_code_share": 1,
+      "zero_relevant": {
+        "all": 0,
+        "exact": 0,
+        "lower": 0,
+        "sentence": 0
+      },
+      "p50_ms": 11.130605000002106
+    },
+    {
+      "method": "fulltext",
+      "precision": 0.6078947368421054,
+      "by_form": {
+        "exact": 0.6842105263157895,
+        "lower": 0.6842105263157895,
+        "sentence": 0.45526315789473687
+      },
+      "exact_code_share": 0.5780701754385965,
+      "zero_relevant": {
+        "all": 34,
+        "exact": 11,
+        "lower": 11,
+        "sentence": 12
+      },
+      "p50_ms": 9.064925000002404
+    },
+    {
+      "method": "template",
+      "precision": 0.5789473684210527,
+      "by_form": {
+        "exact": 0.6052631578947368,
+        "lower": 0.6052631578947368,
+        "sentence": 0.5263157894736842
+      },
+      "exact_code_share": 0.5,
+      "zero_relevant": {
+        "all": 48,
+        "exact": 15,
+        "lower": 15,
+        "sentence": 18
+      },
+      "p50_ms": 1.1341470000006666
+    },
+    {
+      "method": "error_code lookup",
+      "precision": 1,
+      "by_form": {
+        "exact": 1,
+        "lower": 1,
+        "sentence": 1
+      },
+      "exact_code_share": 1,
+      "zero_relevant": {
+        "all": 0,
+        "exact": 0,
+        "lower": 0,
+        "sentence": 0
+      },
+      "p50_ms": 1.1652840000006108
+    }
+  ],
+  "text_queries": {
+    "summary": [
+      {
+        "method": "hybrid",
+        "precision": 0.9049999999999999,
+        "zero_relevant": 1
+      },
+      {
+        "method": "hybrid + codes, cw=1",
+        "precision": 0.91,
+        "zero_relevant": 1
+      },
+      {
+        "method": "hybrid + codes, cw=2",
+        "precision": 0.9166666666666665,
+        "zero_relevant": 1
+      },
+      {
+        "method": "hybrid + codes, cw=3",
+        "precision": 0.9166666666666665,
+        "zero_relevant": 1
+      }
+    ],
+    "with_codes": [
+      {
+        "text": "ECONNRESET",
+        "codes": [
+          "ECONNRESET"
+        ],
+        "precision": {
+          "hybrid": 0.5,
+          "hybrid + codes, cw=1": 0.7,
+          "hybrid + codes, cw=2": 1,
+          "hybrid + codes, cw=3": 1
+        }
+      },
+      {
+        "text": "ECONNREFUSED",
+        "codes": [
+          "ECONNREFUSED"
+        ],
+        "precision": {
+          "hybrid": 1,
+          "hybrid + codes, cw=1": 0.9,
+          "hybrid + codes, cw=2": 0.7,
+          "hybrid + codes, cw=3": 0.7
+        }
+      },
+      {
+        "text": "ENOSPC",
+        "codes": [
+          "ENOSPC"
+        ],
+        "precision": {
+          "hybrid": 1,
+          "hybrid + codes, cw=1": 1,
+          "hybrid + codes, cw=2": 1,
+          "hybrid + codes, cw=3": 1
+        }
+      },
+      {
+        "text": "ENOTFOUND",
+        "codes": [
+          "ENOTFOUND"
+        ],
+        "precision": {
+          "hybrid": 1,
+          "hybrid + codes, cw=1": 1,
+          "hybrid + codes, cw=2": 1,
+          "hybrid + codes, cw=3": 1
+        }
+      },
+      {
+        "text": "OOMKilled",
+        "codes": [
+          "OOMKilled"
+        ],
+        "precision": {
+          "hybrid": 1,
+          "hybrid + codes, cw=1": 1,
+          "hybrid + codes, cw=2": 1,
+          "hybrid + codes, cw=3": 1
+        }
+      },
+      {
+        "text": "x509",
+        "codes": [
+          "X509"
+        ],
+        "precision": {
+          "hybrid": 0.5,
+          "hybrid + codes, cw=1": 0.7,
+          "hybrid + codes, cw=2": 1,
+          "hybrid + codes, cw=3": 1
+        }
+      },
+      {
+        "text": "CERT_HAS_EXPIRED",
+        "codes": [
+          "CERT_HAS_EXPIRED"
+        ],
+        "precision": {
+          "hybrid": 1,
+          "hybrid + codes, cw=1": 1,
+          "hybrid + codes, cw=2": 1,
+          "hybrid + codes, cw=3": 1
+        }
+      }
+    ]
+  },
+  "per_query": [
+    {
+      "text": "23505",
+      "code": "23505",
+      "form": "exact",
+      "expected": [
+        "duplicate_key"
+      ],
+      "code_in_message": 0,
+      "methods": {
+        "vector": {
+          "precision": 0,
+          "same_code": 0,
+          "results": 10
+        },
+        "hybrid": {
+          "precision": 0,
+          "same_code": 0,
+          "results": 10
+        },
+        "hybrid routed": {
+          "precision": 0,
+          "same_code": 0,
+          "results": 10
+        },
+        "hybrid + codes, cw=1": {
+          "precision": 0.5,
+          "same_code": 0.5,
+          "results": 10
+        },
+        "hybrid + codes, cw=2": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "hybrid + codes, cw=3": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "fulltext": {
+          "precision": 0,
+          "same_code": 0,
+          "results": 0
+        },
+        "template": {
+          "precision": 0,
+          "same_code": 0,
+          "results": 10
+        },
+        "error_code lookup": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        }
+      }
+    },
+    {
+      "text": "23505",
+      "code": "23505",
+      "form": "lower",
+      "expected": [
+        "duplicate_key"
+      ],
+      "code_in_message": 0,
+      "methods": {
+        "vector": {
+          "precision": 0,
+          "same_code": 0,
+          "results": 10
+        },
+        "hybrid": {
+          "precision": 0,
+          "same_code": 0,
+          "results": 10
+        },
+        "hybrid routed": {
+          "precision": 0,
+          "same_code": 0,
+          "results": 10
+        },
+        "hybrid + codes, cw=1": {
+          "precision": 0.5,
+          "same_code": 0.5,
+          "results": 10
+        },
+        "hybrid + codes, cw=2": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "hybrid + codes, cw=3": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "fulltext": {
+          "precision": 0,
+          "same_code": 0,
+          "results": 0
+        },
+        "template": {
+          "precision": 0,
+          "same_code": 0,
+          "results": 10
+        },
+        "error_code lookup": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        }
+      }
+    },
+    {
+      "text": "lots of 23505 errors since the deploy",
+      "code": "23505",
+      "form": "sentence",
+      "expected": [
+        "duplicate_key"
+      ],
+      "code_in_message": 0,
+      "methods": {
+        "vector": {
+          "precision": 0,
+          "same_code": 0,
+          "results": 10
+        },
+        "hybrid": {
+          "precision": 0,
+          "same_code": 0,
+          "results": 10
+        },
+        "hybrid routed": {
+          "precision": 0,
+          "same_code": 0,
+          "results": 10
+        },
+        "hybrid + codes, cw=1": {
+          "precision": 0.3,
+          "same_code": 0.3,
+          "results": 10
+        },
+        "hybrid + codes, cw=2": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "hybrid + codes, cw=3": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "fulltext": {
+          "precision": 0,
+          "same_code": 0,
+          "results": 10
+        },
+        "template": {
+          "precision": 0,
+          "same_code": 0,
+          "results": 10
+        },
+        "error_code lookup": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        }
+      }
+    },
+    {
+      "text": "40P01",
+      "code": "40P01",
+      "form": "exact",
+      "expected": [
+        "deadlock"
+      ],
+      "code_in_message": 0,
+      "methods": {
+        "vector": {
+          "precision": 0,
+          "same_code": 0,
+          "results": 10
+        },
+        "hybrid": {
+          "precision": 0,
+          "same_code": 0,
+          "results": 10
+        },
+        "hybrid routed": {
+          "precision": 0,
+          "same_code": 0,
+          "results": 10
+        },
+        "hybrid + codes, cw=1": {
+          "precision": 0.5,
+          "same_code": 0.5,
+          "results": 10
+        },
+        "hybrid + codes, cw=2": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "hybrid + codes, cw=3": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "fulltext": {
+          "precision": 0,
+          "same_code": 0,
+          "results": 0
+        },
+        "template": {
+          "precision": 0,
+          "same_code": 0,
+          "results": 10
+        },
+        "error_code lookup": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        }
+      }
+    },
+    {
+      "text": "40p01",
+      "code": "40P01",
+      "form": "lower",
+      "expected": [
+        "deadlock"
+      ],
+      "code_in_message": 0,
+      "methods": {
+        "vector": {
+          "precision": 0,
+          "same_code": 0,
+          "results": 10
+        },
+        "hybrid": {
+          "precision": 0,
+          "same_code": 0,
+          "results": 10
+        },
+        "hybrid routed": {
+          "precision": 0,
+          "same_code": 0,
+          "results": 10
+        },
+        "hybrid + codes, cw=1": {
+          "precision": 0.5,
+          "same_code": 0.5,
+          "results": 10
+        },
+        "hybrid + codes, cw=2": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "hybrid + codes, cw=3": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "fulltext": {
+          "precision": 0,
+          "same_code": 0,
+          "results": 0
+        },
+        "template": {
+          "precision": 0,
+          "same_code": 0,
+          "results": 10
+        },
+        "error_code lookup": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        }
+      }
+    },
+    {
+      "text": "lots of 40P01 errors since the deploy",
+      "code": "40P01",
+      "form": "sentence",
+      "expected": [
+        "deadlock"
+      ],
+      "code_in_message": 0,
+      "methods": {
+        "vector": {
+          "precision": 0,
+          "same_code": 0,
+          "results": 10
+        },
+        "hybrid": {
+          "precision": 0,
+          "same_code": 0,
+          "results": 10
+        },
+        "hybrid routed": {
+          "precision": 0,
+          "same_code": 0,
+          "results": 10
+        },
+        "hybrid + codes, cw=1": {
+          "precision": 0.3,
+          "same_code": 0.3,
+          "results": 10
+        },
+        "hybrid + codes, cw=2": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "hybrid + codes, cw=3": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "fulltext": {
+          "precision": 0,
+          "same_code": 0,
+          "results": 10
+        },
+        "template": {
+          "precision": 0,
+          "same_code": 0,
+          "results": 10
+        },
+        "error_code lookup": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        }
+      }
+    },
+    {
+      "text": "53100",
+      "code": "53100",
+      "form": "exact",
+      "expected": [
+        "disk_full"
+      ],
+      "code_in_message": 0,
+      "methods": {
+        "vector": {
+          "precision": 0,
+          "same_code": 0,
+          "results": 10
+        },
+        "hybrid": {
+          "precision": 0,
+          "same_code": 0,
+          "results": 10
+        },
+        "hybrid routed": {
+          "precision": 0,
+          "same_code": 0,
+          "results": 10
+        },
+        "hybrid + codes, cw=1": {
+          "precision": 0.5,
+          "same_code": 0.5,
+          "results": 10
+        },
+        "hybrid + codes, cw=2": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "hybrid + codes, cw=3": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "fulltext": {
+          "precision": 0,
+          "same_code": 0,
+          "results": 0
+        },
+        "template": {
+          "precision": 0,
+          "same_code": 0,
+          "results": 10
+        },
+        "error_code lookup": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        }
+      }
+    },
+    {
+      "text": "53100",
+      "code": "53100",
+      "form": "lower",
+      "expected": [
+        "disk_full"
+      ],
+      "code_in_message": 0,
+      "methods": {
+        "vector": {
+          "precision": 0,
+          "same_code": 0,
+          "results": 10
+        },
+        "hybrid": {
+          "precision": 0,
+          "same_code": 0,
+          "results": 10
+        },
+        "hybrid routed": {
+          "precision": 0,
+          "same_code": 0,
+          "results": 10
+        },
+        "hybrid + codes, cw=1": {
+          "precision": 0.5,
+          "same_code": 0.5,
+          "results": 10
+        },
+        "hybrid + codes, cw=2": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "hybrid + codes, cw=3": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "fulltext": {
+          "precision": 0,
+          "same_code": 0,
+          "results": 0
+        },
+        "template": {
+          "precision": 0,
+          "same_code": 0,
+          "results": 10
+        },
+        "error_code lookup": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        }
+      }
+    },
+    {
+      "text": "lots of 53100 errors since the deploy",
+      "code": "53100",
+      "form": "sentence",
+      "expected": [
+        "disk_full"
+      ],
+      "code_in_message": 0,
+      "methods": {
+        "vector": {
+          "precision": 0,
+          "same_code": 0,
+          "results": 10
+        },
+        "hybrid": {
+          "precision": 0,
+          "same_code": 0,
+          "results": 10
+        },
+        "hybrid routed": {
+          "precision": 0,
+          "same_code": 0,
+          "results": 10
+        },
+        "hybrid + codes, cw=1": {
+          "precision": 0.3,
+          "same_code": 0.3,
+          "results": 10
+        },
+        "hybrid + codes, cw=2": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "hybrid + codes, cw=3": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "fulltext": {
+          "precision": 0,
+          "same_code": 0,
+          "results": 10
+        },
+        "template": {
+          "precision": 0,
+          "same_code": 0,
+          "results": 10
+        },
+        "error_code lookup": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        }
+      }
+    },
+    {
+      "text": "53300",
+      "code": "53300",
+      "form": "exact",
+      "expected": [
+        "db_connection_timeout"
+      ],
+      "code_in_message": 0,
+      "methods": {
+        "vector": {
+          "precision": 0,
+          "same_code": 0,
+          "results": 10
+        },
+        "hybrid": {
+          "precision": 0,
+          "same_code": 0,
+          "results": 10
+        },
+        "hybrid routed": {
+          "precision": 0,
+          "same_code": 0,
+          "results": 10
+        },
+        "hybrid + codes, cw=1": {
+          "precision": 0.5,
+          "same_code": 0.5,
+          "results": 10
+        },
+        "hybrid + codes, cw=2": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "hybrid + codes, cw=3": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "fulltext": {
+          "precision": 0,
+          "same_code": 0,
+          "results": 0
+        },
+        "template": {
+          "precision": 0,
+          "same_code": 0,
+          "results": 10
+        },
+        "error_code lookup": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        }
+      }
+    },
+    {
+      "text": "53300",
+      "code": "53300",
+      "form": "lower",
+      "expected": [
+        "db_connection_timeout"
+      ],
+      "code_in_message": 0,
+      "methods": {
+        "vector": {
+          "precision": 0,
+          "same_code": 0,
+          "results": 10
+        },
+        "hybrid": {
+          "precision": 0,
+          "same_code": 0,
+          "results": 10
+        },
+        "hybrid routed": {
+          "precision": 0,
+          "same_code": 0,
+          "results": 10
+        },
+        "hybrid + codes, cw=1": {
+          "precision": 0.5,
+          "same_code": 0.5,
+          "results": 10
+        },
+        "hybrid + codes, cw=2": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "hybrid + codes, cw=3": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "fulltext": {
+          "precision": 0,
+          "same_code": 0,
+          "results": 0
+        },
+        "template": {
+          "precision": 0,
+          "same_code": 0,
+          "results": 10
+        },
+        "error_code lookup": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        }
+      }
+    },
+    {
+      "text": "lots of 53300 errors since the deploy",
+      "code": "53300",
+      "form": "sentence",
+      "expected": [
+        "db_connection_timeout"
+      ],
+      "code_in_message": 0,
+      "methods": {
+        "vector": {
+          "precision": 0,
+          "same_code": 0,
+          "results": 10
+        },
+        "hybrid": {
+          "precision": 0,
+          "same_code": 0,
+          "results": 10
+        },
+        "hybrid routed": {
+          "precision": 0,
+          "same_code": 0,
+          "results": 10
+        },
+        "hybrid + codes, cw=1": {
+          "precision": 0.3,
+          "same_code": 0.3,
+          "results": 10
+        },
+        "hybrid + codes, cw=2": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "hybrid + codes, cw=3": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "fulltext": {
+          "precision": 0,
+          "same_code": 0,
+          "results": 10
+        },
+        "template": {
+          "precision": 0,
+          "same_code": 0,
+          "results": 10
+        },
+        "error_code lookup": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        }
+      }
+    },
+    {
+      "text": "57014",
+      "code": "57014",
+      "form": "exact",
+      "expected": [
+        "slow_query"
+      ],
+      "code_in_message": 0,
+      "methods": {
+        "vector": {
+          "precision": 0,
+          "same_code": 0,
+          "results": 10
+        },
+        "hybrid": {
+          "precision": 0,
+          "same_code": 0,
+          "results": 10
+        },
+        "hybrid routed": {
+          "precision": 0,
+          "same_code": 0,
+          "results": 10
+        },
+        "hybrid + codes, cw=1": {
+          "precision": 0.5,
+          "same_code": 0.5,
+          "results": 10
+        },
+        "hybrid + codes, cw=2": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "hybrid + codes, cw=3": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "fulltext": {
+          "precision": 0,
+          "same_code": 0,
+          "results": 0
+        },
+        "template": {
+          "precision": 0,
+          "same_code": 0,
+          "results": 10
+        },
+        "error_code lookup": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        }
+      }
+    },
+    {
+      "text": "57014",
+      "code": "57014",
+      "form": "lower",
+      "expected": [
+        "slow_query"
+      ],
+      "code_in_message": 0,
+      "methods": {
+        "vector": {
+          "precision": 0,
+          "same_code": 0,
+          "results": 10
+        },
+        "hybrid": {
+          "precision": 0,
+          "same_code": 0,
+          "results": 10
+        },
+        "hybrid routed": {
+          "precision": 0,
+          "same_code": 0,
+          "results": 10
+        },
+        "hybrid + codes, cw=1": {
+          "precision": 0.5,
+          "same_code": 0.5,
+          "results": 10
+        },
+        "hybrid + codes, cw=2": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "hybrid + codes, cw=3": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "fulltext": {
+          "precision": 0,
+          "same_code": 0,
+          "results": 0
+        },
+        "template": {
+          "precision": 0,
+          "same_code": 0,
+          "results": 10
+        },
+        "error_code lookup": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        }
+      }
+    },
+    {
+      "text": "lots of 57014 errors since the deploy",
+      "code": "57014",
+      "form": "sentence",
+      "expected": [
+        "slow_query"
+      ],
+      "code_in_message": 0,
+      "methods": {
+        "vector": {
+          "precision": 0,
+          "same_code": 0,
+          "results": 10
+        },
+        "hybrid": {
+          "precision": 0,
+          "same_code": 0,
+          "results": 10
+        },
+        "hybrid routed": {
+          "precision": 0,
+          "same_code": 0,
+          "results": 10
+        },
+        "hybrid + codes, cw=1": {
+          "precision": 0.3,
+          "same_code": 0.3,
+          "results": 10
+        },
+        "hybrid + codes, cw=2": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "hybrid + codes, cw=3": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "fulltext": {
+          "precision": 0,
+          "same_code": 0,
+          "results": 10
+        },
+        "template": {
+          "precision": 0,
+          "same_code": 0,
+          "results": 10
+        },
+        "error_code lookup": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        }
+      }
+    },
+    {
+      "text": "CERT_HAS_EXPIRED",
+      "code": "CERT_HAS_EXPIRED",
+      "form": "exact",
+      "expected": [
+        "tls_cert_expired"
+      ],
+      "code_in_message": 0.5203045685279187,
+      "methods": {
+        "vector": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "hybrid": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "hybrid routed": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "hybrid + codes, cw=1": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "hybrid + codes, cw=2": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "hybrid + codes, cw=3": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "fulltext": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "template": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "error_code lookup": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        }
+      }
+    },
+    {
+      "text": "cert_has_expired",
+      "code": "CERT_HAS_EXPIRED",
+      "form": "lower",
+      "expected": [
+        "tls_cert_expired"
+      ],
+      "code_in_message": 0.5203045685279187,
+      "methods": {
+        "vector": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "hybrid": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "hybrid routed": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "hybrid + codes, cw=1": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "hybrid + codes, cw=2": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "hybrid + codes, cw=3": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "fulltext": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "template": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "error_code lookup": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        }
+      }
+    },
+    {
+      "text": "lots of CERT_HAS_EXPIRED errors since the deploy",
+      "code": "CERT_HAS_EXPIRED",
+      "form": "sentence",
+      "expected": [
+        "tls_cert_expired"
+      ],
+      "code_in_message": 0.5203045685279187,
+      "methods": {
+        "vector": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "hybrid": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "hybrid routed": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "hybrid + codes, cw=1": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "hybrid + codes, cw=2": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "hybrid + codes, cw=3": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "fulltext": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "template": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "error_code lookup": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        }
+      }
+    },
+    {
+      "text": "DISK_FULL",
+      "code": "DISK_FULL",
+      "form": "exact",
+      "expected": [
+        "disk_full"
+      ],
+      "code_in_message": 0,
+      "methods": {
+        "vector": {
+          "precision": 1,
+          "same_code": 0,
+          "results": 10
+        },
+        "hybrid": {
+          "precision": 0.5,
+          "same_code": 0,
+          "results": 10
+        },
+        "hybrid routed": {
+          "precision": 0.3,
+          "same_code": 0,
+          "results": 10
+        },
+        "hybrid + codes, cw=1": {
+          "precision": 0.8,
+          "same_code": 0.7,
+          "results": 10
+        },
+        "hybrid + codes, cw=2": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "hybrid + codes, cw=3": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "fulltext": {
+          "precision": 0.3,
+          "same_code": 0,
+          "results": 10
+        },
+        "template": {
+          "precision": 1,
+          "same_code": 0,
+          "results": 10
+        },
+        "error_code lookup": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        }
+      }
+    },
+    {
+      "text": "disk_full",
+      "code": "DISK_FULL",
+      "form": "lower",
+      "expected": [
+        "disk_full"
+      ],
+      "code_in_message": 0,
+      "methods": {
+        "vector": {
+          "precision": 1,
+          "same_code": 0,
+          "results": 10
+        },
+        "hybrid": {
+          "precision": 0.5,
+          "same_code": 0,
+          "results": 10
+        },
+        "hybrid routed": {
+          "precision": 0.3,
+          "same_code": 0,
+          "results": 10
+        },
+        "hybrid + codes, cw=1": {
+          "precision": 0.8,
+          "same_code": 0.7,
+          "results": 10
+        },
+        "hybrid + codes, cw=2": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "hybrid + codes, cw=3": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "fulltext": {
+          "precision": 0.3,
+          "same_code": 0,
+          "results": 10
+        },
+        "template": {
+          "precision": 1,
+          "same_code": 0,
+          "results": 10
+        },
+        "error_code lookup": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        }
+      }
+    },
+    {
+      "text": "lots of DISK_FULL errors since the deploy",
+      "code": "DISK_FULL",
+      "form": "sentence",
+      "expected": [
+        "disk_full"
+      ],
+      "code_in_message": 0,
+      "methods": {
+        "vector": {
+          "precision": 1,
+          "same_code": 0.9,
+          "results": 10
+        },
+        "hybrid": {
+          "precision": 0.5,
+          "same_code": 0.4,
+          "results": 10
+        },
+        "hybrid routed": {
+          "precision": 0,
+          "same_code": 0,
+          "results": 10
+        },
+        "hybrid + codes, cw=1": {
+          "precision": 0.6,
+          "same_code": 0.5,
+          "results": 10
+        },
+        "hybrid + codes, cw=2": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "hybrid + codes, cw=3": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "fulltext": {
+          "precision": 0,
+          "same_code": 0,
+          "results": 10
+        },
+        "template": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "error_code lookup": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        }
+      }
+    },
+    {
+      "text": "EAI_AGAIN",
+      "code": "EAI_AGAIN",
+      "form": "exact",
+      "expected": [
+        "dns_failure"
+      ],
+      "code_in_message": 1,
+      "methods": {
+        "vector": {
+          "precision": 0,
+          "same_code": 0,
+          "results": 10
+        },
+        "hybrid": {
+          "precision": 0.5,
+          "same_code": 0.5,
+          "results": 10
+        },
+        "hybrid routed": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "hybrid + codes, cw=1": {
+          "precision": 0.7,
+          "same_code": 0.7,
+          "results": 10
+        },
+        "hybrid + codes, cw=2": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "hybrid + codes, cw=3": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "fulltext": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "template": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "error_code lookup": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        }
+      }
+    },
+    {
+      "text": "eai_again",
+      "code": "EAI_AGAIN",
+      "form": "lower",
+      "expected": [
+        "dns_failure"
+      ],
+      "code_in_message": 1,
+      "methods": {
+        "vector": {
+          "precision": 0,
+          "same_code": 0,
+          "results": 10
+        },
+        "hybrid": {
+          "precision": 0.5,
+          "same_code": 0.5,
+          "results": 10
+        },
+        "hybrid routed": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "hybrid + codes, cw=1": {
+          "precision": 0.7,
+          "same_code": 0.7,
+          "results": 10
+        },
+        "hybrid + codes, cw=2": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "hybrid + codes, cw=3": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "fulltext": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "template": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "error_code lookup": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        }
+      }
+    },
+    {
+      "text": "lots of EAI_AGAIN errors since the deploy",
+      "code": "EAI_AGAIN",
+      "form": "sentence",
+      "expected": [
+        "dns_failure"
+      ],
+      "code_in_message": 1,
+      "methods": {
+        "vector": {
+          "precision": 0,
+          "same_code": 0,
+          "results": 10
+        },
+        "hybrid": {
+          "precision": 0.2,
+          "same_code": 0.2,
+          "results": 10
+        },
+        "hybrid routed": {
+          "precision": 0.3,
+          "same_code": 0.3,
+          "results": 10
+        },
+        "hybrid + codes, cw=1": {
+          "precision": 0.4,
+          "same_code": 0.4,
+          "results": 10
+        },
+        "hybrid + codes, cw=2": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "hybrid + codes, cw=3": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "fulltext": {
+          "precision": 0.3,
+          "same_code": 0.3,
+          "results": 10
+        },
+        "template": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "error_code lookup": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        }
+      }
+    },
+    {
+      "text": "ECONNREFUSED",
+      "code": "ECONNREFUSED",
+      "form": "exact",
+      "expected": [
+        "cache_unavailable",
+        "db_connection_timeout"
+      ],
+      "code_in_message": 0.5300448430493273,
+      "methods": {
+        "vector": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "hybrid": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "hybrid routed": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "hybrid + codes, cw=1": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "hybrid + codes, cw=2": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "hybrid + codes, cw=3": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "fulltext": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "template": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "error_code lookup": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        }
+      }
+    },
+    {
+      "text": "econnrefused",
+      "code": "ECONNREFUSED",
+      "form": "lower",
+      "expected": [
+        "cache_unavailable",
+        "db_connection_timeout"
+      ],
+      "code_in_message": 0.5300448430493273,
+      "methods": {
+        "vector": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "hybrid": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "hybrid routed": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "hybrid + codes, cw=1": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "hybrid + codes, cw=2": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "hybrid + codes, cw=3": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "fulltext": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "template": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "error_code lookup": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        }
+      }
+    },
+    {
+      "text": "lots of ECONNREFUSED errors since the deploy",
+      "code": "ECONNREFUSED",
+      "form": "sentence",
+      "expected": [
+        "cache_unavailable",
+        "db_connection_timeout"
+      ],
+      "code_in_message": 0.5300448430493273,
+      "methods": {
+        "vector": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "hybrid": {
+          "precision": 0.7,
+          "same_code": 0.7,
+          "results": 10
+        },
+        "hybrid routed": {
+          "precision": 0.5,
+          "same_code": 0.5,
+          "results": 10
+        },
+        "hybrid + codes, cw=1": {
+          "precision": 0.9,
+          "same_code": 0.9,
+          "results": 10
+        },
+        "hybrid + codes, cw=2": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "hybrid + codes, cw=3": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "fulltext": {
+          "precision": 0.4,
+          "same_code": 0.4,
+          "results": 10
+        },
+        "template": {
+          "precision": 0,
+          "same_code": 0,
+          "results": 10
+        },
+        "error_code lookup": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        }
+      }
+    },
+    {
+      "text": "ECONNRESET",
+      "code": "ECONNRESET",
+      "form": "exact",
+      "expected": [
+        "cache_unavailable"
+      ],
+      "code_in_message": 1,
+      "methods": {
+        "vector": {
+          "precision": 0,
+          "same_code": 0,
+          "results": 10
+        },
+        "hybrid": {
+          "precision": 0.5,
+          "same_code": 0.5,
+          "results": 10
+        },
+        "hybrid routed": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "hybrid + codes, cw=1": {
+          "precision": 0.7,
+          "same_code": 0.7,
+          "results": 10
+        },
+        "hybrid + codes, cw=2": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "hybrid + codes, cw=3": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "fulltext": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "template": {
+          "precision": 0,
+          "same_code": 0,
+          "results": 10
+        },
+        "error_code lookup": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        }
+      }
+    },
+    {
+      "text": "econnreset",
+      "code": "ECONNRESET",
+      "form": "lower",
+      "expected": [
+        "cache_unavailable"
+      ],
+      "code_in_message": 1,
+      "methods": {
+        "vector": {
+          "precision": 0,
+          "same_code": 0,
+          "results": 10
+        },
+        "hybrid": {
+          "precision": 0.5,
+          "same_code": 0.5,
+          "results": 10
+        },
+        "hybrid routed": {
+          "precision": 0,
+          "same_code": 0,
+          "results": 10
+        },
+        "hybrid + codes, cw=1": {
+          "precision": 0.7,
+          "same_code": 0.7,
+          "results": 10
+        },
+        "hybrid + codes, cw=2": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "hybrid + codes, cw=3": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "fulltext": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "template": {
+          "precision": 0,
+          "same_code": 0,
+          "results": 10
+        },
+        "error_code lookup": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        }
+      }
+    },
+    {
+      "text": "lots of ECONNRESET errors since the deploy",
+      "code": "ECONNRESET",
+      "form": "sentence",
+      "expected": [
+        "cache_unavailable"
+      ],
+      "code_in_message": 1,
+      "methods": {
+        "vector": {
+          "precision": 0,
+          "same_code": 0,
+          "results": 10
+        },
+        "hybrid": {
+          "precision": 0.3,
+          "same_code": 0.3,
+          "results": 10
+        },
+        "hybrid routed": {
+          "precision": 0.7,
+          "same_code": 0.7,
+          "results": 10
+        },
+        "hybrid + codes, cw=1": {
+          "precision": 0.6,
+          "same_code": 0.6,
+          "results": 10
+        },
+        "hybrid + codes, cw=2": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "hybrid + codes, cw=3": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "fulltext": {
+          "precision": 0.6,
+          "same_code": 0.6,
+          "results": 10
+        },
+        "template": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "error_code lookup": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        }
+      }
+    },
+    {
+      "text": "EDQUOT",
+      "code": "EDQUOT",
+      "form": "exact",
+      "expected": [
+        "disk_full"
+      ],
+      "code_in_message": 0,
+      "methods": {
+        "vector": {
+          "precision": 0,
+          "same_code": 0,
+          "results": 10
+        },
+        "hybrid": {
+          "precision": 0,
+          "same_code": 0,
+          "results": 10
+        },
+        "hybrid routed": {
+          "precision": 0,
+          "same_code": 0,
+          "results": 10
+        },
+        "hybrid + codes, cw=1": {
+          "precision": 0.5,
+          "same_code": 0.5,
+          "results": 10
+        },
+        "hybrid + codes, cw=2": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "hybrid + codes, cw=3": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "fulltext": {
+          "precision": 0,
+          "same_code": 0,
+          "results": 0
+        },
+        "template": {
+          "precision": 0,
+          "same_code": 0,
+          "results": 10
+        },
+        "error_code lookup": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        }
+      }
+    },
+    {
+      "text": "edquot",
+      "code": "EDQUOT",
+      "form": "lower",
+      "expected": [
+        "disk_full"
+      ],
+      "code_in_message": 0,
+      "methods": {
+        "vector": {
+          "precision": 0,
+          "same_code": 0,
+          "results": 10
+        },
+        "hybrid": {
+          "precision": 0,
+          "same_code": 0,
+          "results": 10
+        },
+        "hybrid routed": {
+          "precision": 0,
+          "same_code": 0,
+          "results": 10
+        },
+        "hybrid + codes, cw=1": {
+          "precision": 0.5,
+          "same_code": 0.5,
+          "results": 10
+        },
+        "hybrid + codes, cw=2": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "hybrid + codes, cw=3": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "fulltext": {
+          "precision": 0,
+          "same_code": 0,
+          "results": 0
+        },
+        "template": {
+          "precision": 0,
+          "same_code": 0,
+          "results": 10
+        },
+        "error_code lookup": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        }
+      }
+    },
+    {
+      "text": "lots of EDQUOT errors since the deploy",
+      "code": "EDQUOT",
+      "form": "sentence",
+      "expected": [
+        "disk_full"
+      ],
+      "code_in_message": 0,
+      "methods": {
+        "vector": {
+          "precision": 0,
+          "same_code": 0,
+          "results": 10
+        },
+        "hybrid": {
+          "precision": 0,
+          "same_code": 0,
+          "results": 10
+        },
+        "hybrid routed": {
+          "precision": 0,
+          "same_code": 0,
+          "results": 10
+        },
+        "hybrid + codes, cw=1": {
+          "precision": 0.3,
+          "same_code": 0.3,
+          "results": 10
+        },
+        "hybrid + codes, cw=2": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "hybrid + codes, cw=3": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "fulltext": {
+          "precision": 0,
+          "same_code": 0,
+          "results": 10
+        },
+        "template": {
+          "precision": 0,
+          "same_code": 0,
+          "results": 10
+        },
+        "error_code lookup": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        }
+      }
+    },
+    {
+      "text": "EMAIL_TAKEN",
+      "code": "EMAIL_TAKEN",
+      "form": "exact",
+      "expected": [
+        "duplicate_key"
+      ],
+      "code_in_message": 0,
+      "methods": {
+        "vector": {
+          "precision": 1,
+          "same_code": 0,
+          "results": 10
+        },
+        "hybrid": {
+          "precision": 0.5,
+          "same_code": 0,
+          "results": 10
+        },
+        "hybrid routed": {
+          "precision": 0,
+          "same_code": 0,
+          "results": 10
+        },
+        "hybrid + codes, cw=1": {
+          "precision": 0.6,
+          "same_code": 0.3,
+          "results": 10
+        },
+        "hybrid + codes, cw=2": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "hybrid + codes, cw=3": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "fulltext": {
+          "precision": 0,
+          "same_code": 0,
+          "results": 10
+        },
+        "template": {
+          "precision": 1,
+          "same_code": 0,
+          "results": 10
+        },
+        "error_code lookup": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        }
+      }
+    },
+    {
+      "text": "email_taken",
+      "code": "EMAIL_TAKEN",
+      "form": "lower",
+      "expected": [
+        "duplicate_key"
+      ],
+      "code_in_message": 0,
+      "methods": {
+        "vector": {
+          "precision": 1,
+          "same_code": 0,
+          "results": 10
+        },
+        "hybrid": {
+          "precision": 0.5,
+          "same_code": 0,
+          "results": 10
+        },
+        "hybrid routed": {
+          "precision": 0,
+          "same_code": 0,
+          "results": 10
+        },
+        "hybrid + codes, cw=1": {
+          "precision": 0.6,
+          "same_code": 0.3,
+          "results": 10
+        },
+        "hybrid + codes, cw=2": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "hybrid + codes, cw=3": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "fulltext": {
+          "precision": 0,
+          "same_code": 0,
+          "results": 10
+        },
+        "template": {
+          "precision": 1,
+          "same_code": 0,
+          "results": 10
+        },
+        "error_code lookup": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        }
+      }
+    },
+    {
+      "text": "lots of EMAIL_TAKEN errors since the deploy",
+      "code": "EMAIL_TAKEN",
+      "form": "sentence",
+      "expected": [
+        "duplicate_key"
+      ],
+      "code_in_message": 0,
+      "methods": {
+        "vector": {
+          "precision": 0,
+          "same_code": 0,
+          "results": 10
+        },
+        "hybrid": {
+          "precision": 0,
+          "same_code": 0,
+          "results": 10
+        },
+        "hybrid routed": {
+          "precision": 0,
+          "same_code": 0,
+          "results": 10
+        },
+        "hybrid + codes, cw=1": {
+          "precision": 0.3,
+          "same_code": 0.3,
+          "results": 10
+        },
+        "hybrid + codes, cw=2": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "hybrid + codes, cw=3": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "fulltext": {
+          "precision": 0,
+          "same_code": 0,
+          "results": 10
+        },
+        "template": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "error_code lookup": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        }
+      }
+    },
+    {
+      "text": "ENOSPC",
+      "code": "ENOSPC",
+      "form": "exact",
+      "expected": [
+        "disk_full"
+      ],
+      "code_in_message": 1,
+      "methods": {
+        "vector": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "hybrid": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "hybrid routed": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "hybrid + codes, cw=1": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "hybrid + codes, cw=2": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "hybrid + codes, cw=3": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "fulltext": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "template": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "error_code lookup": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        }
+      }
+    },
+    {
+      "text": "enospc",
+      "code": "ENOSPC",
+      "form": "lower",
+      "expected": [
+        "disk_full"
+      ],
+      "code_in_message": 1,
+      "methods": {
+        "vector": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "hybrid": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "hybrid routed": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "hybrid + codes, cw=1": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "hybrid + codes, cw=2": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "hybrid + codes, cw=3": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "fulltext": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "template": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "error_code lookup": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        }
+      }
+    },
+    {
+      "text": "lots of ENOSPC errors since the deploy",
+      "code": "ENOSPC",
+      "form": "sentence",
+      "expected": [
+        "disk_full"
+      ],
+      "code_in_message": 1,
+      "methods": {
+        "vector": {
+          "precision": 0,
+          "same_code": 0,
+          "results": 10
+        },
+        "hybrid": {
+          "precision": 0,
+          "same_code": 0,
+          "results": 10
+        },
+        "hybrid routed": {
+          "precision": 0.2,
+          "same_code": 0.2,
+          "results": 10
+        },
+        "hybrid + codes, cw=1": {
+          "precision": 0.3,
+          "same_code": 0.3,
+          "results": 10
+        },
+        "hybrid + codes, cw=2": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "hybrid + codes, cw=3": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "fulltext": {
+          "precision": 0.2,
+          "same_code": 0.2,
+          "results": 10
+        },
+        "template": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "error_code lookup": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        }
+      }
+    },
+    {
+      "text": "ENOTFOUND",
+      "code": "ENOTFOUND",
+      "form": "exact",
+      "expected": [
+        "dns_failure"
+      ],
+      "code_in_message": 0.5122873345935728,
+      "methods": {
+        "vector": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "hybrid": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "hybrid routed": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "hybrid + codes, cw=1": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "hybrid + codes, cw=2": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "hybrid + codes, cw=3": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "fulltext": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "template": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "error_code lookup": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        }
+      }
+    },
+    {
+      "text": "enotfound",
+      "code": "ENOTFOUND",
+      "form": "lower",
+      "expected": [
+        "dns_failure"
+      ],
+      "code_in_message": 0.5122873345935728,
+      "methods": {
+        "vector": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "hybrid": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "hybrid routed": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "hybrid + codes, cw=1": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "hybrid + codes, cw=2": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "hybrid + codes, cw=3": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "fulltext": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "template": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "error_code lookup": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        }
+      }
+    },
+    {
+      "text": "lots of ENOTFOUND errors since the deploy",
+      "code": "ENOTFOUND",
+      "form": "sentence",
+      "expected": [
+        "dns_failure"
+      ],
+      "code_in_message": 0.5122873345935728,
+      "methods": {
+        "vector": {
+          "precision": 0,
+          "same_code": 0,
+          "results": 10
+        },
+        "hybrid": {
+          "precision": 0.1,
+          "same_code": 0.1,
+          "results": 10
+        },
+        "hybrid routed": {
+          "precision": 0.1,
+          "same_code": 0.1,
+          "results": 10
+        },
+        "hybrid + codes, cw=1": {
+          "precision": 0.4,
+          "same_code": 0.4,
+          "results": 10
+        },
+        "hybrid + codes, cw=2": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "hybrid + codes, cw=3": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "fulltext": {
+          "precision": 0.1,
+          "same_code": 0.1,
+          "results": 10
+        },
+        "template": {
+          "precision": 0,
+          "same_code": 0,
+          "results": 10
+        },
+        "error_code lookup": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        }
+      }
+    },
+    {
+      "text": "ERR_HEAP_OOM",
+      "code": "ERR_HEAP_OOM",
+      "form": "exact",
+      "expected": [
+        "out_of_memory"
+      ],
+      "code_in_message": 0,
+      "methods": {
+        "vector": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "hybrid": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "hybrid routed": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "hybrid + codes, cw=1": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "hybrid + codes, cw=2": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "hybrid + codes, cw=3": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "fulltext": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "template": {
+          "precision": 1,
+          "same_code": 0,
+          "results": 10
+        },
+        "error_code lookup": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        }
+      }
+    },
+    {
+      "text": "err_heap_oom",
+      "code": "ERR_HEAP_OOM",
+      "form": "lower",
+      "expected": [
+        "out_of_memory"
+      ],
+      "code_in_message": 0,
+      "methods": {
+        "vector": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "hybrid": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "hybrid routed": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "hybrid + codes, cw=1": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "hybrid + codes, cw=2": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "hybrid + codes, cw=3": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "fulltext": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "template": {
+          "precision": 1,
+          "same_code": 0,
+          "results": 10
+        },
+        "error_code lookup": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        }
+      }
+    },
+    {
+      "text": "lots of ERR_HEAP_OOM errors since the deploy",
+      "code": "ERR_HEAP_OOM",
+      "form": "sentence",
+      "expected": [
+        "out_of_memory"
+      ],
+      "code_in_message": 0,
+      "methods": {
+        "vector": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "hybrid": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "hybrid routed": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "hybrid + codes, cw=1": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "hybrid + codes, cw=2": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "hybrid + codes, cw=3": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "fulltext": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "template": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "error_code lookup": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        }
+      }
+    },
+    {
+      "text": "ETIMEDOUT",
+      "code": "ETIMEDOUT",
+      "form": "exact",
+      "expected": [
+        "db_connection_timeout"
+      ],
+      "code_in_message": 0,
+      "methods": {
+        "vector": {
+          "precision": 1,
+          "same_code": 0,
+          "results": 10
+        },
+        "hybrid": {
+          "precision": 1,
+          "same_code": 0,
+          "results": 10
+        },
+        "hybrid routed": {
+          "precision": 1,
+          "same_code": 0,
+          "results": 10
+        },
+        "hybrid + codes, cw=1": {
+          "precision": 1,
+          "same_code": 0.5,
+          "results": 10
+        },
+        "hybrid + codes, cw=2": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "hybrid + codes, cw=3": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "fulltext": {
+          "precision": 0,
+          "same_code": 0,
+          "results": 0
+        },
+        "template": {
+          "precision": 0,
+          "same_code": 0,
+          "results": 10
+        },
+        "error_code lookup": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        }
+      }
+    },
+    {
+      "text": "etimedout",
+      "code": "ETIMEDOUT",
+      "form": "lower",
+      "expected": [
+        "db_connection_timeout"
+      ],
+      "code_in_message": 0,
+      "methods": {
+        "vector": {
+          "precision": 1,
+          "same_code": 0,
+          "results": 10
+        },
+        "hybrid": {
+          "precision": 1,
+          "same_code": 0,
+          "results": 10
+        },
+        "hybrid routed": {
+          "precision": 1,
+          "same_code": 0,
+          "results": 10
+        },
+        "hybrid + codes, cw=1": {
+          "precision": 1,
+          "same_code": 0.5,
+          "results": 10
+        },
+        "hybrid + codes, cw=2": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "hybrid + codes, cw=3": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "fulltext": {
+          "precision": 0,
+          "same_code": 0,
+          "results": 0
+        },
+        "template": {
+          "precision": 0,
+          "same_code": 0,
+          "results": 10
+        },
+        "error_code lookup": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        }
+      }
+    },
+    {
+      "text": "lots of ETIMEDOUT errors since the deploy",
+      "code": "ETIMEDOUT",
+      "form": "sentence",
+      "expected": [
+        "db_connection_timeout"
+      ],
+      "code_in_message": 0,
+      "methods": {
+        "vector": {
+          "precision": 0,
+          "same_code": 0,
+          "results": 10
+        },
+        "hybrid": {
+          "precision": 0,
+          "same_code": 0,
+          "results": 10
+        },
+        "hybrid routed": {
+          "precision": 0,
+          "same_code": 0,
+          "results": 10
+        },
+        "hybrid + codes, cw=1": {
+          "precision": 0.3,
+          "same_code": 0.3,
+          "results": 10
+        },
+        "hybrid + codes, cw=2": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "hybrid + codes, cw=3": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "fulltext": {
+          "precision": 0,
+          "same_code": 0,
+          "results": 10
+        },
+        "template": {
+          "precision": 0,
+          "same_code": 0,
+          "results": 10
+        },
+        "error_code lookup": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        }
+      }
+    },
+    {
+      "text": "HTTP_401",
+      "code": "HTTP_401",
+      "form": "exact",
+      "expected": [
+        "jwt_expired"
+      ],
+      "code_in_message": 0,
+      "methods": {
+        "vector": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "hybrid": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "hybrid routed": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "hybrid + codes, cw=1": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "hybrid + codes, cw=2": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "hybrid + codes, cw=3": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "fulltext": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "template": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "error_code lookup": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        }
+      }
+    },
+    {
+      "text": "http_401",
+      "code": "HTTP_401",
+      "form": "lower",
+      "expected": [
+        "jwt_expired"
+      ],
+      "code_in_message": 0,
+      "methods": {
+        "vector": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "hybrid": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "hybrid routed": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "hybrid + codes, cw=1": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "hybrid + codes, cw=2": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "hybrid + codes, cw=3": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "fulltext": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "template": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "error_code lookup": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        }
+      }
+    },
+    {
+      "text": "lots of HTTP_401 errors since the deploy",
+      "code": "HTTP_401",
+      "form": "sentence",
+      "expected": [
+        "jwt_expired"
+      ],
+      "code_in_message": 0,
+      "methods": {
+        "vector": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "hybrid": {
+          "precision": 0.7,
+          "same_code": 0.7,
+          "results": 10
+        },
+        "hybrid routed": {
+          "precision": 0.5,
+          "same_code": 0.5,
+          "results": 10
+        },
+        "hybrid + codes, cw=1": {
+          "precision": 0.9,
+          "same_code": 0.9,
+          "results": 10
+        },
+        "hybrid + codes, cw=2": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "hybrid + codes, cw=3": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "fulltext": {
+          "precision": 0.5,
+          "same_code": 0.5,
+          "results": 10
+        },
+        "template": {
+          "precision": 0,
+          "same_code": 0,
+          "results": 10
+        },
+        "error_code lookup": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        }
+      }
+    },
+    {
+      "text": "HTTP_429",
+      "code": "HTTP_429",
+      "form": "exact",
+      "expected": [
+        "rate_limited"
+      ],
+      "code_in_message": 0,
+      "methods": {
+        "vector": {
+          "precision": 0,
+          "same_code": 0,
+          "results": 10
+        },
+        "hybrid": {
+          "precision": 0.5,
+          "same_code": 0.5,
+          "results": 10
+        },
+        "hybrid routed": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "hybrid + codes, cw=1": {
+          "precision": 0.7,
+          "same_code": 0.7,
+          "results": 10
+        },
+        "hybrid + codes, cw=2": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "hybrid + codes, cw=3": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "fulltext": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "template": {
+          "precision": 0,
+          "same_code": 0,
+          "results": 10
+        },
+        "error_code lookup": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        }
+      }
+    },
+    {
+      "text": "http_429",
+      "code": "HTTP_429",
+      "form": "lower",
+      "expected": [
+        "rate_limited"
+      ],
+      "code_in_message": 0,
+      "methods": {
+        "vector": {
+          "precision": 0,
+          "same_code": 0,
+          "results": 10
+        },
+        "hybrid": {
+          "precision": 0.5,
+          "same_code": 0.5,
+          "results": 10
+        },
+        "hybrid routed": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "hybrid + codes, cw=1": {
+          "precision": 0.7,
+          "same_code": 0.7,
+          "results": 10
+        },
+        "hybrid + codes, cw=2": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "hybrid + codes, cw=3": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "fulltext": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "template": {
+          "precision": 0,
+          "same_code": 0,
+          "results": 10
+        },
+        "error_code lookup": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        }
+      }
+    },
+    {
+      "text": "lots of HTTP_429 errors since the deploy",
+      "code": "HTTP_429",
+      "form": "sentence",
+      "expected": [
+        "rate_limited"
+      ],
+      "code_in_message": 0,
+      "methods": {
+        "vector": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "hybrid": {
+          "precision": 0.8,
+          "same_code": 0.8,
+          "results": 10
+        },
+        "hybrid routed": {
+          "precision": 0.7,
+          "same_code": 0.7,
+          "results": 10
+        },
+        "hybrid + codes, cw=1": {
+          "precision": 0.9,
+          "same_code": 0.9,
+          "results": 10
+        },
+        "hybrid + codes, cw=2": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "hybrid + codes, cw=3": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "fulltext": {
+          "precision": 0.7,
+          "same_code": 0.7,
+          "results": 10
+        },
+        "template": {
+          "precision": 0,
+          "same_code": 0,
+          "results": 10
+        },
+        "error_code lookup": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        }
+      }
+    },
+    {
+      "text": "HTTP_502",
+      "code": "HTTP_502",
+      "form": "exact",
+      "expected": [
+        "payment_gateway_5xx"
+      ],
+      "code_in_message": 0,
+      "methods": {
+        "vector": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "hybrid": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "hybrid routed": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "hybrid + codes, cw=1": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "hybrid + codes, cw=2": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "hybrid + codes, cw=3": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "fulltext": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "template": {
+          "precision": 0,
+          "same_code": 0,
+          "results": 10
+        },
+        "error_code lookup": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        }
+      }
+    },
+    {
+      "text": "http_502",
+      "code": "HTTP_502",
+      "form": "lower",
+      "expected": [
+        "payment_gateway_5xx"
+      ],
+      "code_in_message": 0,
+      "methods": {
+        "vector": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "hybrid": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "hybrid routed": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "hybrid + codes, cw=1": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "hybrid + codes, cw=2": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "hybrid + codes, cw=3": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "fulltext": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "template": {
+          "precision": 0,
+          "same_code": 0,
+          "results": 10
+        },
+        "error_code lookup": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        }
+      }
+    },
+    {
+      "text": "lots of HTTP_502 errors since the deploy",
+      "code": "HTTP_502",
+      "form": "sentence",
+      "expected": [
+        "payment_gateway_5xx"
+      ],
+      "code_in_message": 0,
+      "methods": {
+        "vector": {
+          "precision": 1,
+          "same_code": 0.4,
+          "results": 10
+        },
+        "hybrid": {
+          "precision": 0.7,
+          "same_code": 0.4,
+          "results": 10
+        },
+        "hybrid routed": {
+          "precision": 0.5,
+          "same_code": 0.5,
+          "results": 10
+        },
+        "hybrid + codes, cw=1": {
+          "precision": 0.8,
+          "same_code": 0.6,
+          "results": 10
+        },
+        "hybrid + codes, cw=2": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "hybrid + codes, cw=3": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "fulltext": {
+          "precision": 0.5,
+          "same_code": 0.5,
+          "results": 10
+        },
+        "template": {
+          "precision": 0,
+          "same_code": 0,
+          "results": 10
+        },
+        "error_code lookup": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        }
+      }
+    },
+    {
+      "text": "HTTP_503",
+      "code": "HTTP_503",
+      "form": "exact",
+      "expected": [
+        "payment_gateway_5xx"
+      ],
+      "code_in_message": 0,
+      "methods": {
+        "vector": {
+          "precision": 1,
+          "same_code": 0,
+          "results": 10
+        },
+        "hybrid": {
+          "precision": 1,
+          "same_code": 0.5,
+          "results": 10
+        },
+        "hybrid routed": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "hybrid + codes, cw=1": {
+          "precision": 1,
+          "same_code": 0.7,
+          "results": 10
+        },
+        "hybrid + codes, cw=2": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "hybrid + codes, cw=3": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "fulltext": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "template": {
+          "precision": 0,
+          "same_code": 0,
+          "results": 10
+        },
+        "error_code lookup": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        }
+      }
+    },
+    {
+      "text": "http_503",
+      "code": "HTTP_503",
+      "form": "lower",
+      "expected": [
+        "payment_gateway_5xx"
+      ],
+      "code_in_message": 0,
+      "methods": {
+        "vector": {
+          "precision": 1,
+          "same_code": 0,
+          "results": 10
+        },
+        "hybrid": {
+          "precision": 1,
+          "same_code": 0.5,
+          "results": 10
+        },
+        "hybrid routed": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "hybrid + codes, cw=1": {
+          "precision": 1,
+          "same_code": 0.7,
+          "results": 10
+        },
+        "hybrid + codes, cw=2": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "hybrid + codes, cw=3": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "fulltext": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "template": {
+          "precision": 0,
+          "same_code": 0,
+          "results": 10
+        },
+        "error_code lookup": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        }
+      }
+    },
+    {
+      "text": "lots of HTTP_503 errors since the deploy",
+      "code": "HTTP_503",
+      "form": "sentence",
+      "expected": [
+        "payment_gateway_5xx"
+      ],
+      "code_in_message": 0,
+      "methods": {
+        "vector": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "hybrid": {
+          "precision": 0.7,
+          "same_code": 0.7,
+          "results": 10
+        },
+        "hybrid routed": {
+          "precision": 0.6,
+          "same_code": 0.6,
+          "results": 10
+        },
+        "hybrid + codes, cw=1": {
+          "precision": 0.8,
+          "same_code": 0.8,
+          "results": 10
+        },
+        "hybrid + codes, cw=2": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "hybrid + codes, cw=3": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "fulltext": {
+          "precision": 0.6,
+          "same_code": 0.6,
+          "results": 10
+        },
+        "template": {
+          "precision": 0,
+          "same_code": 0,
+          "results": 10
+        },
+        "error_code lookup": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        }
+      }
+    },
+    {
+      "text": "HTTP_504",
+      "code": "HTTP_504",
+      "form": "exact",
+      "expected": [
+        "payment_gateway_5xx"
+      ],
+      "code_in_message": 0,
+      "methods": {
+        "vector": {
+          "precision": 1,
+          "same_code": 0,
+          "results": 10
+        },
+        "hybrid": {
+          "precision": 1,
+          "same_code": 0.5,
+          "results": 10
+        },
+        "hybrid routed": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "hybrid + codes, cw=1": {
+          "precision": 1,
+          "same_code": 0.7,
+          "results": 10
+        },
+        "hybrid + codes, cw=2": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "hybrid + codes, cw=3": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "fulltext": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "template": {
+          "precision": 0,
+          "same_code": 0,
+          "results": 10
+        },
+        "error_code lookup": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        }
+      }
+    },
+    {
+      "text": "http_504",
+      "code": "HTTP_504",
+      "form": "lower",
+      "expected": [
+        "payment_gateway_5xx"
+      ],
+      "code_in_message": 0,
+      "methods": {
+        "vector": {
+          "precision": 1,
+          "same_code": 0,
+          "results": 10
+        },
+        "hybrid": {
+          "precision": 1,
+          "same_code": 0.5,
+          "results": 10
+        },
+        "hybrid routed": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "hybrid + codes, cw=1": {
+          "precision": 1,
+          "same_code": 0.7,
+          "results": 10
+        },
+        "hybrid + codes, cw=2": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "hybrid + codes, cw=3": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "fulltext": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "template": {
+          "precision": 0,
+          "same_code": 0,
+          "results": 10
+        },
+        "error_code lookup": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        }
+      }
+    },
+    {
+      "text": "lots of HTTP_504 errors since the deploy",
+      "code": "HTTP_504",
+      "form": "sentence",
+      "expected": [
+        "payment_gateway_5xx"
+      ],
+      "code_in_message": 0,
+      "methods": {
+        "vector": {
+          "precision": 0.4,
+          "same_code": 0,
+          "results": 10
+        },
+        "hybrid": {
+          "precision": 0.4,
+          "same_code": 0.2,
+          "results": 10
+        },
+        "hybrid routed": {
+          "precision": 0.5,
+          "same_code": 0.5,
+          "results": 10
+        },
+        "hybrid + codes, cw=1": {
+          "precision": 0.5,
+          "same_code": 0.4,
+          "results": 10
+        },
+        "hybrid + codes, cw=2": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "hybrid + codes, cw=3": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "fulltext": {
+          "precision": 0.5,
+          "same_code": 0.5,
+          "results": 10
+        },
+        "template": {
+          "precision": 0,
+          "same_code": 0,
+          "results": 10
+        },
+        "error_code lookup": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        }
+      }
+    },
+    {
+      "text": "IDEMPOTENCY_CONFLICT",
+      "code": "IDEMPOTENCY_CONFLICT",
+      "form": "exact",
+      "expected": [
+        "duplicate_key"
+      ],
+      "code_in_message": 0,
+      "methods": {
+        "vector": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "hybrid": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "hybrid routed": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "hybrid + codes, cw=1": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "hybrid + codes, cw=2": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "hybrid + codes, cw=3": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "fulltext": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "template": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "error_code lookup": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        }
+      }
+    },
+    {
+      "text": "idempotency_conflict",
+      "code": "IDEMPOTENCY_CONFLICT",
+      "form": "lower",
+      "expected": [
+        "duplicate_key"
+      ],
+      "code_in_message": 0,
+      "methods": {
+        "vector": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "hybrid": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "hybrid routed": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "hybrid + codes, cw=1": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "hybrid + codes, cw=2": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "hybrid + codes, cw=3": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "fulltext": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "template": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "error_code lookup": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        }
+      }
+    },
+    {
+      "text": "lots of IDEMPOTENCY_CONFLICT errors since the deploy",
+      "code": "IDEMPOTENCY_CONFLICT",
+      "form": "sentence",
+      "expected": [
+        "duplicate_key"
+      ],
+      "code_in_message": 0,
+      "methods": {
+        "vector": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "hybrid": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "hybrid routed": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "hybrid + codes, cw=1": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "hybrid + codes, cw=2": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "hybrid + codes, cw=3": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "fulltext": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "template": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "error_code lookup": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        }
+      }
+    },
+    {
+      "text": "INVENTORY_NEGATIVE",
+      "code": "INVENTORY_NEGATIVE",
+      "form": "exact",
+      "expected": [
+        "stock_inconsistency"
+      ],
+      "code_in_message": 0,
+      "methods": {
+        "vector": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "hybrid": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "hybrid routed": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "hybrid + codes, cw=1": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "hybrid + codes, cw=2": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "hybrid + codes, cw=3": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "fulltext": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "template": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "error_code lookup": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        }
+      }
+    },
+    {
+      "text": "inventory_negative",
+      "code": "INVENTORY_NEGATIVE",
+      "form": "lower",
+      "expected": [
+        "stock_inconsistency"
+      ],
+      "code_in_message": 0,
+      "methods": {
+        "vector": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "hybrid": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "hybrid routed": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "hybrid + codes, cw=1": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "hybrid + codes, cw=2": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "hybrid + codes, cw=3": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "fulltext": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "template": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "error_code lookup": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        }
+      }
+    },
+    {
+      "text": "lots of INVENTORY_NEGATIVE errors since the deploy",
+      "code": "INVENTORY_NEGATIVE",
+      "form": "sentence",
+      "expected": [
+        "stock_inconsistency"
+      ],
+      "code_in_message": 0,
+      "methods": {
+        "vector": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "hybrid": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "hybrid routed": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "hybrid + codes, cw=1": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "hybrid + codes, cw=2": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "hybrid + codes, cw=3": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "fulltext": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "template": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "error_code lookup": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        }
+      }
+    },
+    {
+      "text": "KAFKA_LAG",
+      "code": "KAFKA_LAG",
+      "form": "exact",
+      "expected": [
+        "queue_lag"
+      ],
+      "code_in_message": 0,
+      "methods": {
+        "vector": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "hybrid": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "hybrid routed": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "hybrid + codes, cw=1": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "hybrid + codes, cw=2": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "hybrid + codes, cw=3": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "fulltext": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "template": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "error_code lookup": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        }
+      }
+    },
+    {
+      "text": "kafka_lag",
+      "code": "KAFKA_LAG",
+      "form": "lower",
+      "expected": [
+        "queue_lag"
+      ],
+      "code_in_message": 0,
+      "methods": {
+        "vector": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "hybrid": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "hybrid routed": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "hybrid + codes, cw=1": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "hybrid + codes, cw=2": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "hybrid + codes, cw=3": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "fulltext": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "template": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "error_code lookup": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        }
+      }
+    },
+    {
+      "text": "lots of KAFKA_LAG errors since the deploy",
+      "code": "KAFKA_LAG",
+      "form": "sentence",
+      "expected": [
+        "queue_lag"
+      ],
+      "code_in_message": 0,
+      "methods": {
+        "vector": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "hybrid": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "hybrid routed": {
+          "precision": 0.7,
+          "same_code": 0.7,
+          "results": 10
+        },
+        "hybrid + codes, cw=1": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "hybrid + codes, cw=2": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "hybrid + codes, cw=3": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "fulltext": {
+          "precision": 0.7,
+          "same_code": 0.7,
+          "results": 10
+        },
+        "template": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "error_code lookup": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        }
+      }
+    },
+    {
+      "text": "KNEX_TIMEOUT",
+      "code": "KNEX_TIMEOUT",
+      "form": "exact",
+      "expected": [
+        "db_connection_timeout"
+      ],
+      "code_in_message": 0,
+      "methods": {
+        "vector": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "hybrid": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "hybrid routed": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "hybrid + codes, cw=1": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "hybrid + codes, cw=2": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "hybrid + codes, cw=3": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "fulltext": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "template": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "error_code lookup": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        }
+      }
+    },
+    {
+      "text": "knex_timeout",
+      "code": "KNEX_TIMEOUT",
+      "form": "lower",
+      "expected": [
+        "db_connection_timeout"
+      ],
+      "code_in_message": 0,
+      "methods": {
+        "vector": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "hybrid": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "hybrid routed": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "hybrid + codes, cw=1": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "hybrid + codes, cw=2": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "hybrid + codes, cw=3": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "fulltext": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "template": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "error_code lookup": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        }
+      }
+    },
+    {
+      "text": "lots of KNEX_TIMEOUT errors since the deploy",
+      "code": "KNEX_TIMEOUT",
+      "form": "sentence",
+      "expected": [
+        "db_connection_timeout"
+      ],
+      "code_in_message": 0,
+      "methods": {
+        "vector": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "hybrid": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "hybrid routed": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "hybrid + codes, cw=1": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "hybrid + codes, cw=2": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "hybrid + codes, cw=3": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "fulltext": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "template": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "error_code lookup": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        }
+      }
+    },
+    {
+      "text": "NPE",
+      "code": "NPE",
+      "form": "exact",
+      "expected": [
+        "null_reference"
+      ],
+      "code_in_message": 0,
+      "methods": {
+        "vector": {
+          "precision": 0,
+          "same_code": 0,
+          "results": 10
+        },
+        "hybrid": {
+          "precision": 0,
+          "same_code": 0,
+          "results": 10
+        },
+        "hybrid routed": {
+          "precision": 0,
+          "same_code": 0,
+          "results": 10
+        },
+        "hybrid + codes, cw=1": {
+          "precision": 0.5,
+          "same_code": 0.5,
+          "results": 10
+        },
+        "hybrid + codes, cw=2": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "hybrid + codes, cw=3": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "fulltext": {
+          "precision": 0,
+          "same_code": 0,
+          "results": 0
+        },
+        "template": {
+          "precision": 0,
+          "same_code": 0,
+          "results": 10
+        },
+        "error_code lookup": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        }
+      }
+    },
+    {
+      "text": "npe",
+      "code": "NPE",
+      "form": "lower",
+      "expected": [
+        "null_reference"
+      ],
+      "code_in_message": 0,
+      "methods": {
+        "vector": {
+          "precision": 0,
+          "same_code": 0,
+          "results": 10
+        },
+        "hybrid": {
+          "precision": 0,
+          "same_code": 0,
+          "results": 10
+        },
+        "hybrid routed": {
+          "precision": 0,
+          "same_code": 0,
+          "results": 10
+        },
+        "hybrid + codes, cw=1": {
+          "precision": 0.5,
+          "same_code": 0.5,
+          "results": 10
+        },
+        "hybrid + codes, cw=2": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "hybrid + codes, cw=3": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "fulltext": {
+          "precision": 0,
+          "same_code": 0,
+          "results": 0
+        },
+        "template": {
+          "precision": 0,
+          "same_code": 0,
+          "results": 10
+        },
+        "error_code lookup": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        }
+      }
+    },
+    {
+      "text": "lots of NPE errors since the deploy",
+      "code": "NPE",
+      "form": "sentence",
+      "expected": [
+        "null_reference"
+      ],
+      "code_in_message": 0,
+      "methods": {
+        "vector": {
+          "precision": 1,
+          "same_code": 0,
+          "results": 10
+        },
+        "hybrid": {
+          "precision": 0.5,
+          "same_code": 0,
+          "results": 10
+        },
+        "hybrid routed": {
+          "precision": 0,
+          "same_code": 0,
+          "results": 10
+        },
+        "hybrid + codes, cw=1": {
+          "precision": 0.6,
+          "same_code": 0.3,
+          "results": 10
+        },
+        "hybrid + codes, cw=2": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "hybrid + codes, cw=3": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "fulltext": {
+          "precision": 0,
+          "same_code": 0,
+          "results": 10
+        },
+        "template": {
+          "precision": 0,
+          "same_code": 0,
+          "results": 10
+        },
+        "error_code lookup": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        }
+      }
+    },
+    {
+      "text": "OOM",
+      "code": "OOM",
+      "form": "exact",
+      "expected": [
+        "out_of_memory"
+      ],
+      "code_in_message": 0,
+      "methods": {
+        "vector": {
+          "precision": 0,
+          "same_code": 0,
+          "results": 10
+        },
+        "hybrid": {
+          "precision": 0,
+          "same_code": 0,
+          "results": 10
+        },
+        "hybrid routed": {
+          "precision": 0,
+          "same_code": 0,
+          "results": 10
+        },
+        "hybrid + codes, cw=1": {
+          "precision": 0.5,
+          "same_code": 0.5,
+          "results": 10
+        },
+        "hybrid + codes, cw=2": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "hybrid + codes, cw=3": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "fulltext": {
+          "precision": 0,
+          "same_code": 0,
+          "results": 0
+        },
+        "template": {
+          "precision": 1,
+          "same_code": 0,
+          "results": 10
+        },
+        "error_code lookup": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        }
+      }
+    },
+    {
+      "text": "oom",
+      "code": "OOM",
+      "form": "lower",
+      "expected": [
+        "out_of_memory"
+      ],
+      "code_in_message": 0,
+      "methods": {
+        "vector": {
+          "precision": 0,
+          "same_code": 0,
+          "results": 10
+        },
+        "hybrid": {
+          "precision": 0,
+          "same_code": 0,
+          "results": 10
+        },
+        "hybrid routed": {
+          "precision": 0,
+          "same_code": 0,
+          "results": 10
+        },
+        "hybrid + codes, cw=1": {
+          "precision": 0.5,
+          "same_code": 0.5,
+          "results": 10
+        },
+        "hybrid + codes, cw=2": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "hybrid + codes, cw=3": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "fulltext": {
+          "precision": 0,
+          "same_code": 0,
+          "results": 0
+        },
+        "template": {
+          "precision": 1,
+          "same_code": 0,
+          "results": 10
+        },
+        "error_code lookup": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        }
+      }
+    },
+    {
+      "text": "lots of OOM errors since the deploy",
+      "code": "OOM",
+      "form": "sentence",
+      "expected": [
+        "out_of_memory"
+      ],
+      "code_in_message": 0,
+      "methods": {
+        "vector": {
+          "precision": 1,
+          "same_code": 0,
+          "results": 10
+        },
+        "hybrid": {
+          "precision": 0.9,
+          "same_code": 0,
+          "results": 10
+        },
+        "hybrid routed": {
+          "precision": 0.7,
+          "same_code": 0,
+          "results": 10
+        },
+        "hybrid + codes, cw=1": {
+          "precision": 0.9,
+          "same_code": 0.3,
+          "results": 10
+        },
+        "hybrid + codes, cw=2": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "hybrid + codes, cw=3": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "fulltext": {
+          "precision": 0.7,
+          "same_code": 0,
+          "results": 10
+        },
+        "template": {
+          "precision": 1,
+          "same_code": 0,
+          "results": 10
+        },
+        "error_code lookup": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        }
+      }
+    },
+    {
+      "text": "OOMKilled",
+      "code": "OOMKilled",
+      "form": "exact",
+      "expected": [
+        "out_of_memory"
+      ],
+      "code_in_message": 1,
+      "methods": {
+        "vector": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "hybrid": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "hybrid routed": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "hybrid + codes, cw=1": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "hybrid + codes, cw=2": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "hybrid + codes, cw=3": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "fulltext": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "template": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "error_code lookup": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        }
+      }
+    },
+    {
+      "text": "oomkilled",
+      "code": "OOMKilled",
+      "form": "lower",
+      "expected": [
+        "out_of_memory"
+      ],
+      "code_in_message": 1,
+      "methods": {
+        "vector": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "hybrid": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "hybrid routed": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "hybrid + codes, cw=1": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "hybrid + codes, cw=2": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "hybrid + codes, cw=3": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "fulltext": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "template": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "error_code lookup": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        }
+      }
+    },
+    {
+      "text": "lots of OOMKilled errors since the deploy",
+      "code": "OOMKilled",
+      "form": "sentence",
+      "expected": [
+        "out_of_memory"
+      ],
+      "code_in_message": 1,
+      "methods": {
+        "vector": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "hybrid": {
+          "precision": 0.9,
+          "same_code": 0.7,
+          "results": 10
+        },
+        "hybrid routed": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "hybrid + codes, cw=1": {
+          "precision": 1,
+          "same_code": 0.9,
+          "results": 10
+        },
+        "hybrid + codes, cw=2": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "hybrid + codes, cw=3": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "fulltext": {
+          "precision": 0.9,
+          "same_code": 0.3,
+          "results": 10
+        },
+        "template": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "error_code lookup": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        }
+      }
+    },
+    {
+      "text": "OVERSOLD",
+      "code": "OVERSOLD",
+      "form": "exact",
+      "expected": [
+        "stock_inconsistency"
+      ],
+      "code_in_message": 1,
+      "methods": {
+        "vector": {
+          "precision": 0,
+          "same_code": 0,
+          "results": 10
+        },
+        "hybrid": {
+          "precision": 0.5,
+          "same_code": 0.5,
+          "results": 10
+        },
+        "hybrid routed": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "hybrid + codes, cw=1": {
+          "precision": 0.7,
+          "same_code": 0.7,
+          "results": 10
+        },
+        "hybrid + codes, cw=2": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "hybrid + codes, cw=3": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "fulltext": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "template": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "error_code lookup": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        }
+      }
+    },
+    {
+      "text": "oversold",
+      "code": "OVERSOLD",
+      "form": "lower",
+      "expected": [
+        "stock_inconsistency"
+      ],
+      "code_in_message": 1,
+      "methods": {
+        "vector": {
+          "precision": 0,
+          "same_code": 0,
+          "results": 10
+        },
+        "hybrid": {
+          "precision": 0.5,
+          "same_code": 0.5,
+          "results": 10
+        },
+        "hybrid routed": {
+          "precision": 0,
+          "same_code": 0,
+          "results": 10
+        },
+        "hybrid + codes, cw=1": {
+          "precision": 0.7,
+          "same_code": 0.7,
+          "results": 10
+        },
+        "hybrid + codes, cw=2": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "hybrid + codes, cw=3": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "fulltext": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "template": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "error_code lookup": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        }
+      }
+    },
+    {
+      "text": "lots of OVERSOLD errors since the deploy",
+      "code": "OVERSOLD",
+      "form": "sentence",
+      "expected": [
+        "stock_inconsistency"
+      ],
+      "code_in_message": 1,
+      "methods": {
+        "vector": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "hybrid": {
+          "precision": 0.5,
+          "same_code": 0.5,
+          "results": 10
+        },
+        "hybrid routed": {
+          "precision": 0.4,
+          "same_code": 0.4,
+          "results": 10
+        },
+        "hybrid + codes, cw=1": {
+          "precision": 0.9,
+          "same_code": 0.9,
+          "results": 10
+        },
+        "hybrid + codes, cw=2": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "hybrid + codes, cw=3": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "fulltext": {
+          "precision": 0.3,
+          "same_code": 0.3,
+          "results": 10
+        },
+        "template": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "error_code lookup": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        }
+      }
+    },
+    {
+      "text": "POOL_EXHAUSTED",
+      "code": "POOL_EXHAUSTED",
+      "form": "exact",
+      "expected": [
+        "db_connection_timeout"
+      ],
+      "code_in_message": 0,
+      "methods": {
+        "vector": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "hybrid": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "hybrid routed": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "hybrid + codes, cw=1": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "hybrid + codes, cw=2": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "hybrid + codes, cw=3": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "fulltext": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "template": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "error_code lookup": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        }
+      }
+    },
+    {
+      "text": "pool_exhausted",
+      "code": "POOL_EXHAUSTED",
+      "form": "lower",
+      "expected": [
+        "db_connection_timeout"
+      ],
+      "code_in_message": 0,
+      "methods": {
+        "vector": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "hybrid": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "hybrid routed": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "hybrid + codes, cw=1": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "hybrid + codes, cw=2": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "hybrid + codes, cw=3": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "fulltext": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "template": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "error_code lookup": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        }
+      }
+    },
+    {
+      "text": "lots of POOL_EXHAUSTED errors since the deploy",
+      "code": "POOL_EXHAUSTED",
+      "form": "sentence",
+      "expected": [
+        "db_connection_timeout"
+      ],
+      "code_in_message": 0,
+      "methods": {
+        "vector": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "hybrid": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "hybrid routed": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "hybrid + codes, cw=1": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "hybrid + codes, cw=2": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "hybrid + codes, cw=3": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "fulltext": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "template": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "error_code lookup": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        }
+      }
+    },
+    {
+      "text": "QUOTA_EXCEEDED",
+      "code": "QUOTA_EXCEEDED",
+      "form": "exact",
+      "expected": [
+        "rate_limited"
+      ],
+      "code_in_message": 0,
+      "methods": {
+        "vector": {
+          "precision": 0,
+          "same_code": 0,
+          "results": 10
+        },
+        "hybrid": {
+          "precision": 0,
+          "same_code": 0,
+          "results": 10
+        },
+        "hybrid routed": {
+          "precision": 0,
+          "same_code": 0,
+          "results": 10
+        },
+        "hybrid + codes, cw=1": {
+          "precision": 0,
+          "same_code": 0,
+          "results": 10
+        },
+        "hybrid + codes, cw=2": {
+          "precision": 0.9,
+          "same_code": 0.9,
+          "results": 10
+        },
+        "hybrid + codes, cw=3": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "fulltext": {
+          "precision": 0,
+          "same_code": 0,
+          "results": 10
+        },
+        "template": {
+          "precision": 0,
+          "same_code": 0,
+          "results": 10
+        },
+        "error_code lookup": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        }
+      }
+    },
+    {
+      "text": "quota_exceeded",
+      "code": "QUOTA_EXCEEDED",
+      "form": "lower",
+      "expected": [
+        "rate_limited"
+      ],
+      "code_in_message": 0,
+      "methods": {
+        "vector": {
+          "precision": 0,
+          "same_code": 0,
+          "results": 10
+        },
+        "hybrid": {
+          "precision": 0,
+          "same_code": 0,
+          "results": 10
+        },
+        "hybrid routed": {
+          "precision": 0,
+          "same_code": 0,
+          "results": 10
+        },
+        "hybrid + codes, cw=1": {
+          "precision": 0,
+          "same_code": 0,
+          "results": 10
+        },
+        "hybrid + codes, cw=2": {
+          "precision": 0.9,
+          "same_code": 0.9,
+          "results": 10
+        },
+        "hybrid + codes, cw=3": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "fulltext": {
+          "precision": 0,
+          "same_code": 0,
+          "results": 10
+        },
+        "template": {
+          "precision": 0,
+          "same_code": 0,
+          "results": 10
+        },
+        "error_code lookup": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        }
+      }
+    },
+    {
+      "text": "lots of QUOTA_EXCEEDED errors since the deploy",
+      "code": "QUOTA_EXCEEDED",
+      "form": "sentence",
+      "expected": [
+        "rate_limited"
+      ],
+      "code_in_message": 0,
+      "methods": {
+        "vector": {
+          "precision": 0,
+          "same_code": 0,
+          "results": 10
+        },
+        "hybrid": {
+          "precision": 0,
+          "same_code": 0,
+          "results": 10
+        },
+        "hybrid routed": {
+          "precision": 0,
+          "same_code": 0,
+          "results": 10
+        },
+        "hybrid + codes, cw=1": {
+          "precision": 0,
+          "same_code": 0,
+          "results": 10
+        },
+        "hybrid + codes, cw=2": {
+          "precision": 0.9,
+          "same_code": 0.9,
+          "results": 10
+        },
+        "hybrid + codes, cw=3": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "fulltext": {
+          "precision": 0,
+          "same_code": 0,
+          "results": 10
+        },
+        "template": {
+          "precision": 0,
+          "same_code": 0,
+          "results": 10
+        },
+        "error_code lookup": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        }
+      }
+    },
+    {
+      "text": "RECONCILE_MISMATCH",
+      "code": "RECONCILE_MISMATCH",
+      "form": "exact",
+      "expected": [
+        "stock_inconsistency"
+      ],
+      "code_in_message": 0,
+      "methods": {
+        "vector": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "hybrid": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "hybrid routed": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "hybrid + codes, cw=1": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "hybrid + codes, cw=2": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "hybrid + codes, cw=3": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "fulltext": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "template": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "error_code lookup": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        }
+      }
+    },
+    {
+      "text": "reconcile_mismatch",
+      "code": "RECONCILE_MISMATCH",
+      "form": "lower",
+      "expected": [
+        "stock_inconsistency"
+      ],
+      "code_in_message": 0,
+      "methods": {
+        "vector": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "hybrid": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "hybrid routed": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "hybrid + codes, cw=1": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "hybrid + codes, cw=2": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "hybrid + codes, cw=3": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "fulltext": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "template": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "error_code lookup": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        }
+      }
+    },
+    {
+      "text": "lots of RECONCILE_MISMATCH errors since the deploy",
+      "code": "RECONCILE_MISMATCH",
+      "form": "sentence",
+      "expected": [
+        "stock_inconsistency"
+      ],
+      "code_in_message": 0,
+      "methods": {
+        "vector": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "hybrid": {
+          "precision": 0.9,
+          "same_code": 0.9,
+          "results": 10
+        },
+        "hybrid routed": {
+          "precision": 0.7,
+          "same_code": 0.7,
+          "results": 10
+        },
+        "hybrid + codes, cw=1": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "hybrid + codes, cw=2": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "hybrid + codes, cw=3": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "fulltext": {
+          "precision": 0.6,
+          "same_code": 0.6,
+          "results": 10
+        },
+        "template": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "error_code lookup": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        }
+      }
+    },
+    {
+      "text": "REDIS_LOADING",
+      "code": "REDIS_LOADING",
+      "form": "exact",
+      "expected": [
+        "cache_unavailable"
+      ],
+      "code_in_message": 0,
+      "methods": {
+        "vector": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "hybrid": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "hybrid routed": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "hybrid + codes, cw=1": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "hybrid + codes, cw=2": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "hybrid + codes, cw=3": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "fulltext": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "template": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "error_code lookup": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        }
+      }
+    },
+    {
+      "text": "redis_loading",
+      "code": "REDIS_LOADING",
+      "form": "lower",
+      "expected": [
+        "cache_unavailable"
+      ],
+      "code_in_message": 0,
+      "methods": {
+        "vector": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "hybrid": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "hybrid routed": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "hybrid + codes, cw=1": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "hybrid + codes, cw=2": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "hybrid + codes, cw=3": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "fulltext": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "template": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "error_code lookup": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        }
+      }
+    },
+    {
+      "text": "lots of REDIS_LOADING errors since the deploy",
+      "code": "REDIS_LOADING",
+      "form": "sentence",
+      "expected": [
+        "cache_unavailable"
+      ],
+      "code_in_message": 0,
+      "methods": {
+        "vector": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "hybrid": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "hybrid routed": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "hybrid + codes, cw=1": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "hybrid + codes, cw=2": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "hybrid + codes, cw=3": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "fulltext": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "template": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "error_code lookup": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        }
+      }
+    },
+    {
+      "text": "SLOW_QUERY",
+      "code": "SLOW_QUERY",
+      "form": "exact",
+      "expected": [
+        "slow_query"
+      ],
+      "code_in_message": 0,
+      "methods": {
+        "vector": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "hybrid": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "hybrid routed": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "hybrid + codes, cw=1": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "hybrid + codes, cw=2": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "hybrid + codes, cw=3": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "fulltext": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "template": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "error_code lookup": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        }
+      }
+    },
+    {
+      "text": "slow_query",
+      "code": "SLOW_QUERY",
+      "form": "lower",
+      "expected": [
+        "slow_query"
+      ],
+      "code_in_message": 0,
+      "methods": {
+        "vector": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "hybrid": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "hybrid routed": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "hybrid + codes, cw=1": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "hybrid + codes, cw=2": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "hybrid + codes, cw=3": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "fulltext": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "template": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "error_code lookup": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        }
+      }
+    },
+    {
+      "text": "lots of SLOW_QUERY errors since the deploy",
+      "code": "SLOW_QUERY",
+      "form": "sentence",
+      "expected": [
+        "slow_query"
+      ],
+      "code_in_message": 0,
+      "methods": {
+        "vector": {
+          "precision": 0.8,
+          "same_code": 0.8,
+          "results": 10
+        },
+        "hybrid": {
+          "precision": 0.9,
+          "same_code": 0.9,
+          "results": 10
+        },
+        "hybrid routed": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "hybrid + codes, cw=1": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "hybrid + codes, cw=2": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "hybrid + codes, cw=3": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "fulltext": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "template": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "error_code lookup": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        }
+      }
+    },
+    {
+      "text": "TOKEN_EXPIRED",
+      "code": "TOKEN_EXPIRED",
+      "form": "exact",
+      "expected": [
+        "jwt_expired"
+      ],
+      "code_in_message": 0,
+      "methods": {
+        "vector": {
+          "precision": 1,
+          "same_code": 0,
+          "results": 10
+        },
+        "hybrid": {
+          "precision": 0.9,
+          "same_code": 0,
+          "results": 10
+        },
+        "hybrid routed": {
+          "precision": 0.8,
+          "same_code": 0,
+          "results": 10
+        },
+        "hybrid + codes, cw=1": {
+          "precision": 1,
+          "same_code": 0.2,
+          "results": 10
+        },
+        "hybrid + codes, cw=2": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "hybrid + codes, cw=3": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "fulltext": {
+          "precision": 0.7,
+          "same_code": 0,
+          "results": 10
+        },
+        "template": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "error_code lookup": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        }
+      }
+    },
+    {
+      "text": "token_expired",
+      "code": "TOKEN_EXPIRED",
+      "form": "lower",
+      "expected": [
+        "jwt_expired"
+      ],
+      "code_in_message": 0,
+      "methods": {
+        "vector": {
+          "precision": 1,
+          "same_code": 0,
+          "results": 10
+        },
+        "hybrid": {
+          "precision": 0.9,
+          "same_code": 0,
+          "results": 10
+        },
+        "hybrid routed": {
+          "precision": 0.8,
+          "same_code": 0,
+          "results": 10
+        },
+        "hybrid + codes, cw=1": {
+          "precision": 1,
+          "same_code": 0.2,
+          "results": 10
+        },
+        "hybrid + codes, cw=2": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "hybrid + codes, cw=3": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "fulltext": {
+          "precision": 0.7,
+          "same_code": 0,
+          "results": 10
+        },
+        "template": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "error_code lookup": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        }
+      }
+    },
+    {
+      "text": "lots of TOKEN_EXPIRED errors since the deploy",
+      "code": "TOKEN_EXPIRED",
+      "form": "sentence",
+      "expected": [
+        "jwt_expired"
+      ],
+      "code_in_message": 0,
+      "methods": {
+        "vector": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "hybrid": {
+          "precision": 0.5,
+          "same_code": 0.5,
+          "results": 10
+        },
+        "hybrid routed": {
+          "precision": 0,
+          "same_code": 0,
+          "results": 10
+        },
+        "hybrid + codes, cw=1": {
+          "precision": 0.6,
+          "same_code": 0.6,
+          "results": 10
+        },
+        "hybrid + codes, cw=2": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "hybrid + codes, cw=3": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "fulltext": {
+          "precision": 0,
+          "same_code": 0,
+          "results": 10
+        },
+        "template": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "error_code lookup": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        }
+      }
+    },
+    {
+      "text": "TypeError",
+      "code": "TypeError",
+      "form": "exact",
+      "expected": [
+        "null_reference"
+      ],
+      "code_in_message": 1,
+      "methods": {
+        "vector": {
+          "precision": 1,
+          "same_code": 0.1,
+          "results": 10
+        },
+        "hybrid": {
+          "precision": 1,
+          "same_code": 0.6,
+          "results": 10
+        },
+        "hybrid routed": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "hybrid + codes, cw=1": {
+          "precision": 1,
+          "same_code": 0.8,
+          "results": 10
+        },
+        "hybrid + codes, cw=2": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "hybrid + codes, cw=3": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "fulltext": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "template": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "error_code lookup": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        }
+      }
+    },
+    {
+      "text": "typeerror",
+      "code": "TypeError",
+      "form": "lower",
+      "expected": [
+        "null_reference"
+      ],
+      "code_in_message": 1,
+      "methods": {
+        "vector": {
+          "precision": 1,
+          "same_code": 0.1,
+          "results": 10
+        },
+        "hybrid": {
+          "precision": 1,
+          "same_code": 0.6,
+          "results": 10
+        },
+        "hybrid routed": {
+          "precision": 1,
+          "same_code": 0.1,
+          "results": 10
+        },
+        "hybrid + codes, cw=1": {
+          "precision": 1,
+          "same_code": 0.8,
+          "results": 10
+        },
+        "hybrid + codes, cw=2": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "hybrid + codes, cw=3": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "fulltext": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "template": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "error_code lookup": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        }
+      }
+    },
+    {
+      "text": "lots of TypeError errors since the deploy",
+      "code": "TypeError",
+      "form": "sentence",
+      "expected": [
+        "null_reference"
+      ],
+      "code_in_message": 1,
+      "methods": {
+        "vector": {
+          "precision": 1,
+          "same_code": 0,
+          "results": 10
+        },
+        "hybrid": {
+          "precision": 0.9,
+          "same_code": 0.4,
+          "results": 10
+        },
+        "hybrid routed": {
+          "precision": 0.7,
+          "same_code": 0.7,
+          "results": 10
+        },
+        "hybrid + codes, cw=1": {
+          "precision": 1,
+          "same_code": 0.7,
+          "results": 10
+        },
+        "hybrid + codes, cw=2": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "hybrid + codes, cw=3": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "fulltext": {
+          "precision": 0.7,
+          "same_code": 0.7,
+          "results": 10
+        },
+        "template": {
+          "precision": 0,
+          "same_code": 0,
+          "results": 10
+        },
+        "error_code lookup": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        }
+      }
+    },
+    {
+      "text": "UNHANDLED",
+      "code": "UNHANDLED",
+      "form": "exact",
+      "expected": [
+        "null_reference"
+      ],
+      "code_in_message": 1,
+      "methods": {
+        "vector": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "hybrid": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "hybrid routed": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "hybrid + codes, cw=1": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "hybrid + codes, cw=2": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "hybrid + codes, cw=3": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "fulltext": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "template": {
+          "precision": 0,
+          "same_code": 0,
+          "results": 10
+        },
+        "error_code lookup": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        }
+      }
+    },
+    {
+      "text": "unhandled",
+      "code": "UNHANDLED",
+      "form": "lower",
+      "expected": [
+        "null_reference"
+      ],
+      "code_in_message": 1,
+      "methods": {
+        "vector": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "hybrid": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "hybrid routed": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "hybrid + codes, cw=1": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "hybrid + codes, cw=2": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "hybrid + codes, cw=3": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "fulltext": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "template": {
+          "precision": 0,
+          "same_code": 0,
+          "results": 10
+        },
+        "error_code lookup": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        }
+      }
+    },
+    {
+      "text": "lots of UNHANDLED errors since the deploy",
+      "code": "UNHANDLED",
+      "form": "sentence",
+      "expected": [
+        "null_reference"
+      ],
+      "code_in_message": 1,
+      "methods": {
+        "vector": {
+          "precision": 0.9,
+          "same_code": 0.9,
+          "results": 10
+        },
+        "hybrid": {
+          "precision": 0.6,
+          "same_code": 0.6,
+          "results": 10
+        },
+        "hybrid routed": {
+          "precision": 0.5,
+          "same_code": 0.5,
+          "results": 10
+        },
+        "hybrid + codes, cw=1": {
+          "precision": 0.7,
+          "same_code": 0.7,
+          "results": 10
+        },
+        "hybrid + codes, cw=2": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "hybrid + codes, cw=3": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "fulltext": {
+          "precision": 0.5,
+          "same_code": 0.5,
+          "results": 10
+        },
+        "template": {
+          "precision": 0,
+          "same_code": 0,
+          "results": 10
+        },
+        "error_code lookup": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        }
+      }
+    },
+    {
+      "text": "X509",
+      "code": "X509",
+      "form": "exact",
+      "expected": [
+        "tls_cert_expired"
+      ],
+      "code_in_message": 1,
+      "methods": {
+        "vector": {
+          "precision": 0,
+          "same_code": 0,
+          "results": 10
+        },
+        "hybrid": {
+          "precision": 0.5,
+          "same_code": 0.5,
+          "results": 10
+        },
+        "hybrid routed": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "hybrid + codes, cw=1": {
+          "precision": 0.7,
+          "same_code": 0.7,
+          "results": 10
+        },
+        "hybrid + codes, cw=2": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "hybrid + codes, cw=3": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "fulltext": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "template": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "error_code lookup": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        }
+      }
+    },
+    {
+      "text": "x509",
+      "code": "X509",
+      "form": "lower",
+      "expected": [
+        "tls_cert_expired"
+      ],
+      "code_in_message": 1,
+      "methods": {
+        "vector": {
+          "precision": 0,
+          "same_code": 0,
+          "results": 10
+        },
+        "hybrid": {
+          "precision": 0.5,
+          "same_code": 0.5,
+          "results": 10
+        },
+        "hybrid routed": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "hybrid + codes, cw=1": {
+          "precision": 0.7,
+          "same_code": 0.7,
+          "results": 10
+        },
+        "hybrid + codes, cw=2": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "hybrid + codes, cw=3": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "fulltext": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "template": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "error_code lookup": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        }
+      }
+    },
+    {
+      "text": "lots of X509 errors since the deploy",
+      "code": "X509",
+      "form": "sentence",
+      "expected": [
+        "tls_cert_expired"
+      ],
+      "code_in_message": 1,
+      "methods": {
+        "vector": {
+          "precision": 0,
+          "same_code": 0,
+          "results": 10
+        },
+        "hybrid": {
+          "precision": 0.3,
+          "same_code": 0.2,
+          "results": 10
+        },
+        "hybrid routed": {
+          "precision": 0.5,
+          "same_code": 0.4,
+          "results": 10
+        },
+        "hybrid + codes, cw=1": {
+          "precision": 0.5,
+          "same_code": 0.4,
+          "results": 10
+        },
+        "hybrid + codes, cw=2": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "hybrid + codes, cw=3": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "fulltext": {
+          "precision": 0.5,
+          "same_code": 0.4,
+          "results": 10
+        },
+        "template": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "error_code lookup": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        }
+      }
+    }
+  ]
+}
