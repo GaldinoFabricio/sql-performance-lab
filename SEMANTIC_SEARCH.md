@@ -219,7 +219,7 @@ Embedding a typed query with the local model adds ~1.65 ms (p50) before any vect
 
 ## Conclusion
 
-**The production index is m = 32, ef_construction = 200** (migration `20261115130000_add_logs_embedding_hnsw_index.ts`). It had the best typed-query recall at every size, and builds in seconds up to 100k rows.
+**The production index is m = 32, ef_construction = 200** (migration `20261115130000_add_logs_embedding_hnsw_index.ts`). It had the best typed-query recall at every size, and builds in seconds up to 100k rows. Since migration `20261118120000` it is a partial index without INFO logs, with the same parameters: see [A partial HNSW index without INFO logs](#a-partial-hnsw-index-without-info-logs).
 
 **The default ef_search is 160.**
 - **Why not lower:** going from 40 to 160 adds 4 (10k), 7 (100k) and 10 (1M) recall points and costs less than a millisecond. At 1M, ef_search 160 is 1.9 ms p50 and 4.5 ms p95. That is about the cost of embedding the query (1.6 ms) and far below hybrid's full-text side (124 ms). ef_search is not where the time goes.
@@ -293,7 +293,7 @@ Recall against the exact top-10 (34% at 10k, 16% at 100k) is not meaningful here
 
 **3. The model's blind spots stay.** The same 3 free-text queries fail at every size: `ECONNRESET` (a bare code), "cannot find the address of the payment server" (DNS failure, phrased without "DNS") and one that varies with the data ("code crashed on a missing field", or `OOMKilled` at 10k). Templates change what gets embedded, not what the model understands. Codes still need full-text, or an `error_code` column.
 
-**4. Why a side table instead of `logs.template_id`.** Adding the column means an `UPDATE` on every row. The table's pages are full (fillfactor 100), so these updates can't be HOT: each new row version lands on another page and gets a new entry in every index of `logs`, including the 1.4 GB HNSW index. `log_template_map` is written once with `INSERT`s and touches no index of `logs`.
+**4. Why a side table instead of `logs.template_id`.** Adding the column means an `UPDATE` on every row. The table's pages are full (fillfactor 100), so these updates can't be HOT: each new row version lands on another page and gets a new entry in every index of `logs`, including the HNSW index (1.4 GB at 1M rows before it became partial, 418 MB after). `log_template_map` is written once with `INSERT`s and touches no index of `logs`.
 
 ### Limits
 
@@ -301,6 +301,102 @@ Recall against the exact top-10 (34% at 10k, 16% at 100k) is not meaningful here
 - **A `<*>` can hide meaning.** "Rate limit hit when calling <*> API" lost the partner name. Category values bring it back, but only for wildcards with ≤10 distinct values. Names with more values than that stay hidden.
 - **Some masks are wrong.** The prefixed-id rule masks `send-invoices` as `<id>`.
 - **The data is synthetic.** 67 generator templates is a best case. Real logs have long-tail messages, stack traces and free text, so expect more templates and lower purity. Measure with `pnpm eval:templates` before trusting the numbers above.
+
+## A partial HNSW index without INFO logs
+
+Every typed query in the eval is about an incident, and incidents are WARN, ERROR or FATAL logs. INFO logs (health checks, HTTP requests, logins, finished jobs) are 74% of the table, and none of them is a right answer to "redis is down". Yet the full index holds them all: they make the graph 4x bigger, and its walk can end in the large INFO cluster (the "redis is down" failure in `eval:hnsw-dive`). Every INFO insert also pays for HNSW.
+
+A partial index leaves them out:
+
+```sql
+CREATE INDEX idx_logs_embedding_hnsw_not_info ON logs
+USING hnsw (embedding vector_cosine_ops) WITH (m = 32, ef_construction = 200)
+WHERE level <> 'INFO';
+```
+
+The planner uses it only when the query's `WHERE` implies the index predicate. So every search runs with `WHERE level <> 'INFO'`, written once as `NOT_INFO` in `src/search/search.ts`. A test checks with `EXPLAIN` that the planner picks the partial index, so the two strings can't drift apart.
+
+### Method
+
+`pnpm eval:partial-hnsw` (`src/scripts/partial-hnsw.ts`, results in `evals/results/partial-hnsw-<rows>.json`) runs the 60 typed queries with:
+
+- **exact, all rows:** the earlier ceiling;
+- **exact, not INFO:** the new ceiling, and the truth that recall is measured against for the filtered methods;
+- **full HNSW**, the earlier production index, three ways: no filter; `WHERE level <> 'INFO'` applied after the walk; and the same filter with `hnsw.iterative_scan = strict_order`, which keeps walking until it has k rows;
+- **partial HNSW.**
+
+Both indexes use m = 32 / ef_construction = 200 and were built 3 times at 10k and 100k (mean and min–max). At 1M only the partial index was built (3 times); the full index's 1M numbers come from `search-1m.json`, with the same data and queries but 1 build and a different script. Latency is the per-query median of 3 passes after a warm-up, with a `CHECKPOINT` after each build. Without it, the checkpoint that follows a build landed in the next measurement.
+
+Write cost: 500 copied INFO rows and 500 non-INFO rows are inserted with only the full index, only the partial one, or no HNSW index. Each case runs in a transaction that drops the other indexes and is rolled back. `DROP INDEX` is transactional, so nothing is rebuilt. The metric is WAL bytes per row, which was the stable one in Phase 5.
+
+### Results
+
+**Free-text precision@10, ef_search 160**
+
+| method | 10k | 100k | 1M |
+| :--- | ---: | ---: | ---: |
+| exact, all rows | 92.0% | 92.5% | 91.7% |
+| exact, not INFO (ceiling) | 94.8% | 95.0% | 95.0% |
+| full HNSW | 88.7% | 80.1% (76–83) | 72.2% (1 build) |
+| full HNSW + filter after the walk | 89.8% | 80.6% (77–83) | — |
+| full HNSW + filter, iterative scan | 91.5% | 82.3% (78–85) | — |
+| **partial HNSW** | **94.8%** | **87.8% (87–88)** | **86.7% (85–88)** |
+
+**100k rows, all methods**
+
+| method | recall@10 | precision@10 | queries with < 10 rows | queries with nothing relevant | p50 ms | p95 ms |
+| :--- | ---: | ---: | ---: | ---: | ---: | ---: |
+| exact, all rows | 100% | 92.5% | 0 | 4 | 32.8 | 33.2 |
+| exact, not INFO | 100% | 95.0% | 0 | 3 | 35.0 | 35.8 |
+| full HNSW, ef 40 | 76.2% | 74.3% | 0 | 13–16 | 1.29 | 1.93 |
+| full HNSW + filter, ef 40 | 75.5% | 74.5% | 6–9 | 13–16 | 1.17 | 1.58 |
+| full HNSW + filter, iterative, ef 40 | 75.5% | 79.1% | 0 | 11–13 | 1.22 | 12.3 |
+| full HNSW, ef 160 | 85.1% | 80.1% | 0 | 10–14 | 1.60 | 2.44 |
+| full HNSW + filter, ef 160 | 83.3% | 80.6% | 4–7 | 10–14 | 1.62 | 2.67 |
+| full HNSW + filter, iterative, ef 160 | 83.3% | 82.3% | 0 | 9–13 | 1.63 | 6.08 |
+| partial HNSW, ef 40 | 87.9% | 85.0% | 0 | 8–10 | 1.09 | 2.99 |
+| partial HNSW, ef 160 | 92.8% | 87.8% | 0 | 7–8 | 1.46 | 1.89 |
+
+At 1M, partial HNSW at ef 160 has 76.9% recall, 7–9 queries with nothing relevant and a p50 of 2.5 ms. The full index had 63.7%, 16 and 1.9 ms. Exact search without INFO takes 172 ms there.
+
+**Index size and build time**
+
+| rows | full | partial |
+| ---: | ---: | ---: |
+| 10k | 16.6 MB, ~2 s | 4.3 MB, 0.5 s |
+| 100k | 149 MB, 18.6 s | 40 MB, 4.6 s |
+| 1M | 1,401 MB, 77.5 min | 418 MB, 68 s |
+
+**INSERT cost per row** (100k rows; 1M in parentheses)
+
+| index present | INFO row | non-INFO row |
+| :--- | ---: | ---: |
+| no HNSW | 2.3 KB WAL, 64k rows/s | 2.5 KB, 45k rows/s |
+| full HNSW | 5.1 KB, 1.0k rows/s | 8.4 KB, 1.0k rows/s |
+| partial HNSW | 2.2 KB, 55k rows/s (1M: 2.2 KB, 56k rows/s) | 7.7 KB, 1.2k rows/s (1M: 10.2 KB, 620 rows/s) |
+
+### Findings
+
+**1. A smaller graph that holds only the possible answers beats a bigger one.** At 100k, the partial index at ef_search 40 (85.0%) is more precise than the full one at 160 (80.1%). At 160 their build ranges don't overlap (87–88 vs 76–83), so this is not build noise. The precision loss as the table grows almost stops: 87.8% at 100k and 86.7% at 1M, against 80.1% and 72.2% for the full index.
+
+**2. Builds vary less.** The partial index's precision range across 3 builds is 1–3 points, against 7 for the full one at 100k. There is no INFO cluster to trap some builds' walks.
+
+**3. Filtering after the walk does not replace a partial index.** HNSW returns its ef_search best candidates and the `WHERE` drops the INFO ones afterwards: 4–9 of the 60 queries come back with fewer than 10 rows. Iterative scan fixes the count, but precision gains only 2–5 points and p95 goes to 6–12 ms, because it keeps walking past INFO rows until it has 10 that pass the filter.
+
+**4. INFO inserts stop paying for HNSW.** With the partial index, an INFO insert writes the same WAL as with no vector index (2.2 KB) and runs ~55x faster than with the full index. Non-INFO inserts still pay for the graph. At 1M they cost more (10 KB, 620 rows/s) than at 100k, because the graph they join is 10x bigger.
+
+**5. The build is far cheaper than the row count suggests.** A quarter of the rows built in 68 s instead of 77 min at 1M. This run did not measure why.
+
+**6. A gap to the ceiling remains.** The partial index reaches 87% at 100k and 1M, against 95% for exact search without INFO. The walk still loses neighbours, just fewer.
+
+### Decision and limits
+
+The full index was replaced (migration `20261118120000_replace_logs_hnsw_with_partial.ts`, with a `down` that restores it). `GET /search/logs` leaves INFO out in every mode unless `include_info=true`, so a result never changes meaning with the mode.
+
+- **INFO logs have no vector index.** With `include_info=true`, `vector` and `hybrid` scan every row exactly: about 8 ms at 10k, 33 ms at 100k, 255 ms at 1M. The response then has `ef_search: null`. `mode=template` with `include_info=true` covers INFO in under 1 ms.
+- **The predicate is a contract.** A query written as `level != 'INFO'` works, because Postgres reads both as the same operator. `level NOT IN ('INFO')` or a different filter needs testing, and the `EXPLAIN` test catches a mismatch.
+- **The split is tied to this data.** "Incidents are never INFO" holds for the synthetic generator. Real systems log errors at INFO too, so check what the typed queries look for before excluding a level.
+- **Log-as-query evals still use full indexes.** `eval:search` and `eval:hnsw-dive` build their own full index (78 of the 100 log queries are INFO). `eval:hnsw-dive` now needs `--rebuild` and drops the index it built.
 
 ## API
 
@@ -315,8 +411,9 @@ Recall against the exact top-10 (34% at 10k, 16% at 100k) is not meaningful here
 | `vw`, `fw` | 1 / 1 | 0–5, not both 0 | hybrid only: RRF weight of the vector and full-text lists. Setting either one turns routing off; the one left out stays 1 |
 | `rrf_k` | 60 | 1–1000 | hybrid only: RRF constant, `score = weight / (rrf_k + rank)` |
 | `route` | `false` | `true`/`false` (or `1`/`0`) | hybrid only: pick the weights from the query (`src/search/routing.ts`) when `vw`/`fw` are not given |
+| `include_info` | `false` | `true`/`false` (or `1`/`0`) | every mode: also search INFO logs. The HNSW index leaves them out, so `vector`/`hybrid` become an exact scan (`ef_search: null`) |
 
-In hybrid mode the response has `hybrid: { vector_weight, keyword_weight, weights_from, rrf_k }`, where `weights_from` is `explicit` (from `vw`/`fw`), `routed` or `fixed`. For the other modes, `hybrid` is `null`.
+The response says `include_info`. In hybrid mode it has `hybrid: { vector_weight, keyword_weight, weights_from, rrf_k }`, where `weights_from` is `explicit` (from `vw`/`fw`), `routed` or `fixed`. For the other modes, `hybrid` is `null`.
 
 **Why routing is off by default.** The router favors full-text (weights 0.5/1) when the query has a token shaped like a code (`ECONNRESET`, `HTTP_502`, `x509`) and the vector side (1/0.5) otherwise. On the 60 free-text queries at 10k rows (3 HNSW builds, `evals/results/search-10k-routing.json`), routed minus fixed was:
 
@@ -340,10 +437,11 @@ pnpm embed:logs                    # ~5 min per 100k rows on 4 vCPU
 pnpm eval:ground-truth --out=evals/ground_truth.100k.json
 pnpm eval:search --truth=evals/ground_truth.100k.json
 pnpm eval:report                   # chart + the tables above
-pnpm eval:hnsw-dive --rebuild=3     # exact vs HNSW up close: EXPLAIN, missed logs, build noise
+pnpm eval:hnsw-dive --rebuild=3     # exact vs full HNSW up close: EXPLAIN, missed logs, build noise
 pnpm eval:templates                 # regex vs miner template counts and purity, no DB needed
 pnpm templates:build                # mine the logs, one embedding per template (rerun after new logs)
 pnpm eval:search --truth=evals/ground_truth.100k.json --hnsw=32:200 --ef=40,160 \
   --out=evals/results/search-100k-templates.json   # adds the template method
 pnpm eval:search --templates-only   # template mode alone on free text, e.g. at 1M without per-log embeddings
+pnpm eval:partial-hnsw --rebuild=3 --rebuild-full=3   # full vs partial (no INFO) HNSW; --skip-full at 1M
 ```

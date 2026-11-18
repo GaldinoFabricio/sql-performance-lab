@@ -102,7 +102,10 @@ mean `[min-max]`.
 
 ## `results/hnsw-dive-<rows>.json`
 
-Written by `pnpm eval:hnsw-dive` (`src/scripts/hnsw-dive.ts`). `eval:search`
+Written by `pnpm eval:hnsw-dive --rebuild=N` (`src/scripts/hnsw-dive.ts`). It
+studies the full index (every row). Since migration `20261118120000` the
+production index is partial, so the script builds its own full index and
+drops it at the end (`--keep-index` keeps it). `eval:search`
 compares configs by their averages; this one looks at what HNSW does on the
 60 typed queries, with the production index (m = 32, ef_construction = 200):
 
@@ -161,3 +164,29 @@ was made without embedding a million rows again.
 For template mode, read **precision@10**, not recall: it returns the newest
 logs of the nearest templates, not the nearest logs, so its overlap with the
 exact top-10 is low by design.
+
+## `results/partial-hnsw-<rows>.json`
+
+Written by `pnpm eval:partial-hnsw` (`src/scripts/partial-hnsw.ts`): the full
+HNSW index against a partial one `WHERE level <> 'INFO'`, on the 60 typed
+queries. Write-up in [SEMANTIC_SEARCH.md](../SEMANTIC_SEARCH.md#a-partial-hnsw-index-without-info-logs).
+
+- `summary`: one entry per method: exact (all rows / not INFO), full HNSW
+  (no filter, filter after the walk, filter with iterative scan) and partial
+  HNSW, at ef_search 40 and 160. Each has recall and precision (mean and
+  `[min, max]` across builds), `short_results` (queries that got fewer than
+  10 rows), `zero_relevant`, p50/p95 latency, index size and build times.
+- **Recall truth depends on the filter.** Unfiltered methods are compared
+  with the exact top-10 over all rows. Filtered ones (`WHERE level <> 'INFO'`)
+  are compared with the exact top-10 over non-INFO rows, since an INFO row is
+  never a right answer for them.
+- `writes`: WAL bytes and rows/s per INSERT of 500 copied INFO and non-INFO
+  rows, with only the full index, only the partial one, or no HNSW index.
+  Each case runs in a rolled-back transaction that drops the other indexes.
+- `per_query`: recall and precision of every query, per method and build.
+
+Flags: `--rebuild=N` builds of the partial index (default 1),
+`--rebuild-full=N` builds of the full one (default: the existing index),
+`--skip-full` (the 1M file: building the full index takes ~77 min), `--rounds`,
+`--write-rows`, `--keep-index`. If the partial index existed before the run
+(it is the production index), its last build stays.
