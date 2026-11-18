@@ -51,6 +51,11 @@ const fields = {
       "boolean.base": "route must be true or false",
    }),
    rrf_k: intParam("rrf_k", rrfMin, rrfMax, SEARCH_DEFAULTS.rrfK),
+   // INFO logs are left out by default: the HNSW index is partial (WHERE level <> 'INFO').
+   // include_info=true searches them too, without the index (exact scan for vector/hybrid).
+   include_info: Joi.boolean().truthy("1").falsy("0").empty("").default(false).messages({
+      "boolean.base": "include_info must be true or false",
+   }),
 };
 
 // celebrate replaces req.query with the validated values: q trimmed, k/ef_search as
@@ -78,4 +83,5 @@ export interface LogSearchQuery {
    fw?: number;
    rrf_k: number;
    route: boolean;
+   include_info: boolean;
 }
