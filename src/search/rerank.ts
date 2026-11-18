@@ -93,18 +93,35 @@ export function orderByScore<T>(items: T[], scores: number[], k: number): (T & {
 }
 
 /**
+ * What the cross-encoder reads for a log.
+ *  - "message": the message only.
+ *  - "code": the error code in front ("EDQUOT: <message>") when the message
+ *    doesn't already contain it. Some codes live only in the error_code
+ *    column (SQLSTATE 53100, EDQUOT, NPE), and the first stage finds them
+ *    there (src/search/codes.ts); reading the message alone, the reranker
+ *    can't see them and pushes those logs down.
+ */
+export type RerankDoc = "message" | "code";
+
+export function rerankText(log: { message: string; error_code: string | null }, doc: RerankDoc): string {
+   if (doc === "message" || !log.error_code) return log.message;
+   return log.message.toLowerCase().includes(log.error_code.toLowerCase()) ? log.message : `${log.error_code}: ${log.message}`;
+}
+
+/**
  * Reorders first-stage `hits` by the cross-encoder and keeps the top `k`.
- * Reads each candidate's message once by primary key.
+ * Reads each candidate's text once by primary key.
  */
 export async function rerank<T extends { id: number }>(
    db: Conn,
    query: string,
    hits: T[],
    k: number,
+   doc: RerankDoc = "code",
 ): Promise<(T & { rerank_score: number })[]> {
    if (hits.length === 0) return [];
-   const { rows } = await db.raw("SELECT id, message FROM logs WHERE id = ANY(?::bigint[])", [hits.map((h) => h.id)]);
-   const message = new Map<number, string>(rows.map((r: any) => [Number(r.id), r.message]));
-   const scores = await scorePairs(query, hits.map((h) => message.get(h.id) ?? ""));
+   const { rows } = await db.raw("SELECT id, message, error_code FROM logs WHERE id = ANY(?::bigint[])", [hits.map((h) => h.id)]);
+   const text = new Map<number, string>(rows.map((r: any) => [Number(r.id), rerankText(r, doc)]));
+   const scores = await scorePairs(query, hits.map((h) => text.get(h.id) ?? ""));
    return orderByScore(hits, scores, k);
 }
