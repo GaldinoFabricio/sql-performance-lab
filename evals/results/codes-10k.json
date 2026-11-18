@@ -1,5 +1,5 @@
 {
-  "created_at": "2026-11-18T01:38:44.529Z",
+  "created_at": "2026-11-18T01:46:55.783Z",
   "rows": 10000,
   "k": 10,
   "settings": {
@@ -25,7 +25,7 @@
         "lower": 8,
         "sentence": 9
       },
-      "p50_ms": 1.2856500000002598
+      "p50_ms": 1.2606249999998909
     },
     {
       "method": "hybrid",
@@ -42,7 +42,7 @@
         "lower": 7,
         "sentence": 8
       },
-      "p50_ms": 3.5077409999998963
+      "p50_ms": 3.508363000000827
     },
     {
       "method": "hybrid routed",
@@ -59,7 +59,58 @@
         "lower": 8,
         "sentence": 10
       },
-      "p50_ms": 3.402266000000054
+      "p50_ms": 3.4855290000000423
+    },
+    {
+      "method": "hybrid + codes, cw=1",
+      "precision": 0.8535087719298246,
+      "by_form": {
+        "exact": 0.8894736842105262,
+        "lower": 0.8894736842105262,
+        "sentence": 0.781578947368421
+      },
+      "exact_code_share": 0.7956140350877194,
+      "zero_relevant": {
+        "all": 2,
+        "exact": 0,
+        "lower": 0,
+        "sentence": 2
+      },
+      "p50_ms": 3.6208889999998064
+    },
+    {
+      "method": "hybrid + codes, cw=2",
+      "precision": 0.9956140350877193,
+      "by_form": {
+        "exact": 1,
+        "lower": 1,
+        "sentence": 0.9868421052631579
+      },
+      "exact_code_share": 0.9947368421052633,
+      "zero_relevant": {
+        "all": 0,
+        "exact": 0,
+        "lower": 0,
+        "sentence": 0
+      },
+      "p50_ms": 3.5913020000007236
+    },
+    {
+      "method": "hybrid + codes, cw=3",
+      "precision": 1,
+      "by_form": {
+        "exact": 1,
+        "lower": 1,
+        "sentence": 1
+      },
+      "exact_code_share": 1,
+      "zero_relevant": {
+        "all": 0,
+        "exact": 0,
+        "lower": 0,
+        "sentence": 0
+      },
+      "p50_ms": 3.7178989999993064
     },
     {
       "method": "fulltext",
@@ -76,7 +127,7 @@
         "lower": 10,
         "sentence": 11
       },
-      "p50_ms": 1.8148150000006353
+      "p50_ms": 1.850467000000208
     },
     {
       "method": "template",
@@ -93,7 +144,7 @@
         "lower": 16,
         "sentence": 18
       },
-      "p50_ms": 1.084037999999964
+      "p50_ms": 1.094735000000128
     },
     {
       "method": "error_code lookup",
@@ -110,9 +161,119 @@
         "lower": 0,
         "sentence": 0
       },
-      "p50_ms": 1.1277900000004593
+      "p50_ms": 0.6180810000005295
     }
   ],
+  "text_queries": {
+    "summary": [
+      {
+        "method": "hybrid",
+        "precision": 0.9483333333333334,
+        "zero_relevant": 1
+      },
+      {
+        "method": "hybrid + codes, cw=1",
+        "precision": 0.965,
+        "zero_relevant": 1
+      },
+      {
+        "method": "hybrid + codes, cw=2",
+        "precision": 0.965,
+        "zero_relevant": 1
+      },
+      {
+        "method": "hybrid + codes, cw=3",
+        "precision": 0.965,
+        "zero_relevant": 1
+      }
+    ],
+    "with_codes": [
+      {
+        "text": "ECONNRESET",
+        "codes": [
+          "ECONNRESET"
+        ],
+        "precision": {
+          "hybrid": 0.5,
+          "hybrid + codes, cw=1": 1,
+          "hybrid + codes, cw=2": 1,
+          "hybrid + codes, cw=3": 1
+        }
+      },
+      {
+        "text": "ECONNREFUSED",
+        "codes": [
+          "ECONNREFUSED"
+        ],
+        "precision": {
+          "hybrid": 1,
+          "hybrid + codes, cw=1": 1,
+          "hybrid + codes, cw=2": 1,
+          "hybrid + codes, cw=3": 1
+        }
+      },
+      {
+        "text": "ENOSPC",
+        "codes": [
+          "ENOSPC"
+        ],
+        "precision": {
+          "hybrid": 1,
+          "hybrid + codes, cw=1": 1,
+          "hybrid + codes, cw=2": 1,
+          "hybrid + codes, cw=3": 1
+        }
+      },
+      {
+        "text": "ENOTFOUND",
+        "codes": [
+          "ENOTFOUND"
+        ],
+        "precision": {
+          "hybrid": 1,
+          "hybrid + codes, cw=1": 1,
+          "hybrid + codes, cw=2": 1,
+          "hybrid + codes, cw=3": 1
+        }
+      },
+      {
+        "text": "OOMKilled",
+        "codes": [
+          "OOMKilled"
+        ],
+        "precision": {
+          "hybrid": 1,
+          "hybrid + codes, cw=1": 1,
+          "hybrid + codes, cw=2": 1,
+          "hybrid + codes, cw=3": 1
+        }
+      },
+      {
+        "text": "x509",
+        "codes": [
+          "X509"
+        ],
+        "precision": {
+          "hybrid": 0.5,
+          "hybrid + codes, cw=1": 1,
+          "hybrid + codes, cw=2": 1,
+          "hybrid + codes, cw=3": 1
+        }
+      },
+      {
+        "text": "CERT_HAS_EXPIRED",
+        "codes": [
+          "CERT_HAS_EXPIRED"
+        ],
+        "precision": {
+          "hybrid": 1,
+          "hybrid + codes, cw=1": 1,
+          "hybrid + codes, cw=2": 1,
+          "hybrid + codes, cw=3": 1
+        }
+      }
+    ]
+  },
   "per_query": [
     {
       "text": "23505",
@@ -136,6 +297,21 @@
         "hybrid routed": {
           "precision": 0,
           "same_code": 0,
+          "results": 10
+        },
+        "hybrid + codes, cw=1": {
+          "precision": 0.5,
+          "same_code": 0.5,
+          "results": 10
+        },
+        "hybrid + codes, cw=2": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "hybrid + codes, cw=3": {
+          "precision": 1,
+          "same_code": 1,
           "results": 10
         },
         "fulltext": {
@@ -177,6 +353,21 @@
         "hybrid routed": {
           "precision": 0,
           "same_code": 0,
+          "results": 10
+        },
+        "hybrid + codes, cw=1": {
+          "precision": 0.5,
+          "same_code": 0.5,
+          "results": 10
+        },
+        "hybrid + codes, cw=2": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "hybrid + codes, cw=3": {
+          "precision": 1,
+          "same_code": 1,
           "results": 10
         },
         "fulltext": {
@@ -220,6 +411,21 @@
           "same_code": 0,
           "results": 10
         },
+        "hybrid + codes, cw=1": {
+          "precision": 0.3,
+          "same_code": 0.3,
+          "results": 10
+        },
+        "hybrid + codes, cw=2": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "hybrid + codes, cw=3": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
         "fulltext": {
           "precision": 0,
           "same_code": 0,
@@ -259,6 +465,21 @@
         "hybrid routed": {
           "precision": 0,
           "same_code": 0,
+          "results": 10
+        },
+        "hybrid + codes, cw=1": {
+          "precision": 0.5,
+          "same_code": 0.5,
+          "results": 10
+        },
+        "hybrid + codes, cw=2": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "hybrid + codes, cw=3": {
+          "precision": 1,
+          "same_code": 1,
           "results": 10
         },
         "fulltext": {
@@ -302,6 +523,21 @@
           "same_code": 0,
           "results": 10
         },
+        "hybrid + codes, cw=1": {
+          "precision": 0.5,
+          "same_code": 0.5,
+          "results": 10
+        },
+        "hybrid + codes, cw=2": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "hybrid + codes, cw=3": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
         "fulltext": {
           "precision": 0,
           "same_code": 0,
@@ -341,6 +577,21 @@
         "hybrid routed": {
           "precision": 0,
           "same_code": 0,
+          "results": 10
+        },
+        "hybrid + codes, cw=1": {
+          "precision": 0.3,
+          "same_code": 0.3,
+          "results": 10
+        },
+        "hybrid + codes, cw=2": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "hybrid + codes, cw=3": {
+          "precision": 1,
+          "same_code": 1,
           "results": 10
         },
         "fulltext": {
@@ -384,6 +635,21 @@
           "same_code": 0,
           "results": 10
         },
+        "hybrid + codes, cw=1": {
+          "precision": 0.5,
+          "same_code": 0.5,
+          "results": 10
+        },
+        "hybrid + codes, cw=2": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "hybrid + codes, cw=3": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
         "fulltext": {
           "precision": 0,
           "same_code": 0,
@@ -423,6 +689,21 @@
         "hybrid routed": {
           "precision": 0,
           "same_code": 0,
+          "results": 10
+        },
+        "hybrid + codes, cw=1": {
+          "precision": 0.5,
+          "same_code": 0.5,
+          "results": 10
+        },
+        "hybrid + codes, cw=2": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "hybrid + codes, cw=3": {
+          "precision": 1,
+          "same_code": 1,
           "results": 10
         },
         "fulltext": {
@@ -466,6 +747,21 @@
           "same_code": 0,
           "results": 10
         },
+        "hybrid + codes, cw=1": {
+          "precision": 0.3,
+          "same_code": 0.3,
+          "results": 10
+        },
+        "hybrid + codes, cw=2": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "hybrid + codes, cw=3": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
         "fulltext": {
           "precision": 0,
           "same_code": 0,
@@ -507,6 +803,21 @@
           "same_code": 0,
           "results": 10
         },
+        "hybrid + codes, cw=1": {
+          "precision": 0.9,
+          "same_code": 0.5,
+          "results": 10
+        },
+        "hybrid + codes, cw=2": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "hybrid + codes, cw=3": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
         "fulltext": {
           "precision": 0,
           "same_code": 0,
@@ -546,6 +857,21 @@
         "hybrid routed": {
           "precision": 0.9,
           "same_code": 0,
+          "results": 10
+        },
+        "hybrid + codes, cw=1": {
+          "precision": 0.9,
+          "same_code": 0.5,
+          "results": 10
+        },
+        "hybrid + codes, cw=2": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "hybrid + codes, cw=3": {
+          "precision": 1,
+          "same_code": 1,
           "results": 10
         },
         "fulltext": {
@@ -589,6 +915,21 @@
           "same_code": 0,
           "results": 10
         },
+        "hybrid + codes, cw=1": {
+          "precision": 0.3,
+          "same_code": 0.3,
+          "results": 10
+        },
+        "hybrid + codes, cw=2": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "hybrid + codes, cw=3": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
         "fulltext": {
           "precision": 0,
           "same_code": 0,
@@ -628,6 +969,21 @@
         "hybrid routed": {
           "precision": 0,
           "same_code": 0,
+          "results": 10
+        },
+        "hybrid + codes, cw=1": {
+          "precision": 0.5,
+          "same_code": 0.5,
+          "results": 10
+        },
+        "hybrid + codes, cw=2": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "hybrid + codes, cw=3": {
+          "precision": 1,
+          "same_code": 1,
           "results": 10
         },
         "fulltext": {
@@ -671,6 +1027,21 @@
           "same_code": 0,
           "results": 10
         },
+        "hybrid + codes, cw=1": {
+          "precision": 0.5,
+          "same_code": 0.5,
+          "results": 10
+        },
+        "hybrid + codes, cw=2": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "hybrid + codes, cw=3": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
         "fulltext": {
           "precision": 0,
           "same_code": 0,
@@ -712,6 +1083,21 @@
           "same_code": 0,
           "results": 10
         },
+        "hybrid + codes, cw=1": {
+          "precision": 0.3,
+          "same_code": 0.3,
+          "results": 10
+        },
+        "hybrid + codes, cw=2": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "hybrid + codes, cw=3": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
         "fulltext": {
           "precision": 0,
           "same_code": 0,
@@ -749,6 +1135,21 @@
           "results": 10
         },
         "hybrid routed": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "hybrid + codes, cw=1": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "hybrid + codes, cw=2": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "hybrid + codes, cw=3": {
           "precision": 1,
           "same_code": 1,
           "results": 10
@@ -794,6 +1195,21 @@
           "same_code": 1,
           "results": 10
         },
+        "hybrid + codes, cw=1": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "hybrid + codes, cw=2": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "hybrid + codes, cw=3": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
         "fulltext": {
           "precision": 1,
           "same_code": 1,
@@ -831,6 +1247,21 @@
           "results": 10
         },
         "hybrid routed": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "hybrid + codes, cw=1": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "hybrid + codes, cw=2": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "hybrid + codes, cw=3": {
           "precision": 1,
           "same_code": 1,
           "results": 10
@@ -876,6 +1307,21 @@
           "same_code": 0.6,
           "results": 10
         },
+        "hybrid + codes, cw=1": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "hybrid + codes, cw=2": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "hybrid + codes, cw=3": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
         "fulltext": {
           "precision": 0.3,
           "same_code": 0,
@@ -915,6 +1361,21 @@
         "hybrid routed": {
           "precision": 1,
           "same_code": 0.6,
+          "results": 10
+        },
+        "hybrid + codes, cw=1": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "hybrid + codes, cw=2": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "hybrid + codes, cw=3": {
+          "precision": 1,
+          "same_code": 1,
           "results": 10
         },
         "fulltext": {
@@ -958,6 +1419,21 @@
           "same_code": 0.2,
           "results": 10
         },
+        "hybrid + codes, cw=1": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "hybrid + codes, cw=2": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "hybrid + codes, cw=3": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
         "fulltext": {
           "precision": 0,
           "same_code": 0,
@@ -995,6 +1471,21 @@
           "results": 10
         },
         "hybrid routed": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "hybrid + codes, cw=1": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "hybrid + codes, cw=2": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "hybrid + codes, cw=3": {
           "precision": 1,
           "same_code": 1,
           "results": 10
@@ -1040,6 +1531,21 @@
           "same_code": 1,
           "results": 10
         },
+        "hybrid + codes, cw=1": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "hybrid + codes, cw=2": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "hybrid + codes, cw=3": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
         "fulltext": {
           "precision": 1,
           "same_code": 1,
@@ -1081,6 +1587,21 @@
           "same_code": 0.6,
           "results": 10
         },
+        "hybrid + codes, cw=1": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "hybrid + codes, cw=2": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "hybrid + codes, cw=3": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
         "fulltext": {
           "precision": 0.3,
           "same_code": 0.3,
@@ -1119,6 +1640,21 @@
           "results": 10
         },
         "hybrid routed": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "hybrid + codes, cw=1": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "hybrid + codes, cw=2": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "hybrid + codes, cw=3": {
           "precision": 1,
           "same_code": 1,
           "results": 10
@@ -1165,6 +1701,21 @@
           "same_code": 1,
           "results": 10
         },
+        "hybrid + codes, cw=1": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "hybrid + codes, cw=2": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "hybrid + codes, cw=3": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
         "fulltext": {
           "precision": 1,
           "same_code": 1,
@@ -1203,6 +1754,21 @@
           "results": 10
         },
         "hybrid routed": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "hybrid + codes, cw=1": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "hybrid + codes, cw=2": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "hybrid + codes, cw=3": {
           "precision": 1,
           "same_code": 1,
           "results": 10
@@ -1248,6 +1814,21 @@
           "same_code": 1,
           "results": 10
         },
+        "hybrid + codes, cw=1": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "hybrid + codes, cw=2": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "hybrid + codes, cw=3": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
         "fulltext": {
           "precision": 1,
           "same_code": 1,
@@ -1289,6 +1870,21 @@
           "same_code": 0,
           "results": 10
         },
+        "hybrid + codes, cw=1": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "hybrid + codes, cw=2": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "hybrid + codes, cw=3": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
         "fulltext": {
           "precision": 1,
           "same_code": 1,
@@ -1326,6 +1922,21 @@
           "results": 10
         },
         "hybrid routed": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "hybrid + codes, cw=1": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "hybrid + codes, cw=2": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "hybrid + codes, cw=3": {
           "precision": 1,
           "same_code": 1,
           "results": 10
@@ -1371,6 +1982,21 @@
           "same_code": 0,
           "results": 10
         },
+        "hybrid + codes, cw=1": {
+          "precision": 0.5,
+          "same_code": 0.5,
+          "results": 10
+        },
+        "hybrid + codes, cw=2": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "hybrid + codes, cw=3": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
         "fulltext": {
           "precision": 0,
           "same_code": 0,
@@ -1410,6 +2036,21 @@
         "hybrid routed": {
           "precision": 0,
           "same_code": 0,
+          "results": 10
+        },
+        "hybrid + codes, cw=1": {
+          "precision": 0.5,
+          "same_code": 0.5,
+          "results": 10
+        },
+        "hybrid + codes, cw=2": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "hybrid + codes, cw=3": {
+          "precision": 1,
+          "same_code": 1,
           "results": 10
         },
         "fulltext": {
@@ -1453,6 +2094,21 @@
           "same_code": 0,
           "results": 10
         },
+        "hybrid + codes, cw=1": {
+          "precision": 0.4,
+          "same_code": 0.4,
+          "results": 10
+        },
+        "hybrid + codes, cw=2": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "hybrid + codes, cw=3": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
         "fulltext": {
           "precision": 0,
           "same_code": 0,
@@ -1492,6 +2148,21 @@
         "hybrid routed": {
           "precision": 0.9,
           "same_code": 0,
+          "results": 10
+        },
+        "hybrid + codes, cw=1": {
+          "precision": 1,
+          "same_code": 0.2,
+          "results": 10
+        },
+        "hybrid + codes, cw=2": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "hybrid + codes, cw=3": {
+          "precision": 1,
+          "same_code": 1,
           "results": 10
         },
         "fulltext": {
@@ -1535,6 +2206,21 @@
           "same_code": 0,
           "results": 10
         },
+        "hybrid + codes, cw=1": {
+          "precision": 1,
+          "same_code": 0.2,
+          "results": 10
+        },
+        "hybrid + codes, cw=2": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "hybrid + codes, cw=3": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
         "fulltext": {
           "precision": 0.2,
           "same_code": 0.1,
@@ -1576,6 +2262,21 @@
           "same_code": 0,
           "results": 10
         },
+        "hybrid + codes, cw=1": {
+          "precision": 0.8,
+          "same_code": 0.5,
+          "results": 10
+        },
+        "hybrid + codes, cw=2": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "hybrid + codes, cw=3": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
         "fulltext": {
           "precision": 0.2,
           "same_code": 0.1,
@@ -1613,6 +2314,21 @@
           "results": 10
         },
         "hybrid routed": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "hybrid + codes, cw=1": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "hybrid + codes, cw=2": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "hybrid + codes, cw=3": {
           "precision": 1,
           "same_code": 1,
           "results": 10
@@ -1658,6 +2374,21 @@
           "same_code": 1,
           "results": 10
         },
+        "hybrid + codes, cw=1": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "hybrid + codes, cw=2": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "hybrid + codes, cw=3": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
         "fulltext": {
           "precision": 1,
           "same_code": 1,
@@ -1699,6 +2430,21 @@
           "same_code": 0.9,
           "results": 10
         },
+        "hybrid + codes, cw=1": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "hybrid + codes, cw=2": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "hybrid + codes, cw=3": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
         "fulltext": {
           "precision": 0.2,
           "same_code": 0.2,
@@ -1736,6 +2482,21 @@
           "results": 10
         },
         "hybrid routed": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "hybrid + codes, cw=1": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "hybrid + codes, cw=2": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "hybrid + codes, cw=3": {
           "precision": 1,
           "same_code": 1,
           "results": 10
@@ -1781,6 +2542,21 @@
           "same_code": 1,
           "results": 10
         },
+        "hybrid + codes, cw=1": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "hybrid + codes, cw=2": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "hybrid + codes, cw=3": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
         "fulltext": {
           "precision": 1,
           "same_code": 1,
@@ -1822,6 +2598,21 @@
           "same_code": 0.1,
           "results": 10
         },
+        "hybrid + codes, cw=1": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "hybrid + codes, cw=2": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "hybrid + codes, cw=3": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
         "fulltext": {
           "precision": 0.1,
           "same_code": 0.1,
@@ -1859,6 +2650,21 @@
           "results": 10
         },
         "hybrid routed": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "hybrid + codes, cw=1": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "hybrid + codes, cw=2": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "hybrid + codes, cw=3": {
           "precision": 1,
           "same_code": 1,
           "results": 10
@@ -1904,6 +2710,21 @@
           "same_code": 1,
           "results": 10
         },
+        "hybrid + codes, cw=1": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "hybrid + codes, cw=2": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "hybrid + codes, cw=3": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
         "fulltext": {
           "precision": 1,
           "same_code": 1,
@@ -1941,6 +2762,21 @@
           "results": 10
         },
         "hybrid routed": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "hybrid + codes, cw=1": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "hybrid + codes, cw=2": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "hybrid + codes, cw=3": {
           "precision": 1,
           "same_code": 1,
           "results": 10
@@ -1986,6 +2822,21 @@
           "same_code": 0,
           "results": 10
         },
+        "hybrid + codes, cw=1": {
+          "precision": 1,
+          "same_code": 0.5,
+          "results": 10
+        },
+        "hybrid + codes, cw=2": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "hybrid + codes, cw=3": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
         "fulltext": {
           "precision": 0,
           "same_code": 0,
@@ -2025,6 +2876,21 @@
         "hybrid routed": {
           "precision": 1,
           "same_code": 0,
+          "results": 10
+        },
+        "hybrid + codes, cw=1": {
+          "precision": 1,
+          "same_code": 0.5,
+          "results": 10
+        },
+        "hybrid + codes, cw=2": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "hybrid + codes, cw=3": {
+          "precision": 1,
+          "same_code": 1,
           "results": 10
         },
         "fulltext": {
@@ -2068,6 +2934,21 @@
           "same_code": 0,
           "results": 10
         },
+        "hybrid + codes, cw=1": {
+          "precision": 0.3,
+          "same_code": 0.3,
+          "results": 10
+        },
+        "hybrid + codes, cw=2": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "hybrid + codes, cw=3": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
         "fulltext": {
           "precision": 0,
           "same_code": 0,
@@ -2105,6 +2986,21 @@
           "results": 10
         },
         "hybrid routed": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "hybrid + codes, cw=1": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "hybrid + codes, cw=2": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "hybrid + codes, cw=3": {
           "precision": 1,
           "same_code": 1,
           "results": 10
@@ -2150,6 +3046,21 @@
           "same_code": 1,
           "results": 10
         },
+        "hybrid + codes, cw=1": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "hybrid + codes, cw=2": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "hybrid + codes, cw=3": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
         "fulltext": {
           "precision": 1,
           "same_code": 1,
@@ -2191,6 +3102,21 @@
           "same_code": 0.9,
           "results": 10
         },
+        "hybrid + codes, cw=1": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "hybrid + codes, cw=2": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "hybrid + codes, cw=3": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
         "fulltext": {
           "precision": 0.5,
           "same_code": 0.5,
@@ -2228,6 +3154,21 @@
           "results": 10
         },
         "hybrid routed": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "hybrid + codes, cw=1": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "hybrid + codes, cw=2": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "hybrid + codes, cw=3": {
           "precision": 1,
           "same_code": 1,
           "results": 10
@@ -2273,6 +3214,21 @@
           "same_code": 1,
           "results": 10
         },
+        "hybrid + codes, cw=1": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "hybrid + codes, cw=2": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "hybrid + codes, cw=3": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
         "fulltext": {
           "precision": 1,
           "same_code": 1,
@@ -2310,6 +3266,21 @@
           "results": 10
         },
         "hybrid routed": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "hybrid + codes, cw=1": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "hybrid + codes, cw=2": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "hybrid + codes, cw=3": {
           "precision": 1,
           "same_code": 1,
           "results": 10
@@ -2355,6 +3326,21 @@
           "same_code": 1,
           "results": 10
         },
+        "hybrid + codes, cw=1": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "hybrid + codes, cw=2": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "hybrid + codes, cw=3": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
         "fulltext": {
           "precision": 1,
           "same_code": 1,
@@ -2392,6 +3378,21 @@
           "results": 10
         },
         "hybrid routed": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "hybrid + codes, cw=1": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "hybrid + codes, cw=2": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "hybrid + codes, cw=3": {
           "precision": 1,
           "same_code": 1,
           "results": 10
@@ -2437,6 +3438,21 @@
           "same_code": 0.5,
           "results": 10
         },
+        "hybrid + codes, cw=1": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "hybrid + codes, cw=2": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "hybrid + codes, cw=3": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
         "fulltext": {
           "precision": 0.5,
           "same_code": 0.5,
@@ -2474,6 +3490,21 @@
           "results": 10
         },
         "hybrid routed": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "hybrid + codes, cw=1": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "hybrid + codes, cw=2": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "hybrid + codes, cw=3": {
           "precision": 1,
           "same_code": 1,
           "results": 10
@@ -2519,6 +3550,21 @@
           "same_code": 1,
           "results": 10
         },
+        "hybrid + codes, cw=1": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "hybrid + codes, cw=2": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "hybrid + codes, cw=3": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
         "fulltext": {
           "precision": 1,
           "same_code": 1,
@@ -2556,6 +3602,21 @@
           "results": 10
         },
         "hybrid routed": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "hybrid + codes, cw=1": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "hybrid + codes, cw=2": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "hybrid + codes, cw=3": {
           "precision": 1,
           "same_code": 1,
           "results": 10
@@ -2601,6 +3662,21 @@
           "same_code": 1,
           "results": 10
         },
+        "hybrid + codes, cw=1": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "hybrid + codes, cw=2": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "hybrid + codes, cw=3": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
         "fulltext": {
           "precision": 1,
           "same_code": 1,
@@ -2638,6 +3714,21 @@
           "results": 10
         },
         "hybrid routed": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "hybrid + codes, cw=1": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "hybrid + codes, cw=2": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "hybrid + codes, cw=3": {
           "precision": 1,
           "same_code": 1,
           "results": 10
@@ -2683,6 +3774,21 @@
           "same_code": 0.5,
           "results": 10
         },
+        "hybrid + codes, cw=1": {
+          "precision": 0.4,
+          "same_code": 0.4,
+          "results": 10
+        },
+        "hybrid + codes, cw=2": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "hybrid + codes, cw=3": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
         "fulltext": {
           "precision": 0.5,
           "same_code": 0.5,
@@ -2720,6 +3826,21 @@
           "results": 10
         },
         "hybrid routed": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "hybrid + codes, cw=1": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "hybrid + codes, cw=2": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "hybrid + codes, cw=3": {
           "precision": 1,
           "same_code": 1,
           "results": 10
@@ -2765,6 +3886,21 @@
           "same_code": 1,
           "results": 10
         },
+        "hybrid + codes, cw=1": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "hybrid + codes, cw=2": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "hybrid + codes, cw=3": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
         "fulltext": {
           "precision": 1,
           "same_code": 1,
@@ -2802,6 +3938,21 @@
           "results": 10
         },
         "hybrid routed": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "hybrid + codes, cw=1": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "hybrid + codes, cw=2": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "hybrid + codes, cw=3": {
           "precision": 1,
           "same_code": 1,
           "results": 10
@@ -2847,6 +3998,21 @@
           "same_code": 1,
           "results": 10
         },
+        "hybrid + codes, cw=1": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "hybrid + codes, cw=2": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "hybrid + codes, cw=3": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
         "fulltext": {
           "precision": 1,
           "same_code": 1,
@@ -2884,6 +4050,21 @@
           "results": 10
         },
         "hybrid routed": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "hybrid + codes, cw=1": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "hybrid + codes, cw=2": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "hybrid + codes, cw=3": {
           "precision": 1,
           "same_code": 1,
           "results": 10
@@ -2929,6 +4110,21 @@
           "same_code": 1,
           "results": 10
         },
+        "hybrid + codes, cw=1": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "hybrid + codes, cw=2": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "hybrid + codes, cw=3": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
         "fulltext": {
           "precision": 1,
           "same_code": 1,
@@ -2966,6 +4162,21 @@
           "results": 10
         },
         "hybrid routed": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "hybrid + codes, cw=1": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "hybrid + codes, cw=2": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "hybrid + codes, cw=3": {
           "precision": 1,
           "same_code": 1,
           "results": 10
@@ -3011,6 +4222,21 @@
           "same_code": 1,
           "results": 10
         },
+        "hybrid + codes, cw=1": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "hybrid + codes, cw=2": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "hybrid + codes, cw=3": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
         "fulltext": {
           "precision": 1,
           "same_code": 1,
@@ -3048,6 +4274,21 @@
           "results": 10
         },
         "hybrid routed": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "hybrid + codes, cw=1": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "hybrid + codes, cw=2": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "hybrid + codes, cw=3": {
           "precision": 1,
           "same_code": 1,
           "results": 10
@@ -3093,6 +4334,21 @@
           "same_code": 1,
           "results": 10
         },
+        "hybrid + codes, cw=1": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "hybrid + codes, cw=2": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "hybrid + codes, cw=3": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
         "fulltext": {
           "precision": 1,
           "same_code": 1,
@@ -3130,6 +4386,21 @@
           "results": 10
         },
         "hybrid routed": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "hybrid + codes, cw=1": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "hybrid + codes, cw=2": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "hybrid + codes, cw=3": {
           "precision": 1,
           "same_code": 1,
           "results": 10
@@ -3175,6 +4446,21 @@
           "same_code": 1,
           "results": 10
         },
+        "hybrid + codes, cw=1": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "hybrid + codes, cw=2": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "hybrid + codes, cw=3": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
         "fulltext": {
           "precision": 1,
           "same_code": 1,
@@ -3214,6 +4500,21 @@
         "hybrid routed": {
           "precision": 0,
           "same_code": 0,
+          "results": 10
+        },
+        "hybrid + codes, cw=1": {
+          "precision": 0.5,
+          "same_code": 0.5,
+          "results": 10
+        },
+        "hybrid + codes, cw=2": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "hybrid + codes, cw=3": {
+          "precision": 1,
+          "same_code": 1,
           "results": 10
         },
         "fulltext": {
@@ -3257,6 +4558,21 @@
           "same_code": 0,
           "results": 10
         },
+        "hybrid + codes, cw=1": {
+          "precision": 0.5,
+          "same_code": 0.5,
+          "results": 10
+        },
+        "hybrid + codes, cw=2": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "hybrid + codes, cw=3": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
         "fulltext": {
           "precision": 0,
           "same_code": 0,
@@ -3296,6 +4612,21 @@
         "hybrid routed": {
           "precision": 0,
           "same_code": 0,
+          "results": 10
+        },
+        "hybrid + codes, cw=1": {
+          "precision": 0,
+          "same_code": 0,
+          "results": 10
+        },
+        "hybrid + codes, cw=2": {
+          "precision": 0.8,
+          "same_code": 0.8,
+          "results": 10
+        },
+        "hybrid + codes, cw=3": {
+          "precision": 1,
+          "same_code": 1,
           "results": 10
         },
         "fulltext": {
@@ -3339,6 +4670,21 @@
           "same_code": 0,
           "results": 10
         },
+        "hybrid + codes, cw=1": {
+          "precision": 0.7,
+          "same_code": 0.5,
+          "results": 10
+        },
+        "hybrid + codes, cw=2": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "hybrid + codes, cw=3": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
         "fulltext": {
           "precision": 0,
           "same_code": 0,
@@ -3378,6 +4724,21 @@
         "hybrid routed": {
           "precision": 0.3,
           "same_code": 0,
+          "results": 10
+        },
+        "hybrid + codes, cw=1": {
+          "precision": 0.7,
+          "same_code": 0.5,
+          "results": 10
+        },
+        "hybrid + codes, cw=2": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "hybrid + codes, cw=3": {
+          "precision": 1,
+          "same_code": 1,
           "results": 10
         },
         "fulltext": {
@@ -3421,6 +4782,21 @@
           "same_code": 0,
           "results": 10
         },
+        "hybrid + codes, cw=1": {
+          "precision": 1,
+          "same_code": 0,
+          "results": 10
+        },
+        "hybrid + codes, cw=2": {
+          "precision": 1,
+          "same_code": 0.9,
+          "results": 10
+        },
+        "hybrid + codes, cw=3": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
         "fulltext": {
           "precision": 0.7,
           "same_code": 0,
@@ -3458,6 +4834,21 @@
           "results": 10
         },
         "hybrid routed": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "hybrid + codes, cw=1": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "hybrid + codes, cw=2": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "hybrid + codes, cw=3": {
           "precision": 1,
           "same_code": 1,
           "results": 10
@@ -3503,6 +4894,21 @@
           "same_code": 1,
           "results": 10
         },
+        "hybrid + codes, cw=1": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "hybrid + codes, cw=2": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "hybrid + codes, cw=3": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
         "fulltext": {
           "precision": 1,
           "same_code": 1,
@@ -3540,6 +4946,21 @@
           "results": 10
         },
         "hybrid routed": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "hybrid + codes, cw=1": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "hybrid + codes, cw=2": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "hybrid + codes, cw=3": {
           "precision": 1,
           "same_code": 1,
           "results": 10
@@ -3585,6 +5006,21 @@
           "same_code": 1,
           "results": 10
         },
+        "hybrid + codes, cw=1": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "hybrid + codes, cw=2": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "hybrid + codes, cw=3": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
         "fulltext": {
           "precision": 1,
           "same_code": 1,
@@ -3622,6 +5058,21 @@
           "results": 10
         },
         "hybrid routed": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "hybrid + codes, cw=1": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "hybrid + codes, cw=2": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "hybrid + codes, cw=3": {
           "precision": 1,
           "same_code": 1,
           "results": 10
@@ -3667,6 +5118,21 @@
           "same_code": 1,
           "results": 10
         },
+        "hybrid + codes, cw=1": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "hybrid + codes, cw=2": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "hybrid + codes, cw=3": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
         "fulltext": {
           "precision": 0.3,
           "same_code": 0.3,
@@ -3704,6 +5170,21 @@
           "results": 10
         },
         "hybrid routed": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "hybrid + codes, cw=1": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "hybrid + codes, cw=2": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "hybrid + codes, cw=3": {
           "precision": 1,
           "same_code": 1,
           "results": 10
@@ -3749,6 +5230,21 @@
           "same_code": 1,
           "results": 10
         },
+        "hybrid + codes, cw=1": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "hybrid + codes, cw=2": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "hybrid + codes, cw=3": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
         "fulltext": {
           "precision": 1,
           "same_code": 1,
@@ -3786,6 +5282,21 @@
           "results": 10
         },
         "hybrid routed": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "hybrid + codes, cw=1": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "hybrid + codes, cw=2": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "hybrid + codes, cw=3": {
           "precision": 1,
           "same_code": 1,
           "results": 10
@@ -3831,6 +5342,21 @@
           "same_code": 0,
           "results": 10
         },
+        "hybrid + codes, cw=1": {
+          "precision": 0.2,
+          "same_code": 0.2,
+          "results": 10
+        },
+        "hybrid + codes, cw=2": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "hybrid + codes, cw=3": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
         "fulltext": {
           "precision": 0,
           "same_code": 0,
@@ -3870,6 +5396,21 @@
         "hybrid routed": {
           "precision": 0,
           "same_code": 0,
+          "results": 10
+        },
+        "hybrid + codes, cw=1": {
+          "precision": 0.2,
+          "same_code": 0.2,
+          "results": 10
+        },
+        "hybrid + codes, cw=2": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "hybrid + codes, cw=3": {
+          "precision": 1,
+          "same_code": 1,
           "results": 10
         },
         "fulltext": {
@@ -3913,6 +5454,21 @@
           "same_code": 0,
           "results": 10
         },
+        "hybrid + codes, cw=1": {
+          "precision": 0,
+          "same_code": 0,
+          "results": 10
+        },
+        "hybrid + codes, cw=2": {
+          "precision": 0.8,
+          "same_code": 0.8,
+          "results": 10
+        },
+        "hybrid + codes, cw=3": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
         "fulltext": {
           "precision": 0,
           "same_code": 0,
@@ -3950,6 +5506,21 @@
           "results": 10
         },
         "hybrid routed": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "hybrid + codes, cw=1": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "hybrid + codes, cw=2": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "hybrid + codes, cw=3": {
           "precision": 1,
           "same_code": 1,
           "results": 10
@@ -3995,6 +5566,21 @@
           "same_code": 1,
           "results": 10
         },
+        "hybrid + codes, cw=1": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "hybrid + codes, cw=2": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "hybrid + codes, cw=3": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
         "fulltext": {
           "precision": 1,
           "same_code": 1,
@@ -4032,6 +5618,21 @@
           "results": 10
         },
         "hybrid routed": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "hybrid + codes, cw=1": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "hybrid + codes, cw=2": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "hybrid + codes, cw=3": {
           "precision": 1,
           "same_code": 1,
           "results": 10
@@ -4077,6 +5678,21 @@
           "same_code": 1,
           "results": 10
         },
+        "hybrid + codes, cw=1": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "hybrid + codes, cw=2": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "hybrid + codes, cw=3": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
         "fulltext": {
           "precision": 1,
           "same_code": 1,
@@ -4114,6 +5730,21 @@
           "results": 10
         },
         "hybrid routed": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "hybrid + codes, cw=1": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "hybrid + codes, cw=2": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "hybrid + codes, cw=3": {
           "precision": 1,
           "same_code": 1,
           "results": 10
@@ -4159,6 +5790,21 @@
           "same_code": 1,
           "results": 10
         },
+        "hybrid + codes, cw=1": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "hybrid + codes, cw=2": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "hybrid + codes, cw=3": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
         "fulltext": {
           "precision": 1,
           "same_code": 1,
@@ -4196,6 +5842,21 @@
           "results": 10
         },
         "hybrid routed": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "hybrid + codes, cw=1": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "hybrid + codes, cw=2": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "hybrid + codes, cw=3": {
           "precision": 1,
           "same_code": 1,
           "results": 10
@@ -4241,6 +5902,21 @@
           "same_code": 1,
           "results": 10
         },
+        "hybrid + codes, cw=1": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "hybrid + codes, cw=2": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "hybrid + codes, cw=3": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
         "fulltext": {
           "precision": 1,
           "same_code": 1,
@@ -4278,6 +5954,21 @@
           "results": 10
         },
         "hybrid routed": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "hybrid + codes, cw=1": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "hybrid + codes, cw=2": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "hybrid + codes, cw=3": {
           "precision": 1,
           "same_code": 1,
           "results": 10
@@ -4323,6 +6014,21 @@
           "same_code": 0,
           "results": 10
         },
+        "hybrid + codes, cw=1": {
+          "precision": 1,
+          "same_code": 0.4,
+          "results": 10
+        },
+        "hybrid + codes, cw=2": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "hybrid + codes, cw=3": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
         "fulltext": {
           "precision": 0.7,
           "same_code": 0,
@@ -4362,6 +6068,21 @@
         "hybrid routed": {
           "precision": 1,
           "same_code": 0,
+          "results": 10
+        },
+        "hybrid + codes, cw=1": {
+          "precision": 1,
+          "same_code": 0.4,
+          "results": 10
+        },
+        "hybrid + codes, cw=2": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "hybrid + codes, cw=3": {
+          "precision": 1,
+          "same_code": 1,
           "results": 10
         },
         "fulltext": {
@@ -4405,6 +6126,21 @@
           "same_code": 0,
           "results": 10
         },
+        "hybrid + codes, cw=1": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "hybrid + codes, cw=2": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "hybrid + codes, cw=3": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
         "fulltext": {
           "precision": 0,
           "same_code": 0,
@@ -4442,6 +6178,21 @@
           "results": 10
         },
         "hybrid routed": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "hybrid + codes, cw=1": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "hybrid + codes, cw=2": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "hybrid + codes, cw=3": {
           "precision": 1,
           "same_code": 1,
           "results": 10
@@ -4487,6 +6238,21 @@
           "same_code": 0.4,
           "results": 10
         },
+        "hybrid + codes, cw=1": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "hybrid + codes, cw=2": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "hybrid + codes, cw=3": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
         "fulltext": {
           "precision": 1,
           "same_code": 1,
@@ -4528,6 +6294,21 @@
           "same_code": 0.7,
           "results": 10
         },
+        "hybrid + codes, cw=1": {
+          "precision": 1,
+          "same_code": 0.7,
+          "results": 10
+        },
+        "hybrid + codes, cw=2": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "hybrid + codes, cw=3": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
         "fulltext": {
           "precision": 0.7,
           "same_code": 0.7,
@@ -4565,6 +6346,21 @@
           "results": 10
         },
         "hybrid routed": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "hybrid + codes, cw=1": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "hybrid + codes, cw=2": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "hybrid + codes, cw=3": {
           "precision": 1,
           "same_code": 1,
           "results": 10
@@ -4610,6 +6406,21 @@
           "same_code": 1,
           "results": 10
         },
+        "hybrid + codes, cw=1": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "hybrid + codes, cw=2": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "hybrid + codes, cw=3": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
         "fulltext": {
           "precision": 1,
           "same_code": 1,
@@ -4651,6 +6462,21 @@
           "same_code": 0.3,
           "results": 10
         },
+        "hybrid + codes, cw=1": {
+          "precision": 0.3,
+          "same_code": 0.3,
+          "results": 10
+        },
+        "hybrid + codes, cw=2": {
+          "precision": 0.9,
+          "same_code": 0.9,
+          "results": 10
+        },
+        "hybrid + codes, cw=3": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
         "fulltext": {
           "precision": 0.5,
           "same_code": 0.5,
@@ -4688,6 +6514,21 @@
           "results": 10
         },
         "hybrid routed": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "hybrid + codes, cw=1": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "hybrid + codes, cw=2": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "hybrid + codes, cw=3": {
           "precision": 1,
           "same_code": 1,
           "results": 10
@@ -4733,6 +6574,21 @@
           "same_code": 1,
           "results": 10
         },
+        "hybrid + codes, cw=1": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "hybrid + codes, cw=2": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "hybrid + codes, cw=3": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
         "fulltext": {
           "precision": 1,
           "same_code": 1,
@@ -4772,6 +6628,21 @@
         "hybrid routed": {
           "precision": 0.5,
           "same_code": 0.4,
+          "results": 10
+        },
+        "hybrid + codes, cw=1": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "hybrid + codes, cw=2": {
+          "precision": 1,
+          "same_code": 1,
+          "results": 10
+        },
+        "hybrid + codes, cw=3": {
+          "precision": 1,
+          "same_code": 1,
           "results": 10
         },
         "fulltext": {

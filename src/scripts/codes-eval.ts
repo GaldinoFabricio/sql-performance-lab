@@ -6,6 +6,7 @@ import { DEFAULT_SEED, generateLogs } from "../logs/generator";
 import { mean, percentile } from "../evals/metrics";
 import { routeWeights } from "../search/routing";
 import { fullTextSearch, Hit, hybridSearch, vectorSearch } from "../search/search";
+import { codesIn, knownCodes as loadKnownCodes } from "../search/codes";
 import { templateSearch, templatesCurrent } from "../search/templates";
 import { SEARCH_DEFAULTS } from "../services/search.service";
 
@@ -30,13 +31,17 @@ import { SEARCH_DEFAULTS } from "../services/search.service";
  *      "error_code lookup", the newest logs whose error_code equals a code
  *      in the query (case-insensitive). The lookup is not a mode of the API;
  *      it shows how far an exact code match alone gets.
+ *      "hybrid + codes, cw=N" is hybrid with the third RRF list of logs that
+ *      carry a code found in the query (src/search/codes.ts), at weight N.
+ *      The same hybrid variants also run on evals/text_queries.json, to check
+ *      that queries without a code don't change.
  *
- * Usage: pnpm eval:codes [--generate] [--out=evals/results/codes-10k.json]
+ * Usage: pnpm eval:codes [--generate] [--cw=1,2] [--out=evals/results/codes-10k.json]
  */
 
 interface CodeQuery { text: string; code: string; form: Form; expected: string[]; logs: number }
 type Form = (typeof FORMS)[number];
-type Method = "vector" | "hybrid" | "hybrid routed" | "fulltext" | "template" | "error_code lookup";
+type Method = "vector" | "hybrid" | "hybrid routed" | "fulltext" | "template" | "error_code lookup" | `hybrid + codes, cw=${number}`;
 
 const ROOT = path.resolve(__dirname, "../..");
 const QUERIES = path.join(ROOT, "evals/code_queries.json");
@@ -44,6 +49,7 @@ const K = 10;
 const FORMS = ["exact", "lower", "sentence"] as const;
 const GENERATE_ROWS = 200_000; // enough for every code to show up many times
 const flag = (name: string) => process.argv.find((a) => a.startsWith(`--${name}=`))?.split("=")[1];
+const CODE_WEIGHTS = (flag("cw") ?? "1,2").split(",").map(Number);
 const pct = (x: number) => `${(x * 100).toFixed(1)}%`;
 
 function generate() {
@@ -83,11 +89,6 @@ function generate() {
    console.log(`wrote ${path.relative(ROOT, QUERIES)}: ${causes.size} codes x ${FORMS.length} forms = ${queries.length} queries`);
 }
 
-/** Tokens that are a known error_code, compared case-insensitively. */
-function codesIn(text: string, known: Map<string, string>) {
-   return [...new Set(text.split(/[^A-Za-z0-9_]+/).flatMap((t) => known.get(t.toLowerCase()) ?? []))];
-}
-
 async function run() {
    const { queries }: { queries: CodeQuery[] } = JSON.parse(readFileSync(QUERIES, "utf8"));
    const { rows: [info] } = await db.raw("SELECT count(*)::int AS rows, count(embedding)::int AS embedded FROM logs");
@@ -96,17 +97,24 @@ async function run() {
    if (!withTemplates) console.warn("templates are stale or missing (pnpm templates:build): skipping template mode");
    const size = info.rows >= 1_000_000 ? `${info.rows / 1_000_000}m` : `${info.rows / 1000}k`;
 
-   const { rows: known } = await db.raw("SELECT DISTINCT error_code FROM logs WHERE error_code IS NOT NULL");
-   const knownCodes = new Map<string, string>(known.map((r: any) => [r.error_code.toLowerCase(), r.error_code]));
+   const knownCodes = await loadKnownCodes(db);
 
-   const methods: Method[] = ["vector", "hybrid", "hybrid routed", "fulltext", ...(withTemplates ? (["template"] as const) : []), "error_code lookup"];
+   const codeMethods = CODE_WEIGHTS.map((w) => `hybrid + codes, cw=${w}` as Method);
+   const methods: Method[] = [
+      "vector", "hybrid", "hybrid routed", ...codeMethods, "fulltext",
+      ...(withTemplates ? (["template"] as const) : []), "error_code lookup",
+   ];
    const per: Record<string, { precision: number; exactCode: number; results: number; ms: number }[]> = {};
 
-   const searchOnce = async (q: CodeQuery, vec: string, m: Method): Promise<Hit[]> =>
+   const searchOnce = async (q: { text: string }, vec: string, m: Method): Promise<Hit[]> =>
       db.transaction(async (trx) => {
          await trx.raw(`SET LOCAL hnsw.ef_search = ${SEARCH_DEFAULTS.efSearch}`);
-         const hybrid = (w: { vectorWeight: number; keywordWeight: number }) =>
+         const hybrid = (w: { vectorWeight: number; keywordWeight: number; codes?: string[]; codeWeight?: number }) =>
             hybridSearch(trx, q.text, vec, K, null, { candidates: SEARCH_DEFAULTS.hybridCandidates, rrfK: SEARCH_DEFAULTS.rrfK, notInfo: true, ...w });
+         if (m.startsWith("hybrid + codes")) {
+            const codeWeight = Number(m.split("cw=")[1]);
+            return hybrid({ vectorWeight: SEARCH_DEFAULTS.vectorWeight, keywordWeight: SEARCH_DEFAULTS.keywordWeight, codes: codesIn(q.text, knownCodes), codeWeight });
+         }
          switch (m) {
             case "vector": return vectorSearch(trx, vec, K, null, true);
             case "hybrid": return hybrid({ vectorWeight: SEARCH_DEFAULTS.vectorWeight, keywordWeight: SEARCH_DEFAULTS.keywordWeight });
@@ -196,6 +204,32 @@ async function run() {
       );
    }
 
+   // ---- the 60 typed queries: hybrid with and without the code list ----
+   const textQueries: { text: string; expected: string; kind: string }[] =
+      JSON.parse(readFileSync(path.join(ROOT, "evals/text_queries.json"), "utf8")).queries;
+   const textMethods: Method[] = ["hybrid", ...codeMethods];
+   const textPer: Record<string, number[]> = {};
+   const changed: { text: string; codes: string[]; precision: Record<string, number> }[] = [];
+   for (const q of textQueries) {
+      const vec = toPgVector((await embed([q.text]))[0]);
+      const row: Record<string, number> = {};
+      for (const m of textMethods) {
+         const hits = await searchOnce(q, vec, m);
+         row[m] = hits.filter((h) => h.root_cause === q.expected).length / K;
+         (textPer[m] ??= []).push(row[m]);
+      }
+      const codes = codesIn(q.text, knownCodes);
+      if (codes.length) changed.push({ text: q.text, codes, precision: row });
+   }
+   console.log(`\n${textQueries.length} typed queries (evals/text_queries.json), precision@10:`);
+   for (const m of textMethods) {
+      console.log(`  ${m.padEnd(22)}${pct(mean(textPer[m]))}   nothing relevant: ${textPer[m].filter((x) => x === 0).length}`);
+   }
+   console.log(`  queries with a known code (${changed.length}):`);
+   for (const c of changed) {
+      console.log(`    ${c.text.padEnd(40)}[${c.codes.join(", ")}]  ${textMethods.map((m) => `${m.replace("hybrid + codes, ", "")} ${pct(c.precision[m])}`).join("  ")}`);
+   }
+
    const out = flag("out") ? path.resolve(ROOT, flag("out")!) : path.join(ROOT, `evals/results/codes-${size}.json`);
    mkdirSync(path.dirname(out), { recursive: true });
    writeFileSync(
@@ -208,6 +242,10 @@ async function run() {
             settings: { not_info: true, ef_search: SEARCH_DEFAULTS.efSearch, hybrid_candidates: SEARCH_DEFAULTS.hybridCandidates, rrf_k: SEARCH_DEFAULTS.rrfK },
             latency_note: "client-side wall time, median of 3 runs per query after a warm-up run",
             summary,
+            text_queries: {
+               summary: textMethods.map((m) => ({ method: m, precision: mean(textPer[m]), zero_relevant: textPer[m].filter((x) => x === 0).length })),
+               with_codes: changed,
+            },
             per_query: queries.map((q, i) => ({
                text: q.text, code: q.code, form: q.form, expected: q.expected,
                code_in_message: inMsg.get(q.code),
