@@ -398,6 +398,54 @@ The full index was replaced (migration `20261118120000_replace_logs_hnsw_with_pa
 - **The split is tied to this data.** "Incidents are never INFO" holds for the synthetic generator. Real systems log errors at INFO too, so check what the typed queries look for before excluding a level.
 - **Log-as-query evals still use full indexes.** `eval:search` and `eval:hnsw-dive` build their own full index (78 of the 100 log queries are INFO). `eval:hnsw-dive` now needs `--rebuild` and drops the index it built.
 
+## Error codes in the query
+
+On-call engineers paste codes: `ECONNRESET`, `40P01`, `x509`. Vectors are weak on them (finding 1), and the 60 typed queries hold only 8, too few to measure a fix. So `pnpm eval:codes` builds a set from the data: every `error_code` the generator emits outside INFO (38 codes), in 3 forms, `exact` (`ECONNRESET`), `lower` (`econnreset`) and `sentence` ("lots of ECONNRESET errors since the deploy"). That is 114 queries (`evals/code_queries.json`). A log is relevant when its root cause is one of the code's causes. Only `ECONNREFUSED` belongs to two (cache and database).
+
+### What was wrong: no mode read `error_code`
+
+The baseline, with the API defaults (no INFO, ef_search 160), at 10k rows:
+
+| method | precision@10 | exact | lower | sentence | queries with nothing relevant (of 114) |
+| :--- | ---: | ---: | ---: | ---: | ---: |
+| vector | 69.2% | 72.9% | 72.9% | 61.8% | 25 |
+| hybrid | 72.0% | 76.6% | 76.6% | 62.9% | 22 |
+| hybrid, routed | 72.2% | 79.2% | 76.6% | 60.8% | 25 |
+| full-text | 61.3% | 68.9% | 68.9% | 46.1% | 31 |
+| template | 56.1% | 57.9% | 57.9% | 52.6% | 50 |
+
+Every mode searches `message` only. Postgres SQLSTATEs (`23505`, `40P01`, `53100`, `57014`), `EDQUOT` and `NPE` never appear in the message text, so every mode scored 0% on them, although the code sits in its own column of the same row. A code inside a sentence is worse everywhere: the rest of the sentence pulls in unrelated logs. Routing barely moved the numbers.
+
+### The fix: a third RRF list
+
+When the query has a token equal to a known `error_code` (case-insensitive, `src/search/codes.ts`), hybrid adds a third list: the newest `candidates` logs with that code. It is read from a new B-tree index, `idx_logs_error_code (error_code, id DESC) WHERE error_code IS NOT NULL` (migration `20261118130000`), and fused with the vector and full-text lists at weight `cw`. The known codes come from a skip scan over that index (a recursive CTE: 38 codes in 0.27 ms) and are cached for 60 s. A query without a code gets an empty list and the same result as before.
+
+| | 10k code queries | 10k typed queries | 100k code queries | 100k typed queries |
+| :--- | ---: | ---: | ---: | ---: |
+| hybrid, before | 72.0% | 94.8% | 62.1% | 90.5% |
+| + code list, cw = 1 | 85.4% | 96.5% | 76.8% | 91.0% |
+| **+ code list, cw = 2 (default)** | **99.6%** | **96.5%** | **99.7%** | **91.7%** |
+| + code list, cw = 3 | 100% | 96.5% | 100% | 91.7% |
+
+With cw = 2 no code query comes back with nothing relevant (22 before at 10k, 28 at 100k). The latency cost is within noise: hybrid p50 went from 3.5 to 3.6 ms at 10k, and stayed at ~12 ms at 100k.
+
+### Findings
+
+**1. The data was there; the search didn't look.** The biggest gain came from reading a column that already existed, not from a better model or index: the six codes that never appear in the text went from 0% to 100% in the exact and lower forms, and to 80–100% inside a sentence.
+
+**2. Read the code-query eval with care: its relevance is circular.** A relevant log is defined as a log of the code's root causes, and the code list returns exactly the logs that carry the code. So a higher `cw` always scores better there, and cw = 3 hits 100% by construction. The typed queries (labelled by hand, independent of the codes) are the check that matters. They don't tell cw = 2 from cw = 3 apart either. The default is 2: the smallest weight that left no code query empty-handed. At 2, a log found only by the code list ties with one that vector and full-text both ranked first.
+
+**3. An ambiguous code loses the context.** At 100k, the typed query `ECONNREFUSED` (labelled `db_connection_timeout`) fell from 100% to 70%: the code list brings the newest logs with that code, and some are `cache_unavailable`. For a bare code both answers are defensible, but the list ignores any other words in the query. `cw=0` turns it off.
+
+**4. Typed queries without a code don't change.** Of the 60, only the 7 that contain a known code changed: `ECONNRESET` and `x509` went from 50% to 100%, and `ECONNREFUSED` went down at 100k.
+
+### Limits
+
+- **Only codes already in the table are known.** A code that was never logged, or one typed differently (`HTTP 502`, `502` for `HTTP_502`), is not recognized: whole tokens only, so "502" doesn't match.
+- **A common word that is also a code triggers the list.** `OVERSOLD` or `TypeError` in a sentence counts as the code. In this data that is the intended meaning; in real logs, check the code list for plain words.
+- **Only hybrid uses it.** `vector`, `fulltext` and `template` still search the message alone. The template mode, for example, still misses the `HTTP_4xx`/`5xx` codes.
+- **Newest first inside the list.** Every log with the code ranks by recency, not by how well the rest of the query matches.
+
 ## API
 
 `GET /search/logs` (validated with celebrate, `src/validators/search.validator.ts`). An invalid or unknown param returns `400 { "error": "<message>" }`.
@@ -409,11 +457,12 @@ The full index was replaced (migration `20261118120000_replace_logs_hnsw_with_pa
 | `k` | 10 | 1–50 | number of results |
 | `ef_search` | 160 | 10–1000 | HNSW candidate list, per transaction (hybrid uses at least 40) |
 | `vw`, `fw` | 1 / 1 | 0–5, not both 0 | hybrid only: RRF weight of the vector and full-text lists. Setting either one turns routing off; the one left out stays 1 |
+| `cw` | 2 | 0–5 | hybrid only: RRF weight of the error-code list (logs whose `error_code` is a code found in `q`); 0 turns it off. See [Error codes in the query](#error-codes-in-the-query) |
 | `rrf_k` | 60 | 1–1000 | hybrid only: RRF constant, `score = weight / (rrf_k + rank)` |
 | `route` | `false` | `true`/`false` (or `1`/`0`) | hybrid only: pick the weights from the query (`src/search/routing.ts`) when `vw`/`fw` are not given |
 | `include_info` | `false` | `true`/`false` (or `1`/`0`) | every mode: also search INFO logs. The HNSW index leaves them out, so `vector`/`hybrid` become an exact scan (`ef_search: null`) |
 
-The response says `include_info`. In hybrid mode it has `hybrid: { vector_weight, keyword_weight, weights_from, rrf_k }`, where `weights_from` is `explicit` (from `vw`/`fw`), `routed` or `fixed`. For the other modes, `hybrid` is `null`.
+The response says `include_info`. In hybrid mode it has `hybrid: { vector_weight, keyword_weight, weights_from, rrf_k, codes, code_weight }`, where `codes` lists the error codes found in `q`, and `weights_from` is `explicit` (from `vw`/`fw`), `routed` or `fixed`. For the other modes, `hybrid` is `null`.
 
 **Why routing is off by default.** The router favors full-text (weights 0.5/1) when the query has a token shaped like a code (`ECONNRESET`, `HTTP_502`, `x509`) and the vector side (1/0.5) otherwise. On the 60 free-text queries at 10k rows (3 HNSW builds, `evals/results/search-10k-routing.json`), routed minus fixed was:
 
@@ -444,4 +493,6 @@ pnpm eval:search --truth=evals/ground_truth.100k.json --hnsw=32:200 --ef=40,160 
   --out=evals/results/search-100k-templates.json   # adds the template method
 pnpm eval:search --templates-only   # template mode alone on free text, e.g. at 1M without per-log embeddings
 pnpm eval:partial-hnsw --rebuild=3 --rebuild-full=3   # full vs partial (no INFO) HNSW; --skip-full at 1M
+pnpm eval:codes --generate          # evals/code_queries.json from the generator, no DB needed
+pnpm eval:codes --cw=1,2,3          # every mode on the 114 code queries, and hybrid with the code list
 ```

@@ -190,3 +190,33 @@ Flags: `--rebuild=N` builds of the partial index (default 1),
 `--skip-full` (the 1M file: building the full index takes ~77 min), `--rounds`,
 `--write-rows`, `--keep-index`. If the partial index existed before the run
 (it is the production index), its last build stays.
+
+## `code_queries.json`
+
+Written by `pnpm eval:codes --generate` (`src/scripts/codes-eval.ts`), without
+a database: it runs the log generator (seed 42, 200k logs, INFO left out) and
+takes every `error_code` it emits (38). Each code becomes 3 queries:
+`exact` (`ECONNRESET`), `lower` (`econnreset`) and `sentence` ("lots of
+ECONNRESET errors since the deploy"), 114 in all. `expected` lists the root
+causes the code appears in (only `ECONNREFUSED` has two), `ambiguous` lists
+the codes with more than one, and `logs` is how many generated logs carry
+the code.
+
+**Relevance here is circular by design.** A relevant result is a log of one
+of the code's root causes, so any method that returns the logs carrying the
+code scores 100%. That makes the file good at showing which modes *miss*
+codes, and useless for choosing how much to trust a code match. For that,
+check the hand-labelled `text_queries.json`.
+
+## `results/codes-<rows>.json`
+
+Output of `pnpm eval:codes [--cw=1,2,3]`. The 114 code queries run with the
+API defaults (no INFO, ef_search 160, 40 hybrid candidates) in each mode:
+vector, hybrid (fixed and routed), hybrid with the error-code list at each
+`cw`, full-text, template, and a plain `error_code` lookup as the ceiling.
+`summary` has precision per form, `same_code` (the share of results carrying
+exactly the typed code), queries with nothing relevant and p50 latency.
+`text_queries` runs hybrid with and without the code list on the 60 typed
+queries, and lists those that contain a known code. `per_query` also has
+`code_in_message`: the share of the code's logs whose message contains the
+code as text.
