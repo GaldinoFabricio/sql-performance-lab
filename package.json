@@ -25,7 +25,8 @@
       "eval:plans": "ts-node --transpile-only src/scripts/plan-experiments.ts",
       "eval:hnsw-dive": "ts-node --transpile-only src/scripts/hnsw-dive.ts",
       "eval:templates": "ts-node --transpile-only src/scripts/templates-eval.ts",
-      "eval:partial-hnsw": "ts-node --transpile-only src/scripts/partial-hnsw.ts"
+      "eval:partial-hnsw": "ts-node --transpile-only src/scripts/partial-hnsw.ts",
+      "eval:codes": "ts-node --transpile-only src/scripts/codes-eval.ts"
    },
    "keywords": [],
    "author": "",
