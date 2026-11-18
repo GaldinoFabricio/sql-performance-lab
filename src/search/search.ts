@@ -8,7 +8,17 @@ import { toPgVector } from "../embeddings/embedder";
  * planner settings per transaction (SET LOCAL hnsw.ef_search, or turning
  * index scans off for exact search). `excludeId` drops the query's own row
  * when the query IS a log (the evals); pass null for free-text searches.
+ *
+ * `notInfo` leaves INFO logs out. It defaults to false (every row), which is
+ * what the evals measure; GET /search/logs turns it on unless include_info.
  */
+
+/**
+ * The partial HNSW index's predicate (migration 20261118120000). The planner
+ * uses that index only when the query's WHERE implies it, so this text must
+ * stay the same as the index's.
+ */
+export const NOT_INFO = "level <> 'INFO'";
 
 export interface Hit {
    id: number;
@@ -32,12 +42,18 @@ const hits = (rows: any[]): Hit[] => rows.map((r) => ({ id: Number(r.id), root_c
 const OR_TSQUERY = `(SELECT string_agg(quote_literal(lexeme), ' | ')::tsquery
                      FROM unnest(to_tsvector('english', :text)))`;
 
-export async function fullTextSearch(db: Conn, text: string, k: number, excludeId: number | null = null): Promise<Hit[]> {
+export async function fullTextSearch(
+   db: Conn,
+   text: string,
+   k: number,
+   excludeId: number | null = null,
+   notInfo = false,
+): Promise<Hit[]> {
    const { rows } = await db.raw(
       `SELECT l.id, l.root_cause
        FROM logs l
        WHERE to_tsvector('english', l.message) @@ ${OR_TSQUERY}
-         AND l.id <> :exclude
+         AND l.id <> :exclude ${notInfo ? `AND l.${NOT_INFO}` : ""}
        ORDER BY ts_rank_cd(to_tsvector('english', l.message), ${OR_TSQUERY}) DESC, l.id
        LIMIT :k`,
       { text, k, exclude: excludeId ?? 0 },
@@ -50,10 +66,16 @@ export async function fullTextSearch(db: Conn, text: string, k: number, excludeI
  * matches come newest first, like a log viewer. `pattern` must already be a
  * LIKE pattern with wildcards escaped (see likePattern in evals/metrics).
  */
-export async function likeSearch(db: Conn, pattern: string, k: number, excludeId: number | null = null): Promise<Hit[]> {
+export async function likeSearch(
+   db: Conn,
+   pattern: string,
+   k: number,
+   excludeId: number | null = null,
+   notInfo = false,
+): Promise<Hit[]> {
    const { rows } = await db.raw(
       `SELECT id, root_cause FROM logs
-       WHERE message ILIKE :pattern AND id <> :exclude
+       WHERE message ILIKE :pattern AND id <> :exclude ${notInfo ? `AND ${NOT_INFO}` : ""}
        ORDER BY id DESC
        LIMIT :k`,
       { pattern, k, exclude: excludeId ?? 0 },
@@ -75,10 +97,12 @@ export async function vectorSearch(
    embedding: ArrayLike<number> | string,
    k: number,
    excludeId: number | null = null,
+   notInfo = false,
 ): Promise<Hit[]> {
    const vec = typeof embedding === "string" ? embedding : toPgVector(embedding);
    const { rows } = await db.raw(
-      `SELECT id, root_cause FROM logs ORDER BY embedding <=> :vec::vector LIMIT :limit`,
+      `SELECT id, root_cause FROM logs ${notInfo ? `WHERE ${NOT_INFO}` : ""}
+       ORDER BY embedding <=> :vec::vector LIMIT :limit`,
       { vec, limit: excludeId === null ? k : k + 1 },
    );
    return hits(rows)
@@ -105,7 +129,7 @@ export async function hybridSearch(
    embedding: ArrayLike<number> | string,
    k: number,
    excludeId: number | null = null,
-   { candidates = 40, rrfK = 60, vectorWeight = 1.0, keywordWeight = 1.0 } = {},
+   { candidates = 40, rrfK = 60, vectorWeight = 1.0, keywordWeight = 1.0, notInfo = false } = {},
 ): Promise<Hit[]> {
    const vec = typeof embedding === "string" ? embedding : toPgVector(embedding);
 
@@ -113,13 +137,14 @@ export async function hybridSearch(
       `WITH vector AS (
           SELECT id, row_number() OVER (ORDER BY distance, id) AS rank
           FROM (SELECT id, embedding <=> :vec::vector AS distance
-                FROM logs ORDER BY embedding <=> :vec::vector LIMIT :candidates) v
+                FROM logs ${notInfo ? `WHERE ${NOT_INFO}` : ""}
+                ORDER BY embedding <=> :vec::vector LIMIT :candidates) v
        ),
        keyword AS (
           SELECT id, row_number() OVER (ORDER BY score DESC, id) AS rank
           FROM (SELECT l.id, ts_rank_cd(to_tsvector('english', l.message), ${OR_TSQUERY}) AS score
                 FROM logs l
-                WHERE to_tsvector('english', l.message) @@ ${OR_TSQUERY}
+                WHERE to_tsvector('english', l.message) @@ ${OR_TSQUERY} ${notInfo ? `AND l.${NOT_INFO}` : ""}
                 ORDER BY score DESC, l.id LIMIT :candidates) t
        ),
        fused AS (

@@ -15,7 +15,12 @@ import { templateSearch, templatesReady, TemplateHit } from "../search/templates
  *  - ef_search 160 on the m=32, ef_construction=200 index (migration
  *    20261115130000): the largest value measured at every table size, and
  *    still under 2 ms p50 at 1M rows, less than embedding the query. Recall
- *    on typed queries had not flattened at 1M, so callers may go up to 1000.
+ *    on typed queries had not flattened at 1M, so callers may go up to 1000;
+ *  - INFO logs are left out unless include_info=true: the HNSW index is
+ *    partial, WHERE level <> 'INFO' (migration 20261118120000), because
+ *    incident searches got more precise and INFO inserts cheaper without
+ *    them. With include_info=true no index covers the rows, so vector and
+ *    hybrid scan every row exactly: fine at 10k, ~220 ms at 1M rows.
  *  - template: exact search over one embedding per log template
  *    (pnpm templates:build), then the newest logs of the nearest templates.
  */
@@ -49,6 +54,8 @@ export interface SearchParams {
    rrfK: number;
    /** Hybrid only: pick the weights from the query (routing.ts) when none are given. Off by default. */
    route: boolean;
+   /** Search INFO logs too. Off by default: the HNSW index leaves them out. */
+   includeInfo: boolean;
 }
 
 /** Where the hybrid weights came from: the caller, the router, or the fixed default. */
@@ -96,6 +103,7 @@ export interface SearchResponse {
    mode: SearchMode;
    k: number;
    ef_search: number | null;
+   include_info: boolean;
    /** Hybrid only (null for the other modes): the RRF settings actually used. */
    hybrid: { vector_weight: number; keyword_weight: number; weights_from: WeightsFrom; rrf_k: number } | null;
    ms: { embed: number; search: number; total: number };
@@ -107,8 +115,10 @@ const round = (n: number) => Math.round(n * 100) / 100;
 export async function searchLogs(p: SearchParams): Promise<SearchResponse> {
    const start = performance.now();
    const needsVector = p.mode === "vector" || p.mode === "hybrid" || p.mode === "template";
-   // template search is exact over a few dozen rows: no HNSW, no ef_search
-   const usesHnsw = p.mode === "vector" || p.mode === "hybrid";
+   // template search is exact over a few dozen rows: no HNSW, no ef_search.
+   // With INFO included no index covers the rows: an exact scan, no ef_search either.
+   const usesHnsw = (p.mode === "vector" || p.mode === "hybrid") && !p.includeInfo;
+   const notInfo = !p.includeInfo;
    if (p.mode === "template" && !(await templatesReady(db))) {
       throw new SearchUnavailableError("templates are not built: run pnpm templates:build");
    }
@@ -133,20 +143,21 @@ export async function searchLogs(p: SearchParams): Promise<SearchResponse> {
       }
       switch (p.mode) {
          case "vector":
-            return vectorSearch(trx, vec, p.k);
+            return vectorSearch(trx, vec, p.k, null, notInfo);
          case "hybrid":
             return hybridSearch(trx, p.q, vec, p.k, null, {
                candidates: SEARCH_DEFAULTS.hybridCandidates,
                vectorWeight: weights!.vectorWeight,
                keywordWeight: weights!.keywordWeight,
                rrfK: p.rrfK,
+               notInfo,
             });
          case "fulltext":
-            return fullTextSearch(trx, p.q, p.k);
+            return fullTextSearch(trx, p.q, p.k, null, notInfo);
          case "like":
-            return likeSearch(trx, likePattern(p.q, Number.MAX_SAFE_INTEGER), p.k);
+            return likeSearch(trx, likePattern(p.q, Number.MAX_SAFE_INTEGER), p.k, null, notInfo);
          case "template":
-            return templateSearch(trx, vec, p.k);
+            return templateSearch(trx, vec, p.k, null, notInfo);
       }
    });
 
@@ -167,6 +178,7 @@ export async function searchLogs(p: SearchParams): Promise<SearchResponse> {
       mode: p.mode,
       k: p.k,
       ef_search: usesHnsw ? efSearch : null,
+      include_info: p.includeInfo,
       hybrid: weights && {
          vector_weight: weights.vectorWeight,
          keyword_weight: weights.keywordWeight,

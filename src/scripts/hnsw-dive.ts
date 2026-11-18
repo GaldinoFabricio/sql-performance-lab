@@ -23,13 +23,15 @@ import { mean, recallAtK } from "../evals/metrics";
  *     (precision 0 with recall 100%). No index setting helps; use full-text
  *     or hybrid.
  *
- * Works at any table size. Needs embedded logs and idx_logs_embedding_hnsw.
- * --rebuild=N drops and rebuilds the index N times with the migration's
- * parameters (m = 32, ef_construction = 200) and measures each build; HNSW
- * draws each node's level at random, so two builds give different graphs.
- * The last build is left in place.
+ * Works at any table size. Needs embedded logs and a full (not partial)
+ * HNSW index, idx_logs_embedding_hnsw. Since migration 20261118120000 the
+ * production index is partial (no INFO), so pass --rebuild=N: it builds the
+ * full index N times with the same parameters (m = 32, ef_construction = 200)
+ * and measures each build; HNSW draws each node's level at random, so two
+ * builds give different graphs. An index this script created is dropped at
+ * the end unless --keep-index; one that already existed is left in place.
  *
- * Usage: pnpm eval:hnsw-dive [--rebuild=3] [--out=evals/results/hnsw-dive-100k.json]
+ * Usage: pnpm eval:hnsw-dive --rebuild=3 [--keep-index] [--out=evals/results/hnsw-dive-100k.json]
  */
 
 type Conn = Knex | Knex.Transaction;
@@ -48,6 +50,7 @@ const EF_CONSTRUCTION = 200;
 
 const flag = (name: string) => process.argv.find((a) => a.startsWith(`--${name}=`))?.split("=")[1];
 const rebuilds = Number(flag("rebuild") ?? 0);
+const KEEP = process.argv.includes("--keep-index");
 const pct = (x: number) => `${(x * 100).toFixed(1)}%`;
 const median = (xs: number[]) => [...xs].sort((a, b) => a - b)[Math.floor(xs.length / 2)];
 const minMax = (xs: number[]): [number, number] => [Math.min(...xs), Math.max(...xs)];
@@ -133,7 +136,7 @@ async function main() {
       { idx: INDEX },
    );
    if (info.rows === 0 || info.embedded !== info.rows) throw new Error("run pnpm seed:logs and pnpm embed:logs first");
-   if (!info.has_index && rebuilds === 0) throw new Error(`${INDEX} is missing: run pnpm migrate or pass --rebuild=1`);
+   if (!info.has_index && rebuilds === 0) throw new Error(`${INDEX} is missing: pass --rebuild=1`);
    const size = info.rows >= 1_000_000 ? `${info.rows / 1_000_000}m` : `${info.rows / 1000}k`;
    console.log(`logs: ${info.rows.toLocaleString()} rows, HNSW m=${M} ef_construction=${EF_CONSTRUCTION}, top-${K}\n`);
 
@@ -269,6 +272,7 @@ async function main() {
       ),
    );
    console.log(`\nwrote ${path.relative(ROOT, out)}`);
+   if (!info.has_index && !KEEP) await db.raw(`DROP INDEX IF EXISTS ${INDEX}`);
 }
 
 main()

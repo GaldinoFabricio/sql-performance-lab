@@ -1,0 +1,8385 @@
+{
+  "created_at": "2026-11-17T23:35:29.400Z",
+  "rows": 100000,
+  "not_info_rows": 26077,
+  "index": {
+    "m": 32,
+    "ef_construction": 200,
+    "partial_predicate": "level <> 'INFO'"
+  },
+  "k": 10,
+  "latency_note": "client-side wall time per query (one transaction with SET LOCAL), median of 3 passes after a warm-up pass, CHECKPOINT after each build",
+  "summary": [
+    {
+      "method": "exact, all rows",
+      "builds": 1,
+      "build_s": [
+        null
+      ],
+      "index_bytes": null,
+      "plan": "Limit → Gather Merge → Sort → Seq Scan",
+      "recall": 1,
+      "recall_range": [
+        1,
+        1
+      ],
+      "precision": 0.925,
+      "precision_range": [
+        0.925,
+        0.925
+      ],
+      "by_kind": {
+        "keyword": 0.9166666666666666,
+        "mixed": 0.9789473684210527,
+        "paraphrase": 0.8764705882352941
+      },
+      "short_results": [
+        0,
+        0
+      ],
+      "zero_relevant": [
+        4,
+        4
+      ],
+      "p50_ms": 32.812033000000156,
+      "p95_ms": 33.24265899999955
+    },
+    {
+      "method": "exact, not INFO",
+      "builds": 1,
+      "build_s": [
+        null
+      ],
+      "index_bytes": null,
+      "plan": "Limit → Sort → Seq Scan",
+      "recall": 1,
+      "recall_range": [
+        1,
+        1
+      ],
+      "precision": 0.95,
+      "precision_range": [
+        0.95,
+        0.95
+      ],
+      "by_kind": {
+        "keyword": 0.9166666666666666,
+        "mixed": 1,
+        "paraphrase": 0.9411764705882353
+      },
+      "short_results": [
+        0,
+        0
+      ],
+      "zero_relevant": [
+        3,
+        3
+      ],
+      "p50_ms": 35.03881700000056,
+      "p95_ms": 35.818710999999894
+    },
+    {
+      "method": "full HNSW, ef_search=40",
+      "builds": 3,
+      "build_s": [
+        18.719192544000002,
+        18.677160204,
+        18.41725123200001
+      ],
+      "index_bytes": 156073984,
+      "plan": "Limit → Index Scan (idx_logs_embedding_hnsw)",
+      "recall": 0.7616666666666667,
+      "recall_range": [
+        0.7233333333333333,
+        0.7983333333333333
+      ],
+      "precision": 0.7433333333333333,
+      "precision_range": [
+        0.7166666666666667,
+        0.7816666666666666
+      ],
+      "by_kind": {
+        "keyword": 0.6666666666666666,
+        "mixed": 0.7894736842105262,
+        "paraphrase": 0.7999999999999999
+      },
+      "short_results": [
+        0,
+        0
+      ],
+      "zero_relevant": [
+        13,
+        16
+      ],
+      "p50_ms": 1.2900410000002012,
+      "p95_ms": 1.9292649999988498
+    },
+    {
+      "method": "full HNSW + filter, ef_search=40",
+      "builds": 3,
+      "build_s": [
+        18.719192544000002,
+        18.677160204,
+        18.41725123200001
+      ],
+      "index_bytes": 156073984,
+      "plan": "Limit → Index Scan (idx_logs_embedding_hnsw)",
+      "recall": 0.7549999999999999,
+      "recall_range": [
+        0.7083333333333334,
+        0.8016666666666665
+      ],
+      "precision": 0.745,
+      "precision_range": [
+        0.7183333333333334,
+        0.7833333333333333
+      ],
+      "by_kind": {
+        "keyword": 0.6666666666666666,
+        "mixed": 0.7894736842105262,
+        "paraphrase": 0.8058823529411764
+      },
+      "short_results": [
+        6,
+        9
+      ],
+      "zero_relevant": [
+        13,
+        16
+      ],
+      "p50_ms": 1.1655270000046585,
+      "p95_ms": 1.580975999997463
+    },
+    {
+      "method": "full HNSW + filter, iterative, ef_search=40",
+      "builds": 3,
+      "build_s": [
+        18.719192544000002,
+        18.677160204,
+        18.41725123200001
+      ],
+      "index_bytes": 156073984,
+      "plan": "Limit → Index Scan (idx_logs_embedding_hnsw)",
+      "recall": 0.7549999999999999,
+      "recall_range": [
+        0.7083333333333334,
+        0.8016666666666665
+      ],
+      "precision": 0.791111111111111,
+      "precision_range": [
+        0.77,
+        0.8166666666666667
+      ],
+      "by_kind": {
+        "keyword": 0.7263888888888889,
+        "mixed": 0.7894736842105262,
+        "paraphrase": 0.884313725490196
+      },
+      "short_results": [
+        0,
+        0
+      ],
+      "zero_relevant": [
+        11,
+        13
+      ],
+      "p50_ms": 1.2180290000032983,
+      "p95_ms": 12.278572000010172
+    },
+    {
+      "method": "full HNSW, ef_search=160",
+      "builds": 3,
+      "build_s": [
+        18.719192544000002,
+        18.677160204,
+        18.41725123200001
+      ],
+      "index_bytes": 156073984,
+      "plan": "Limit → Index Scan (idx_logs_embedding_hnsw)",
+      "recall": 0.8505555555555556,
+      "recall_range": [
+        0.82,
+        0.8733333333333333
+      ],
+      "precision": 0.8011111111111111,
+      "precision_range": [
+        0.76,
+        0.8266666666666667
+      ],
+      "by_kind": {
+        "keyword": 0.7638888888888888,
+        "mixed": 0.8315789473684211,
+        "paraphrase": 0.819607843137255
+      },
+      "short_results": [
+        0,
+        0
+      ],
+      "zero_relevant": [
+        10,
+        14
+      ],
+      "p50_ms": 1.5968549999961397,
+      "p95_ms": 2.436197999995784
+    },
+    {
+      "method": "full HNSW + filter, ef_search=160",
+      "builds": 3,
+      "build_s": [
+        18.719192544000002,
+        18.677160204,
+        18.41725123200001
+      ],
+      "index_bytes": 156073984,
+      "plan": "Limit → Index Scan (idx_logs_embedding_hnsw)",
+      "recall": 0.8333333333333334,
+      "recall_range": [
+        0.7916666666666666,
+        0.8583333333333333
+      ],
+      "precision": 0.8061111111111111,
+      "precision_range": [
+        0.7666666666666667,
+        0.8333333333333334
+      ],
+      "by_kind": {
+        "keyword": 0.7638888888888888,
+        "mixed": 0.8421052631578947,
+        "paraphrase": 0.8254901960784314
+      },
+      "short_results": [
+        4,
+        7
+      ],
+      "zero_relevant": [
+        10,
+        14
+      ],
+      "p50_ms": 1.6194140000006882,
+      "p95_ms": 2.672385000012582
+    },
+    {
+      "method": "full HNSW + filter, iterative, ef_search=160",
+      "builds": 3,
+      "build_s": [
+        18.719192544000002,
+        18.677160204,
+        18.41725123200001
+      ],
+      "index_bytes": 156073984,
+      "plan": "Limit → Index Scan (idx_logs_embedding_hnsw)",
+      "recall": 0.8333333333333334,
+      "recall_range": [
+        0.7916666666666666,
+        0.8583333333333333
+      ],
+      "precision": 0.8227777777777777,
+      "precision_range": [
+        0.7833333333333333,
+        0.85
+      ],
+      "by_kind": {
+        "keyword": 0.7638888888888888,
+        "mixed": 0.8421052631578947,
+        "paraphrase": 0.884313725490196
+      },
+      "short_results": [
+        0,
+        0
+      ],
+      "zero_relevant": [
+        9,
+        13
+      ],
+      "p50_ms": 1.6323189999966417,
+      "p95_ms": 6.0842630000042845
+    },
+    {
+      "method": "partial HNSW, ef_search=40",
+      "builds": 3,
+      "build_s": [
+        4.454329505000001,
+        4.554287691999998,
+        4.594733189000006
+      ],
+      "index_bytes": 41869312,
+      "plan": "Limit → Index Scan (idx_logs_embedding_hnsw_not_info)",
+      "recall": 0.8794444444444444,
+      "recall_range": [
+        0.8683333333333333,
+        0.8849999999999999
+      ],
+      "precision": 0.8500000000000001,
+      "precision_range": [
+        0.8333333333333334,
+        0.8666666666666667
+      ],
+      "by_kind": {
+        "keyword": 0.8333333333333334,
+        "mixed": 0.8421052631578947,
+        "paraphrase": 0.8823529411764706
+      },
+      "short_results": [
+        0,
+        0
+      ],
+      "zero_relevant": [
+        8,
+        10
+      ],
+      "p50_ms": 1.0864010000077542,
+      "p95_ms": 2.9892629999958444
+    },
+    {
+      "method": "partial HNSW, ef_search=160",
+      "builds": 3,
+      "build_s": [
+        4.454329505000001,
+        4.554287691999998,
+        4.594733189000006
+      ],
+      "index_bytes": 41869312,
+      "plan": "Limit → Index Scan (idx_logs_embedding_hnsw_not_info)",
+      "recall": 0.9277777777777777,
+      "recall_range": [
+        0.9166666666666666,
+        0.9333333333333333
+      ],
+      "precision": 0.8777777777777778,
+      "precision_range": [
+        0.8666666666666667,
+        0.8833333333333333
+      ],
+      "by_kind": {
+        "keyword": 0.8611111111111112,
+        "mixed": 0.8596491228070176,
+        "paraphrase": 0.9215686274509803
+      },
+      "short_results": [
+        0,
+        0
+      ],
+      "zero_relevant": [
+        7,
+        8
+      ],
+      "p50_ms": 1.4618079999927431,
+      "p95_ms": 1.8926919999939855
+    }
+  ],
+  "writes": {
+    "rows": 500,
+    "no HNSW": {
+      "INFO": {
+        "wal_bytes_per_row": 2348.816,
+        "rows_per_s": 64192.59833655842
+      },
+      "not INFO": {
+        "wal_bytes_per_row": 2481.664,
+        "rows_per_s": 45454.87603551386
+      }
+    },
+    "full only": {
+      "INFO": {
+        "wal_bytes_per_row": 5103.344,
+        "rows_per_s": 997.5350271057969
+      },
+      "not INFO": {
+        "wal_bytes_per_row": 8437.328,
+        "rows_per_s": 1002.5096807297202
+      }
+    },
+    "partial only": {
+      "INFO": {
+        "wal_bytes_per_row": 2202.112,
+        "rows_per_s": 55368.55134943429
+      },
+      "not INFO": {
+        "wal_bytes_per_row": 7733.952,
+        "rows_per_s": 1162.2556087067699
+      }
+    }
+  },
+  "per_query": [
+    {
+      "text": "ECONNRESET",
+      "kind": "keyword",
+      "expected": "cache_unavailable",
+      "kth_distance_all": 0.4203052365234061,
+      "kth_distance_not_info": 0.4203052365234061,
+      "methods": {
+        "exact, all rows": [
+          {
+            "recall": 1,
+            "precision": 0
+          }
+        ],
+        "exact, not INFO": [
+          {
+            "recall": 1,
+            "precision": 0
+          }
+        ],
+        "full HNSW, ef_search=40": [
+          {
+            "recall": 1,
+            "precision": 0
+          },
+          {
+            "recall": 0,
+            "precision": 0
+          },
+          {
+            "recall": 1,
+            "precision": 0
+          }
+        ],
+        "full HNSW + filter, ef_search=40": [
+          {
+            "recall": 1,
+            "precision": 0
+          },
+          {
+            "recall": 0,
+            "precision": 0
+          },
+          {
+            "recall": 1,
+            "precision": 0
+          }
+        ],
+        "full HNSW + filter, iterative, ef_search=40": [
+          {
+            "recall": 1,
+            "precision": 0
+          },
+          {
+            "recall": 0,
+            "precision": 0
+          },
+          {
+            "recall": 1,
+            "precision": 0
+          }
+        ],
+        "full HNSW, ef_search=160": [
+          {
+            "recall": 1,
+            "precision": 0
+          },
+          {
+            "recall": 1,
+            "precision": 0
+          },
+          {
+            "recall": 1,
+            "precision": 0
+          }
+        ],
+        "full HNSW + filter, ef_search=160": [
+          {
+            "recall": 1,
+            "precision": 0
+          },
+          {
+            "recall": 1,
+            "precision": 0
+          },
+          {
+            "recall": 1,
+            "precision": 0
+          }
+        ],
+        "full HNSW + filter, iterative, ef_search=160": [
+          {
+            "recall": 1,
+            "precision": 0
+          },
+          {
+            "recall": 1,
+            "precision": 0
+          },
+          {
+            "recall": 1,
+            "precision": 0
+          }
+        ],
+        "partial HNSW, ef_search=40": [
+          {
+            "recall": 1,
+            "precision": 0
+          },
+          {
+            "recall": 1,
+            "precision": 0
+          },
+          {
+            "recall": 1,
+            "precision": 0
+          }
+        ],
+        "partial HNSW, ef_search=160": [
+          {
+            "recall": 1,
+            "precision": 0
+          },
+          {
+            "recall": 1,
+            "precision": 0
+          },
+          {
+            "recall": 1,
+            "precision": 0
+          }
+        ]
+      }
+    },
+    {
+      "text": "redis is down",
+      "kind": "mixed",
+      "expected": "cache_unavailable",
+      "kth_distance_all": 0.4185441732406451,
+      "kth_distance_not_info": 0.4185441732406451,
+      "methods": {
+        "exact, all rows": [
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "exact, not INFO": [
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "full HNSW, ef_search=40": [
+          {
+            "recall": 0,
+            "precision": 0
+          },
+          {
+            "recall": 0,
+            "precision": 0
+          },
+          {
+            "recall": 0,
+            "precision": 0
+          }
+        ],
+        "full HNSW + filter, ef_search=40": [
+          {
+            "recall": 0,
+            "precision": 0
+          },
+          {
+            "recall": 0,
+            "precision": 0
+          },
+          {
+            "recall": 0,
+            "precision": 0
+          }
+        ],
+        "full HNSW + filter, iterative, ef_search=40": [
+          {
+            "recall": 0,
+            "precision": 0
+          },
+          {
+            "recall": 0,
+            "precision": 0
+          },
+          {
+            "recall": 0,
+            "precision": 0
+          }
+        ],
+        "full HNSW, ef_search=160": [
+          {
+            "recall": 0,
+            "precision": 0
+          },
+          {
+            "recall": 0,
+            "precision": 0
+          },
+          {
+            "recall": 0,
+            "precision": 0
+          }
+        ],
+        "full HNSW + filter, ef_search=160": [
+          {
+            "recall": 0,
+            "precision": 0
+          },
+          {
+            "recall": 0,
+            "precision": 0
+          },
+          {
+            "recall": 0,
+            "precision": 0
+          }
+        ],
+        "full HNSW + filter, iterative, ef_search=160": [
+          {
+            "recall": 0,
+            "precision": 0
+          },
+          {
+            "recall": 0,
+            "precision": 0
+          },
+          {
+            "recall": 0,
+            "precision": 0
+          }
+        ],
+        "partial HNSW, ef_search=40": [
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 0,
+            "precision": 0
+          },
+          {
+            "recall": 0,
+            "precision": 0
+          }
+        ],
+        "partial HNSW, ef_search=160": [
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 0,
+            "precision": 0
+          },
+          {
+            "recall": 0,
+            "precision": 0
+          }
+        ]
+      }
+    },
+    {
+      "text": "cannot connect to the cache",
+      "kind": "mixed",
+      "expected": "cache_unavailable",
+      "kth_distance_all": 0.23479661526719797,
+      "kth_distance_not_info": 0.23479661526719797,
+      "methods": {
+        "exact, all rows": [
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "exact, not INFO": [
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "full HNSW, ef_search=40": [
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "full HNSW + filter, ef_search=40": [
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "full HNSW + filter, iterative, ef_search=40": [
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "full HNSW, ef_search=160": [
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "full HNSW + filter, ef_search=160": [
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "full HNSW + filter, iterative, ef_search=160": [
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "partial HNSW, ef_search=40": [
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "partial HNSW, ef_search=160": [
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ]
+      }
+    },
+    {
+      "text": "session store unreachable",
+      "kind": "paraphrase",
+      "expected": "cache_unavailable",
+      "kth_distance_all": 0.3173509050994463,
+      "kth_distance_not_info": 0.3173509050994463,
+      "methods": {
+        "exact, all rows": [
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "exact, not INFO": [
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "full HNSW, ef_search=40": [
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "full HNSW + filter, ef_search=40": [
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "full HNSW + filter, iterative, ef_search=40": [
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "full HNSW, ef_search=160": [
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "full HNSW + filter, ef_search=160": [
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "full HNSW + filter, iterative, ef_search=160": [
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "partial HNSW, ef_search=40": [
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "partial HNSW, ef_search=160": [
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ]
+      }
+    },
+    {
+      "text": "ECONNREFUSED",
+      "kind": "keyword",
+      "expected": "db_connection_timeout",
+      "kth_distance_all": 0.39225779152684104,
+      "kth_distance_not_info": 0.39225779152684104,
+      "methods": {
+        "exact, all rows": [
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "exact, not INFO": [
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "full HNSW, ef_search=40": [
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 0,
+            "precision": 0
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "full HNSW + filter, ef_search=40": [
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 0,
+            "precision": 0
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "full HNSW + filter, iterative, ef_search=40": [
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 0,
+            "precision": 0
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "full HNSW, ef_search=160": [
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 0,
+            "precision": 0
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "full HNSW + filter, ef_search=160": [
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 0,
+            "precision": 0
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "full HNSW + filter, iterative, ef_search=160": [
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 0,
+            "precision": 0
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "partial HNSW, ef_search=40": [
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "partial HNSW, ef_search=160": [
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ]
+      }
+    },
+    {
+      "text": "KnexTimeoutError",
+      "kind": "keyword",
+      "expected": "db_connection_timeout",
+      "kth_distance_all": 0.3600717353734876,
+      "kth_distance_not_info": 0.3600717353734876,
+      "methods": {
+        "exact, all rows": [
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "exact, not INFO": [
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "full HNSW, ef_search=40": [
+          {
+            "recall": 0,
+            "precision": 0
+          },
+          {
+            "recall": 0,
+            "precision": 0
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "full HNSW + filter, ef_search=40": [
+          {
+            "recall": 0,
+            "precision": 0
+          },
+          {
+            "recall": 0,
+            "precision": 0
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "full HNSW + filter, iterative, ef_search=40": [
+          {
+            "recall": 0,
+            "precision": 0.2
+          },
+          {
+            "recall": 0,
+            "precision": 0.5
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "full HNSW, ef_search=160": [
+          {
+            "recall": 0,
+            "precision": 0
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "full HNSW + filter, ef_search=160": [
+          {
+            "recall": 0,
+            "precision": 0
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "full HNSW + filter, iterative, ef_search=160": [
+          {
+            "recall": 0,
+            "precision": 0
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "partial HNSW, ef_search=40": [
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "partial HNSW, ef_search=160": [
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ]
+      }
+    },
+    {
+      "text": "db connection timeout",
+      "kind": "mixed",
+      "expected": "db_connection_timeout",
+      "kth_distance_all": 0.4197735959358908,
+      "kth_distance_not_info": 0.4197735959358908,
+      "methods": {
+        "exact, all rows": [
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "exact, not INFO": [
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "full HNSW, ef_search=40": [
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "full HNSW + filter, ef_search=40": [
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "full HNSW + filter, iterative, ef_search=40": [
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "full HNSW, ef_search=160": [
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "full HNSW + filter, ef_search=160": [
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "full HNSW + filter, iterative, ef_search=160": [
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "partial HNSW, ef_search=40": [
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "partial HNSW, ef_search=160": [
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ]
+      }
+    },
+    {
+      "text": "database is not accepting new connections",
+      "kind": "paraphrase",
+      "expected": "db_connection_timeout",
+      "kth_distance_all": 0.4226672489642045,
+      "kth_distance_not_info": 0.4226672489642045,
+      "methods": {
+        "exact, all rows": [
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "exact, not INFO": [
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "full HNSW, ef_search=40": [
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 0,
+            "precision": 0
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "full HNSW + filter, ef_search=40": [
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 0,
+            "precision": 0
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "full HNSW + filter, iterative, ef_search=40": [
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 0,
+            "precision": 0
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "full HNSW, ef_search=160": [
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 0,
+            "precision": 0
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "full HNSW + filter, ef_search=160": [
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 0,
+            "precision": 0
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "full HNSW + filter, iterative, ef_search=160": [
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 0,
+            "precision": 0
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "partial HNSW, ef_search=40": [
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "partial HNSW, ef_search=160": [
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ]
+      }
+    },
+    {
+      "text": "deadlock detected",
+      "kind": "keyword",
+      "expected": "deadlock",
+      "kth_distance_all": 0.3072400918912581,
+      "kth_distance_not_info": 0.3072400918912581,
+      "methods": {
+        "exact, all rows": [
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "exact, not INFO": [
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "full HNSW, ef_search=40": [
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "full HNSW + filter, ef_search=40": [
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "full HNSW + filter, iterative, ef_search=40": [
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "full HNSW, ef_search=160": [
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "full HNSW + filter, ef_search=160": [
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "full HNSW + filter, iterative, ef_search=160": [
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "partial HNSW, ef_search=40": [
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "partial HNSW, ef_search=160": [
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ]
+      }
+    },
+    {
+      "text": "transaction rolled back by concurrent updates",
+      "kind": "mixed",
+      "expected": "deadlock",
+      "kth_distance_all": 0.34350820534052795,
+      "kth_distance_not_info": 0.34350820534052795,
+      "methods": {
+        "exact, all rows": [
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "exact, not INFO": [
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "full HNSW, ef_search=40": [
+          {
+            "recall": 0,
+            "precision": 0
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 0,
+            "precision": 0
+          }
+        ],
+        "full HNSW + filter, ef_search=40": [
+          {
+            "recall": 0,
+            "precision": 0
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 0,
+            "precision": 0
+          }
+        ],
+        "full HNSW + filter, iterative, ef_search=40": [
+          {
+            "recall": 0,
+            "precision": 0
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 0,
+            "precision": 0
+          }
+        ],
+        "full HNSW, ef_search=160": [
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "full HNSW + filter, ef_search=160": [
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "full HNSW + filter, iterative, ef_search=160": [
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "partial HNSW, ef_search=40": [
+          {
+            "recall": 0,
+            "precision": 0
+          },
+          {
+            "recall": 0,
+            "precision": 0
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "partial HNSW, ef_search=160": [
+          {
+            "recall": 0,
+            "precision": 0
+          },
+          {
+            "recall": 0,
+            "precision": 0
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ]
+      }
+    },
+    {
+      "text": "two transactions blocking each other",
+      "kind": "paraphrase",
+      "expected": "deadlock",
+      "kth_distance_all": 0.5565562844276302,
+      "kth_distance_not_info": 0.5565562844276302,
+      "methods": {
+        "exact, all rows": [
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "exact, not INFO": [
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "full HNSW, ef_search=40": [
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "full HNSW + filter, ef_search=40": [
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "full HNSW + filter, iterative, ef_search=40": [
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "full HNSW, ef_search=160": [
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "full HNSW + filter, ef_search=160": [
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "full HNSW + filter, iterative, ef_search=160": [
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "partial HNSW, ef_search=40": [
+          {
+            "recall": 0,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "partial HNSW, ef_search=160": [
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ]
+      }
+    },
+    {
+      "text": "rows locked by each other forever",
+      "kind": "paraphrase",
+      "expected": "deadlock",
+      "kth_distance_all": 0.49308290789009446,
+      "kth_distance_not_info": 0.49308290789009446,
+      "methods": {
+        "exact, all rows": [
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "exact, not INFO": [
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "full HNSW, ef_search=40": [
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 0,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "full HNSW + filter, ef_search=40": [
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 0,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "full HNSW + filter, iterative, ef_search=40": [
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 0,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "full HNSW, ef_search=160": [
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "full HNSW + filter, ef_search=160": [
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "full HNSW + filter, iterative, ef_search=160": [
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "partial HNSW, ef_search=40": [
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "partial HNSW, ef_search=160": [
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ]
+      }
+    },
+    {
+      "text": "ENOSPC",
+      "kind": "keyword",
+      "expected": "disk_full",
+      "kth_distance_all": 0.4780752865390101,
+      "kth_distance_not_info": 0.4780752865390101,
+      "methods": {
+        "exact, all rows": [
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "exact, not INFO": [
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "full HNSW, ef_search=40": [
+          {
+            "recall": 0,
+            "precision": 0
+          },
+          {
+            "recall": 0,
+            "precision": 0
+          },
+          {
+            "recall": 0,
+            "precision": 0
+          }
+        ],
+        "full HNSW + filter, ef_search=40": [
+          {
+            "recall": 0,
+            "precision": 0
+          },
+          {
+            "recall": 0,
+            "precision": 0
+          },
+          {
+            "recall": 0,
+            "precision": 0
+          }
+        ],
+        "full HNSW + filter, iterative, ef_search=40": [
+          {
+            "recall": 0,
+            "precision": 0
+          },
+          {
+            "recall": 0,
+            "precision": 0
+          },
+          {
+            "recall": 0,
+            "precision": 0
+          }
+        ],
+        "full HNSW, ef_search=160": [
+          {
+            "recall": 0,
+            "precision": 0
+          },
+          {
+            "recall": 0,
+            "precision": 0
+          },
+          {
+            "recall": 0,
+            "precision": 0
+          }
+        ],
+        "full HNSW + filter, ef_search=160": [
+          {
+            "recall": 0,
+            "precision": 0
+          },
+          {
+            "recall": 0,
+            "precision": 0
+          },
+          {
+            "recall": 0,
+            "precision": 0
+          }
+        ],
+        "full HNSW + filter, iterative, ef_search=160": [
+          {
+            "recall": 0,
+            "precision": 0
+          },
+          {
+            "recall": 0,
+            "precision": 0
+          },
+          {
+            "recall": 0,
+            "precision": 0
+          }
+        ],
+        "partial HNSW, ef_search=40": [
+          {
+            "recall": 0,
+            "precision": 0
+          },
+          {
+            "recall": 0,
+            "precision": 0
+          },
+          {
+            "recall": 0,
+            "precision": 0
+          }
+        ],
+        "partial HNSW, ef_search=160": [
+          {
+            "recall": 0,
+            "precision": 0
+          },
+          {
+            "recall": 0,
+            "precision": 0
+          },
+          {
+            "recall": 0,
+            "precision": 0
+          }
+        ]
+      }
+    },
+    {
+      "text": "no space left on device",
+      "kind": "keyword",
+      "expected": "disk_full",
+      "kth_distance_all": 0.4866421222686731,
+      "kth_distance_not_info": 0.4866421222686731,
+      "methods": {
+        "exact, all rows": [
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "exact, not INFO": [
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "full HNSW, ef_search=40": [
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "full HNSW + filter, ef_search=40": [
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "full HNSW + filter, iterative, ef_search=40": [
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "full HNSW, ef_search=160": [
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "full HNSW + filter, ef_search=160": [
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "full HNSW + filter, iterative, ef_search=160": [
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "partial HNSW, ef_search=40": [
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "partial HNSW, ef_search=160": [
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ]
+      }
+    },
+    {
+      "text": "storage volume is full",
+      "kind": "paraphrase",
+      "expected": "disk_full",
+      "kth_distance_all": 0.4318413043495015,
+      "kth_distance_not_info": 0.4318413043495015,
+      "methods": {
+        "exact, all rows": [
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "exact, not INFO": [
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "full HNSW, ef_search=40": [
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 0,
+            "precision": 0.1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "full HNSW + filter, ef_search=40": [
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 0,
+            "precision": 0.1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "full HNSW + filter, iterative, ef_search=40": [
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 0,
+            "precision": 0.1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "full HNSW, ef_search=160": [
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 0,
+            "precision": 0.1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "full HNSW + filter, ef_search=160": [
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 0,
+            "precision": 0.1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "full HNSW + filter, iterative, ef_search=160": [
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 0,
+            "precision": 0.1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "partial HNSW, ef_search=40": [
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "partial HNSW, ef_search=160": [
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ]
+      }
+    },
+    {
+      "text": "cannot write files anymore, the drive is at capacity",
+      "kind": "paraphrase",
+      "expected": "disk_full",
+      "kth_distance_all": 0.4396351431930048,
+      "kth_distance_not_info": 0.4396351431930048,
+      "methods": {
+        "exact, all rows": [
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "exact, not INFO": [
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "full HNSW, ef_search=40": [
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "full HNSW + filter, ef_search=40": [
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "full HNSW + filter, iterative, ef_search=40": [
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "full HNSW, ef_search=160": [
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "full HNSW + filter, ef_search=160": [
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "full HNSW + filter, iterative, ef_search=160": [
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "partial HNSW, ef_search=40": [
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "partial HNSW, ef_search=160": [
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ]
+      }
+    },
+    {
+      "text": "ENOTFOUND",
+      "kind": "keyword",
+      "expected": "dns_failure",
+      "kth_distance_all": 0.6470043799294016,
+      "kth_distance_not_info": 0.6470043799294016,
+      "methods": {
+        "exact, all rows": [
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "exact, not INFO": [
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "full HNSW, ef_search=40": [
+          {
+            "recall": 0,
+            "precision": 0
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 0,
+            "precision": 0
+          }
+        ],
+        "full HNSW + filter, ef_search=40": [
+          {
+            "recall": 0,
+            "precision": 0
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 0,
+            "precision": 0
+          }
+        ],
+        "full HNSW + filter, iterative, ef_search=40": [
+          {
+            "recall": 0,
+            "precision": 0
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 0,
+            "precision": 0
+          }
+        ],
+        "full HNSW, ef_search=160": [
+          {
+            "recall": 0,
+            "precision": 0
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 0,
+            "precision": 0
+          }
+        ],
+        "full HNSW + filter, ef_search=160": [
+          {
+            "recall": 0,
+            "precision": 0
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 0,
+            "precision": 0
+          }
+        ],
+        "full HNSW + filter, iterative, ef_search=160": [
+          {
+            "recall": 0,
+            "precision": 0
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 0,
+            "precision": 0
+          }
+        ],
+        "partial HNSW, ef_search=40": [
+          {
+            "recall": 0,
+            "precision": 0
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "partial HNSW, ef_search=160": [
+          {
+            "recall": 0,
+            "precision": 0
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ]
+      }
+    },
+    {
+      "text": "temporary failure in name resolution",
+      "kind": "keyword",
+      "expected": "dns_failure",
+      "kth_distance_all": 0.42481727304252304,
+      "kth_distance_not_info": 0.42481727304252304,
+      "methods": {
+        "exact, all rows": [
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "exact, not INFO": [
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "full HNSW, ef_search=40": [
+          {
+            "recall": 0,
+            "precision": 0
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "full HNSW + filter, ef_search=40": [
+          {
+            "recall": 0,
+            "precision": 0
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "full HNSW + filter, iterative, ef_search=40": [
+          {
+            "recall": 0,
+            "precision": 0
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "full HNSW, ef_search=160": [
+          {
+            "recall": 0,
+            "precision": 0
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "full HNSW + filter, ef_search=160": [
+          {
+            "recall": 0,
+            "precision": 0
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "full HNSW + filter, iterative, ef_search=160": [
+          {
+            "recall": 0,
+            "precision": 0
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "partial HNSW, ef_search=40": [
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "partial HNSW, ef_search=160": [
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ]
+      }
+    },
+    {
+      "text": "hostname lookup failing",
+      "kind": "mixed",
+      "expected": "dns_failure",
+      "kth_distance_all": 0.38773798942564175,
+      "kth_distance_not_info": 0.38773798942564175,
+      "methods": {
+        "exact, all rows": [
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "exact, not INFO": [
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "full HNSW, ef_search=40": [
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 0,
+            "precision": 0
+          }
+        ],
+        "full HNSW + filter, ef_search=40": [
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 0,
+            "precision": 0
+          }
+        ],
+        "full HNSW + filter, iterative, ef_search=40": [
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 0,
+            "precision": 0
+          }
+        ],
+        "full HNSW, ef_search=160": [
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 0,
+            "precision": 0
+          }
+        ],
+        "full HNSW + filter, ef_search=160": [
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 0,
+            "precision": 0
+          }
+        ],
+        "full HNSW + filter, iterative, ef_search=160": [
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 0,
+            "precision": 0
+          }
+        ],
+        "partial HNSW, ef_search=40": [
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "partial HNSW, ef_search=160": [
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ]
+      }
+    },
+    {
+      "text": "cannot find the address of the payment server",
+      "kind": "paraphrase",
+      "expected": "dns_failure",
+      "kth_distance_all": 0.30719874458319363,
+      "kth_distance_not_info": 0.30719874458319363,
+      "methods": {
+        "exact, all rows": [
+          {
+            "recall": 1,
+            "precision": 0
+          }
+        ],
+        "exact, not INFO": [
+          {
+            "recall": 1,
+            "precision": 0
+          }
+        ],
+        "full HNSW, ef_search=40": [
+          {
+            "recall": 1,
+            "precision": 0
+          },
+          {
+            "recall": 1,
+            "precision": 0
+          },
+          {
+            "recall": 0,
+            "precision": 0
+          }
+        ],
+        "full HNSW + filter, ef_search=40": [
+          {
+            "recall": 1,
+            "precision": 0
+          },
+          {
+            "recall": 1,
+            "precision": 0
+          },
+          {
+            "recall": 0,
+            "precision": 0
+          }
+        ],
+        "full HNSW + filter, iterative, ef_search=40": [
+          {
+            "recall": 1,
+            "precision": 0
+          },
+          {
+            "recall": 1,
+            "precision": 0
+          },
+          {
+            "recall": 0,
+            "precision": 0
+          }
+        ],
+        "full HNSW, ef_search=160": [
+          {
+            "recall": 1,
+            "precision": 0
+          },
+          {
+            "recall": 1,
+            "precision": 0
+          },
+          {
+            "recall": 0,
+            "precision": 0
+          }
+        ],
+        "full HNSW + filter, ef_search=160": [
+          {
+            "recall": 1,
+            "precision": 0
+          },
+          {
+            "recall": 1,
+            "precision": 0
+          },
+          {
+            "recall": 0,
+            "precision": 0
+          }
+        ],
+        "full HNSW + filter, iterative, ef_search=160": [
+          {
+            "recall": 1,
+            "precision": 0
+          },
+          {
+            "recall": 1,
+            "precision": 0
+          },
+          {
+            "recall": 0,
+            "precision": 0
+          }
+        ],
+        "partial HNSW, ef_search=40": [
+          {
+            "recall": 1,
+            "precision": 0
+          },
+          {
+            "recall": 1,
+            "precision": 0
+          },
+          {
+            "recall": 1,
+            "precision": 0
+          }
+        ],
+        "partial HNSW, ef_search=160": [
+          {
+            "recall": 1,
+            "precision": 0
+          },
+          {
+            "recall": 1,
+            "precision": 0
+          },
+          {
+            "recall": 1,
+            "precision": 0
+          }
+        ]
+      }
+    },
+    {
+      "text": "users_email_unique",
+      "kind": "keyword",
+      "expected": "duplicate_key",
+      "kth_distance_all": 0.22058403491971657,
+      "kth_distance_not_info": 0.22058403491971657,
+      "methods": {
+        "exact, all rows": [
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "exact, not INFO": [
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "full HNSW, ef_search=40": [
+          {
+            "recall": 0,
+            "precision": 0
+          },
+          {
+            "recall": 0,
+            "precision": 0
+          },
+          {
+            "recall": 0,
+            "precision": 0
+          }
+        ],
+        "full HNSW + filter, ef_search=40": [
+          {
+            "recall": 0,
+            "precision": 0
+          },
+          {
+            "recall": 0,
+            "precision": 0
+          },
+          {
+            "recall": 0,
+            "precision": 0
+          }
+        ],
+        "full HNSW + filter, iterative, ef_search=40": [
+          {
+            "recall": 0,
+            "precision": 1
+          },
+          {
+            "recall": 0,
+            "precision": 1
+          },
+          {
+            "recall": 0,
+            "precision": 1
+          }
+        ],
+        "full HNSW, ef_search=160": [
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "full HNSW + filter, ef_search=160": [
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "full HNSW + filter, iterative, ef_search=160": [
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "partial HNSW, ef_search=40": [
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "partial HNSW, ef_search=160": [
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ]
+      }
+    },
+    {
+      "text": "duplicate key value violates unique constraint",
+      "kind": "keyword",
+      "expected": "duplicate_key",
+      "kth_distance_all": 0.2083391423023132,
+      "kth_distance_not_info": 0.2083391423023132,
+      "methods": {
+        "exact, all rows": [
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "exact, not INFO": [
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "full HNSW, ef_search=40": [
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 0,
+            "precision": 0
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "full HNSW + filter, ef_search=40": [
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 0,
+            "precision": 0
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "full HNSW + filter, iterative, ef_search=40": [
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 0,
+            "precision": 0
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "full HNSW, ef_search=160": [
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "full HNSW + filter, ef_search=160": [
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "full HNSW + filter, iterative, ef_search=160": [
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "partial HNSW, ef_search=40": [
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 0,
+            "precision": 0
+          }
+        ],
+        "partial HNSW, ef_search=160": [
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ]
+      }
+    },
+    {
+      "text": "warehouse reconciliation mismatch",
+      "kind": "keyword",
+      "expected": "stock_inconsistency",
+      "kth_distance_all": 0.20845863844330148,
+      "kth_distance_not_info": 0.20845863844330148,
+      "methods": {
+        "exact, all rows": [
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "exact, not INFO": [
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "full HNSW, ef_search=40": [
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "full HNSW + filter, ef_search=40": [
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "full HNSW + filter, iterative, ef_search=40": [
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "full HNSW, ef_search=160": [
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "full HNSW + filter, ef_search=160": [
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "full HNSW + filter, iterative, ef_search=160": [
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "partial HNSW, ef_search=40": [
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "partial HNSW, ef_search=160": [
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ]
+      }
+    },
+    {
+      "text": "email already registered",
+      "kind": "mixed",
+      "expected": "duplicate_key",
+      "kth_distance_all": 0.29633934741308465,
+      "kth_distance_not_info": 0.29633934741308465,
+      "methods": {
+        "exact, all rows": [
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "exact, not INFO": [
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "full HNSW, ef_search=40": [
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "full HNSW + filter, ef_search=40": [
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "full HNSW + filter, iterative, ef_search=40": [
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "full HNSW, ef_search=160": [
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "full HNSW + filter, ef_search=160": [
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "full HNSW + filter, iterative, ef_search=160": [
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "partial HNSW, ef_search=40": [
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "partial HNSW, ef_search=160": [
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ]
+      }
+    },
+    {
+      "text": "same order submitted twice",
+      "kind": "paraphrase",
+      "expected": "duplicate_key",
+      "kth_distance_all": 0.46518011494933054,
+      "kth_distance_not_info": 0.46518011494933054,
+      "methods": {
+        "exact, all rows": [
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "exact, not INFO": [
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "full HNSW, ef_search=40": [
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "full HNSW + filter, ef_search=40": [
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "full HNSW + filter, iterative, ef_search=40": [
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "full HNSW, ef_search=160": [
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "full HNSW + filter, ef_search=160": [
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "full HNSW + filter, iterative, ef_search=160": [
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "partial HNSW, ef_search=40": [
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "partial HNSW, ef_search=160": [
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ]
+      }
+    },
+    {
+      "text": "JWT expired",
+      "kind": "keyword",
+      "expected": "jwt_expired",
+      "kth_distance_all": 0.187872525415541,
+      "kth_distance_not_info": 0.187872525415541,
+      "methods": {
+        "exact, all rows": [
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "exact, not INFO": [
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "full HNSW, ef_search=40": [
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "full HNSW + filter, ef_search=40": [
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "full HNSW + filter, iterative, ef_search=40": [
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "full HNSW, ef_search=160": [
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "full HNSW + filter, ef_search=160": [
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "full HNSW + filter, iterative, ef_search=160": [
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "partial HNSW, ef_search=40": [
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "partial HNSW, ef_search=160": [
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ]
+      }
+    },
+    {
+      "text": "401 unauthorized after token expiry",
+      "kind": "mixed",
+      "expected": "jwt_expired",
+      "kth_distance_all": 0.3762300681381937,
+      "kth_distance_not_info": 0.37642206937344946,
+      "methods": {
+        "exact, all rows": [
+          {
+            "recall": 1,
+            "precision": 0.6
+          }
+        ],
+        "exact, not INFO": [
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "full HNSW, ef_search=40": [
+          {
+            "recall": 0.1,
+            "precision": 1
+          },
+          {
+            "recall": 0.5,
+            "precision": 1
+          },
+          {
+            "recall": 0.1,
+            "precision": 1
+          }
+        ],
+        "full HNSW + filter, ef_search=40": [
+          {
+            "recall": 0.5,
+            "precision": 1
+          },
+          {
+            "recall": 0.5,
+            "precision": 1
+          },
+          {
+            "recall": 0.5,
+            "precision": 1
+          }
+        ],
+        "full HNSW + filter, iterative, ef_search=40": [
+          {
+            "recall": 0.5,
+            "precision": 1
+          },
+          {
+            "recall": 0.5,
+            "precision": 1
+          },
+          {
+            "recall": 0.5,
+            "precision": 1
+          }
+        ],
+        "full HNSW, ef_search=160": [
+          {
+            "recall": 0.4,
+            "precision": 0.7
+          },
+          {
+            "recall": 0.6,
+            "precision": 1
+          },
+          {
+            "recall": 0.4,
+            "precision": 0.7
+          }
+        ],
+        "full HNSW + filter, ef_search=160": [
+          {
+            "recall": 0.5,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 0.5,
+            "precision": 1
+          }
+        ],
+        "full HNSW + filter, iterative, ef_search=160": [
+          {
+            "recall": 0.5,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 0.5,
+            "precision": 1
+          }
+        ],
+        "partial HNSW, ef_search=40": [
+          {
+            "recall": 0.5,
+            "precision": 1
+          },
+          {
+            "recall": 0.5,
+            "precision": 1
+          },
+          {
+            "recall": 0.5,
+            "precision": 1
+          }
+        ],
+        "partial HNSW, ef_search=160": [
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ]
+      }
+    },
+    {
+      "text": "login session no longer valid",
+      "kind": "mixed",
+      "expected": "jwt_expired",
+      "kth_distance_all": 0.31219070045143826,
+      "kth_distance_not_info": 0.31219070045143826,
+      "methods": {
+        "exact, all rows": [
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "exact, not INFO": [
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "full HNSW, ef_search=40": [
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "full HNSW + filter, ef_search=40": [
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "full HNSW + filter, iterative, ef_search=40": [
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "full HNSW, ef_search=160": [
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "full HNSW + filter, ef_search=160": [
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "full HNSW + filter, iterative, ef_search=160": [
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "partial HNSW, ef_search=40": [
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "partial HNSW, ef_search=160": [
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ]
+      }
+    },
+    {
+      "text": "users are being logged out unexpectedly",
+      "kind": "paraphrase",
+      "expected": "jwt_expired",
+      "kth_distance_all": 0.4302000909447308,
+      "kth_distance_not_info": 0.5277910166284865,
+      "methods": {
+        "exact, all rows": [
+          {
+            "recall": 1,
+            "precision": 0
+          }
+        ],
+        "exact, not INFO": [
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "full HNSW, ef_search=40": [
+          {
+            "recall": 0.9,
+            "precision": 0
+          },
+          {
+            "recall": 0.9,
+            "precision": 0
+          },
+          {
+            "recall": 0.9,
+            "precision": 0
+          }
+        ],
+        "full HNSW + filter, ef_search=40": [
+          {
+            "recall": 0,
+            "precision": 0
+          },
+          {
+            "recall": 0,
+            "precision": 0
+          },
+          {
+            "recall": 0,
+            "precision": 0
+          }
+        ],
+        "full HNSW + filter, iterative, ef_search=40": [
+          {
+            "recall": 0,
+            "precision": 1
+          },
+          {
+            "recall": 0,
+            "precision": 1
+          },
+          {
+            "recall": 0,
+            "precision": 1
+          }
+        ],
+        "full HNSW, ef_search=160": [
+          {
+            "recall": 1,
+            "precision": 0
+          },
+          {
+            "recall": 1,
+            "precision": 0
+          },
+          {
+            "recall": 1,
+            "precision": 0
+          }
+        ],
+        "full HNSW + filter, ef_search=160": [
+          {
+            "recall": 0,
+            "precision": 0
+          },
+          {
+            "recall": 0,
+            "precision": 0
+          },
+          {
+            "recall": 0,
+            "precision": 0
+          }
+        ],
+        "full HNSW + filter, iterative, ef_search=160": [
+          {
+            "recall": 0,
+            "precision": 1
+          },
+          {
+            "recall": 0,
+            "precision": 1
+          },
+          {
+            "recall": 0,
+            "precision": 1
+          }
+        ],
+        "partial HNSW, ef_search=40": [
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "partial HNSW, ef_search=160": [
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ]
+      }
+    },
+    {
+      "text": "NullPointerException",
+      "kind": "keyword",
+      "expected": "null_reference",
+      "kth_distance_all": 0.3750591501628846,
+      "kth_distance_not_info": 0.3750591501628846,
+      "methods": {
+        "exact, all rows": [
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "exact, not INFO": [
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "full HNSW, ef_search=40": [
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "full HNSW + filter, ef_search=40": [
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "full HNSW + filter, iterative, ef_search=40": [
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "full HNSW, ef_search=160": [
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "full HNSW + filter, ef_search=160": [
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "full HNSW + filter, iterative, ef_search=160": [
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "partial HNSW, ef_search=40": [
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "partial HNSW, ef_search=160": [
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ]
+      }
+    },
+    {
+      "text": "Cannot read properties of undefined",
+      "kind": "keyword",
+      "expected": "null_reference",
+      "kth_distance_all": 0.4879383125194424,
+      "kth_distance_not_info": 0.4879383125194424,
+      "methods": {
+        "exact, all rows": [
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "exact, not INFO": [
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "full HNSW, ef_search=40": [
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 0,
+            "precision": 0
+          }
+        ],
+        "full HNSW + filter, ef_search=40": [
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 0,
+            "precision": 0
+          }
+        ],
+        "full HNSW + filter, iterative, ef_search=40": [
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 0,
+            "precision": 0
+          }
+        ],
+        "full HNSW, ef_search=160": [
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "full HNSW + filter, ef_search=160": [
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "full HNSW + filter, iterative, ef_search=160": [
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "partial HNSW, ef_search=40": [
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "partial HNSW, ef_search=160": [
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ]
+      }
+    },
+    {
+      "text": "accessing a property of an undefined object",
+      "kind": "mixed",
+      "expected": "null_reference",
+      "kth_distance_all": 0.4493786424768692,
+      "kth_distance_not_info": 0.4493786424768692,
+      "methods": {
+        "exact, all rows": [
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "exact, not INFO": [
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "full HNSW, ef_search=40": [
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "full HNSW + filter, ef_search=40": [
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "full HNSW + filter, iterative, ef_search=40": [
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "full HNSW, ef_search=160": [
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "full HNSW + filter, ef_search=160": [
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "full HNSW + filter, iterative, ef_search=160": [
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "partial HNSW, ef_search=40": [
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "partial HNSW, ef_search=160": [
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ]
+      }
+    },
+    {
+      "text": "code crashed on a missing field",
+      "kind": "paraphrase",
+      "expected": "null_reference",
+      "kth_distance_all": 0.6061504528163784,
+      "kth_distance_not_info": 0.6061504528163784,
+      "methods": {
+        "exact, all rows": [
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "exact, not INFO": [
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "full HNSW, ef_search=40": [
+          {
+            "recall": 0,
+            "precision": 0
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "full HNSW + filter, ef_search=40": [
+          {
+            "recall": 0,
+            "precision": 0
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "full HNSW + filter, iterative, ef_search=40": [
+          {
+            "recall": 0,
+            "precision": 0
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "full HNSW, ef_search=160": [
+          {
+            "recall": 0,
+            "precision": 0
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "full HNSW + filter, ef_search=160": [
+          {
+            "recall": 0,
+            "precision": 0
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "full HNSW + filter, iterative, ef_search=160": [
+          {
+            "recall": 0,
+            "precision": 0
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "partial HNSW, ef_search=40": [
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 0,
+            "precision": 0
+          }
+        ],
+        "partial HNSW, ef_search=160": [
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ]
+      }
+    },
+    {
+      "text": "OOMKilled",
+      "kind": "keyword",
+      "expected": "out_of_memory",
+      "kth_distance_all": 0.5945324358065208,
+      "kth_distance_not_info": 0.5945324358065208,
+      "methods": {
+        "exact, all rows": [
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "exact, not INFO": [
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "full HNSW, ef_search=40": [
+          {
+            "recall": 0,
+            "precision": 0
+          },
+          {
+            "recall": 0,
+            "precision": 0
+          },
+          {
+            "recall": 0,
+            "precision": 0
+          }
+        ],
+        "full HNSW + filter, ef_search=40": [
+          {
+            "recall": 0,
+            "precision": 0
+          },
+          {
+            "recall": 0,
+            "precision": 0
+          },
+          {
+            "recall": 0,
+            "precision": 0
+          }
+        ],
+        "full HNSW + filter, iterative, ef_search=40": [
+          {
+            "recall": 0,
+            "precision": 0
+          },
+          {
+            "recall": 0,
+            "precision": 0
+          },
+          {
+            "recall": 0,
+            "precision": 0
+          }
+        ],
+        "full HNSW, ef_search=160": [
+          {
+            "recall": 0,
+            "precision": 0
+          },
+          {
+            "recall": 0,
+            "precision": 0
+          },
+          {
+            "recall": 0,
+            "precision": 0
+          }
+        ],
+        "full HNSW + filter, ef_search=160": [
+          {
+            "recall": 0,
+            "precision": 0
+          },
+          {
+            "recall": 0,
+            "precision": 0
+          },
+          {
+            "recall": 0,
+            "precision": 0
+          }
+        ],
+        "full HNSW + filter, iterative, ef_search=160": [
+          {
+            "recall": 0,
+            "precision": 0
+          },
+          {
+            "recall": 0,
+            "precision": 0
+          },
+          {
+            "recall": 0,
+            "precision": 0
+          }
+        ],
+        "partial HNSW, ef_search=40": [
+          {
+            "recall": 0,
+            "precision": 0
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "partial HNSW, ef_search=160": [
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ]
+      }
+    },
+    {
+      "text": "JavaScript heap out of memory",
+      "kind": "keyword",
+      "expected": "out_of_memory",
+      "kth_distance_all": 0.1743443673971462,
+      "kth_distance_not_info": 0.1743443673971462,
+      "methods": {
+        "exact, all rows": [
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "exact, not INFO": [
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "full HNSW, ef_search=40": [
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "full HNSW + filter, ef_search=40": [
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "full HNSW + filter, iterative, ef_search=40": [
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "full HNSW, ef_search=160": [
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "full HNSW + filter, ef_search=160": [
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "full HNSW + filter, iterative, ef_search=160": [
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "partial HNSW, ef_search=40": [
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "partial HNSW, ef_search=160": [
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ]
+      }
+    },
+    {
+      "text": "worker restarted for using too much memory",
+      "kind": "mixed",
+      "expected": "out_of_memory",
+      "kth_distance_all": 0.15806773458698808,
+      "kth_distance_not_info": 0.15806773458698808,
+      "methods": {
+        "exact, all rows": [
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "exact, not INFO": [
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "full HNSW, ef_search=40": [
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "full HNSW + filter, ef_search=40": [
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "full HNSW + filter, iterative, ef_search=40": [
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "full HNSW, ef_search=160": [
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "full HNSW + filter, ef_search=160": [
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "full HNSW + filter, iterative, ef_search=160": [
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "partial HNSW, ef_search=40": [
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 0,
+            "precision": 0
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "partial HNSW, ef_search=160": [
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ]
+      }
+    },
+    {
+      "text": "server ran out of RAM and crashed",
+      "kind": "paraphrase",
+      "expected": "out_of_memory",
+      "kth_distance_all": 0.48729987328945257,
+      "kth_distance_not_info": 0.48729987328945257,
+      "methods": {
+        "exact, all rows": [
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "exact, not INFO": [
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "full HNSW, ef_search=40": [
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "full HNSW + filter, ef_search=40": [
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "full HNSW + filter, iterative, ef_search=40": [
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "full HNSW, ef_search=160": [
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "full HNSW + filter, ef_search=160": [
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "full HNSW + filter, iterative, ef_search=160": [
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "partial HNSW, ef_search=40": [
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 0,
+            "precision": 0
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "partial HNSW, ef_search=160": [
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ]
+      }
+    },
+    {
+      "text": "502 Bad Gateway",
+      "kind": "keyword",
+      "expected": "payment_gateway_5xx",
+      "kth_distance_all": 0.28931202228733854,
+      "kth_distance_not_info": 0.28931202228733854,
+      "methods": {
+        "exact, all rows": [
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "exact, not INFO": [
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "full HNSW, ef_search=40": [
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "full HNSW + filter, ef_search=40": [
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "full HNSW + filter, iterative, ef_search=40": [
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "full HNSW, ef_search=160": [
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "full HNSW + filter, ef_search=160": [
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "full HNSW + filter, iterative, ef_search=160": [
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "partial HNSW, ef_search=40": [
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "partial HNSW, ef_search=160": [
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ]
+      }
+    },
+    {
+      "text": "stripe returning 503",
+      "kind": "mixed",
+      "expected": "payment_gateway_5xx",
+      "kth_distance_all": 0.2452920967688461,
+      "kth_distance_not_info": 0.2452920967688461,
+      "methods": {
+        "exact, all rows": [
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "exact, not INFO": [
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "full HNSW, ef_search=40": [
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "full HNSW + filter, ef_search=40": [
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "full HNSW + filter, iterative, ef_search=40": [
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "full HNSW, ef_search=160": [
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "full HNSW + filter, ef_search=160": [
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "full HNSW + filter, iterative, ef_search=160": [
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "partial HNSW, ef_search=40": [
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "partial HNSW, ef_search=160": [
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ]
+      }
+    },
+    {
+      "text": "charges failing because the provider is unavailable",
+      "kind": "mixed",
+      "expected": "payment_gateway_5xx",
+      "kth_distance_all": 0.4389614986135322,
+      "kth_distance_not_info": 0.4389614986135322,
+      "methods": {
+        "exact, all rows": [
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "exact, not INFO": [
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "full HNSW, ef_search=40": [
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "full HNSW + filter, ef_search=40": [
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "full HNSW + filter, iterative, ef_search=40": [
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "full HNSW, ef_search=160": [
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "full HNSW + filter, ef_search=160": [
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "full HNSW + filter, iterative, ef_search=160": [
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "partial HNSW, ef_search=40": [
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "partial HNSW, ef_search=160": [
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ]
+      }
+    },
+    {
+      "text": "customers cannot pay, card processor is down",
+      "kind": "paraphrase",
+      "expected": "payment_gateway_5xx",
+      "kth_distance_all": 0.38379018596585257,
+      "kth_distance_not_info": 0.38379018596585257,
+      "methods": {
+        "exact, all rows": [
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "exact, not INFO": [
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "full HNSW, ef_search=40": [
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "full HNSW + filter, ef_search=40": [
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "full HNSW + filter, iterative, ef_search=40": [
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "full HNSW, ef_search=160": [
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "full HNSW + filter, ef_search=160": [
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "full HNSW + filter, iterative, ef_search=160": [
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "partial HNSW, ef_search=40": [
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "partial HNSW, ef_search=160": [
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ]
+      }
+    },
+    {
+      "text": "kafka consumer lag",
+      "kind": "keyword",
+      "expected": "queue_lag",
+      "kth_distance_all": 0.2353968970548228,
+      "kth_distance_not_info": 0.2353968970548228,
+      "methods": {
+        "exact, all rows": [
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "exact, not INFO": [
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "full HNSW, ef_search=40": [
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 0,
+            "precision": 0
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "full HNSW + filter, ef_search=40": [
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 0,
+            "precision": 0
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "full HNSW + filter, iterative, ef_search=40": [
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 0,
+            "precision": 0.6
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "full HNSW, ef_search=160": [
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "full HNSW + filter, ef_search=160": [
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "full HNSW + filter, iterative, ef_search=160": [
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "partial HNSW, ef_search=40": [
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "partial HNSW, ef_search=160": [
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ]
+      }
+    },
+    {
+      "text": "backlog keeps growing",
+      "kind": "mixed",
+      "expected": "queue_lag",
+      "kth_distance_all": 0.45357297744097,
+      "kth_distance_not_info": 0.45357297744097,
+      "methods": {
+        "exact, all rows": [
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "exact, not INFO": [
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "full HNSW, ef_search=40": [
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "full HNSW + filter, ef_search=40": [
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "full HNSW + filter, iterative, ef_search=40": [
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "full HNSW, ef_search=160": [
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "full HNSW + filter, ef_search=160": [
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "full HNSW + filter, iterative, ef_search=160": [
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "partial HNSW, ef_search=40": [
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 0,
+            "precision": 0
+          }
+        ],
+        "partial HNSW, ef_search=160": [
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 0,
+            "precision": 0
+          }
+        ]
+      }
+    },
+    {
+      "text": "background events are piling up and not being consumed",
+      "kind": "paraphrase",
+      "expected": "queue_lag",
+      "kth_distance_all": 0.5252833619207085,
+      "kth_distance_not_info": 0.5252833619207085,
+      "methods": {
+        "exact, all rows": [
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "exact, not INFO": [
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "full HNSW, ef_search=40": [
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "full HNSW + filter, ef_search=40": [
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "full HNSW + filter, iterative, ef_search=40": [
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "full HNSW, ef_search=160": [
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "full HNSW + filter, ef_search=160": [
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "full HNSW + filter, iterative, ef_search=160": [
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "partial HNSW, ef_search=40": [
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "partial HNSW, ef_search=160": [
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ]
+      }
+    },
+    {
+      "text": "emails are being sent hours late",
+      "kind": "paraphrase",
+      "expected": "queue_lag",
+      "kth_distance_all": 0.5011260803486979,
+      "kth_distance_not_info": 0.5022075770969563,
+      "methods": {
+        "exact, all rows": [
+          {
+            "recall": 1,
+            "precision": 0.9
+          }
+        ],
+        "exact, not INFO": [
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "full HNSW, ef_search=40": [
+          {
+            "recall": 1,
+            "precision": 0.9
+          },
+          {
+            "recall": 1,
+            "precision": 0.9
+          },
+          {
+            "recall": 1,
+            "precision": 0.9
+          }
+        ],
+        "full HNSW + filter, ef_search=40": [
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "full HNSW + filter, iterative, ef_search=40": [
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "full HNSW, ef_search=160": [
+          {
+            "recall": 1,
+            "precision": 0.9
+          },
+          {
+            "recall": 1,
+            "precision": 0.9
+          },
+          {
+            "recall": 1,
+            "precision": 0.9
+          }
+        ],
+        "full HNSW + filter, ef_search=160": [
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "full HNSW + filter, iterative, ef_search=160": [
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "partial HNSW, ef_search=40": [
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 0,
+            "precision": 0
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "partial HNSW, ef_search=160": [
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 0,
+            "precision": 0
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ]
+      }
+    },
+    {
+      "text": "too many requests",
+      "kind": "keyword",
+      "expected": "rate_limited",
+      "kth_distance_all": 0.30645573139190185,
+      "kth_distance_not_info": 0.30645573139190185,
+      "methods": {
+        "exact, all rows": [
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "exact, not INFO": [
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "full HNSW, ef_search=40": [
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "full HNSW + filter, ef_search=40": [
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "full HNSW + filter, iterative, ef_search=40": [
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "full HNSW, ef_search=160": [
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "full HNSW + filter, ef_search=160": [
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "full HNSW + filter, iterative, ef_search=160": [
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "partial HNSW, ef_search=40": [
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "partial HNSW, ef_search=160": [
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ]
+      }
+    },
+    {
+      "text": "rate limit exceeded",
+      "kind": "keyword",
+      "expected": "rate_limited",
+      "kth_distance_all": 0.4197703408647355,
+      "kth_distance_not_info": 0.4197703408647355,
+      "methods": {
+        "exact, all rows": [
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "exact, not INFO": [
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "full HNSW, ef_search=40": [
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "full HNSW + filter, ef_search=40": [
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "full HNSW + filter, iterative, ef_search=40": [
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "full HNSW, ef_search=160": [
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "full HNSW + filter, ef_search=160": [
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "full HNSW + filter, iterative, ef_search=160": [
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "partial HNSW, ef_search=40": [
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "partial HNSW, ef_search=160": [
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ]
+      }
+    },
+    {
+      "text": "partner API is throttling our calls",
+      "kind": "mixed",
+      "expected": "rate_limited",
+      "kth_distance_all": 0.4096594697033781,
+      "kth_distance_not_info": 0.4096594697033781,
+      "methods": {
+        "exact, all rows": [
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "exact, not INFO": [
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "full HNSW, ef_search=40": [
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "full HNSW + filter, ef_search=40": [
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "full HNSW + filter, iterative, ef_search=40": [
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "full HNSW, ef_search=160": [
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "full HNSW + filter, ef_search=160": [
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "full HNSW + filter, iterative, ef_search=160": [
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "partial HNSW, ef_search=40": [
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "partial HNSW, ef_search=160": [
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ]
+      }
+    },
+    {
+      "text": "one client is flooding us with traffic",
+      "kind": "paraphrase",
+      "expected": "rate_limited",
+      "kth_distance_all": 0.5053739858565288,
+      "kth_distance_not_info": 0.5053739858565288,
+      "methods": {
+        "exact, all rows": [
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "exact, not INFO": [
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "full HNSW, ef_search=40": [
+          {
+            "recall": 0.8,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 0.8,
+            "precision": 1
+          }
+        ],
+        "full HNSW + filter, ef_search=40": [
+          {
+            "recall": 0.8,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 0.8,
+            "precision": 1
+          }
+        ],
+        "full HNSW + filter, iterative, ef_search=40": [
+          {
+            "recall": 0.8,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 0.8,
+            "precision": 1
+          }
+        ],
+        "full HNSW, ef_search=160": [
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "full HNSW + filter, ef_search=160": [
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "full HNSW + filter, iterative, ef_search=160": [
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "partial HNSW, ef_search=40": [
+          {
+            "recall": 0.8,
+            "precision": 1
+          },
+          {
+            "recall": 0.8,
+            "precision": 1
+          },
+          {
+            "recall": 0.8,
+            "precision": 1
+          }
+        ],
+        "partial HNSW, ef_search=160": [
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ]
+      }
+    },
+    {
+      "text": "statement timeout",
+      "kind": "keyword",
+      "expected": "slow_query",
+      "kth_distance_all": 0.19819638696843067,
+      "kth_distance_not_info": 0.19819638696843067,
+      "methods": {
+        "exact, all rows": [
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "exact, not INFO": [
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "full HNSW, ef_search=40": [
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "full HNSW + filter, ef_search=40": [
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "full HNSW + filter, iterative, ef_search=40": [
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "full HNSW, ef_search=160": [
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "full HNSW + filter, ef_search=160": [
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "full HNSW + filter, iterative, ef_search=160": [
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "partial HNSW, ef_search=40": [
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "partial HNSW, ef_search=160": [
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ]
+      }
+    },
+    {
+      "text": "query is too slow",
+      "kind": "mixed",
+      "expected": "slow_query",
+      "kth_distance_all": 0.43597078777926523,
+      "kth_distance_not_info": 0.43597078777926523,
+      "methods": {
+        "exact, all rows": [
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "exact, not INFO": [
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "full HNSW, ef_search=40": [
+          {
+            "recall": 0,
+            "precision": 0
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 0,
+            "precision": 0
+          }
+        ],
+        "full HNSW + filter, ef_search=40": [
+          {
+            "recall": 0,
+            "precision": 0
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 0,
+            "precision": 0
+          }
+        ],
+        "full HNSW + filter, iterative, ef_search=40": [
+          {
+            "recall": 0,
+            "precision": 0
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 0,
+            "precision": 0
+          }
+        ],
+        "full HNSW, ef_search=160": [
+          {
+            "recall": 0,
+            "precision": 0
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 0,
+            "precision": 0
+          }
+        ],
+        "full HNSW + filter, ef_search=160": [
+          {
+            "recall": 0,
+            "precision": 0
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 0,
+            "precision": 0
+          }
+        ],
+        "full HNSW + filter, iterative, ef_search=160": [
+          {
+            "recall": 0,
+            "precision": 0
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 0,
+            "precision": 0
+          }
+        ],
+        "partial HNSW, ef_search=40": [
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 0,
+            "precision": 0
+          }
+        ],
+        "partial HNSW, ef_search=160": [
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 0,
+            "precision": 0
+          }
+        ]
+      }
+    },
+    {
+      "text": "database calls exceeding their latency budget",
+      "kind": "mixed",
+      "expected": "slow_query",
+      "kth_distance_all": 0.34705054759977394,
+      "kth_distance_not_info": 0.34705054759977394,
+      "methods": {
+        "exact, all rows": [
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "exact, not INFO": [
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "full HNSW, ef_search=40": [
+          {
+            "recall": 0,
+            "precision": 0
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "full HNSW + filter, ef_search=40": [
+          {
+            "recall": 0,
+            "precision": 0
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "full HNSW + filter, iterative, ef_search=40": [
+          {
+            "recall": 0,
+            "precision": 0
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "full HNSW, ef_search=160": [
+          {
+            "recall": 0,
+            "precision": 0
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "full HNSW + filter, ef_search=160": [
+          {
+            "recall": 0,
+            "precision": 0
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "full HNSW + filter, iterative, ef_search=160": [
+          {
+            "recall": 0,
+            "precision": 0
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "partial HNSW, ef_search=40": [
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "partial HNSW, ef_search=160": [
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ]
+      }
+    },
+    {
+      "text": "orders page takes forever to load from the database",
+      "kind": "paraphrase",
+      "expected": "slow_query",
+      "kth_distance_all": 0.36044828629287506,
+      "kth_distance_not_info": 0.36044828629287506,
+      "methods": {
+        "exact, all rows": [
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "exact, not INFO": [
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "full HNSW, ef_search=40": [
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "full HNSW + filter, ef_search=40": [
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "full HNSW + filter, iterative, ef_search=40": [
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "full HNSW, ef_search=160": [
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "full HNSW + filter, ef_search=160": [
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "full HNSW + filter, iterative, ef_search=160": [
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "partial HNSW, ef_search=40": [
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "partial HNSW, ef_search=160": [
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ]
+      }
+    },
+    {
+      "text": "inventory went negative",
+      "kind": "keyword",
+      "expected": "stock_inconsistency",
+      "kth_distance_all": 0.2537835551918294,
+      "kth_distance_not_info": 0.2537835551918294,
+      "methods": {
+        "exact, all rows": [
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "exact, not INFO": [
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "full HNSW, ef_search=40": [
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "full HNSW + filter, ef_search=40": [
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "full HNSW + filter, iterative, ef_search=40": [
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "full HNSW, ef_search=160": [
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "full HNSW + filter, ef_search=160": [
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "full HNSW + filter, iterative, ef_search=160": [
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "partial HNSW, ef_search=40": [
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "partial HNSW, ef_search=160": [
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ]
+      }
+    },
+    {
+      "text": "stock count does not match what we expected",
+      "kind": "mixed",
+      "expected": "stock_inconsistency",
+      "kth_distance_all": 0.3753244205729198,
+      "kth_distance_not_info": 0.3753244205729198,
+      "methods": {
+        "exact, all rows": [
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "exact, not INFO": [
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "full HNSW, ef_search=40": [
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "full HNSW + filter, ef_search=40": [
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "full HNSW + filter, iterative, ef_search=40": [
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "full HNSW, ef_search=160": [
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "full HNSW + filter, ef_search=160": [
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "full HNSW + filter, iterative, ef_search=160": [
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "partial HNSW, ef_search=40": [
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "partial HNSW, ef_search=160": [
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ]
+      }
+    },
+    {
+      "text": "we sold more items than we have in the warehouse",
+      "kind": "paraphrase",
+      "expected": "stock_inconsistency",
+      "kth_distance_all": 0.5012789368629313,
+      "kth_distance_not_info": 0.5012789368629313,
+      "methods": {
+        "exact, all rows": [
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "exact, not INFO": [
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "full HNSW, ef_search=40": [
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 0,
+            "precision": 0
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "full HNSW + filter, ef_search=40": [
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 0,
+            "precision": 0
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "full HNSW + filter, iterative, ef_search=40": [
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 0,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "full HNSW, ef_search=160": [
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "full HNSW + filter, ef_search=160": [
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "full HNSW + filter, iterative, ef_search=160": [
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "partial HNSW, ef_search=40": [
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "partial HNSW, ef_search=160": [
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ]
+      }
+    },
+    {
+      "text": "x509",
+      "kind": "keyword",
+      "expected": "tls_cert_expired",
+      "kth_distance_all": 0.6908923344208151,
+      "kth_distance_not_info": 0.7095776892714911,
+      "methods": {
+        "exact, all rows": [
+          {
+            "recall": 1,
+            "precision": 0
+          }
+        ],
+        "exact, not INFO": [
+          {
+            "recall": 1,
+            "precision": 0
+          }
+        ],
+        "full HNSW, ef_search=40": [
+          {
+            "recall": 0,
+            "precision": 0
+          },
+          {
+            "recall": 0,
+            "precision": 0
+          },
+          {
+            "recall": 0.1,
+            "precision": 0
+          }
+        ],
+        "full HNSW + filter, ef_search=40": [
+          {
+            "recall": 0,
+            "precision": 0
+          },
+          {
+            "recall": 0,
+            "precision": 0
+          },
+          {
+            "recall": 0.8,
+            "precision": 0
+          }
+        ],
+        "full HNSW + filter, iterative, ef_search=40": [
+          {
+            "recall": 0,
+            "precision": 0
+          },
+          {
+            "recall": 0,
+            "precision": 0
+          },
+          {
+            "recall": 0.8,
+            "precision": 0
+          }
+        ],
+        "full HNSW, ef_search=160": [
+          {
+            "recall": 0.8,
+            "precision": 0
+          },
+          {
+            "recall": 0.8,
+            "precision": 0
+          },
+          {
+            "recall": 0.1,
+            "precision": 0
+          }
+        ],
+        "full HNSW + filter, ef_search=160": [
+          {
+            "recall": 0,
+            "precision": 0
+          },
+          {
+            "recall": 0,
+            "precision": 0
+          },
+          {
+            "recall": 1,
+            "precision": 0
+          }
+        ],
+        "full HNSW + filter, iterative, ef_search=160": [
+          {
+            "recall": 0,
+            "precision": 0
+          },
+          {
+            "recall": 0,
+            "precision": 0
+          },
+          {
+            "recall": 1,
+            "precision": 0
+          }
+        ],
+        "partial HNSW, ef_search=40": [
+          {
+            "recall": 0.8,
+            "precision": 0
+          },
+          {
+            "recall": 0.8,
+            "precision": 0
+          },
+          {
+            "recall": 0.8,
+            "precision": 0
+          }
+        ],
+        "partial HNSW, ef_search=160": [
+          {
+            "recall": 1,
+            "precision": 0
+          },
+          {
+            "recall": 1,
+            "precision": 0
+          },
+          {
+            "recall": 1,
+            "precision": 0
+          }
+        ]
+      }
+    },
+    {
+      "text": "CERT_HAS_EXPIRED",
+      "kind": "keyword",
+      "expected": "tls_cert_expired",
+      "kth_distance_all": 0.2861326081910808,
+      "kth_distance_not_info": 0.2861326081910808,
+      "methods": {
+        "exact, all rows": [
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "exact, not INFO": [
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "full HNSW, ef_search=40": [
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "full HNSW + filter, ef_search=40": [
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "full HNSW + filter, iterative, ef_search=40": [
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "full HNSW, ef_search=160": [
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "full HNSW + filter, ef_search=160": [
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "full HNSW + filter, iterative, ef_search=160": [
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "partial HNSW, ef_search=40": [
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "partial HNSW, ef_search=160": [
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ]
+      }
+    },
+    {
+      "text": "HTTPS certificate is no longer valid",
+      "kind": "mixed",
+      "expected": "tls_cert_expired",
+      "kth_distance_all": 0.35697491259130343,
+      "kth_distance_not_info": 0.35697491259130343,
+      "methods": {
+        "exact, all rows": [
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "exact, not INFO": [
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "full HNSW, ef_search=40": [
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 0,
+            "precision": 0
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "full HNSW + filter, ef_search=40": [
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 0,
+            "precision": 0
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "full HNSW + filter, iterative, ef_search=40": [
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 0,
+            "precision": 0
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "full HNSW, ef_search=160": [
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "full HNSW + filter, ef_search=160": [
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "full HNSW + filter, iterative, ef_search=160": [
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "partial HNSW, ef_search=40": [
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "partial HNSW, ef_search=160": [
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ]
+      }
+    },
+    {
+      "text": "outbound calls rejected because the SSL cert is old",
+      "kind": "mixed",
+      "expected": "tls_cert_expired",
+      "kth_distance_all": 0.254169233764567,
+      "kth_distance_not_info": 0.254169233764567,
+      "methods": {
+        "exact, all rows": [
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "exact, not INFO": [
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "full HNSW, ef_search=40": [
+          {
+            "recall": 0,
+            "precision": 0
+          },
+          {
+            "recall": 0,
+            "precision": 0
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "full HNSW + filter, ef_search=40": [
+          {
+            "recall": 0,
+            "precision": 0
+          },
+          {
+            "recall": 0,
+            "precision": 0
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "full HNSW + filter, iterative, ef_search=40": [
+          {
+            "recall": 0,
+            "precision": 0
+          },
+          {
+            "recall": 0,
+            "precision": 0
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "full HNSW, ef_search=160": [
+          {
+            "recall": 0,
+            "precision": 0
+          },
+          {
+            "recall": 0,
+            "precision": 0
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "full HNSW + filter, ef_search=160": [
+          {
+            "recall": 0,
+            "precision": 0
+          },
+          {
+            "recall": 0,
+            "precision": 0
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "full HNSW + filter, iterative, ef_search=160": [
+          {
+            "recall": 0,
+            "precision": 0
+          },
+          {
+            "recall": 0,
+            "precision": 0
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "partial HNSW, ef_search=40": [
+          {
+            "recall": 0,
+            "precision": 0
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 0,
+            "precision": 0
+          }
+        ],
+        "partial HNSW, ef_search=160": [
+          {
+            "recall": 0,
+            "precision": 0
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 0,
+            "precision": 0
+          }
+        ]
+      }
+    }
+  ]
+}

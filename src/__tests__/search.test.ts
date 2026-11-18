@@ -5,6 +5,7 @@ import request from "supertest";
 import app from "../app";
 import db from "../db/knex";
 import { modelDir } from "../embeddings/model";
+import { NOT_INFO } from "../search/search";
 import { buildTemplates, embedTemplates } from "../search/templates";
 
 // Search tests need the model (for typed queries) and embedded logs. CI runs
@@ -44,6 +45,7 @@ describe("GET /search/logs: validação", () => {
       [{ q: "redis", fw: "abc" }, /fw must be a number between 0 and 5/],
       [{ q: "redis", rrf_k: 0 }, /rrf_k must be an integer between 1 and 1000/],
       [{ q: "redis", route: "talvez" }, /route must be true or false/],
+      [{ q: "redis", include_info: "talvez" }, /include_info must be true or false/],
       [{ q: "redis", vw: 0, fw: 0 }, /vw and fw cannot both be 0/],
       [{ q: "redis", ef_serach: 1000 }, /unknown parameter ef_serach; allowed: q, mode, k/],
    ])("400 para %j", async (query, message) => {
@@ -106,7 +108,7 @@ describe.skipIf(!ready)("GET /search/logs: resultados", () => {
    });
 
    it("like faz busca por substring, sem ranking", async () => {
-      const res = await search({ q: "Health check OK", mode: "like", k: 5 });
+      const res = await search({ q: "Health check OK", mode: "like", k: 5, include_info: "true" });
 
       expect(res.body.results).toHaveLength(5);
       for (const r of res.body.results) expect(r.message).toContain("Health check OK");
@@ -172,6 +174,42 @@ describe.skipIf(!ready)("GET /search/logs: resultados", () => {
    });
 });
 
+async function levels(ids: number[]): Promise<string[]> {
+   const { rows } = await db.raw("SELECT level FROM logs WHERE id = ANY(?::bigint[])", [ids]);
+   return rows.map((r: any) => r.level);
+}
+
+describe.skipIf(!ready)("GET /search/logs: logs INFO", () => {
+   // "Health check OK" is an INFO message: the nearest logs, and every LIKE match, are INFO.
+   it.each(["vector", "hybrid", "fulltext", "like"])("%s deixa INFO de fora por padrão", async (mode) => {
+      const res = await search({ q: "Health check OK", mode });
+      expect(res.status).toBe(200);
+      expect(res.body.include_info).toBe(false);
+      expect(await levels(res.body.results.map((r: any) => r.id))).not.toContain("INFO");
+   });
+
+   it("include_info=true acha INFO, numa busca exata (sem ef_search)", async () => {
+      const res = await search({ q: "Health check OK", mode: "vector", include_info: "true" });
+      expect(res.body.include_info).toBe(true);
+      expect(res.body.ef_search).toBeNull();
+      expect(res.body.results[0].message).toContain("Health check OK");
+   });
+
+   it("sem INFO, o planner usa o índice HNSW parcial", async () => {
+      // The partial index is used only if the query's WHERE matches its predicate:
+      // this breaks if NOT_INFO and migration 20261118120000 drift apart.
+      const plan = await db.transaction(async (trx) => {
+         await trx.raw("SET LOCAL enable_seqscan = off"); // a 10k table could tempt a seq scan
+         const { rows } = await trx.raw(
+            `EXPLAIN SELECT id FROM logs WHERE ${NOT_INFO}
+             ORDER BY embedding <=> (SELECT embedding FROM logs LIMIT 1) LIMIT 10`,
+         );
+         return rows.map((r: any) => r["QUERY PLAN"]).join("\n");
+      });
+      expect(plan).toContain("idx_logs_embedding_hnsw_not_info");
+   });
+});
+
 describe.skipIf(!ready)("GET /search/logs: mode=template", () => {
    beforeAll(async () => {
       await buildTemplates(db);
@@ -203,6 +241,13 @@ describe.skipIf(!ready)("GET /search/logs: mode=template", () => {
       const [a, b] = res.body.results;
       expect(a.template.distance).toBeLessThanOrEqual(b.template.distance);
       if (a.template.id === b.template.id) expect(a.id).toBeGreaterThan(b.id);
+   });
+
+   it("deixa os modelos INFO de fora por padrão, e include_info=true os traz", async () => {
+      const off = await search({ q: "Health check OK", mode: "template" });
+      expect(await levels(off.body.results.map((r: any) => r.id))).not.toContain("INFO");
+      const on = await search({ q: "Health check OK", mode: "template", include_info: "true" });
+      expect(on.body.results[0].message).toContain("Health check OK");
    });
 
    it("os resultados vêm de vários modelos quando o primeiro tem menos de k logs", async () => {

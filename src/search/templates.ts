@@ -157,13 +157,14 @@ export async function templateSearch(
    embedding: string,
    k: number,
    excludeId: number | null = null, // evals: a log used as the query must not find itself
+   notInfo = false, // leave out INFO templates (their partition is "INFO|")
 ): Promise<TemplateHit[]> {
    const limit = excludeId === null ? k : k + 1;
    const { rows } = await db.raw(
       `WITH nearest AS (
           SELECT id, template, log_count, embedding <=> :vec::vector AS distance
           FROM log_templates
-          WHERE embedding IS NOT NULL
+          WHERE embedding IS NOT NULL ${notInfo ? "AND partition NOT LIKE 'INFO|%'" : ""}
           ORDER BY distance, id
           LIMIT :limit
        )
