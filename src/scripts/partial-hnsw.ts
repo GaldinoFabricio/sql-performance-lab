@@ -31,8 +31,10 @@ import { mean, percentile, recallAtK } from "../evals/metrics";
  * runs in a transaction that drops the other indexes and is rolled back, so
  * nothing is rebuilt and the production index is untouched.
  *
- * The partial index is built --rebuild=N times (default 1; HNSW levels are
- * random, so builds differ) and dropped at the end unless --keep-index.
+ * The partial index (the production one since migration 20261118120000) is
+ * built --rebuild=N times (default 1; HNSW levels are random, so builds
+ * differ). If it existed before the run, the last build stays; otherwise it
+ * is dropped at the end unless --keep-index.
  * The full index is the existing one; --rebuild-full=N rebuilds it N times
  * (slow at 1M). --skip-full skips the full-index methods.
  *
@@ -189,8 +191,9 @@ async function main() {
    const { rows: [info] } = await db.raw(
       `SELECT count(*)::int AS rows, count(embedding)::int AS embedded,
               count(*) FILTER (WHERE ${PREDICATE})::int AS not_info,
-              to_regclass(:full) IS NOT NULL AS has_full FROM logs`,
-      { full: FULL },
+              to_regclass(:full) IS NOT NULL AS has_full,
+              to_regclass(:partial) IS NOT NULL AS has_partial FROM logs`,
+      { full: FULL, partial: PARTIAL },
    );
    if (info.rows === 0 || info.embedded !== info.rows) throw new Error("run pnpm seed:logs and pnpm embed:logs first");
    if (!SKIP_FULL && !info.has_full && fullRebuilds === 0) throw new Error(`${FULL} is missing: run pnpm migrate, pass --rebuild-full=1 or --skip-full`);
@@ -315,7 +318,8 @@ async function main() {
       );
    }
 
-   if (!KEEP) await db.raw(`DROP INDEX IF EXISTS ${PARTIAL}`);
+   const keep = KEEP || info.has_partial; // never drop the production index
+   if (!keep) await db.raw(`DROP INDEX IF EXISTS ${PARTIAL}`);
 
    const out = flag("out") ? path.resolve(ROOT, flag("out")!) : path.join(ROOT, `evals/results/partial-hnsw-${size}.json`);
    mkdirSync(path.dirname(out), { recursive: true });
@@ -341,7 +345,7 @@ async function main() {
          2,
       ),
    );
-   console.log(`\nwrote ${path.relative(ROOT, out)}${KEEP ? ` (kept ${PARTIAL})` : ""}`);
+   console.log(`\nwrote ${path.relative(ROOT, out)}${keep ? ` (kept ${PARTIAL})` : ""}`);
 }
 
 main()
