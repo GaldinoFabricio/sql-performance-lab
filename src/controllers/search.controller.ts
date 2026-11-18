@@ -4,9 +4,9 @@ import type { LogSearchQuery } from "../validators/search.validator";
 
 // Params already validated and converted by validateLogSearch (src/validators/search.validator.ts).
 export async function getLogSearch(req: Request, res: Response) {
-   const { q, mode, k, ef_search: efSearch, vw, fw, rrf_k: rrfK, route, include_info: includeInfo } = req.query as unknown as LogSearchQuery;
+   const { q, mode, k, ef_search: efSearch, vw, fw, cw, rrf_k: rrfK, route, include_info: includeInfo } = req.query as unknown as LogSearchQuery;
    try {
-      res.json(await searchLogs({ q, mode, k, efSearch, vectorWeight: vw, keywordWeight: fw, rrfK, route, includeInfo }));
+      res.json(await searchLogs({ q, mode, k, efSearch, vectorWeight: vw, keywordWeight: fw, codeWeight: cw, rrfK, route, includeInfo }));
    } catch (err) {
       if (err instanceof SearchUnavailableError) return res.status(503).json({ error: err.message });
       res.status(500).json({ error: "Search failed", detail: String(err) });

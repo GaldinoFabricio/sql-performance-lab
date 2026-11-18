@@ -44,6 +44,8 @@ const fields = {
    ef_search: intParam("ef_search", efMin, efMax, SEARCH_DEFAULTS.efSearch),
    vw: weightParam("vw"),
    fw: weightParam("fw"),
+   // Weight of the error-code list in hybrid (src/search/codes.ts); 0 turns it off.
+   cw: weightParam("cw").default(SEARCH_DEFAULTS.codeWeight),
    // route=true picks the hybrid weights from the query (routing.ts). Off by default:
    // at 10k rows routing gained +2.7 precision points, within the build-to-build
    // noise (6.7), so the fixed 1/1 stays the default until a larger eval says otherwise.
@@ -81,6 +83,7 @@ export interface LogSearchQuery {
    ef_search: number;
    vw?: number;
    fw?: number;
+   cw: number;
    rrf_k: number;
    route: boolean;
    include_info: boolean;
