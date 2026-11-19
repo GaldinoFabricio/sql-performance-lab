@@ -247,6 +247,11 @@ Within one table size, files measured on the same HNSW build are comparable;
 `-template` and `-template-tw*` at 100k share a build, `rerank-100k.json`
 and `-described` share another.
 
+`rerank-100k-3builds.json` aggregates three runs on three builds of the
+partial HNSW index over the same 100k rows (`REINDEX` between them), for the
+`template`, `template` + `tw 1 x 3` and `code` readers: mean, min, max and
+the per-build values of every number in `summary`.
+
 ## `results/search-<rows>-templates-only[-nodesc].json`
 
 `pnpm eval:search --templates-only` with the templates' embeddings built

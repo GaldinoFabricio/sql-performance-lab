@@ -490,6 +490,17 @@ The descriptions go to two places: the template's `embed_text` (`pnpm templates:
 
 At 100k, `template` made 15 queries better and none worse, and code queries stayed at 100%. It is also **cheaper than the first try** (14 ms vs 127 ms): 50 copies of one template are one pair. In template mode alone, the descriptions took precision from 95.0% to 98.3% at both 10k and 100k (`evals/results/search-<rows>-templates-only*.json`): `ECONNRESET` and `OOMKilled` went from 0% to 100%.
 
+**Three HNSW builds** (same 100k rows, the partial index rebuilt with `REINDEX` each time, `evals/results/rerank-100k-3builds.json`; mean [min–max], typed queries):
+
+| 100k, 3 builds | before | top 20 | top 50 | ceiling top 50 | better / worse per build | rerank p50 / p95, top 50 |
+| :--- | ---: | ---: | ---: | ---: | ---: | ---: |
+| **reranker reads template + description** | 91.0% [88.7–92.2] | 96.7% | **98.2%** | 98.3% | 13–17 / 0 | **12 / 25 ms** |
+| same, + template list (tw 1 × 3) | 91.6% [90.2–92.5] | 96.7% | 97.5% | 99.2% | 16–20 / 2 | 19 / 36 ms |
+| reranker reads code + message | 91.0% [88.7–92.2] | 94.7% | 94.7% | 98.3% | 10–14 / 2 | 133 / 346 ms |
+| paraphrases only, template | 74.9% [70.6–77.1] | 92.3% | 94.1% | 94.1% | 9–11 / 0 | |
+
+The first stage moves 3.5 points between builds; after reranking the numbers are **identical** in all three. HNSW noise changes the order and a few near misses, but the top 50 candidates hold the same relevant logs, and the reranker orders them by its own score, not by the index's.
+
 ### A fourth RRF list: logs of the nearest templates
 
 Could the descriptions also fix the first stage? `tw` adds a fourth list to hybrid: the 3 (or 5) nearest templates by exact distance and their newest logs, interleaved so a wrong nearest template can't take every slot. Same 100k build for every row:
@@ -515,7 +526,9 @@ The list raises the ceiling (at weight 2 the DNS logs reach the candidates) and 
 
 **5. Rerank distinct units, not copies.** With repetitive data (logs, tickets, similar products), grouping before reranking costs a fraction and scores the same.
 
-**6. Vector + reranker didn't move at 100k.** Without INFO, the vector side's top 50 are copies of a single template: all relevant or none, nothing to reorder (86.7% before, after and ceiling, in the first run).
+**6. A reranker also removes the index's noise.** Over three HNSW builds at 100k the first stage ranged 88.7–92.2%, and the reranked top 10 was 98.2% every time. The approximate index only needs to get the right logs into the candidates; their order no longer depends on its random levels.
+
+**7. Vector + reranker didn't move at 100k.** Without INFO, the vector side's top 50 are copies of a single template: all relevant or none, nothing to reorder (86.7% before, after and ceiling, in the first run).
 
 ### Limits
 
