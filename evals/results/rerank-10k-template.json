@@ -1,0 +1,7466 @@
+{
+  "created_at": "2026-11-19T00:33:22.404Z",
+  "rows": 10000,
+  "k": 10,
+  "reranker": {
+    "model": "Xenova/ms-marco-MiniLM-L-6-v2",
+    "revision": "a09144355adeed5f58c8ed011d209bf8ee5a1fec",
+    "dtype": "fp32",
+    "doc": "template"
+  },
+  "settings": {
+    "not_info": true,
+    "ef_search": 160,
+    "hybrid_candidates": 40,
+    "rrf_k": 60,
+    "code_weight": 2,
+    "n": [
+      20,
+      50
+    ]
+  },
+  "latency_note": "reranker only (message fetch + scoring), client-side wall time, median of 3 runs per query after a warm-up run",
+  "summary": {
+    "hybrid": {
+      "text: all": {
+        "queries": 60,
+        "before": 0.9616666666666666,
+        "zero_before": 1,
+        "by_n": {
+          "20": {
+            "after": 0.9700000000000001,
+            "ceiling": 0.9833333333333333,
+            "zero_after": 1,
+            "better": 4,
+            "worse": 2,
+            "p50_ms": 21.95647100000042,
+            "p95_ms": 35.30539500000032
+          },
+          "50": {
+            "after": 0.9833333333333333,
+            "ceiling": 0.9833333333333333,
+            "zero_after": 1,
+            "better": 5,
+            "worse": 0,
+            "p50_ms": 18.939194000000498,
+            "p95_ms": 32.167593000000124
+          }
+        }
+      },
+      "text: keyword": {
+        "queries": 24,
+        "before": 1,
+        "zero_before": 0,
+        "by_n": {
+          "20": {
+            "after": 1,
+            "ceiling": 1,
+            "zero_after": 0,
+            "better": 0,
+            "worse": 0,
+            "p50_ms": 23.876689000000624,
+            "p95_ms": 32.16478099999995
+          },
+          "50": {
+            "after": 1,
+            "ceiling": 1,
+            "zero_after": 0,
+            "better": 0,
+            "worse": 0,
+            "p50_ms": 18.058296000001064,
+            "p95_ms": 30.851602000000184
+          }
+        }
+      },
+      "text: mixed": {
+        "queries": 19,
+        "before": 0.9842105263157894,
+        "zero_before": 0,
+        "by_n": {
+          "20": {
+            "after": 0.9842105263157894,
+            "ceiling": 1,
+            "zero_after": 0,
+            "better": 1,
+            "worse": 1,
+            "p50_ms": 21.16711899999973,
+            "p95_ms": 38.07243000000017
+          },
+          "50": {
+            "after": 1,
+            "ceiling": 1,
+            "zero_after": 0,
+            "better": 2,
+            "worse": 0,
+            "p50_ms": 13.973703999999998,
+            "p95_ms": 57.02241800000047
+          }
+        }
+      },
+      "text: paraphrase": {
+        "queries": 17,
+        "before": 0.8823529411764706,
+        "zero_before": 1,
+        "by_n": {
+          "20": {
+            "after": 0.9117647058823529,
+            "ceiling": 0.9411764705882353,
+            "zero_after": 1,
+            "better": 3,
+            "worse": 1,
+            "p50_ms": 21.95647100000042,
+            "p95_ms": 37.73043600000028
+          },
+          "50": {
+            "after": 0.9411764705882353,
+            "ceiling": 0.9411764705882353,
+            "zero_after": 1,
+            "better": 3,
+            "worse": 0,
+            "p50_ms": 24.03654800000004,
+            "p95_ms": 37.015542000000096
+          }
+        }
+      },
+      "codes: all": {
+        "queries": 114,
+        "before": 0.9956140350877193,
+        "zero_before": 0,
+        "by_n": {
+          "20": {
+            "after": 1,
+            "ceiling": 1,
+            "zero_after": 0,
+            "better": 3,
+            "worse": 0,
+            "p50_ms": 20.785306999998284,
+            "p95_ms": 32.659482999999454
+          },
+          "50": {
+            "after": 1,
+            "ceiling": 1,
+            "zero_after": 0,
+            "better": 3,
+            "worse": 0,
+            "p50_ms": 18.785220000001573,
+            "p95_ms": 44.14838000000054
+          }
+        }
+      }
+    }
+  },
+  "per_query": [
+    {
+      "text": "ECONNRESET",
+      "set": "text",
+      "kind": "keyword",
+      "expected": [
+        "cache_unavailable"
+      ],
+      "hybrid": {
+        "before": 1,
+        "after": {
+          "20": 1,
+          "50": 1
+        },
+        "ceiling": {
+          "20": 1,
+          "50": 1
+        },
+        "ms": {
+          "20": 11.204670999999962,
+          "50": 15.941887999999835
+        },
+        "top3": {
+          "before": [
+            "cache_unavailable",
+            "cache_unavailable",
+            "cache_unavailable"
+          ],
+          "after": {
+            "20": [
+              "cache_unavailable",
+              "cache_unavailable",
+              "cache_unavailable"
+            ],
+            "50": [
+              "cache_unavailable",
+              "cache_unavailable",
+              "cache_unavailable"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "text": "redis is down",
+      "set": "text",
+      "kind": "mixed",
+      "expected": [
+        "cache_unavailable"
+      ],
+      "hybrid": {
+        "before": 1,
+        "after": {
+          "20": 1,
+          "50": 1
+        },
+        "ceiling": {
+          "20": 1,
+          "50": 1
+        },
+        "ms": {
+          "20": 32.085771999999906,
+          "50": 13.95997699999998
+        },
+        "top3": {
+          "before": [
+            "cache_unavailable",
+            "cache_unavailable",
+            "cache_unavailable"
+          ],
+          "after": {
+            "20": [
+              "cache_unavailable",
+              "cache_unavailable",
+              "cache_unavailable"
+            ],
+            "50": [
+              "cache_unavailable",
+              "cache_unavailable",
+              "cache_unavailable"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "text": "cannot connect to the cache",
+      "set": "text",
+      "kind": "mixed",
+      "expected": [
+        "cache_unavailable"
+      ],
+      "hybrid": {
+        "before": 0.9,
+        "after": {
+          "20": 1,
+          "50": 1
+        },
+        "ceiling": {
+          "20": 1,
+          "50": 1
+        },
+        "ms": {
+          "20": 19.225451999999905,
+          "50": 13.872229000000061
+        },
+        "top3": {
+          "before": [
+            "cache_unavailable",
+            "cache_unavailable",
+            "cache_unavailable"
+          ],
+          "after": {
+            "20": [
+              "cache_unavailable",
+              "cache_unavailable",
+              "cache_unavailable"
+            ],
+            "50": [
+              "cache_unavailable",
+              "cache_unavailable",
+              "cache_unavailable"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "text": "session store unreachable",
+      "set": "text",
+      "kind": "paraphrase",
+      "expected": [
+        "cache_unavailable"
+      ],
+      "hybrid": {
+        "before": 0.9,
+        "after": {
+          "20": 1,
+          "50": 1
+        },
+        "ceiling": {
+          "20": 1,
+          "50": 1
+        },
+        "ms": {
+          "20": 24.27704300000005,
+          "50": 24.03654800000004
+        },
+        "top3": {
+          "before": [
+            "cache_unavailable",
+            "cache_unavailable",
+            "cache_unavailable"
+          ],
+          "after": {
+            "20": [
+              "cache_unavailable",
+              "cache_unavailable",
+              "cache_unavailable"
+            ],
+            "50": [
+              "cache_unavailable",
+              "cache_unavailable",
+              "cache_unavailable"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "text": "ECONNREFUSED",
+      "set": "text",
+      "kind": "keyword",
+      "expected": [
+        "db_connection_timeout",
+        "cache_unavailable"
+      ],
+      "hybrid": {
+        "before": 1,
+        "after": {
+          "20": 1,
+          "50": 1
+        },
+        "ceiling": {
+          "20": 1,
+          "50": 1
+        },
+        "ms": {
+          "20": 19.37558799999988,
+          "50": 16.76966399999992
+        },
+        "top3": {
+          "before": [
+            "db_connection_timeout",
+            "db_connection_timeout",
+            "db_connection_timeout"
+          ],
+          "after": {
+            "20": [
+              "cache_unavailable",
+              "cache_unavailable",
+              "db_connection_timeout"
+            ],
+            "50": [
+              "cache_unavailable",
+              "cache_unavailable",
+              "cache_unavailable"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "text": "KnexTimeoutError",
+      "set": "text",
+      "kind": "keyword",
+      "expected": [
+        "db_connection_timeout"
+      ],
+      "hybrid": {
+        "before": 1,
+        "after": {
+          "20": 1,
+          "50": 1
+        },
+        "ceiling": {
+          "20": 1,
+          "50": 1
+        },
+        "ms": {
+          "20": 24.31502599999976,
+          "50": 10.9633630000003
+        },
+        "top3": {
+          "before": [
+            "db_connection_timeout",
+            "db_connection_timeout",
+            "db_connection_timeout"
+          ],
+          "after": {
+            "20": [
+              "db_connection_timeout",
+              "db_connection_timeout",
+              "db_connection_timeout"
+            ],
+            "50": [
+              "db_connection_timeout",
+              "db_connection_timeout",
+              "db_connection_timeout"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "text": "db connection timeout",
+      "set": "text",
+      "kind": "mixed",
+      "expected": [
+        "db_connection_timeout"
+      ],
+      "hybrid": {
+        "before": 1,
+        "after": {
+          "20": 1,
+          "50": 1
+        },
+        "ceiling": {
+          "20": 1,
+          "50": 1
+        },
+        "ms": {
+          "20": 35.30539500000032,
+          "50": 23.372656000000006
+        },
+        "top3": {
+          "before": [
+            "db_connection_timeout",
+            "db_connection_timeout",
+            "db_connection_timeout"
+          ],
+          "after": {
+            "20": [
+              "db_connection_timeout",
+              "db_connection_timeout",
+              "db_connection_timeout"
+            ],
+            "50": [
+              "db_connection_timeout",
+              "db_connection_timeout",
+              "db_connection_timeout"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "text": "database is not accepting new connections",
+      "set": "text",
+      "kind": "paraphrase",
+      "expected": [
+        "db_connection_timeout"
+      ],
+      "hybrid": {
+        "before": 1,
+        "after": {
+          "20": 1,
+          "50": 1
+        },
+        "ceiling": {
+          "20": 1,
+          "50": 1
+        },
+        "ms": {
+          "20": 34.00317600000017,
+          "50": 13.032568999999967
+        },
+        "top3": {
+          "before": [
+            "db_connection_timeout",
+            "db_connection_timeout",
+            "db_connection_timeout"
+          ],
+          "after": {
+            "20": [
+              "db_connection_timeout",
+              "db_connection_timeout",
+              "db_connection_timeout"
+            ],
+            "50": [
+              "db_connection_timeout",
+              "db_connection_timeout",
+              "db_connection_timeout"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "text": "deadlock detected",
+      "set": "text",
+      "kind": "keyword",
+      "expected": [
+        "deadlock"
+      ],
+      "hybrid": {
+        "before": 1,
+        "after": {
+          "20": 1,
+          "50": 1
+        },
+        "ceiling": {
+          "20": 1,
+          "50": 1
+        },
+        "ms": {
+          "20": 18.237810999999965,
+          "50": 20.210129999999936
+        },
+        "top3": {
+          "before": [
+            "deadlock",
+            "deadlock",
+            "deadlock"
+          ],
+          "after": {
+            "20": [
+              "deadlock",
+              "deadlock",
+              "deadlock"
+            ],
+            "50": [
+              "deadlock",
+              "deadlock",
+              "deadlock"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "text": "transaction rolled back by concurrent updates",
+      "set": "text",
+      "kind": "mixed",
+      "expected": [
+        "deadlock"
+      ],
+      "hybrid": {
+        "before": 1,
+        "after": {
+          "20": 1,
+          "50": 1
+        },
+        "ceiling": {
+          "20": 1,
+          "50": 1
+        },
+        "ms": {
+          "20": 16.646318000000065,
+          "50": 8.170317000000068
+        },
+        "top3": {
+          "before": [
+            "deadlock",
+            "deadlock",
+            "deadlock"
+          ],
+          "after": {
+            "20": [
+              "deadlock",
+              "deadlock",
+              "deadlock"
+            ],
+            "50": [
+              "deadlock",
+              "deadlock",
+              "deadlock"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "text": "two transactions blocking each other",
+      "set": "text",
+      "kind": "paraphrase",
+      "expected": [
+        "deadlock"
+      ],
+      "hybrid": {
+        "before": 1,
+        "after": {
+          "20": 1,
+          "50": 1
+        },
+        "ceiling": {
+          "20": 1,
+          "50": 1
+        },
+        "ms": {
+          "20": 21.95647100000042,
+          "50": 26.92327699999987
+        },
+        "top3": {
+          "before": [
+            "deadlock",
+            "deadlock",
+            "deadlock"
+          ],
+          "after": {
+            "20": [
+              "deadlock",
+              "deadlock",
+              "deadlock"
+            ],
+            "50": [
+              "deadlock",
+              "deadlock",
+              "deadlock"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "text": "rows locked by each other forever",
+      "set": "text",
+      "kind": "paraphrase",
+      "expected": [
+        "deadlock"
+      ],
+      "hybrid": {
+        "before": 1,
+        "after": {
+          "20": 1,
+          "50": 1
+        },
+        "ceiling": {
+          "20": 1,
+          "50": 1
+        },
+        "ms": {
+          "20": 13.209799000000203,
+          "50": 11.786391999999978
+        },
+        "top3": {
+          "before": [
+            "deadlock",
+            "deadlock",
+            "deadlock"
+          ],
+          "after": {
+            "20": [
+              "deadlock",
+              "deadlock",
+              "deadlock"
+            ],
+            "50": [
+              "deadlock",
+              "deadlock",
+              "deadlock"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "text": "ENOSPC",
+      "set": "text",
+      "kind": "keyword",
+      "expected": [
+        "disk_full"
+      ],
+      "hybrid": {
+        "before": 1,
+        "after": {
+          "20": 1,
+          "50": 1
+        },
+        "ceiling": {
+          "20": 1,
+          "50": 1
+        },
+        "ms": {
+          "20": 32.16478099999995,
+          "50": 30.21196000000009
+        },
+        "top3": {
+          "before": [
+            "disk_full",
+            "disk_full",
+            "disk_full"
+          ],
+          "after": {
+            "20": [
+              "disk_full",
+              "disk_full",
+              "disk_full"
+            ],
+            "50": [
+              "disk_full",
+              "disk_full",
+              "disk_full"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "text": "no space left on device",
+      "set": "text",
+      "kind": "keyword",
+      "expected": [
+        "disk_full"
+      ],
+      "hybrid": {
+        "before": 1,
+        "after": {
+          "20": 1,
+          "50": 1
+        },
+        "ceiling": {
+          "20": 1,
+          "50": 1
+        },
+        "ms": {
+          "20": 28.80892300000005,
+          "50": 30.851602000000184
+        },
+        "top3": {
+          "before": [
+            "disk_full",
+            "disk_full",
+            "disk_full"
+          ],
+          "after": {
+            "20": [
+              "disk_full",
+              "disk_full",
+              "disk_full"
+            ],
+            "50": [
+              "disk_full",
+              "disk_full",
+              "disk_full"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "text": "storage volume is full",
+      "set": "text",
+      "kind": "paraphrase",
+      "expected": [
+        "disk_full"
+      ],
+      "hybrid": {
+        "before": 1,
+        "after": {
+          "20": 1,
+          "50": 1
+        },
+        "ceiling": {
+          "20": 1,
+          "50": 1
+        },
+        "ms": {
+          "20": 37.73043600000028,
+          "50": 20.959288000000015
+        },
+        "top3": {
+          "before": [
+            "disk_full",
+            "disk_full",
+            "disk_full"
+          ],
+          "after": {
+            "20": [
+              "disk_full",
+              "disk_full",
+              "disk_full"
+            ],
+            "50": [
+              "disk_full",
+              "disk_full",
+              "disk_full"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "text": "cannot write files anymore, the drive is at capacity",
+      "set": "text",
+      "kind": "paraphrase",
+      "expected": [
+        "disk_full"
+      ],
+      "hybrid": {
+        "before": 1,
+        "after": {
+          "20": 1,
+          "50": 1
+        },
+        "ceiling": {
+          "20": 1,
+          "50": 1
+        },
+        "ms": {
+          "20": 28.31464800000049,
+          "50": 37.015542000000096
+        },
+        "top3": {
+          "before": [
+            "disk_full",
+            "disk_full",
+            "disk_full"
+          ],
+          "after": {
+            "20": [
+              "disk_full",
+              "disk_full",
+              "disk_full"
+            ],
+            "50": [
+              "disk_full",
+              "disk_full",
+              "disk_full"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "text": "ENOTFOUND",
+      "set": "text",
+      "kind": "keyword",
+      "expected": [
+        "dns_failure"
+      ],
+      "hybrid": {
+        "before": 1,
+        "after": {
+          "20": 1,
+          "50": 1
+        },
+        "ceiling": {
+          "20": 1,
+          "50": 1
+        },
+        "ms": {
+          "20": 30.713722999999845,
+          "50": 24.938240999999834
+        },
+        "top3": {
+          "before": [
+            "dns_failure",
+            "dns_failure",
+            "dns_failure"
+          ],
+          "after": {
+            "20": [
+              "dns_failure",
+              "dns_failure",
+              "dns_failure"
+            ],
+            "50": [
+              "dns_failure",
+              "dns_failure",
+              "dns_failure"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "text": "temporary failure in name resolution",
+      "set": "text",
+      "kind": "keyword",
+      "expected": [
+        "dns_failure"
+      ],
+      "hybrid": {
+        "before": 1,
+        "after": {
+          "20": 1,
+          "50": 1
+        },
+        "ceiling": {
+          "20": 1,
+          "50": 1
+        },
+        "ms": {
+          "20": 20.033620000000155,
+          "50": 25.524899999999434
+        },
+        "top3": {
+          "before": [
+            "dns_failure",
+            "dns_failure",
+            "dns_failure"
+          ],
+          "after": {
+            "20": [
+              "dns_failure",
+              "dns_failure",
+              "dns_failure"
+            ],
+            "50": [
+              "dns_failure",
+              "dns_failure",
+              "dns_failure"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "text": "hostname lookup failing",
+      "set": "text",
+      "kind": "mixed",
+      "expected": [
+        "dns_failure"
+      ],
+      "hybrid": {
+        "before": 1,
+        "after": {
+          "20": 1,
+          "50": 1
+        },
+        "ceiling": {
+          "20": 1,
+          "50": 1
+        },
+        "ms": {
+          "20": 18.75415299999986,
+          "50": 46.76559399999951
+        },
+        "top3": {
+          "before": [
+            "dns_failure",
+            "dns_failure",
+            "dns_failure"
+          ],
+          "after": {
+            "20": [
+              "dns_failure",
+              "dns_failure",
+              "dns_failure"
+            ],
+            "50": [
+              "dns_failure",
+              "dns_failure",
+              "dns_failure"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "text": "cannot find the address of the payment server",
+      "set": "text",
+      "kind": "paraphrase",
+      "expected": [
+        "dns_failure"
+      ],
+      "hybrid": {
+        "before": 0,
+        "after": {
+          "20": 0,
+          "50": 0
+        },
+        "ceiling": {
+          "20": 0,
+          "50": 0
+        },
+        "ms": {
+          "20": 24.770354000000225,
+          "50": 26.047004000000015
+        },
+        "top3": {
+          "before": [
+            "null_reference",
+            "null_reference",
+            "null_reference"
+          ],
+          "after": {
+            "20": [
+              "payment_gateway_5xx",
+              "payment_gateway_5xx",
+              "null_reference"
+            ],
+            "50": [
+              "payment_gateway_5xx",
+              "payment_gateway_5xx",
+              "payment_gateway_5xx"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "text": "users_email_unique",
+      "set": "text",
+      "kind": "keyword",
+      "expected": [
+        "duplicate_key"
+      ],
+      "hybrid": {
+        "before": 1,
+        "after": {
+          "20": 1,
+          "50": 1
+        },
+        "ceiling": {
+          "20": 1,
+          "50": 1
+        },
+        "ms": {
+          "20": 24.373661999999968,
+          "50": 8.63104999999996
+        },
+        "top3": {
+          "before": [
+            "duplicate_key",
+            "duplicate_key",
+            "duplicate_key"
+          ],
+          "after": {
+            "20": [
+              "duplicate_key",
+              "duplicate_key",
+              "duplicate_key"
+            ],
+            "50": [
+              "duplicate_key",
+              "duplicate_key",
+              "duplicate_key"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "text": "duplicate key value violates unique constraint",
+      "set": "text",
+      "kind": "keyword",
+      "expected": [
+        "duplicate_key"
+      ],
+      "hybrid": {
+        "before": 1,
+        "after": {
+          "20": 1,
+          "50": 1
+        },
+        "ceiling": {
+          "20": 1,
+          "50": 1
+        },
+        "ms": {
+          "20": 23.876689000000624,
+          "50": 8.848708000000443
+        },
+        "top3": {
+          "before": [
+            "duplicate_key",
+            "duplicate_key",
+            "duplicate_key"
+          ],
+          "after": {
+            "20": [
+              "duplicate_key",
+              "duplicate_key",
+              "duplicate_key"
+            ],
+            "50": [
+              "duplicate_key",
+              "duplicate_key",
+              "duplicate_key"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "text": "warehouse reconciliation mismatch",
+      "set": "text",
+      "kind": "keyword",
+      "expected": [
+        "stock_inconsistency"
+      ],
+      "hybrid": {
+        "before": 1,
+        "after": {
+          "20": 1,
+          "50": 1
+        },
+        "ceiling": {
+          "20": 1,
+          "50": 1
+        },
+        "ms": {
+          "20": 24.59491799999978,
+          "50": 19.9411369999998
+        },
+        "top3": {
+          "before": [
+            "stock_inconsistency",
+            "stock_inconsistency",
+            "stock_inconsistency"
+          ],
+          "after": {
+            "20": [
+              "stock_inconsistency",
+              "stock_inconsistency",
+              "stock_inconsistency"
+            ],
+            "50": [
+              "stock_inconsistency",
+              "stock_inconsistency",
+              "stock_inconsistency"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "text": "email already registered",
+      "set": "text",
+      "kind": "mixed",
+      "expected": [
+        "duplicate_key"
+      ],
+      "hybrid": {
+        "before": 1,
+        "after": {
+          "20": 1,
+          "50": 1
+        },
+        "ceiling": {
+          "20": 1,
+          "50": 1
+        },
+        "ms": {
+          "20": 18.190717999999833,
+          "50": 26.783803000000262
+        },
+        "top3": {
+          "before": [
+            "duplicate_key",
+            "duplicate_key",
+            "duplicate_key"
+          ],
+          "after": {
+            "20": [
+              "duplicate_key",
+              "duplicate_key",
+              "duplicate_key"
+            ],
+            "50": [
+              "duplicate_key",
+              "duplicate_key",
+              "duplicate_key"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "text": "same order submitted twice",
+      "set": "text",
+      "kind": "paraphrase",
+      "expected": [
+        "duplicate_key"
+      ],
+      "hybrid": {
+        "before": 1,
+        "after": {
+          "20": 1,
+          "50": 1
+        },
+        "ceiling": {
+          "20": 1,
+          "50": 1
+        },
+        "ms": {
+          "20": 15.817649999999958,
+          "50": 18.914111000000048
+        },
+        "top3": {
+          "before": [
+            "duplicate_key",
+            "duplicate_key",
+            "duplicate_key"
+          ],
+          "after": {
+            "20": [
+              "duplicate_key",
+              "duplicate_key",
+              "duplicate_key"
+            ],
+            "50": [
+              "duplicate_key",
+              "duplicate_key",
+              "duplicate_key"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "text": "JWT expired",
+      "set": "text",
+      "kind": "keyword",
+      "expected": [
+        "jwt_expired"
+      ],
+      "hybrid": {
+        "before": 1,
+        "after": {
+          "20": 1,
+          "50": 1
+        },
+        "ceiling": {
+          "20": 1,
+          "50": 1
+        },
+        "ms": {
+          "20": 36.808375000000524,
+          "50": 13.441797000000406
+        },
+        "top3": {
+          "before": [
+            "jwt_expired",
+            "jwt_expired",
+            "jwt_expired"
+          ],
+          "after": {
+            "20": [
+              "jwt_expired",
+              "jwt_expired",
+              "jwt_expired"
+            ],
+            "50": [
+              "jwt_expired",
+              "jwt_expired",
+              "jwt_expired"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "text": "401 unauthorized after token expiry",
+      "set": "text",
+      "kind": "mixed",
+      "expected": [
+        "jwt_expired"
+      ],
+      "hybrid": {
+        "before": 1,
+        "after": {
+          "20": 1,
+          "50": 1
+        },
+        "ceiling": {
+          "20": 1,
+          "50": 1
+        },
+        "ms": {
+          "20": 18.57331299999987,
+          "50": 14.048141999999643
+        },
+        "top3": {
+          "before": [
+            "jwt_expired",
+            "jwt_expired",
+            "jwt_expired"
+          ],
+          "after": {
+            "20": [
+              "jwt_expired",
+              "jwt_expired",
+              "jwt_expired"
+            ],
+            "50": [
+              "jwt_expired",
+              "jwt_expired",
+              "jwt_expired"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "text": "login session no longer valid",
+      "set": "text",
+      "kind": "mixed",
+      "expected": [
+        "jwt_expired"
+      ],
+      "hybrid": {
+        "before": 1,
+        "after": {
+          "20": 1,
+          "50": 1
+        },
+        "ceiling": {
+          "20": 1,
+          "50": 1
+        },
+        "ms": {
+          "20": 21.750256000000263,
+          "50": 9.13712299999952
+        },
+        "top3": {
+          "before": [
+            "jwt_expired",
+            "jwt_expired",
+            "jwt_expired"
+          ],
+          "after": {
+            "20": [
+              "jwt_expired",
+              "jwt_expired",
+              "jwt_expired"
+            ],
+            "50": [
+              "jwt_expired",
+              "jwt_expired",
+              "jwt_expired"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "text": "users are being logged out unexpectedly",
+      "set": "text",
+      "kind": "paraphrase",
+      "expected": [
+        "jwt_expired"
+      ],
+      "hybrid": {
+        "before": 1,
+        "after": {
+          "20": 1,
+          "50": 1
+        },
+        "ceiling": {
+          "20": 1,
+          "50": 1
+        },
+        "ms": {
+          "20": 18.44768599999952,
+          "50": 31.933514999999716
+        },
+        "top3": {
+          "before": [
+            "jwt_expired",
+            "jwt_expired",
+            "jwt_expired"
+          ],
+          "after": {
+            "20": [
+              "jwt_expired",
+              "jwt_expired",
+              "jwt_expired"
+            ],
+            "50": [
+              "jwt_expired",
+              "jwt_expired",
+              "jwt_expired"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "text": "NullPointerException",
+      "set": "text",
+      "kind": "keyword",
+      "expected": [
+        "null_reference"
+      ],
+      "hybrid": {
+        "before": 1,
+        "after": {
+          "20": 1,
+          "50": 1
+        },
+        "ceiling": {
+          "20": 1,
+          "50": 1
+        },
+        "ms": {
+          "20": 24.649760000000242,
+          "50": 9.154136000000108
+        },
+        "top3": {
+          "before": [
+            "null_reference",
+            "null_reference",
+            "null_reference"
+          ],
+          "after": {
+            "20": [
+              "null_reference",
+              "null_reference",
+              "null_reference"
+            ],
+            "50": [
+              "null_reference",
+              "null_reference",
+              "null_reference"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "text": "Cannot read properties of undefined",
+      "set": "text",
+      "kind": "keyword",
+      "expected": [
+        "null_reference"
+      ],
+      "hybrid": {
+        "before": 1,
+        "after": {
+          "20": 1,
+          "50": 1
+        },
+        "ceiling": {
+          "20": 1,
+          "50": 1
+        },
+        "ms": {
+          "20": 13.168657000000167,
+          "50": 14.42138199999954
+        },
+        "top3": {
+          "before": [
+            "null_reference",
+            "null_reference",
+            "null_reference"
+          ],
+          "after": {
+            "20": [
+              "null_reference",
+              "null_reference",
+              "null_reference"
+            ],
+            "50": [
+              "null_reference",
+              "null_reference",
+              "null_reference"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "text": "accessing a property of an undefined object",
+      "set": "text",
+      "kind": "mixed",
+      "expected": [
+        "null_reference"
+      ],
+      "hybrid": {
+        "before": 1,
+        "after": {
+          "20": 1,
+          "50": 1
+        },
+        "ceiling": {
+          "20": 1,
+          "50": 1
+        },
+        "ms": {
+          "20": 21.16711899999973,
+          "50": 9.753359999999702
+        },
+        "top3": {
+          "before": [
+            "null_reference",
+            "null_reference",
+            "null_reference"
+          ],
+          "after": {
+            "20": [
+              "null_reference",
+              "null_reference",
+              "null_reference"
+            ],
+            "50": [
+              "null_reference",
+              "null_reference",
+              "null_reference"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "text": "code crashed on a missing field",
+      "set": "text",
+      "kind": "paraphrase",
+      "expected": [
+        "null_reference"
+      ],
+      "hybrid": {
+        "before": 0.5,
+        "after": {
+          "20": 1,
+          "50": 1
+        },
+        "ceiling": {
+          "20": 1,
+          "50": 1
+        },
+        "ms": {
+          "20": 21.256906999999956,
+          "50": 21.376194999999825
+        },
+        "top3": {
+          "before": [
+            "db_connection_timeout",
+            "null_reference",
+            "db_connection_timeout"
+          ],
+          "after": {
+            "20": [
+              "null_reference",
+              "null_reference",
+              "null_reference"
+            ],
+            "50": [
+              "null_reference",
+              "null_reference",
+              "null_reference"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "text": "OOMKilled",
+      "set": "text",
+      "kind": "keyword",
+      "expected": [
+        "out_of_memory"
+      ],
+      "hybrid": {
+        "before": 1,
+        "after": {
+          "20": 1,
+          "50": 1
+        },
+        "ceiling": {
+          "20": 1,
+          "50": 1
+        },
+        "ms": {
+          "20": 27.929470999999467,
+          "50": 18.939194000000498
+        },
+        "top3": {
+          "before": [
+            "out_of_memory",
+            "out_of_memory",
+            "out_of_memory"
+          ],
+          "after": {
+            "20": [
+              "out_of_memory",
+              "out_of_memory",
+              "out_of_memory"
+            ],
+            "50": [
+              "out_of_memory",
+              "out_of_memory",
+              "out_of_memory"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "text": "JavaScript heap out of memory",
+      "set": "text",
+      "kind": "keyword",
+      "expected": [
+        "out_of_memory"
+      ],
+      "hybrid": {
+        "before": 1,
+        "after": {
+          "20": 1,
+          "50": 1
+        },
+        "ceiling": {
+          "20": 1,
+          "50": 1
+        },
+        "ms": {
+          "20": 31.099239999999554,
+          "50": 31.691688000000795
+        },
+        "top3": {
+          "before": [
+            "out_of_memory",
+            "out_of_memory",
+            "out_of_memory"
+          ],
+          "after": {
+            "20": [
+              "out_of_memory",
+              "out_of_memory",
+              "out_of_memory"
+            ],
+            "50": [
+              "out_of_memory",
+              "out_of_memory",
+              "out_of_memory"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "text": "worker restarted for using too much memory",
+      "set": "text",
+      "kind": "mixed",
+      "expected": [
+        "out_of_memory"
+      ],
+      "hybrid": {
+        "before": 1,
+        "after": {
+          "20": 1,
+          "50": 1
+        },
+        "ceiling": {
+          "20": 1,
+          "50": 1
+        },
+        "ms": {
+          "20": 22.521419999999125,
+          "50": 25.472411000000648
+        },
+        "top3": {
+          "before": [
+            "out_of_memory",
+            "out_of_memory",
+            "out_of_memory"
+          ],
+          "after": {
+            "20": [
+              "out_of_memory",
+              "out_of_memory",
+              "out_of_memory"
+            ],
+            "50": [
+              "out_of_memory",
+              "out_of_memory",
+              "out_of_memory"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "text": "server ran out of RAM and crashed",
+      "set": "text",
+      "kind": "paraphrase",
+      "expected": [
+        "out_of_memory"
+      ],
+      "hybrid": {
+        "before": 1,
+        "after": {
+          "20": 1,
+          "50": 1
+        },
+        "ceiling": {
+          "20": 1,
+          "50": 1
+        },
+        "ms": {
+          "20": 14.174611000000368,
+          "50": 20.162861999999222
+        },
+        "top3": {
+          "before": [
+            "out_of_memory",
+            "out_of_memory",
+            "out_of_memory"
+          ],
+          "after": {
+            "20": [
+              "out_of_memory",
+              "out_of_memory",
+              "out_of_memory"
+            ],
+            "50": [
+              "out_of_memory",
+              "out_of_memory",
+              "out_of_memory"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "text": "502 Bad Gateway",
+      "set": "text",
+      "kind": "keyword",
+      "expected": [
+        "payment_gateway_5xx"
+      ],
+      "hybrid": {
+        "before": 1,
+        "after": {
+          "20": 1,
+          "50": 1
+        },
+        "ceiling": {
+          "20": 1,
+          "50": 1
+        },
+        "ms": {
+          "20": 23.16474500000004,
+          "50": 8.315010000000257
+        },
+        "top3": {
+          "before": [
+            "payment_gateway_5xx",
+            "payment_gateway_5xx",
+            "payment_gateway_5xx"
+          ],
+          "after": {
+            "20": [
+              "payment_gateway_5xx",
+              "payment_gateway_5xx",
+              "payment_gateway_5xx"
+            ],
+            "50": [
+              "payment_gateway_5xx",
+              "payment_gateway_5xx",
+              "payment_gateway_5xx"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "text": "stripe returning 503",
+      "set": "text",
+      "kind": "mixed",
+      "expected": [
+        "payment_gateway_5xx"
+      ],
+      "hybrid": {
+        "before": 1,
+        "after": {
+          "20": 1,
+          "50": 1
+        },
+        "ceiling": {
+          "20": 1,
+          "50": 1
+        },
+        "ms": {
+          "20": 24.861313999999766,
+          "50": 8.590444999999818
+        },
+        "top3": {
+          "before": [
+            "payment_gateway_5xx",
+            "payment_gateway_5xx",
+            "payment_gateway_5xx"
+          ],
+          "after": {
+            "20": [
+              "payment_gateway_5xx",
+              "payment_gateway_5xx",
+              "payment_gateway_5xx"
+            ],
+            "50": [
+              "payment_gateway_5xx",
+              "payment_gateway_5xx",
+              "payment_gateway_5xx"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "text": "charges failing because the provider is unavailable",
+      "set": "text",
+      "kind": "mixed",
+      "expected": [
+        "payment_gateway_5xx"
+      ],
+      "hybrid": {
+        "before": 1,
+        "after": {
+          "20": 1,
+          "50": 1
+        },
+        "ceiling": {
+          "20": 1,
+          "50": 1
+        },
+        "ms": {
+          "20": 23.57999899999959,
+          "50": 14.51424600000064
+        },
+        "top3": {
+          "before": [
+            "payment_gateway_5xx",
+            "payment_gateway_5xx",
+            "payment_gateway_5xx"
+          ],
+          "after": {
+            "20": [
+              "payment_gateway_5xx",
+              "payment_gateway_5xx",
+              "payment_gateway_5xx"
+            ],
+            "50": [
+              "payment_gateway_5xx",
+              "payment_gateway_5xx",
+              "payment_gateway_5xx"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "text": "customers cannot pay, card processor is down",
+      "set": "text",
+      "kind": "paraphrase",
+      "expected": [
+        "payment_gateway_5xx"
+      ],
+      "hybrid": {
+        "before": 0.6,
+        "after": {
+          "20": 1,
+          "50": 1
+        },
+        "ceiling": {
+          "20": 1,
+          "50": 1
+        },
+        "ms": {
+          "20": 22.95863499999905,
+          "50": 25.47676599999977
+        },
+        "top3": {
+          "before": [
+            "payment_gateway_5xx",
+            "payment_gateway_5xx",
+            "null_reference"
+          ],
+          "after": {
+            "20": [
+              "payment_gateway_5xx",
+              "payment_gateway_5xx",
+              "payment_gateway_5xx"
+            ],
+            "50": [
+              "payment_gateway_5xx",
+              "payment_gateway_5xx",
+              "payment_gateway_5xx"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "text": "kafka consumer lag",
+      "set": "text",
+      "kind": "keyword",
+      "expected": [
+        "queue_lag"
+      ],
+      "hybrid": {
+        "before": 1,
+        "after": {
+          "20": 1,
+          "50": 1
+        },
+        "ceiling": {
+          "20": 1,
+          "50": 1
+        },
+        "ms": {
+          "20": 21.78237000000081,
+          "50": 13.802048999999897
+        },
+        "top3": {
+          "before": [
+            "queue_lag",
+            "queue_lag",
+            "queue_lag"
+          ],
+          "after": {
+            "20": [
+              "queue_lag",
+              "queue_lag",
+              "queue_lag"
+            ],
+            "50": [
+              "queue_lag",
+              "queue_lag",
+              "queue_lag"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "text": "backlog keeps growing",
+      "set": "text",
+      "kind": "mixed",
+      "expected": [
+        "queue_lag"
+      ],
+      "hybrid": {
+        "before": 1,
+        "after": {
+          "20": 1,
+          "50": 1
+        },
+        "ceiling": {
+          "20": 1,
+          "50": 1
+        },
+        "ms": {
+          "20": 23.07717700000103,
+          "50": 7.864180999999007
+        },
+        "top3": {
+          "before": [
+            "queue_lag",
+            "queue_lag",
+            "queue_lag"
+          ],
+          "after": {
+            "20": [
+              "queue_lag",
+              "queue_lag",
+              "queue_lag"
+            ],
+            "50": [
+              "queue_lag",
+              "queue_lag",
+              "queue_lag"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "text": "background events are piling up and not being consumed",
+      "set": "text",
+      "kind": "paraphrase",
+      "expected": [
+        "queue_lag"
+      ],
+      "hybrid": {
+        "before": 1,
+        "after": {
+          "20": 1,
+          "50": 1
+        },
+        "ceiling": {
+          "20": 1,
+          "50": 1
+        },
+        "ms": {
+          "20": 20.607334999998784,
+          "50": 24.410885000001144
+        },
+        "top3": {
+          "before": [
+            "queue_lag",
+            "queue_lag",
+            "queue_lag"
+          ],
+          "after": {
+            "20": [
+              "queue_lag",
+              "queue_lag",
+              "queue_lag"
+            ],
+            "50": [
+              "queue_lag",
+              "queue_lag",
+              "queue_lag"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "text": "emails are being sent hours late",
+      "set": "text",
+      "kind": "paraphrase",
+      "expected": [
+        "queue_lag"
+      ],
+      "hybrid": {
+        "before": 1,
+        "after": {
+          "20": 1,
+          "50": 1
+        },
+        "ceiling": {
+          "20": 1,
+          "50": 1
+        },
+        "ms": {
+          "20": 20.544880999999805,
+          "50": 21.724679999999353
+        },
+        "top3": {
+          "before": [
+            "queue_lag",
+            "queue_lag",
+            "queue_lag"
+          ],
+          "after": {
+            "20": [
+              "queue_lag",
+              "queue_lag",
+              "queue_lag"
+            ],
+            "50": [
+              "queue_lag",
+              "queue_lag",
+              "queue_lag"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "text": "too many requests",
+      "set": "text",
+      "kind": "keyword",
+      "expected": [
+        "rate_limited"
+      ],
+      "hybrid": {
+        "before": 1,
+        "after": {
+          "20": 1,
+          "50": 1
+        },
+        "ceiling": {
+          "20": 1,
+          "50": 1
+        },
+        "ms": {
+          "20": 29.300530000000435,
+          "50": 18.058296000001064
+        },
+        "top3": {
+          "before": [
+            "rate_limited",
+            "rate_limited",
+            "rate_limited"
+          ],
+          "after": {
+            "20": [
+              "rate_limited",
+              "rate_limited",
+              "rate_limited"
+            ],
+            "50": [
+              "rate_limited",
+              "rate_limited",
+              "rate_limited"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "text": "rate limit exceeded",
+      "set": "text",
+      "kind": "keyword",
+      "expected": [
+        "rate_limited"
+      ],
+      "hybrid": {
+        "before": 1,
+        "after": {
+          "20": 1,
+          "50": 1
+        },
+        "ceiling": {
+          "20": 1,
+          "50": 1
+        },
+        "ms": {
+          "20": 20.83735499999966,
+          "50": 19.440536999998585
+        },
+        "top3": {
+          "before": [
+            "rate_limited",
+            "rate_limited",
+            "rate_limited"
+          ],
+          "after": {
+            "20": [
+              "rate_limited",
+              "rate_limited",
+              "rate_limited"
+            ],
+            "50": [
+              "rate_limited",
+              "rate_limited",
+              "rate_limited"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "text": "partner API is throttling our calls",
+      "set": "text",
+      "kind": "mixed",
+      "expected": [
+        "rate_limited"
+      ],
+      "hybrid": {
+        "before": 1,
+        "after": {
+          "20": 1,
+          "50": 1
+        },
+        "ceiling": {
+          "20": 1,
+          "50": 1
+        },
+        "ms": {
+          "20": 17.962696000000506,
+          "50": 14.279872999999498
+        },
+        "top3": {
+          "before": [
+            "rate_limited",
+            "rate_limited",
+            "rate_limited"
+          ],
+          "after": {
+            "20": [
+              "rate_limited",
+              "rate_limited",
+              "rate_limited"
+            ],
+            "50": [
+              "rate_limited",
+              "rate_limited",
+              "rate_limited"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "text": "one client is flooding us with traffic",
+      "set": "text",
+      "kind": "paraphrase",
+      "expected": [
+        "rate_limited"
+      ],
+      "hybrid": {
+        "before": 1,
+        "after": {
+          "20": 1,
+          "50": 1
+        },
+        "ceiling": {
+          "20": 1,
+          "50": 1
+        },
+        "ms": {
+          "20": 18.093120000001363,
+          "50": 23.204897999999957
+        },
+        "top3": {
+          "before": [
+            "rate_limited",
+            "rate_limited",
+            "rate_limited"
+          ],
+          "after": {
+            "20": [
+              "rate_limited",
+              "rate_limited",
+              "rate_limited"
+            ],
+            "50": [
+              "rate_limited",
+              "rate_limited",
+              "rate_limited"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "text": "statement timeout",
+      "set": "text",
+      "kind": "keyword",
+      "expected": [
+        "slow_query"
+      ],
+      "hybrid": {
+        "before": 1,
+        "after": {
+          "20": 1,
+          "50": 1
+        },
+        "ceiling": {
+          "20": 1,
+          "50": 1
+        },
+        "ms": {
+          "20": 18.00021899999956,
+          "50": 7.470251999999164
+        },
+        "top3": {
+          "before": [
+            "slow_query",
+            "slow_query",
+            "slow_query"
+          ],
+          "after": {
+            "20": [
+              "slow_query",
+              "slow_query",
+              "slow_query"
+            ],
+            "50": [
+              "slow_query",
+              "slow_query",
+              "slow_query"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "text": "query is too slow",
+      "set": "text",
+      "kind": "mixed",
+      "expected": [
+        "slow_query"
+      ],
+      "hybrid": {
+        "before": 1,
+        "after": {
+          "20": 1,
+          "50": 1
+        },
+        "ceiling": {
+          "20": 1,
+          "50": 1
+        },
+        "ms": {
+          "20": 34.05531999999948,
+          "50": 8.936450999999579
+        },
+        "top3": {
+          "before": [
+            "slow_query",
+            "slow_query",
+            "slow_query"
+          ],
+          "after": {
+            "20": [
+              "slow_query",
+              "slow_query",
+              "slow_query"
+            ],
+            "50": [
+              "slow_query",
+              "slow_query",
+              "slow_query"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "text": "database calls exceeding their latency budget",
+      "set": "text",
+      "kind": "mixed",
+      "expected": [
+        "slow_query"
+      ],
+      "hybrid": {
+        "before": 1,
+        "after": {
+          "20": 1,
+          "50": 1
+        },
+        "ceiling": {
+          "20": 1,
+          "50": 1
+        },
+        "ms": {
+          "20": 15.906643000000258,
+          "50": 13.479409999999916
+        },
+        "top3": {
+          "before": [
+            "slow_query",
+            "slow_query",
+            "slow_query"
+          ],
+          "after": {
+            "20": [
+              "slow_query",
+              "slow_query",
+              "slow_query"
+            ],
+            "50": [
+              "slow_query",
+              "slow_query",
+              "slow_query"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "text": "orders page takes forever to load from the database",
+      "set": "text",
+      "kind": "paraphrase",
+      "expected": [
+        "slow_query"
+      ],
+      "hybrid": {
+        "before": 1,
+        "after": {
+          "20": 0.5,
+          "50": 1
+        },
+        "ceiling": {
+          "20": 1,
+          "50": 1
+        },
+        "ms": {
+          "20": 25.63395700000001,
+          "50": 26.660294999999678
+        },
+        "top3": {
+          "before": [
+            "slow_query",
+            "slow_query",
+            "slow_query"
+          ],
+          "after": {
+            "20": [
+              "slow_query",
+              "slow_query",
+              "slow_query"
+            ],
+            "50": [
+              "slow_query",
+              "slow_query",
+              "slow_query"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "text": "inventory went negative",
+      "set": "text",
+      "kind": "keyword",
+      "expected": [
+        "stock_inconsistency"
+      ],
+      "hybrid": {
+        "before": 1,
+        "after": {
+          "20": 1,
+          "50": 1
+        },
+        "ceiling": {
+          "20": 1,
+          "50": 1
+        },
+        "ms": {
+          "20": 18.4502250000005,
+          "50": 22.257277000000613
+        },
+        "top3": {
+          "before": [
+            "stock_inconsistency",
+            "stock_inconsistency",
+            "stock_inconsistency"
+          ],
+          "after": {
+            "20": [
+              "stock_inconsistency",
+              "stock_inconsistency",
+              "stock_inconsistency"
+            ],
+            "50": [
+              "stock_inconsistency",
+              "stock_inconsistency",
+              "stock_inconsistency"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "text": "stock count does not match what we expected",
+      "set": "text",
+      "kind": "mixed",
+      "expected": [
+        "stock_inconsistency"
+      ],
+      "hybrid": {
+        "before": 1,
+        "after": {
+          "20": 1,
+          "50": 1
+        },
+        "ceiling": {
+          "20": 1,
+          "50": 1
+        },
+        "ms": {
+          "20": 19.29225100000076,
+          "50": 13.973703999999998
+        },
+        "top3": {
+          "before": [
+            "stock_inconsistency",
+            "stock_inconsistency",
+            "stock_inconsistency"
+          ],
+          "after": {
+            "20": [
+              "stock_inconsistency",
+              "stock_inconsistency",
+              "stock_inconsistency"
+            ],
+            "50": [
+              "stock_inconsistency",
+              "stock_inconsistency",
+              "stock_inconsistency"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "text": "we sold more items than we have in the warehouse",
+      "set": "text",
+      "kind": "paraphrase",
+      "expected": [
+        "stock_inconsistency"
+      ],
+      "hybrid": {
+        "before": 1,
+        "after": {
+          "20": 1,
+          "50": 1
+        },
+        "ceiling": {
+          "20": 1,
+          "50": 1
+        },
+        "ms": {
+          "20": 30.796942000000854,
+          "50": 32.167593000000124
+        },
+        "top3": {
+          "before": [
+            "stock_inconsistency",
+            "stock_inconsistency",
+            "stock_inconsistency"
+          ],
+          "after": {
+            "20": [
+              "stock_inconsistency",
+              "stock_inconsistency",
+              "stock_inconsistency"
+            ],
+            "50": [
+              "stock_inconsistency",
+              "stock_inconsistency",
+              "stock_inconsistency"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "text": "x509",
+      "set": "text",
+      "kind": "keyword",
+      "expected": [
+        "tls_cert_expired"
+      ],
+      "hybrid": {
+        "before": 1,
+        "after": {
+          "20": 1,
+          "50": 1
+        },
+        "ceiling": {
+          "20": 1,
+          "50": 1
+        },
+        "ms": {
+          "20": 19.90438500000164,
+          "50": 18.446938000000955
+        },
+        "top3": {
+          "before": [
+            "tls_cert_expired",
+            "tls_cert_expired",
+            "tls_cert_expired"
+          ],
+          "after": {
+            "20": [
+              "tls_cert_expired",
+              "tls_cert_expired",
+              "tls_cert_expired"
+            ],
+            "50": [
+              "tls_cert_expired",
+              "tls_cert_expired",
+              "tls_cert_expired"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "text": "CERT_HAS_EXPIRED",
+      "set": "text",
+      "kind": "keyword",
+      "expected": [
+        "tls_cert_expired"
+      ],
+      "hybrid": {
+        "before": 1,
+        "after": {
+          "20": 1,
+          "50": 1
+        },
+        "ceiling": {
+          "20": 1,
+          "50": 1
+        },
+        "ms": {
+          "20": 24.062536999999793,
+          "50": 30.329224000000977
+        },
+        "top3": {
+          "before": [
+            "tls_cert_expired",
+            "tls_cert_expired",
+            "tls_cert_expired"
+          ],
+          "after": {
+            "20": [
+              "tls_cert_expired",
+              "tls_cert_expired",
+              "tls_cert_expired"
+            ],
+            "50": [
+              "tls_cert_expired",
+              "tls_cert_expired",
+              "tls_cert_expired"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "text": "HTTPS certificate is no longer valid",
+      "set": "text",
+      "kind": "mixed",
+      "expected": [
+        "tls_cert_expired"
+      ],
+      "hybrid": {
+        "before": 0.8,
+        "after": {
+          "20": 0.7,
+          "50": 1
+        },
+        "ceiling": {
+          "20": 1,
+          "50": 1
+        },
+        "ms": {
+          "20": 18.661111999999775,
+          "50": 24.297527999999147
+        },
+        "top3": {
+          "before": [
+            "tls_cert_expired",
+            "tls_cert_expired",
+            "tls_cert_expired"
+          ],
+          "after": {
+            "20": [
+              "tls_cert_expired",
+              "tls_cert_expired",
+              "tls_cert_expired"
+            ],
+            "50": [
+              "tls_cert_expired",
+              "tls_cert_expired",
+              "tls_cert_expired"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "text": "outbound calls rejected because the SSL cert is old",
+      "set": "text",
+      "kind": "mixed",
+      "expected": [
+        "tls_cert_expired"
+      ],
+      "hybrid": {
+        "before": 1,
+        "after": {
+          "20": 1,
+          "50": 1
+        },
+        "ceiling": {
+          "20": 1,
+          "50": 1
+        },
+        "ms": {
+          "20": 38.07243000000017,
+          "50": 57.02241800000047
+        },
+        "top3": {
+          "before": [
+            "tls_cert_expired",
+            "tls_cert_expired",
+            "tls_cert_expired"
+          ],
+          "after": {
+            "20": [
+              "tls_cert_expired",
+              "tls_cert_expired",
+              "tls_cert_expired"
+            ],
+            "50": [
+              "tls_cert_expired",
+              "tls_cert_expired",
+              "tls_cert_expired"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "text": "23505",
+      "set": "codes",
+      "kind": "exact",
+      "expected": [
+        "duplicate_key"
+      ],
+      "hybrid": {
+        "before": 1,
+        "after": {
+          "20": 1,
+          "50": 1
+        },
+        "ceiling": {
+          "20": 1,
+          "50": 1
+        },
+        "ms": {
+          "20": 24.247762000000876,
+          "50": 21.113962999999785
+        },
+        "top3": {
+          "before": [
+            "duplicate_key",
+            "duplicate_key",
+            "duplicate_key"
+          ],
+          "after": {
+            "20": [
+              "duplicate_key",
+              "duplicate_key",
+              "duplicate_key"
+            ],
+            "50": [
+              "duplicate_key",
+              "duplicate_key",
+              "duplicate_key"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "text": "23505",
+      "set": "codes",
+      "kind": "lower",
+      "expected": [
+        "duplicate_key"
+      ],
+      "hybrid": {
+        "before": 1,
+        "after": {
+          "20": 1,
+          "50": 1
+        },
+        "ceiling": {
+          "20": 1,
+          "50": 1
+        },
+        "ms": {
+          "20": 28.7354409999989,
+          "50": 16.84295800000109
+        },
+        "top3": {
+          "before": [
+            "duplicate_key",
+            "duplicate_key",
+            "duplicate_key"
+          ],
+          "after": {
+            "20": [
+              "duplicate_key",
+              "duplicate_key",
+              "duplicate_key"
+            ],
+            "50": [
+              "duplicate_key",
+              "duplicate_key",
+              "duplicate_key"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "text": "lots of 23505 errors since the deploy",
+      "set": "codes",
+      "kind": "sentence",
+      "expected": [
+        "duplicate_key"
+      ],
+      "hybrid": {
+        "before": 1,
+        "after": {
+          "20": 1,
+          "50": 1
+        },
+        "ceiling": {
+          "20": 1,
+          "50": 1
+        },
+        "ms": {
+          "20": 34.66372500000034,
+          "50": 32.963895999999295
+        },
+        "top3": {
+          "before": [
+            "duplicate_key",
+            "duplicate_key",
+            "duplicate_key"
+          ],
+          "after": {
+            "20": [
+              "duplicate_key",
+              "duplicate_key",
+              "duplicate_key"
+            ],
+            "50": [
+              "duplicate_key",
+              "duplicate_key",
+              "duplicate_key"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "text": "40P01",
+      "set": "codes",
+      "kind": "exact",
+      "expected": [
+        "deadlock"
+      ],
+      "hybrid": {
+        "before": 1,
+        "after": {
+          "20": 1,
+          "50": 1
+        },
+        "ceiling": {
+          "20": 1,
+          "50": 1
+        },
+        "ms": {
+          "20": 18.225249000000986,
+          "50": 49.98209500000121
+        },
+        "top3": {
+          "before": [
+            "deadlock",
+            "deadlock",
+            "deadlock"
+          ],
+          "after": {
+            "20": [
+              "deadlock",
+              "deadlock",
+              "deadlock"
+            ],
+            "50": [
+              "deadlock",
+              "deadlock",
+              "deadlock"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "text": "40p01",
+      "set": "codes",
+      "kind": "lower",
+      "expected": [
+        "deadlock"
+      ],
+      "hybrid": {
+        "before": 1,
+        "after": {
+          "20": 1,
+          "50": 1
+        },
+        "ceiling": {
+          "20": 1,
+          "50": 1
+        },
+        "ms": {
+          "20": 23.878219000000172,
+          "50": 49.81368400000065
+        },
+        "top3": {
+          "before": [
+            "deadlock",
+            "deadlock",
+            "deadlock"
+          ],
+          "after": {
+            "20": [
+              "deadlock",
+              "deadlock",
+              "deadlock"
+            ],
+            "50": [
+              "deadlock",
+              "deadlock",
+              "deadlock"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "text": "lots of 40P01 errors since the deploy",
+      "set": "codes",
+      "kind": "sentence",
+      "expected": [
+        "deadlock"
+      ],
+      "hybrid": {
+        "before": 1,
+        "after": {
+          "20": 1,
+          "50": 1
+        },
+        "ceiling": {
+          "20": 1,
+          "50": 1
+        },
+        "ms": {
+          "20": 27.317981000000145,
+          "50": 44.14838000000054
+        },
+        "top3": {
+          "before": [
+            "deadlock",
+            "deadlock",
+            "deadlock"
+          ],
+          "after": {
+            "20": [
+              "deadlock",
+              "deadlock",
+              "deadlock"
+            ],
+            "50": [
+              "deadlock",
+              "deadlock",
+              "deadlock"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "text": "53100",
+      "set": "codes",
+      "kind": "exact",
+      "expected": [
+        "disk_full"
+      ],
+      "hybrid": {
+        "before": 1,
+        "after": {
+          "20": 1,
+          "50": 1
+        },
+        "ceiling": {
+          "20": 1,
+          "50": 1
+        },
+        "ms": {
+          "20": 22.278792999999496,
+          "50": 45.882181999999375
+        },
+        "top3": {
+          "before": [
+            "disk_full",
+            "disk_full",
+            "disk_full"
+          ],
+          "after": {
+            "20": [
+              "disk_full",
+              "disk_full",
+              "disk_full"
+            ],
+            "50": [
+              "disk_full",
+              "disk_full",
+              "disk_full"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "text": "53100",
+      "set": "codes",
+      "kind": "lower",
+      "expected": [
+        "disk_full"
+      ],
+      "hybrid": {
+        "before": 1,
+        "after": {
+          "20": 1,
+          "50": 1
+        },
+        "ceiling": {
+          "20": 1,
+          "50": 1
+        },
+        "ms": {
+          "20": 24.18414699999994,
+          "50": 45.776082000002134
+        },
+        "top3": {
+          "before": [
+            "disk_full",
+            "disk_full",
+            "disk_full"
+          ],
+          "after": {
+            "20": [
+              "disk_full",
+              "disk_full",
+              "disk_full"
+            ],
+            "50": [
+              "disk_full",
+              "disk_full",
+              "disk_full"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "text": "lots of 53100 errors since the deploy",
+      "set": "codes",
+      "kind": "sentence",
+      "expected": [
+        "disk_full"
+      ],
+      "hybrid": {
+        "before": 1,
+        "after": {
+          "20": 1,
+          "50": 1
+        },
+        "ceiling": {
+          "20": 1,
+          "50": 1
+        },
+        "ms": {
+          "20": 32.659482999999454,
+          "50": 34.08984899999996
+        },
+        "top3": {
+          "before": [
+            "disk_full",
+            "disk_full",
+            "disk_full"
+          ],
+          "after": {
+            "20": [
+              "disk_full",
+              "disk_full",
+              "disk_full"
+            ],
+            "50": [
+              "disk_full",
+              "disk_full",
+              "disk_full"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "text": "53300",
+      "set": "codes",
+      "kind": "exact",
+      "expected": [
+        "db_connection_timeout"
+      ],
+      "hybrid": {
+        "before": 1,
+        "after": {
+          "20": 1,
+          "50": 1
+        },
+        "ceiling": {
+          "20": 1,
+          "50": 1
+        },
+        "ms": {
+          "20": 24.57177799999772,
+          "50": 19.09687500000291
+        },
+        "top3": {
+          "before": [
+            "db_connection_timeout",
+            "db_connection_timeout",
+            "db_connection_timeout"
+          ],
+          "after": {
+            "20": [
+              "db_connection_timeout",
+              "db_connection_timeout",
+              "db_connection_timeout"
+            ],
+            "50": [
+              "db_connection_timeout",
+              "db_connection_timeout",
+              "db_connection_timeout"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "text": "53300",
+      "set": "codes",
+      "kind": "lower",
+      "expected": [
+        "db_connection_timeout"
+      ],
+      "hybrid": {
+        "before": 1,
+        "after": {
+          "20": 1,
+          "50": 1
+        },
+        "ceiling": {
+          "20": 1,
+          "50": 1
+        },
+        "ms": {
+          "20": 16.294378999999026,
+          "50": 19.843983999999182
+        },
+        "top3": {
+          "before": [
+            "db_connection_timeout",
+            "db_connection_timeout",
+            "db_connection_timeout"
+          ],
+          "after": {
+            "20": [
+              "db_connection_timeout",
+              "db_connection_timeout",
+              "db_connection_timeout"
+            ],
+            "50": [
+              "db_connection_timeout",
+              "db_connection_timeout",
+              "db_connection_timeout"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "text": "lots of 53300 errors since the deploy",
+      "set": "codes",
+      "kind": "sentence",
+      "expected": [
+        "db_connection_timeout"
+      ],
+      "hybrid": {
+        "before": 1,
+        "after": {
+          "20": 1,
+          "50": 1
+        },
+        "ceiling": {
+          "20": 1,
+          "50": 1
+        },
+        "ms": {
+          "20": 19.291560999998183,
+          "50": 33.20366600000125
+        },
+        "top3": {
+          "before": [
+            "db_connection_timeout",
+            "db_connection_timeout",
+            "db_connection_timeout"
+          ],
+          "after": {
+            "20": [
+              "db_connection_timeout",
+              "db_connection_timeout",
+              "db_connection_timeout"
+            ],
+            "50": [
+              "db_connection_timeout",
+              "db_connection_timeout",
+              "db_connection_timeout"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "text": "57014",
+      "set": "codes",
+      "kind": "exact",
+      "expected": [
+        "slow_query"
+      ],
+      "hybrid": {
+        "before": 1,
+        "after": {
+          "20": 1,
+          "50": 1
+        },
+        "ceiling": {
+          "20": 1,
+          "50": 1
+        },
+        "ms": {
+          "20": 12.215976999999839,
+          "50": 14.28634299999976
+        },
+        "top3": {
+          "before": [
+            "slow_query",
+            "slow_query",
+            "slow_query"
+          ],
+          "after": {
+            "20": [
+              "slow_query",
+              "slow_query",
+              "slow_query"
+            ],
+            "50": [
+              "slow_query",
+              "slow_query",
+              "slow_query"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "text": "57014",
+      "set": "codes",
+      "kind": "lower",
+      "expected": [
+        "slow_query"
+      ],
+      "hybrid": {
+        "before": 1,
+        "after": {
+          "20": 1,
+          "50": 1
+        },
+        "ceiling": {
+          "20": 1,
+          "50": 1
+        },
+        "ms": {
+          "20": 12.335277000001952,
+          "50": 11.316438000001654
+        },
+        "top3": {
+          "before": [
+            "slow_query",
+            "slow_query",
+            "slow_query"
+          ],
+          "after": {
+            "20": [
+              "slow_query",
+              "slow_query",
+              "slow_query"
+            ],
+            "50": [
+              "slow_query",
+              "slow_query",
+              "slow_query"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "text": "lots of 57014 errors since the deploy",
+      "set": "codes",
+      "kind": "sentence",
+      "expected": [
+        "slow_query"
+      ],
+      "hybrid": {
+        "before": 1,
+        "after": {
+          "20": 1,
+          "50": 1
+        },
+        "ceiling": {
+          "20": 1,
+          "50": 1
+        },
+        "ms": {
+          "20": 18.289043000000675,
+          "50": 25.872668999996677
+        },
+        "top3": {
+          "before": [
+            "slow_query",
+            "slow_query",
+            "slow_query"
+          ],
+          "after": {
+            "20": [
+              "slow_query",
+              "slow_query",
+              "slow_query"
+            ],
+            "50": [
+              "slow_query",
+              "slow_query",
+              "slow_query"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "text": "CERT_HAS_EXPIRED",
+      "set": "codes",
+      "kind": "exact",
+      "expected": [
+        "tls_cert_expired"
+      ],
+      "hybrid": {
+        "before": 1,
+        "after": {
+          "20": 1,
+          "50": 1
+        },
+        "ceiling": {
+          "20": 1,
+          "50": 1
+        },
+        "ms": {
+          "20": 18.038996999999654,
+          "50": 29.69702700000198
+        },
+        "top3": {
+          "before": [
+            "tls_cert_expired",
+            "tls_cert_expired",
+            "tls_cert_expired"
+          ],
+          "after": {
+            "20": [
+              "tls_cert_expired",
+              "tls_cert_expired",
+              "tls_cert_expired"
+            ],
+            "50": [
+              "tls_cert_expired",
+              "tls_cert_expired",
+              "tls_cert_expired"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "text": "cert_has_expired",
+      "set": "codes",
+      "kind": "lower",
+      "expected": [
+        "tls_cert_expired"
+      ],
+      "hybrid": {
+        "before": 1,
+        "after": {
+          "20": 1,
+          "50": 1
+        },
+        "ceiling": {
+          "20": 1,
+          "50": 1
+        },
+        "ms": {
+          "20": 22.08469800000239,
+          "50": 30.779676999998628
+        },
+        "top3": {
+          "before": [
+            "tls_cert_expired",
+            "tls_cert_expired",
+            "tls_cert_expired"
+          ],
+          "after": {
+            "20": [
+              "tls_cert_expired",
+              "tls_cert_expired",
+              "tls_cert_expired"
+            ],
+            "50": [
+              "tls_cert_expired",
+              "tls_cert_expired",
+              "tls_cert_expired"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "text": "lots of CERT_HAS_EXPIRED errors since the deploy",
+      "set": "codes",
+      "kind": "sentence",
+      "expected": [
+        "tls_cert_expired"
+      ],
+      "hybrid": {
+        "before": 1,
+        "after": {
+          "20": 1,
+          "50": 1
+        },
+        "ceiling": {
+          "20": 1,
+          "50": 1
+        },
+        "ms": {
+          "20": 18.969419999997626,
+          "50": 32.432967000000644
+        },
+        "top3": {
+          "before": [
+            "tls_cert_expired",
+            "tls_cert_expired",
+            "tls_cert_expired"
+          ],
+          "after": {
+            "20": [
+              "tls_cert_expired",
+              "tls_cert_expired",
+              "tls_cert_expired"
+            ],
+            "50": [
+              "tls_cert_expired",
+              "tls_cert_expired",
+              "tls_cert_expired"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "text": "DISK_FULL",
+      "set": "codes",
+      "kind": "exact",
+      "expected": [
+        "disk_full"
+      ],
+      "hybrid": {
+        "before": 1,
+        "after": {
+          "20": 1,
+          "50": 1
+        },
+        "ceiling": {
+          "20": 1,
+          "50": 1
+        },
+        "ms": {
+          "20": 29.55765899999824,
+          "50": 20.038119000000734
+        },
+        "top3": {
+          "before": [
+            "disk_full",
+            "disk_full",
+            "disk_full"
+          ],
+          "after": {
+            "20": [
+              "disk_full",
+              "disk_full",
+              "disk_full"
+            ],
+            "50": [
+              "disk_full",
+              "disk_full",
+              "disk_full"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "text": "disk_full",
+      "set": "codes",
+      "kind": "lower",
+      "expected": [
+        "disk_full"
+      ],
+      "hybrid": {
+        "before": 1,
+        "after": {
+          "20": 1,
+          "50": 1
+        },
+        "ceiling": {
+          "20": 1,
+          "50": 1
+        },
+        "ms": {
+          "20": 29.375474999997095,
+          "50": 20.556826
+        },
+        "top3": {
+          "before": [
+            "disk_full",
+            "disk_full",
+            "disk_full"
+          ],
+          "after": {
+            "20": [
+              "disk_full",
+              "disk_full",
+              "disk_full"
+            ],
+            "50": [
+              "disk_full",
+              "disk_full",
+              "disk_full"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "text": "lots of DISK_FULL errors since the deploy",
+      "set": "codes",
+      "kind": "sentence",
+      "expected": [
+        "disk_full"
+      ],
+      "hybrid": {
+        "before": 1,
+        "after": {
+          "20": 1,
+          "50": 1
+        },
+        "ceiling": {
+          "20": 1,
+          "50": 1
+        },
+        "ms": {
+          "20": 19.147515000000567,
+          "50": 34.23882099999901
+        },
+        "top3": {
+          "before": [
+            "disk_full",
+            "disk_full",
+            "disk_full"
+          ],
+          "after": {
+            "20": [
+              "disk_full",
+              "disk_full",
+              "disk_full"
+            ],
+            "50": [
+              "disk_full",
+              "disk_full",
+              "disk_full"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "text": "EAI_AGAIN",
+      "set": "codes",
+      "kind": "exact",
+      "expected": [
+        "dns_failure"
+      ],
+      "hybrid": {
+        "before": 1,
+        "after": {
+          "20": 1,
+          "50": 1
+        },
+        "ceiling": {
+          "20": 1,
+          "50": 1
+        },
+        "ms": {
+          "20": 16.71947799999907,
+          "50": 12.971638999999413
+        },
+        "top3": {
+          "before": [
+            "dns_failure",
+            "dns_failure",
+            "dns_failure"
+          ],
+          "after": {
+            "20": [
+              "dns_failure",
+              "dns_failure",
+              "dns_failure"
+            ],
+            "50": [
+              "dns_failure",
+              "dns_failure",
+              "dns_failure"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "text": "eai_again",
+      "set": "codes",
+      "kind": "lower",
+      "expected": [
+        "dns_failure"
+      ],
+      "hybrid": {
+        "before": 1,
+        "after": {
+          "20": 1,
+          "50": 1
+        },
+        "ceiling": {
+          "20": 1,
+          "50": 1
+        },
+        "ms": {
+          "20": 16.47606799999994,
+          "50": 13.119492999998329
+        },
+        "top3": {
+          "before": [
+            "dns_failure",
+            "dns_failure",
+            "dns_failure"
+          ],
+          "after": {
+            "20": [
+              "dns_failure",
+              "dns_failure",
+              "dns_failure"
+            ],
+            "50": [
+              "dns_failure",
+              "dns_failure",
+              "dns_failure"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "text": "lots of EAI_AGAIN errors since the deploy",
+      "set": "codes",
+      "kind": "sentence",
+      "expected": [
+        "dns_failure"
+      ],
+      "hybrid": {
+        "before": 1,
+        "after": {
+          "20": 1,
+          "50": 1
+        },
+        "ceiling": {
+          "20": 1,
+          "50": 1
+        },
+        "ms": {
+          "20": 17.12333199999921,
+          "50": 37.1268310000014
+        },
+        "top3": {
+          "before": [
+            "dns_failure",
+            "dns_failure",
+            "dns_failure"
+          ],
+          "after": {
+            "20": [
+              "dns_failure",
+              "dns_failure",
+              "dns_failure"
+            ],
+            "50": [
+              "dns_failure",
+              "dns_failure",
+              "dns_failure"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "text": "ECONNREFUSED",
+      "set": "codes",
+      "kind": "exact",
+      "expected": [
+        "cache_unavailable",
+        "db_connection_timeout"
+      ],
+      "hybrid": {
+        "before": 1,
+        "after": {
+          "20": 1,
+          "50": 1
+        },
+        "ceiling": {
+          "20": 1,
+          "50": 1
+        },
+        "ms": {
+          "20": 13.978792000001704,
+          "50": 15.91756499999974
+        },
+        "top3": {
+          "before": [
+            "db_connection_timeout",
+            "db_connection_timeout",
+            "db_connection_timeout"
+          ],
+          "after": {
+            "20": [
+              "cache_unavailable",
+              "cache_unavailable",
+              "db_connection_timeout"
+            ],
+            "50": [
+              "cache_unavailable",
+              "cache_unavailable",
+              "cache_unavailable"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "text": "econnrefused",
+      "set": "codes",
+      "kind": "lower",
+      "expected": [
+        "cache_unavailable",
+        "db_connection_timeout"
+      ],
+      "hybrid": {
+        "before": 1,
+        "after": {
+          "20": 1,
+          "50": 1
+        },
+        "ceiling": {
+          "20": 1,
+          "50": 1
+        },
+        "ms": {
+          "20": 19.191043999999238,
+          "50": 14.820942000002105
+        },
+        "top3": {
+          "before": [
+            "db_connection_timeout",
+            "db_connection_timeout",
+            "db_connection_timeout"
+          ],
+          "after": {
+            "20": [
+              "cache_unavailable",
+              "cache_unavailable",
+              "db_connection_timeout"
+            ],
+            "50": [
+              "cache_unavailable",
+              "cache_unavailable",
+              "cache_unavailable"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "text": "lots of ECONNREFUSED errors since the deploy",
+      "set": "codes",
+      "kind": "sentence",
+      "expected": [
+        "cache_unavailable",
+        "db_connection_timeout"
+      ],
+      "hybrid": {
+        "before": 1,
+        "after": {
+          "20": 1,
+          "50": 1
+        },
+        "ceiling": {
+          "20": 1,
+          "50": 1
+        },
+        "ms": {
+          "20": 31.104051999998774,
+          "50": 16.0289300000004
+        },
+        "top3": {
+          "before": [
+            "db_connection_timeout",
+            "db_connection_timeout",
+            "db_connection_timeout"
+          ],
+          "after": {
+            "20": [
+              "cache_unavailable",
+              "cache_unavailable",
+              "cache_unavailable"
+            ],
+            "50": [
+              "cache_unavailable",
+              "cache_unavailable",
+              "cache_unavailable"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "text": "ECONNRESET",
+      "set": "codes",
+      "kind": "exact",
+      "expected": [
+        "cache_unavailable"
+      ],
+      "hybrid": {
+        "before": 1,
+        "after": {
+          "20": 1,
+          "50": 1
+        },
+        "ceiling": {
+          "20": 1,
+          "50": 1
+        },
+        "ms": {
+          "20": 23.677684999998746,
+          "50": 12.532065999999759
+        },
+        "top3": {
+          "before": [
+            "cache_unavailable",
+            "cache_unavailable",
+            "cache_unavailable"
+          ],
+          "after": {
+            "20": [
+              "cache_unavailable",
+              "cache_unavailable",
+              "cache_unavailable"
+            ],
+            "50": [
+              "cache_unavailable",
+              "cache_unavailable",
+              "cache_unavailable"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "text": "econnreset",
+      "set": "codes",
+      "kind": "lower",
+      "expected": [
+        "cache_unavailable"
+      ],
+      "hybrid": {
+        "before": 1,
+        "after": {
+          "20": 1,
+          "50": 1
+        },
+        "ceiling": {
+          "20": 1,
+          "50": 1
+        },
+        "ms": {
+          "20": 25.092345999997633,
+          "50": 12.622944000002462
+        },
+        "top3": {
+          "before": [
+            "cache_unavailable",
+            "cache_unavailable",
+            "cache_unavailable"
+          ],
+          "after": {
+            "20": [
+              "cache_unavailable",
+              "cache_unavailable",
+              "cache_unavailable"
+            ],
+            "50": [
+              "cache_unavailable",
+              "cache_unavailable",
+              "cache_unavailable"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "text": "lots of ECONNRESET errors since the deploy",
+      "set": "codes",
+      "kind": "sentence",
+      "expected": [
+        "cache_unavailable"
+      ],
+      "hybrid": {
+        "before": 1,
+        "after": {
+          "20": 1,
+          "50": 1
+        },
+        "ceiling": {
+          "20": 1,
+          "50": 1
+        },
+        "ms": {
+          "20": 20.35862900000211,
+          "50": 26.383144000003085
+        },
+        "top3": {
+          "before": [
+            "cache_unavailable",
+            "cache_unavailable",
+            "cache_unavailable"
+          ],
+          "after": {
+            "20": [
+              "cache_unavailable",
+              "cache_unavailable",
+              "cache_unavailable"
+            ],
+            "50": [
+              "cache_unavailable",
+              "cache_unavailable",
+              "cache_unavailable"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "text": "EDQUOT",
+      "set": "codes",
+      "kind": "exact",
+      "expected": [
+        "disk_full"
+      ],
+      "hybrid": {
+        "before": 1,
+        "after": {
+          "20": 1,
+          "50": 1
+        },
+        "ceiling": {
+          "20": 1,
+          "50": 1
+        },
+        "ms": {
+          "20": 19.319752999999764,
+          "50": 28.8203829999984
+        },
+        "top3": {
+          "before": [
+            "disk_full",
+            "disk_full",
+            "disk_full"
+          ],
+          "after": {
+            "20": [
+              "disk_full",
+              "disk_full",
+              "disk_full"
+            ],
+            "50": [
+              "disk_full",
+              "disk_full",
+              "disk_full"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "text": "edquot",
+      "set": "codes",
+      "kind": "lower",
+      "expected": [
+        "disk_full"
+      ],
+      "hybrid": {
+        "before": 1,
+        "after": {
+          "20": 1,
+          "50": 1
+        },
+        "ceiling": {
+          "20": 1,
+          "50": 1
+        },
+        "ms": {
+          "20": 19.16834799999924,
+          "50": 30.442966999999044
+        },
+        "top3": {
+          "before": [
+            "disk_full",
+            "disk_full",
+            "disk_full"
+          ],
+          "after": {
+            "20": [
+              "disk_full",
+              "disk_full",
+              "disk_full"
+            ],
+            "50": [
+              "disk_full",
+              "disk_full",
+              "disk_full"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "text": "lots of EDQUOT errors since the deploy",
+      "set": "codes",
+      "kind": "sentence",
+      "expected": [
+        "disk_full"
+      ],
+      "hybrid": {
+        "before": 1,
+        "after": {
+          "20": 1,
+          "50": 1
+        },
+        "ceiling": {
+          "20": 1,
+          "50": 1
+        },
+        "ms": {
+          "20": 22.10496200000125,
+          "50": 42.95762900000045
+        },
+        "top3": {
+          "before": [
+            "disk_full",
+            "disk_full",
+            "disk_full"
+          ],
+          "after": {
+            "20": [
+              "disk_full",
+              "disk_full",
+              "disk_full"
+            ],
+            "50": [
+              "disk_full",
+              "disk_full",
+              "disk_full"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "text": "EMAIL_TAKEN",
+      "set": "codes",
+      "kind": "exact",
+      "expected": [
+        "duplicate_key"
+      ],
+      "hybrid": {
+        "before": 1,
+        "after": {
+          "20": 1,
+          "50": 1
+        },
+        "ceiling": {
+          "20": 1,
+          "50": 1
+        },
+        "ms": {
+          "20": 28.662938000001304,
+          "50": 22.94831300000078
+        },
+        "top3": {
+          "before": [
+            "duplicate_key",
+            "duplicate_key",
+            "duplicate_key"
+          ],
+          "after": {
+            "20": [
+              "duplicate_key",
+              "duplicate_key",
+              "duplicate_key"
+            ],
+            "50": [
+              "duplicate_key",
+              "duplicate_key",
+              "duplicate_key"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "text": "email_taken",
+      "set": "codes",
+      "kind": "lower",
+      "expected": [
+        "duplicate_key"
+      ],
+      "hybrid": {
+        "before": 1,
+        "after": {
+          "20": 1,
+          "50": 1
+        },
+        "ceiling": {
+          "20": 1,
+          "50": 1
+        },
+        "ms": {
+          "20": 24.11078500000076,
+          "50": 20.919503999997687
+        },
+        "top3": {
+          "before": [
+            "duplicate_key",
+            "duplicate_key",
+            "duplicate_key"
+          ],
+          "after": {
+            "20": [
+              "duplicate_key",
+              "duplicate_key",
+              "duplicate_key"
+            ],
+            "50": [
+              "duplicate_key",
+              "duplicate_key",
+              "duplicate_key"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "text": "lots of EMAIL_TAKEN errors since the deploy",
+      "set": "codes",
+      "kind": "sentence",
+      "expected": [
+        "duplicate_key"
+      ],
+      "hybrid": {
+        "before": 1,
+        "after": {
+          "20": 1,
+          "50": 1
+        },
+        "ceiling": {
+          "20": 1,
+          "50": 1
+        },
+        "ms": {
+          "20": 30.115234999997483,
+          "50": 37.0623110000015
+        },
+        "top3": {
+          "before": [
+            "duplicate_key",
+            "duplicate_key",
+            "duplicate_key"
+          ],
+          "after": {
+            "20": [
+              "duplicate_key",
+              "duplicate_key",
+              "duplicate_key"
+            ],
+            "50": [
+              "duplicate_key",
+              "duplicate_key",
+              "duplicate_key"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "text": "ENOSPC",
+      "set": "codes",
+      "kind": "exact",
+      "expected": [
+        "disk_full"
+      ],
+      "hybrid": {
+        "before": 1,
+        "after": {
+          "20": 1,
+          "50": 1
+        },
+        "ceiling": {
+          "20": 1,
+          "50": 1
+        },
+        "ms": {
+          "20": 36.41200200000094,
+          "50": 15.324981999998272
+        },
+        "top3": {
+          "before": [
+            "disk_full",
+            "disk_full",
+            "disk_full"
+          ],
+          "after": {
+            "20": [
+              "disk_full",
+              "disk_full",
+              "disk_full"
+            ],
+            "50": [
+              "disk_full",
+              "disk_full",
+              "disk_full"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "text": "enospc",
+      "set": "codes",
+      "kind": "lower",
+      "expected": [
+        "disk_full"
+      ],
+      "hybrid": {
+        "before": 1,
+        "after": {
+          "20": 1,
+          "50": 1
+        },
+        "ceiling": {
+          "20": 1,
+          "50": 1
+        },
+        "ms": {
+          "20": 30.518505000000005,
+          "50": 15.497088000000076
+        },
+        "top3": {
+          "before": [
+            "disk_full",
+            "disk_full",
+            "disk_full"
+          ],
+          "after": {
+            "20": [
+              "disk_full",
+              "disk_full",
+              "disk_full"
+            ],
+            "50": [
+              "disk_full",
+              "disk_full",
+              "disk_full"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "text": "lots of ENOSPC errors since the deploy",
+      "set": "codes",
+      "kind": "sentence",
+      "expected": [
+        "disk_full"
+      ],
+      "hybrid": {
+        "before": 1,
+        "after": {
+          "20": 1,
+          "50": 1
+        },
+        "ceiling": {
+          "20": 1,
+          "50": 1
+        },
+        "ms": {
+          "20": 20.5813390000003,
+          "50": 37.32093900000109
+        },
+        "top3": {
+          "before": [
+            "disk_full",
+            "disk_full",
+            "disk_full"
+          ],
+          "after": {
+            "20": [
+              "disk_full",
+              "disk_full",
+              "disk_full"
+            ],
+            "50": [
+              "disk_full",
+              "disk_full",
+              "disk_full"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "text": "ENOTFOUND",
+      "set": "codes",
+      "kind": "exact",
+      "expected": [
+        "dns_failure"
+      ],
+      "hybrid": {
+        "before": 1,
+        "after": {
+          "20": 1,
+          "50": 1
+        },
+        "ceiling": {
+          "20": 1,
+          "50": 1
+        },
+        "ms": {
+          "20": 32.86295700000119,
+          "50": 26.92544999999882
+        },
+        "top3": {
+          "before": [
+            "dns_failure",
+            "dns_failure",
+            "dns_failure"
+          ],
+          "after": {
+            "20": [
+              "dns_failure",
+              "dns_failure",
+              "dns_failure"
+            ],
+            "50": [
+              "dns_failure",
+              "dns_failure",
+              "dns_failure"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "text": "enotfound",
+      "set": "codes",
+      "kind": "lower",
+      "expected": [
+        "dns_failure"
+      ],
+      "hybrid": {
+        "before": 1,
+        "after": {
+          "20": 1,
+          "50": 1
+        },
+        "ceiling": {
+          "20": 1,
+          "50": 1
+        },
+        "ms": {
+          "20": 31.010330999997677,
+          "50": 24.67482200000086
+        },
+        "top3": {
+          "before": [
+            "dns_failure",
+            "dns_failure",
+            "dns_failure"
+          ],
+          "after": {
+            "20": [
+              "dns_failure",
+              "dns_failure",
+              "dns_failure"
+            ],
+            "50": [
+              "dns_failure",
+              "dns_failure",
+              "dns_failure"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "text": "lots of ENOTFOUND errors since the deploy",
+      "set": "codes",
+      "kind": "sentence",
+      "expected": [
+        "dns_failure"
+      ],
+      "hybrid": {
+        "before": 1,
+        "after": {
+          "20": 1,
+          "50": 1
+        },
+        "ceiling": {
+          "20": 1,
+          "50": 1
+        },
+        "ms": {
+          "20": 28.82590700000219,
+          "50": 37.85637399999905
+        },
+        "top3": {
+          "before": [
+            "dns_failure",
+            "dns_failure",
+            "dns_failure"
+          ],
+          "after": {
+            "20": [
+              "dns_failure",
+              "dns_failure",
+              "dns_failure"
+            ],
+            "50": [
+              "dns_failure",
+              "dns_failure",
+              "dns_failure"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "text": "ERR_HEAP_OOM",
+      "set": "codes",
+      "kind": "exact",
+      "expected": [
+        "out_of_memory"
+      ],
+      "hybrid": {
+        "before": 1,
+        "after": {
+          "20": 1,
+          "50": 1
+        },
+        "ceiling": {
+          "20": 1,
+          "50": 1
+        },
+        "ms": {
+          "20": 24.139124999997875,
+          "50": 20.183211999999912
+        },
+        "top3": {
+          "before": [
+            "out_of_memory",
+            "out_of_memory",
+            "out_of_memory"
+          ],
+          "after": {
+            "20": [
+              "out_of_memory",
+              "out_of_memory",
+              "out_of_memory"
+            ],
+            "50": [
+              "out_of_memory",
+              "out_of_memory",
+              "out_of_memory"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "text": "err_heap_oom",
+      "set": "codes",
+      "kind": "lower",
+      "expected": [
+        "out_of_memory"
+      ],
+      "hybrid": {
+        "before": 1,
+        "after": {
+          "20": 1,
+          "50": 1
+        },
+        "ceiling": {
+          "20": 1,
+          "50": 1
+        },
+        "ms": {
+          "20": 17.235185000001366,
+          "50": 19.951507999998285
+        },
+        "top3": {
+          "before": [
+            "out_of_memory",
+            "out_of_memory",
+            "out_of_memory"
+          ],
+          "after": {
+            "20": [
+              "out_of_memory",
+              "out_of_memory",
+              "out_of_memory"
+            ],
+            "50": [
+              "out_of_memory",
+              "out_of_memory",
+              "out_of_memory"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "text": "lots of ERR_HEAP_OOM errors since the deploy",
+      "set": "codes",
+      "kind": "sentence",
+      "expected": [
+        "out_of_memory"
+      ],
+      "hybrid": {
+        "before": 1,
+        "after": {
+          "20": 1,
+          "50": 1
+        },
+        "ceiling": {
+          "20": 1,
+          "50": 1
+        },
+        "ms": {
+          "20": 30.176165999997465,
+          "50": 28.802847999999358
+        },
+        "top3": {
+          "before": [
+            "out_of_memory",
+            "out_of_memory",
+            "out_of_memory"
+          ],
+          "after": {
+            "20": [
+              "out_of_memory",
+              "out_of_memory",
+              "out_of_memory"
+            ],
+            "50": [
+              "out_of_memory",
+              "out_of_memory",
+              "out_of_memory"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "text": "ETIMEDOUT",
+      "set": "codes",
+      "kind": "exact",
+      "expected": [
+        "db_connection_timeout"
+      ],
+      "hybrid": {
+        "before": 1,
+        "after": {
+          "20": 1,
+          "50": 1
+        },
+        "ceiling": {
+          "20": 1,
+          "50": 1
+        },
+        "ms": {
+          "20": 12.979489000001195,
+          "50": 27.253437999999733
+        },
+        "top3": {
+          "before": [
+            "db_connection_timeout",
+            "db_connection_timeout",
+            "db_connection_timeout"
+          ],
+          "after": {
+            "20": [
+              "db_connection_timeout",
+              "db_connection_timeout",
+              "db_connection_timeout"
+            ],
+            "50": [
+              "db_connection_timeout",
+              "db_connection_timeout",
+              "db_connection_timeout"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "text": "etimedout",
+      "set": "codes",
+      "kind": "lower",
+      "expected": [
+        "db_connection_timeout"
+      ],
+      "hybrid": {
+        "before": 1,
+        "after": {
+          "20": 1,
+          "50": 1
+        },
+        "ceiling": {
+          "20": 1,
+          "50": 1
+        },
+        "ms": {
+          "20": 31.231512000002112,
+          "50": 18.13582899999892
+        },
+        "top3": {
+          "before": [
+            "db_connection_timeout",
+            "db_connection_timeout",
+            "db_connection_timeout"
+          ],
+          "after": {
+            "20": [
+              "db_connection_timeout",
+              "db_connection_timeout",
+              "db_connection_timeout"
+            ],
+            "50": [
+              "db_connection_timeout",
+              "db_connection_timeout",
+              "db_connection_timeout"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "text": "lots of ETIMEDOUT errors since the deploy",
+      "set": "codes",
+      "kind": "sentence",
+      "expected": [
+        "db_connection_timeout"
+      ],
+      "hybrid": {
+        "before": 1,
+        "after": {
+          "20": 1,
+          "50": 1
+        },
+        "ceiling": {
+          "20": 1,
+          "50": 1
+        },
+        "ms": {
+          "20": 19.869316000000254,
+          "50": 33.28556699999899
+        },
+        "top3": {
+          "before": [
+            "db_connection_timeout",
+            "db_connection_timeout",
+            "db_connection_timeout"
+          ],
+          "after": {
+            "20": [
+              "db_connection_timeout",
+              "db_connection_timeout",
+              "db_connection_timeout"
+            ],
+            "50": [
+              "db_connection_timeout",
+              "db_connection_timeout",
+              "db_connection_timeout"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "text": "HTTP_401",
+      "set": "codes",
+      "kind": "exact",
+      "expected": [
+        "jwt_expired"
+      ],
+      "hybrid": {
+        "before": 1,
+        "after": {
+          "20": 1,
+          "50": 1
+        },
+        "ceiling": {
+          "20": 1,
+          "50": 1
+        },
+        "ms": {
+          "20": 26.372913999999582,
+          "50": 13.780556000001525
+        },
+        "top3": {
+          "before": [
+            "jwt_expired",
+            "jwt_expired",
+            "jwt_expired"
+          ],
+          "after": {
+            "20": [
+              "jwt_expired",
+              "jwt_expired",
+              "jwt_expired"
+            ],
+            "50": [
+              "jwt_expired",
+              "jwt_expired",
+              "jwt_expired"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "text": "http_401",
+      "set": "codes",
+      "kind": "lower",
+      "expected": [
+        "jwt_expired"
+      ],
+      "hybrid": {
+        "before": 1,
+        "after": {
+          "20": 1,
+          "50": 1
+        },
+        "ceiling": {
+          "20": 1,
+          "50": 1
+        },
+        "ms": {
+          "20": 15.984972999998718,
+          "50": 13.280883000003087
+        },
+        "top3": {
+          "before": [
+            "jwt_expired",
+            "jwt_expired",
+            "jwt_expired"
+          ],
+          "after": {
+            "20": [
+              "jwt_expired",
+              "jwt_expired",
+              "jwt_expired"
+            ],
+            "50": [
+              "jwt_expired",
+              "jwt_expired",
+              "jwt_expired"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "text": "lots of HTTP_401 errors since the deploy",
+      "set": "codes",
+      "kind": "sentence",
+      "expected": [
+        "jwt_expired"
+      ],
+      "hybrid": {
+        "before": 1,
+        "after": {
+          "20": 1,
+          "50": 1
+        },
+        "ceiling": {
+          "20": 1,
+          "50": 1
+        },
+        "ms": {
+          "20": 15.377058000001853,
+          "50": 14.327370999999403
+        },
+        "top3": {
+          "before": [
+            "jwt_expired",
+            "jwt_expired",
+            "jwt_expired"
+          ],
+          "after": {
+            "20": [
+              "jwt_expired",
+              "jwt_expired",
+              "jwt_expired"
+            ],
+            "50": [
+              "jwt_expired",
+              "jwt_expired",
+              "jwt_expired"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "text": "HTTP_429",
+      "set": "codes",
+      "kind": "exact",
+      "expected": [
+        "rate_limited"
+      ],
+      "hybrid": {
+        "before": 1,
+        "after": {
+          "20": 1,
+          "50": 1
+        },
+        "ceiling": {
+          "20": 1,
+          "50": 1
+        },
+        "ms": {
+          "20": 15.920021999998426,
+          "50": 14.01655799999935
+        },
+        "top3": {
+          "before": [
+            "rate_limited",
+            "rate_limited",
+            "rate_limited"
+          ],
+          "after": {
+            "20": [
+              "rate_limited",
+              "rate_limited",
+              "rate_limited"
+            ],
+            "50": [
+              "rate_limited",
+              "rate_limited",
+              "rate_limited"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "text": "http_429",
+      "set": "codes",
+      "kind": "lower",
+      "expected": [
+        "rate_limited"
+      ],
+      "hybrid": {
+        "before": 1,
+        "after": {
+          "20": 1,
+          "50": 1
+        },
+        "ceiling": {
+          "20": 1,
+          "50": 1
+        },
+        "ms": {
+          "20": 20.785306999998284,
+          "50": 14.237714999999298
+        },
+        "top3": {
+          "before": [
+            "rate_limited",
+            "rate_limited",
+            "rate_limited"
+          ],
+          "after": {
+            "20": [
+              "rate_limited",
+              "rate_limited",
+              "rate_limited"
+            ],
+            "50": [
+              "rate_limited",
+              "rate_limited",
+              "rate_limited"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "text": "lots of HTTP_429 errors since the deploy",
+      "set": "codes",
+      "kind": "sentence",
+      "expected": [
+        "rate_limited"
+      ],
+      "hybrid": {
+        "before": 1,
+        "after": {
+          "20": 1,
+          "50": 1
+        },
+        "ceiling": {
+          "20": 1,
+          "50": 1
+        },
+        "ms": {
+          "20": 15.477818999999727,
+          "50": 14.572194000000309
+        },
+        "top3": {
+          "before": [
+            "rate_limited",
+            "rate_limited",
+            "rate_limited"
+          ],
+          "after": {
+            "20": [
+              "rate_limited",
+              "rate_limited",
+              "rate_limited"
+            ],
+            "50": [
+              "rate_limited",
+              "rate_limited",
+              "rate_limited"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "text": "HTTP_502",
+      "set": "codes",
+      "kind": "exact",
+      "expected": [
+        "payment_gateway_5xx"
+      ],
+      "hybrid": {
+        "before": 1,
+        "after": {
+          "20": 1,
+          "50": 1
+        },
+        "ceiling": {
+          "20": 1,
+          "50": 1
+        },
+        "ms": {
+          "20": 17.788163000001077,
+          "50": 8.274803999996948
+        },
+        "top3": {
+          "before": [
+            "payment_gateway_5xx",
+            "payment_gateway_5xx",
+            "payment_gateway_5xx"
+          ],
+          "after": {
+            "20": [
+              "payment_gateway_5xx",
+              "payment_gateway_5xx",
+              "payment_gateway_5xx"
+            ],
+            "50": [
+              "payment_gateway_5xx",
+              "payment_gateway_5xx",
+              "payment_gateway_5xx"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "text": "http_502",
+      "set": "codes",
+      "kind": "lower",
+      "expected": [
+        "payment_gateway_5xx"
+      ],
+      "hybrid": {
+        "before": 1,
+        "after": {
+          "20": 1,
+          "50": 1
+        },
+        "ceiling": {
+          "20": 1,
+          "50": 1
+        },
+        "ms": {
+          "20": 16.306915000001027,
+          "50": 9.954721000001882
+        },
+        "top3": {
+          "before": [
+            "payment_gateway_5xx",
+            "payment_gateway_5xx",
+            "payment_gateway_5xx"
+          ],
+          "after": {
+            "20": [
+              "payment_gateway_5xx",
+              "payment_gateway_5xx",
+              "payment_gateway_5xx"
+            ],
+            "50": [
+              "payment_gateway_5xx",
+              "payment_gateway_5xx",
+              "payment_gateway_5xx"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "text": "lots of HTTP_502 errors since the deploy",
+      "set": "codes",
+      "kind": "sentence",
+      "expected": [
+        "payment_gateway_5xx"
+      ],
+      "hybrid": {
+        "before": 1,
+        "after": {
+          "20": 1,
+          "50": 1
+        },
+        "ceiling": {
+          "20": 1,
+          "50": 1
+        },
+        "ms": {
+          "20": 16.747929999997723,
+          "50": 31.97189199999775
+        },
+        "top3": {
+          "before": [
+            "payment_gateway_5xx",
+            "payment_gateway_5xx",
+            "payment_gateway_5xx"
+          ],
+          "after": {
+            "20": [
+              "payment_gateway_5xx",
+              "payment_gateway_5xx",
+              "payment_gateway_5xx"
+            ],
+            "50": [
+              "payment_gateway_5xx",
+              "payment_gateway_5xx",
+              "payment_gateway_5xx"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "text": "HTTP_503",
+      "set": "codes",
+      "kind": "exact",
+      "expected": [
+        "payment_gateway_5xx"
+      ],
+      "hybrid": {
+        "before": 1,
+        "after": {
+          "20": 1,
+          "50": 1
+        },
+        "ceiling": {
+          "20": 1,
+          "50": 1
+        },
+        "ms": {
+          "20": 22.215970000001107,
+          "50": 13.839004999997996
+        },
+        "top3": {
+          "before": [
+            "payment_gateway_5xx",
+            "payment_gateway_5xx",
+            "payment_gateway_5xx"
+          ],
+          "after": {
+            "20": [
+              "payment_gateway_5xx",
+              "payment_gateway_5xx",
+              "payment_gateway_5xx"
+            ],
+            "50": [
+              "payment_gateway_5xx",
+              "payment_gateway_5xx",
+              "payment_gateway_5xx"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "text": "http_503",
+      "set": "codes",
+      "kind": "lower",
+      "expected": [
+        "payment_gateway_5xx"
+      ],
+      "hybrid": {
+        "before": 1,
+        "after": {
+          "20": 1,
+          "50": 1
+        },
+        "ceiling": {
+          "20": 1,
+          "50": 1
+        },
+        "ms": {
+          "20": 25.747857000002114,
+          "50": 13.849196999999549
+        },
+        "top3": {
+          "before": [
+            "payment_gateway_5xx",
+            "payment_gateway_5xx",
+            "payment_gateway_5xx"
+          ],
+          "after": {
+            "20": [
+              "payment_gateway_5xx",
+              "payment_gateway_5xx",
+              "payment_gateway_5xx"
+            ],
+            "50": [
+              "payment_gateway_5xx",
+              "payment_gateway_5xx",
+              "payment_gateway_5xx"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "text": "lots of HTTP_503 errors since the deploy",
+      "set": "codes",
+      "kind": "sentence",
+      "expected": [
+        "payment_gateway_5xx"
+      ],
+      "hybrid": {
+        "before": 1,
+        "after": {
+          "20": 1,
+          "50": 1
+        },
+        "ceiling": {
+          "20": 1,
+          "50": 1
+        },
+        "ms": {
+          "20": 31.103186000000278,
+          "50": 14.644093999999313
+        },
+        "top3": {
+          "before": [
+            "payment_gateway_5xx",
+            "payment_gateway_5xx",
+            "payment_gateway_5xx"
+          ],
+          "after": {
+            "20": [
+              "payment_gateway_5xx",
+              "payment_gateway_5xx",
+              "payment_gateway_5xx"
+            ],
+            "50": [
+              "payment_gateway_5xx",
+              "payment_gateway_5xx",
+              "payment_gateway_5xx"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "text": "HTTP_504",
+      "set": "codes",
+      "kind": "exact",
+      "expected": [
+        "payment_gateway_5xx"
+      ],
+      "hybrid": {
+        "before": 1,
+        "after": {
+          "20": 1,
+          "50": 1
+        },
+        "ceiling": {
+          "20": 1,
+          "50": 1
+        },
+        "ms": {
+          "20": 16.512063999998645,
+          "50": 13.028399999999237
+        },
+        "top3": {
+          "before": [
+            "payment_gateway_5xx",
+            "payment_gateway_5xx",
+            "payment_gateway_5xx"
+          ],
+          "after": {
+            "20": [
+              "payment_gateway_5xx",
+              "payment_gateway_5xx",
+              "payment_gateway_5xx"
+            ],
+            "50": [
+              "payment_gateway_5xx",
+              "payment_gateway_5xx",
+              "payment_gateway_5xx"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "text": "http_504",
+      "set": "codes",
+      "kind": "lower",
+      "expected": [
+        "payment_gateway_5xx"
+      ],
+      "hybrid": {
+        "before": 1,
+        "after": {
+          "20": 1,
+          "50": 1
+        },
+        "ceiling": {
+          "20": 1,
+          "50": 1
+        },
+        "ms": {
+          "20": 17.380338000002666,
+          "50": 13.29161699999895
+        },
+        "top3": {
+          "before": [
+            "payment_gateway_5xx",
+            "payment_gateway_5xx",
+            "payment_gateway_5xx"
+          ],
+          "after": {
+            "20": [
+              "payment_gateway_5xx",
+              "payment_gateway_5xx",
+              "payment_gateway_5xx"
+            ],
+            "50": [
+              "payment_gateway_5xx",
+              "payment_gateway_5xx",
+              "payment_gateway_5xx"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "text": "lots of HTTP_504 errors since the deploy",
+      "set": "codes",
+      "kind": "sentence",
+      "expected": [
+        "payment_gateway_5xx"
+      ],
+      "hybrid": {
+        "before": 1,
+        "after": {
+          "20": 1,
+          "50": 1
+        },
+        "ceiling": {
+          "20": 1,
+          "50": 1
+        },
+        "ms": {
+          "20": 20.745382999997673,
+          "50": 35.04392000000007
+        },
+        "top3": {
+          "before": [
+            "payment_gateway_5xx",
+            "payment_gateway_5xx",
+            "payment_gateway_5xx"
+          ],
+          "after": {
+            "20": [
+              "payment_gateway_5xx",
+              "payment_gateway_5xx",
+              "payment_gateway_5xx"
+            ],
+            "50": [
+              "payment_gateway_5xx",
+              "payment_gateway_5xx",
+              "payment_gateway_5xx"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "text": "IDEMPOTENCY_CONFLICT",
+      "set": "codes",
+      "kind": "exact",
+      "expected": [
+        "duplicate_key"
+      ],
+      "hybrid": {
+        "before": 1,
+        "after": {
+          "20": 1,
+          "50": 1
+        },
+        "ceiling": {
+          "20": 1,
+          "50": 1
+        },
+        "ms": {
+          "20": 13.106410000000324,
+          "50": 19.261818999999377
+        },
+        "top3": {
+          "before": [
+            "duplicate_key",
+            "duplicate_key",
+            "duplicate_key"
+          ],
+          "after": {
+            "20": [
+              "duplicate_key",
+              "duplicate_key",
+              "duplicate_key"
+            ],
+            "50": [
+              "duplicate_key",
+              "duplicate_key",
+              "duplicate_key"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "text": "idempotency_conflict",
+      "set": "codes",
+      "kind": "lower",
+      "expected": [
+        "duplicate_key"
+      ],
+      "hybrid": {
+        "before": 1,
+        "after": {
+          "20": 1,
+          "50": 1
+        },
+        "ceiling": {
+          "20": 1,
+          "50": 1
+        },
+        "ms": {
+          "20": 15.686378999998851,
+          "50": 19.63680700000259
+        },
+        "top3": {
+          "before": [
+            "duplicate_key",
+            "duplicate_key",
+            "duplicate_key"
+          ],
+          "after": {
+            "20": [
+              "duplicate_key",
+              "duplicate_key",
+              "duplicate_key"
+            ],
+            "50": [
+              "duplicate_key",
+              "duplicate_key",
+              "duplicate_key"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "text": "lots of IDEMPOTENCY_CONFLICT errors since the deploy",
+      "set": "codes",
+      "kind": "sentence",
+      "expected": [
+        "duplicate_key"
+      ],
+      "hybrid": {
+        "before": 1,
+        "after": {
+          "20": 1,
+          "50": 1
+        },
+        "ceiling": {
+          "20": 1,
+          "50": 1
+        },
+        "ms": {
+          "20": 14.840369999998074,
+          "50": 34.30163299999913
+        },
+        "top3": {
+          "before": [
+            "duplicate_key",
+            "duplicate_key",
+            "duplicate_key"
+          ],
+          "after": {
+            "20": [
+              "duplicate_key",
+              "duplicate_key",
+              "duplicate_key"
+            ],
+            "50": [
+              "duplicate_key",
+              "duplicate_key",
+              "duplicate_key"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "text": "INVENTORY_NEGATIVE",
+      "set": "codes",
+      "kind": "exact",
+      "expected": [
+        "stock_inconsistency"
+      ],
+      "hybrid": {
+        "before": 1,
+        "after": {
+          "20": 1,
+          "50": 1
+        },
+        "ceiling": {
+          "20": 1,
+          "50": 1
+        },
+        "ms": {
+          "20": 11.9978680000022,
+          "50": 24.91655399999945
+        },
+        "top3": {
+          "before": [
+            "stock_inconsistency",
+            "stock_inconsistency",
+            "stock_inconsistency"
+          ],
+          "after": {
+            "20": [
+              "stock_inconsistency",
+              "stock_inconsistency",
+              "stock_inconsistency"
+            ],
+            "50": [
+              "stock_inconsistency",
+              "stock_inconsistency",
+              "stock_inconsistency"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "text": "inventory_negative",
+      "set": "codes",
+      "kind": "lower",
+      "expected": [
+        "stock_inconsistency"
+      ],
+      "hybrid": {
+        "before": 1,
+        "after": {
+          "20": 1,
+          "50": 1
+        },
+        "ceiling": {
+          "20": 1,
+          "50": 1
+        },
+        "ms": {
+          "20": 13.763569000002462,
+          "50": 21.44528700000228
+        },
+        "top3": {
+          "before": [
+            "stock_inconsistency",
+            "stock_inconsistency",
+            "stock_inconsistency"
+          ],
+          "after": {
+            "20": [
+              "stock_inconsistency",
+              "stock_inconsistency",
+              "stock_inconsistency"
+            ],
+            "50": [
+              "stock_inconsistency",
+              "stock_inconsistency",
+              "stock_inconsistency"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "text": "lots of INVENTORY_NEGATIVE errors since the deploy",
+      "set": "codes",
+      "kind": "sentence",
+      "expected": [
+        "stock_inconsistency"
+      ],
+      "hybrid": {
+        "before": 1,
+        "after": {
+          "20": 1,
+          "50": 1
+        },
+        "ceiling": {
+          "20": 1,
+          "50": 1
+        },
+        "ms": {
+          "20": 19.788470999999845,
+          "50": 37.24483099999998
+        },
+        "top3": {
+          "before": [
+            "stock_inconsistency",
+            "stock_inconsistency",
+            "stock_inconsistency"
+          ],
+          "after": {
+            "20": [
+              "stock_inconsistency",
+              "stock_inconsistency",
+              "stock_inconsistency"
+            ],
+            "50": [
+              "stock_inconsistency",
+              "stock_inconsistency",
+              "stock_inconsistency"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "text": "KAFKA_LAG",
+      "set": "codes",
+      "kind": "exact",
+      "expected": [
+        "queue_lag"
+      ],
+      "hybrid": {
+        "before": 1,
+        "after": {
+          "20": 1,
+          "50": 1
+        },
+        "ceiling": {
+          "20": 1,
+          "50": 1
+        },
+        "ms": {
+          "20": 29.588095000002795,
+          "50": 13.471153000002232
+        },
+        "top3": {
+          "before": [
+            "queue_lag",
+            "queue_lag",
+            "queue_lag"
+          ],
+          "after": {
+            "20": [
+              "queue_lag",
+              "queue_lag",
+              "queue_lag"
+            ],
+            "50": [
+              "queue_lag",
+              "queue_lag",
+              "queue_lag"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "text": "kafka_lag",
+      "set": "codes",
+      "kind": "lower",
+      "expected": [
+        "queue_lag"
+      ],
+      "hybrid": {
+        "before": 1,
+        "after": {
+          "20": 1,
+          "50": 1
+        },
+        "ceiling": {
+          "20": 1,
+          "50": 1
+        },
+        "ms": {
+          "20": 30.763992000000144,
+          "50": 15.743207999999868
+        },
+        "top3": {
+          "before": [
+            "queue_lag",
+            "queue_lag",
+            "queue_lag"
+          ],
+          "after": {
+            "20": [
+              "queue_lag",
+              "queue_lag",
+              "queue_lag"
+            ],
+            "50": [
+              "queue_lag",
+              "queue_lag",
+              "queue_lag"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "text": "lots of KAFKA_LAG errors since the deploy",
+      "set": "codes",
+      "kind": "sentence",
+      "expected": [
+        "queue_lag"
+      ],
+      "hybrid": {
+        "before": 1,
+        "after": {
+          "20": 1,
+          "50": 1
+        },
+        "ceiling": {
+          "20": 1,
+          "50": 1
+        },
+        "ms": {
+          "20": 15.805082999999286,
+          "50": 14.16810600000099
+        },
+        "top3": {
+          "before": [
+            "queue_lag",
+            "queue_lag",
+            "queue_lag"
+          ],
+          "after": {
+            "20": [
+              "queue_lag",
+              "queue_lag",
+              "queue_lag"
+            ],
+            "50": [
+              "queue_lag",
+              "queue_lag",
+              "queue_lag"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "text": "KNEX_TIMEOUT",
+      "set": "codes",
+      "kind": "exact",
+      "expected": [
+        "db_connection_timeout"
+      ],
+      "hybrid": {
+        "before": 1,
+        "after": {
+          "20": 1,
+          "50": 1
+        },
+        "ceiling": {
+          "20": 1,
+          "50": 1
+        },
+        "ms": {
+          "20": 23.24148199999763,
+          "50": 9.602860999999393
+        },
+        "top3": {
+          "before": [
+            "db_connection_timeout",
+            "db_connection_timeout",
+            "db_connection_timeout"
+          ],
+          "after": {
+            "20": [
+              "db_connection_timeout",
+              "db_connection_timeout",
+              "db_connection_timeout"
+            ],
+            "50": [
+              "db_connection_timeout",
+              "db_connection_timeout",
+              "db_connection_timeout"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "text": "knex_timeout",
+      "set": "codes",
+      "kind": "lower",
+      "expected": [
+        "db_connection_timeout"
+      ],
+      "hybrid": {
+        "before": 1,
+        "after": {
+          "20": 1,
+          "50": 1
+        },
+        "ceiling": {
+          "20": 1,
+          "50": 1
+        },
+        "ms": {
+          "20": 17.545970999999554,
+          "50": 9.63198199999897
+        },
+        "top3": {
+          "before": [
+            "db_connection_timeout",
+            "db_connection_timeout",
+            "db_connection_timeout"
+          ],
+          "after": {
+            "20": [
+              "db_connection_timeout",
+              "db_connection_timeout",
+              "db_connection_timeout"
+            ],
+            "50": [
+              "db_connection_timeout",
+              "db_connection_timeout",
+              "db_connection_timeout"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "text": "lots of KNEX_TIMEOUT errors since the deploy",
+      "set": "codes",
+      "kind": "sentence",
+      "expected": [
+        "db_connection_timeout"
+      ],
+      "hybrid": {
+        "before": 1,
+        "after": {
+          "20": 1,
+          "50": 1
+        },
+        "ceiling": {
+          "20": 1,
+          "50": 1
+        },
+        "ms": {
+          "20": 26.063450000001467,
+          "50": 9.90094599999793
+        },
+        "top3": {
+          "before": [
+            "db_connection_timeout",
+            "db_connection_timeout",
+            "db_connection_timeout"
+          ],
+          "after": {
+            "20": [
+              "db_connection_timeout",
+              "db_connection_timeout",
+              "db_connection_timeout"
+            ],
+            "50": [
+              "db_connection_timeout",
+              "db_connection_timeout",
+              "db_connection_timeout"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "text": "NPE",
+      "set": "codes",
+      "kind": "exact",
+      "expected": [
+        "null_reference"
+      ],
+      "hybrid": {
+        "before": 1,
+        "after": {
+          "20": 1,
+          "50": 1
+        },
+        "ceiling": {
+          "20": 1,
+          "50": 1
+        },
+        "ms": {
+          "20": 34.243844000000536,
+          "50": 14.421298999997816
+        },
+        "top3": {
+          "before": [
+            "null_reference",
+            "null_reference",
+            "null_reference"
+          ],
+          "after": {
+            "20": [
+              "null_reference",
+              "null_reference",
+              "null_reference"
+            ],
+            "50": [
+              "null_reference",
+              "null_reference",
+              "null_reference"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "text": "npe",
+      "set": "codes",
+      "kind": "lower",
+      "expected": [
+        "null_reference"
+      ],
+      "hybrid": {
+        "before": 1,
+        "after": {
+          "20": 1,
+          "50": 1
+        },
+        "ceiling": {
+          "20": 1,
+          "50": 1
+        },
+        "ms": {
+          "20": 22.957527999999,
+          "50": 16.81607299999814
+        },
+        "top3": {
+          "before": [
+            "null_reference",
+            "null_reference",
+            "null_reference"
+          ],
+          "after": {
+            "20": [
+              "null_reference",
+              "null_reference",
+              "null_reference"
+            ],
+            "50": [
+              "null_reference",
+              "null_reference",
+              "null_reference"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "text": "lots of NPE errors since the deploy",
+      "set": "codes",
+      "kind": "sentence",
+      "expected": [
+        "null_reference"
+      ],
+      "hybrid": {
+        "before": 0.8,
+        "after": {
+          "20": 1,
+          "50": 1
+        },
+        "ceiling": {
+          "20": 1,
+          "50": 1
+        },
+        "ms": {
+          "20": 17.833135000000766,
+          "50": 29.173297000001185
+        },
+        "top3": {
+          "before": [
+            "null_reference",
+            "null_reference",
+            "null_reference"
+          ],
+          "after": {
+            "20": [
+              "null_reference",
+              "null_reference",
+              "null_reference"
+            ],
+            "50": [
+              "null_reference",
+              "null_reference",
+              "null_reference"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "text": "OOM",
+      "set": "codes",
+      "kind": "exact",
+      "expected": [
+        "out_of_memory"
+      ],
+      "hybrid": {
+        "before": 1,
+        "after": {
+          "20": 1,
+          "50": 1
+        },
+        "ceiling": {
+          "20": 1,
+          "50": 1
+        },
+        "ms": {
+          "20": 29.026262999999744,
+          "50": 23.08506699999998
+        },
+        "top3": {
+          "before": [
+            "out_of_memory",
+            "out_of_memory",
+            "out_of_memory"
+          ],
+          "after": {
+            "20": [
+              "out_of_memory",
+              "out_of_memory",
+              "out_of_memory"
+            ],
+            "50": [
+              "out_of_memory",
+              "out_of_memory",
+              "out_of_memory"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "text": "oom",
+      "set": "codes",
+      "kind": "lower",
+      "expected": [
+        "out_of_memory"
+      ],
+      "hybrid": {
+        "before": 1,
+        "after": {
+          "20": 1,
+          "50": 1
+        },
+        "ceiling": {
+          "20": 1,
+          "50": 1
+        },
+        "ms": {
+          "20": 24.395657000000938,
+          "50": 23.69553299999825
+        },
+        "top3": {
+          "before": [
+            "out_of_memory",
+            "out_of_memory",
+            "out_of_memory"
+          ],
+          "after": {
+            "20": [
+              "out_of_memory",
+              "out_of_memory",
+              "out_of_memory"
+            ],
+            "50": [
+              "out_of_memory",
+              "out_of_memory",
+              "out_of_memory"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "text": "lots of OOM errors since the deploy",
+      "set": "codes",
+      "kind": "sentence",
+      "expected": [
+        "out_of_memory"
+      ],
+      "hybrid": {
+        "before": 1,
+        "after": {
+          "20": 1,
+          "50": 1
+        },
+        "ceiling": {
+          "20": 1,
+          "50": 1
+        },
+        "ms": {
+          "20": 25.075721999997768,
+          "50": 22.17858999999953
+        },
+        "top3": {
+          "before": [
+            "out_of_memory",
+            "out_of_memory",
+            "out_of_memory"
+          ],
+          "after": {
+            "20": [
+              "out_of_memory",
+              "out_of_memory",
+              "out_of_memory"
+            ],
+            "50": [
+              "out_of_memory",
+              "out_of_memory",
+              "out_of_memory"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "text": "OOMKilled",
+      "set": "codes",
+      "kind": "exact",
+      "expected": [
+        "out_of_memory"
+      ],
+      "hybrid": {
+        "before": 1,
+        "after": {
+          "20": 1,
+          "50": 1
+        },
+        "ceiling": {
+          "20": 1,
+          "50": 1
+        },
+        "ms": {
+          "20": 19.8802190000024,
+          "50": 18.785220000001573
+        },
+        "top3": {
+          "before": [
+            "out_of_memory",
+            "out_of_memory",
+            "out_of_memory"
+          ],
+          "after": {
+            "20": [
+              "out_of_memory",
+              "out_of_memory",
+              "out_of_memory"
+            ],
+            "50": [
+              "out_of_memory",
+              "out_of_memory",
+              "out_of_memory"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "text": "oomkilled",
+      "set": "codes",
+      "kind": "lower",
+      "expected": [
+        "out_of_memory"
+      ],
+      "hybrid": {
+        "before": 1,
+        "after": {
+          "20": 1,
+          "50": 1
+        },
+        "ceiling": {
+          "20": 1,
+          "50": 1
+        },
+        "ms": {
+          "20": 18.93617499999891,
+          "50": 18.888662000001204
+        },
+        "top3": {
+          "before": [
+            "out_of_memory",
+            "out_of_memory",
+            "out_of_memory"
+          ],
+          "after": {
+            "20": [
+              "out_of_memory",
+              "out_of_memory",
+              "out_of_memory"
+            ],
+            "50": [
+              "out_of_memory",
+              "out_of_memory",
+              "out_of_memory"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "text": "lots of OOMKilled errors since the deploy",
+      "set": "codes",
+      "kind": "sentence",
+      "expected": [
+        "out_of_memory"
+      ],
+      "hybrid": {
+        "before": 1,
+        "after": {
+          "20": 1,
+          "50": 1
+        },
+        "ceiling": {
+          "20": 1,
+          "50": 1
+        },
+        "ms": {
+          "20": 18.156644999999116,
+          "50": 23.47788799999762
+        },
+        "top3": {
+          "before": [
+            "out_of_memory",
+            "out_of_memory",
+            "out_of_memory"
+          ],
+          "after": {
+            "20": [
+              "out_of_memory",
+              "out_of_memory",
+              "out_of_memory"
+            ],
+            "50": [
+              "out_of_memory",
+              "out_of_memory",
+              "out_of_memory"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "text": "OVERSOLD",
+      "set": "codes",
+      "kind": "exact",
+      "expected": [
+        "stock_inconsistency"
+      ],
+      "hybrid": {
+        "before": 1,
+        "after": {
+          "20": 1,
+          "50": 1
+        },
+        "ceiling": {
+          "20": 1,
+          "50": 1
+        },
+        "ms": {
+          "20": 19.422053999998752,
+          "50": 14.998942000001989
+        },
+        "top3": {
+          "before": [
+            "stock_inconsistency",
+            "stock_inconsistency",
+            "stock_inconsistency"
+          ],
+          "after": {
+            "20": [
+              "stock_inconsistency",
+              "stock_inconsistency",
+              "stock_inconsistency"
+            ],
+            "50": [
+              "stock_inconsistency",
+              "stock_inconsistency",
+              "stock_inconsistency"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "text": "oversold",
+      "set": "codes",
+      "kind": "lower",
+      "expected": [
+        "stock_inconsistency"
+      ],
+      "hybrid": {
+        "before": 1,
+        "after": {
+          "20": 1,
+          "50": 1
+        },
+        "ceiling": {
+          "20": 1,
+          "50": 1
+        },
+        "ms": {
+          "20": 15.022294999998849,
+          "50": 18.655642000001535
+        },
+        "top3": {
+          "before": [
+            "stock_inconsistency",
+            "stock_inconsistency",
+            "stock_inconsistency"
+          ],
+          "after": {
+            "20": [
+              "stock_inconsistency",
+              "stock_inconsistency",
+              "stock_inconsistency"
+            ],
+            "50": [
+              "stock_inconsistency",
+              "stock_inconsistency",
+              "stock_inconsistency"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "text": "lots of OVERSOLD errors since the deploy",
+      "set": "codes",
+      "kind": "sentence",
+      "expected": [
+        "stock_inconsistency"
+      ],
+      "hybrid": {
+        "before": 1,
+        "after": {
+          "20": 1,
+          "50": 1
+        },
+        "ceiling": {
+          "20": 1,
+          "50": 1
+        },
+        "ms": {
+          "20": 21.575823999999557,
+          "50": 19.877552999998443
+        },
+        "top3": {
+          "before": [
+            "stock_inconsistency",
+            "stock_inconsistency",
+            "stock_inconsistency"
+          ],
+          "after": {
+            "20": [
+              "stock_inconsistency",
+              "stock_inconsistency",
+              "stock_inconsistency"
+            ],
+            "50": [
+              "stock_inconsistency",
+              "stock_inconsistency",
+              "stock_inconsistency"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "text": "POOL_EXHAUSTED",
+      "set": "codes",
+      "kind": "exact",
+      "expected": [
+        "db_connection_timeout"
+      ],
+      "hybrid": {
+        "before": 1,
+        "after": {
+          "20": 1,
+          "50": 1
+        },
+        "ceiling": {
+          "20": 1,
+          "50": 1
+        },
+        "ms": {
+          "20": 16.446930999998585,
+          "50": 15.906635999999708
+        },
+        "top3": {
+          "before": [
+            "db_connection_timeout",
+            "db_connection_timeout",
+            "db_connection_timeout"
+          ],
+          "after": {
+            "20": [
+              "db_connection_timeout",
+              "db_connection_timeout",
+              "db_connection_timeout"
+            ],
+            "50": [
+              "db_connection_timeout",
+              "db_connection_timeout",
+              "db_connection_timeout"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "text": "pool_exhausted",
+      "set": "codes",
+      "kind": "lower",
+      "expected": [
+        "db_connection_timeout"
+      ],
+      "hybrid": {
+        "before": 1,
+        "after": {
+          "20": 1,
+          "50": 1
+        },
+        "ceiling": {
+          "20": 1,
+          "50": 1
+        },
+        "ms": {
+          "20": 17.457491000001028,
+          "50": 13.963463000000047
+        },
+        "top3": {
+          "before": [
+            "db_connection_timeout",
+            "db_connection_timeout",
+            "db_connection_timeout"
+          ],
+          "after": {
+            "20": [
+              "db_connection_timeout",
+              "db_connection_timeout",
+              "db_connection_timeout"
+            ],
+            "50": [
+              "db_connection_timeout",
+              "db_connection_timeout",
+              "db_connection_timeout"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "text": "lots of POOL_EXHAUSTED errors since the deploy",
+      "set": "codes",
+      "kind": "sentence",
+      "expected": [
+        "db_connection_timeout"
+      ],
+      "hybrid": {
+        "before": 1,
+        "after": {
+          "20": 1,
+          "50": 1
+        },
+        "ceiling": {
+          "20": 1,
+          "50": 1
+        },
+        "ms": {
+          "20": 19.70340700000088,
+          "50": 10.353931999998167
+        },
+        "top3": {
+          "before": [
+            "db_connection_timeout",
+            "db_connection_timeout",
+            "db_connection_timeout"
+          ],
+          "after": {
+            "20": [
+              "db_connection_timeout",
+              "db_connection_timeout",
+              "db_connection_timeout"
+            ],
+            "50": [
+              "db_connection_timeout",
+              "db_connection_timeout",
+              "db_connection_timeout"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "text": "QUOTA_EXCEEDED",
+      "set": "codes",
+      "kind": "exact",
+      "expected": [
+        "rate_limited"
+      ],
+      "hybrid": {
+        "before": 1,
+        "after": {
+          "20": 1,
+          "50": 1
+        },
+        "ceiling": {
+          "20": 1,
+          "50": 1
+        },
+        "ms": {
+          "20": 22.75151399999595,
+          "50": 13.436084000000847
+        },
+        "top3": {
+          "before": [
+            "rate_limited",
+            "rate_limited",
+            "rate_limited"
+          ],
+          "after": {
+            "20": [
+              "rate_limited",
+              "rate_limited",
+              "rate_limited"
+            ],
+            "50": [
+              "rate_limited",
+              "rate_limited",
+              "rate_limited"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "text": "quota_exceeded",
+      "set": "codes",
+      "kind": "lower",
+      "expected": [
+        "rate_limited"
+      ],
+      "hybrid": {
+        "before": 1,
+        "after": {
+          "20": 1,
+          "50": 1
+        },
+        "ceiling": {
+          "20": 1,
+          "50": 1
+        },
+        "ms": {
+          "20": 25.29263599999831,
+          "50": 13.44600299999729
+        },
+        "top3": {
+          "before": [
+            "rate_limited",
+            "rate_limited",
+            "rate_limited"
+          ],
+          "after": {
+            "20": [
+              "rate_limited",
+              "rate_limited",
+              "rate_limited"
+            ],
+            "50": [
+              "rate_limited",
+              "rate_limited",
+              "rate_limited"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "text": "lots of QUOTA_EXCEEDED errors since the deploy",
+      "set": "codes",
+      "kind": "sentence",
+      "expected": [
+        "rate_limited"
+      ],
+      "hybrid": {
+        "before": 0.8,
+        "after": {
+          "20": 1,
+          "50": 1
+        },
+        "ceiling": {
+          "20": 1,
+          "50": 1
+        },
+        "ms": {
+          "20": 32.77966600000218,
+          "50": 14.539522999999463
+        },
+        "top3": {
+          "before": [
+            "rate_limited",
+            "rate_limited",
+            "rate_limited"
+          ],
+          "after": {
+            "20": [
+              "rate_limited",
+              "rate_limited",
+              "rate_limited"
+            ],
+            "50": [
+              "rate_limited",
+              "rate_limited",
+              "rate_limited"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "text": "RECONCILE_MISMATCH",
+      "set": "codes",
+      "kind": "exact",
+      "expected": [
+        "stock_inconsistency"
+      ],
+      "hybrid": {
+        "before": 1,
+        "after": {
+          "20": 1,
+          "50": 1
+        },
+        "ceiling": {
+          "20": 1,
+          "50": 1
+        },
+        "ms": {
+          "20": 18.048798999996507,
+          "50": 19.59838899999886
+        },
+        "top3": {
+          "before": [
+            "stock_inconsistency",
+            "stock_inconsistency",
+            "stock_inconsistency"
+          ],
+          "after": {
+            "20": [
+              "stock_inconsistency",
+              "stock_inconsistency",
+              "stock_inconsistency"
+            ],
+            "50": [
+              "stock_inconsistency",
+              "stock_inconsistency",
+              "stock_inconsistency"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "text": "reconcile_mismatch",
+      "set": "codes",
+      "kind": "lower",
+      "expected": [
+        "stock_inconsistency"
+      ],
+      "hybrid": {
+        "before": 1,
+        "after": {
+          "20": 1,
+          "50": 1
+        },
+        "ceiling": {
+          "20": 1,
+          "50": 1
+        },
+        "ms": {
+          "20": 18.094084999996994,
+          "50": 19.82231999999931
+        },
+        "top3": {
+          "before": [
+            "stock_inconsistency",
+            "stock_inconsistency",
+            "stock_inconsistency"
+          ],
+          "after": {
+            "20": [
+              "stock_inconsistency",
+              "stock_inconsistency",
+              "stock_inconsistency"
+            ],
+            "50": [
+              "stock_inconsistency",
+              "stock_inconsistency",
+              "stock_inconsistency"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "text": "lots of RECONCILE_MISMATCH errors since the deploy",
+      "set": "codes",
+      "kind": "sentence",
+      "expected": [
+        "stock_inconsistency"
+      ],
+      "hybrid": {
+        "before": 1,
+        "after": {
+          "20": 1,
+          "50": 1
+        },
+        "ceiling": {
+          "20": 1,
+          "50": 1
+        },
+        "ms": {
+          "20": 18.305265999995754,
+          "50": 27.37913899999694
+        },
+        "top3": {
+          "before": [
+            "stock_inconsistency",
+            "stock_inconsistency",
+            "stock_inconsistency"
+          ],
+          "after": {
+            "20": [
+              "stock_inconsistency",
+              "stock_inconsistency",
+              "stock_inconsistency"
+            ],
+            "50": [
+              "stock_inconsistency",
+              "stock_inconsistency",
+              "stock_inconsistency"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "text": "REDIS_LOADING",
+      "set": "codes",
+      "kind": "exact",
+      "expected": [
+        "cache_unavailable"
+      ],
+      "hybrid": {
+        "before": 1,
+        "after": {
+          "20": 1,
+          "50": 1
+        },
+        "ceiling": {
+          "20": 1,
+          "50": 1
+        },
+        "ms": {
+          "20": 21.286337999998068,
+          "50": 9.494513999998162
+        },
+        "top3": {
+          "before": [
+            "cache_unavailable",
+            "cache_unavailable",
+            "cache_unavailable"
+          ],
+          "after": {
+            "20": [
+              "cache_unavailable",
+              "cache_unavailable",
+              "cache_unavailable"
+            ],
+            "50": [
+              "cache_unavailable",
+              "cache_unavailable",
+              "cache_unavailable"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "text": "redis_loading",
+      "set": "codes",
+      "kind": "lower",
+      "expected": [
+        "cache_unavailable"
+      ],
+      "hybrid": {
+        "before": 1,
+        "after": {
+          "20": 1,
+          "50": 1
+        },
+        "ceiling": {
+          "20": 1,
+          "50": 1
+        },
+        "ms": {
+          "20": 25.183986000003642,
+          "50": 10.269054000003962
+        },
+        "top3": {
+          "before": [
+            "cache_unavailable",
+            "cache_unavailable",
+            "cache_unavailable"
+          ],
+          "after": {
+            "20": [
+              "cache_unavailable",
+              "cache_unavailable",
+              "cache_unavailable"
+            ],
+            "50": [
+              "cache_unavailable",
+              "cache_unavailable",
+              "cache_unavailable"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "text": "lots of REDIS_LOADING errors since the deploy",
+      "set": "codes",
+      "kind": "sentence",
+      "expected": [
+        "cache_unavailable"
+      ],
+      "hybrid": {
+        "before": 1,
+        "after": {
+          "20": 1,
+          "50": 1
+        },
+        "ceiling": {
+          "20": 1,
+          "50": 1
+        },
+        "ms": {
+          "20": 22.740751999997883,
+          "50": 11.984887999999046
+        },
+        "top3": {
+          "before": [
+            "cache_unavailable",
+            "cache_unavailable",
+            "cache_unavailable"
+          ],
+          "after": {
+            "20": [
+              "cache_unavailable",
+              "cache_unavailable",
+              "cache_unavailable"
+            ],
+            "50": [
+              "cache_unavailable",
+              "cache_unavailable",
+              "cache_unavailable"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "text": "SLOW_QUERY",
+      "set": "codes",
+      "kind": "exact",
+      "expected": [
+        "slow_query"
+      ],
+      "hybrid": {
+        "before": 1,
+        "after": {
+          "20": 1,
+          "50": 1
+        },
+        "ceiling": {
+          "20": 1,
+          "50": 1
+        },
+        "ms": {
+          "20": 32.35225999999966,
+          "50": 14.089811000005284
+        },
+        "top3": {
+          "before": [
+            "slow_query",
+            "slow_query",
+            "slow_query"
+          ],
+          "after": {
+            "20": [
+              "slow_query",
+              "slow_query",
+              "slow_query"
+            ],
+            "50": [
+              "slow_query",
+              "slow_query",
+              "slow_query"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "text": "slow_query",
+      "set": "codes",
+      "kind": "lower",
+      "expected": [
+        "slow_query"
+      ],
+      "hybrid": {
+        "before": 1,
+        "after": {
+          "20": 1,
+          "50": 1
+        },
+        "ceiling": {
+          "20": 1,
+          "50": 1
+        },
+        "ms": {
+          "20": 28.856536999999662,
+          "50": 14.082901000001584
+        },
+        "top3": {
+          "before": [
+            "slow_query",
+            "slow_query",
+            "slow_query"
+          ],
+          "after": {
+            "20": [
+              "slow_query",
+              "slow_query",
+              "slow_query"
+            ],
+            "50": [
+              "slow_query",
+              "slow_query",
+              "slow_query"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "text": "lots of SLOW_QUERY errors since the deploy",
+      "set": "codes",
+      "kind": "sentence",
+      "expected": [
+        "slow_query"
+      ],
+      "hybrid": {
+        "before": 1,
+        "after": {
+          "20": 1,
+          "50": 1
+        },
+        "ceiling": {
+          "20": 1,
+          "50": 1
+        },
+        "ms": {
+          "20": 17.043041999997513,
+          "50": 14.784626000000571
+        },
+        "top3": {
+          "before": [
+            "slow_query",
+            "slow_query",
+            "slow_query"
+          ],
+          "after": {
+            "20": [
+              "slow_query",
+              "slow_query",
+              "slow_query"
+            ],
+            "50": [
+              "slow_query",
+              "slow_query",
+              "slow_query"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "text": "TOKEN_EXPIRED",
+      "set": "codes",
+      "kind": "exact",
+      "expected": [
+        "jwt_expired"
+      ],
+      "hybrid": {
+        "before": 1,
+        "after": {
+          "20": 1,
+          "50": 1
+        },
+        "ceiling": {
+          "20": 1,
+          "50": 1
+        },
+        "ms": {
+          "20": 16.693747999997868,
+          "50": 17.651606999999785
+        },
+        "top3": {
+          "before": [
+            "jwt_expired",
+            "jwt_expired",
+            "jwt_expired"
+          ],
+          "after": {
+            "20": [
+              "jwt_expired",
+              "jwt_expired",
+              "jwt_expired"
+            ],
+            "50": [
+              "jwt_expired",
+              "jwt_expired",
+              "jwt_expired"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "text": "token_expired",
+      "set": "codes",
+      "kind": "lower",
+      "expected": [
+        "jwt_expired"
+      ],
+      "hybrid": {
+        "before": 1,
+        "after": {
+          "20": 1,
+          "50": 1
+        },
+        "ceiling": {
+          "20": 1,
+          "50": 1
+        },
+        "ms": {
+          "20": 17.57039800000348,
+          "50": 18.14918499999476
+        },
+        "top3": {
+          "before": [
+            "jwt_expired",
+            "jwt_expired",
+            "jwt_expired"
+          ],
+          "after": {
+            "20": [
+              "jwt_expired",
+              "jwt_expired",
+              "jwt_expired"
+            ],
+            "50": [
+              "jwt_expired",
+              "jwt_expired",
+              "jwt_expired"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "text": "lots of TOKEN_EXPIRED errors since the deploy",
+      "set": "codes",
+      "kind": "sentence",
+      "expected": [
+        "jwt_expired"
+      ],
+      "hybrid": {
+        "before": 1,
+        "after": {
+          "20": 1,
+          "50": 1
+        },
+        "ceiling": {
+          "20": 1,
+          "50": 1
+        },
+        "ms": {
+          "20": 23.10103099999833,
+          "50": 19.263050000001385
+        },
+        "top3": {
+          "before": [
+            "jwt_expired",
+            "jwt_expired",
+            "jwt_expired"
+          ],
+          "after": {
+            "20": [
+              "jwt_expired",
+              "jwt_expired",
+              "jwt_expired"
+            ],
+            "50": [
+              "jwt_expired",
+              "jwt_expired",
+              "jwt_expired"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "text": "TypeError",
+      "set": "codes",
+      "kind": "exact",
+      "expected": [
+        "null_reference"
+      ],
+      "hybrid": {
+        "before": 1,
+        "after": {
+          "20": 1,
+          "50": 1
+        },
+        "ceiling": {
+          "20": 1,
+          "50": 1
+        },
+        "ms": {
+          "20": 23.17327700000169,
+          "50": 16.00163600000087
+        },
+        "top3": {
+          "before": [
+            "null_reference",
+            "null_reference",
+            "null_reference"
+          ],
+          "after": {
+            "20": [
+              "null_reference",
+              "null_reference",
+              "null_reference"
+            ],
+            "50": [
+              "null_reference",
+              "null_reference",
+              "null_reference"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "text": "typeerror",
+      "set": "codes",
+      "kind": "lower",
+      "expected": [
+        "null_reference"
+      ],
+      "hybrid": {
+        "before": 1,
+        "after": {
+          "20": 1,
+          "50": 1
+        },
+        "ceiling": {
+          "20": 1,
+          "50": 1
+        },
+        "ms": {
+          "20": 21.13688700000057,
+          "50": 13.428835000006075
+        },
+        "top3": {
+          "before": [
+            "null_reference",
+            "null_reference",
+            "null_reference"
+          ],
+          "after": {
+            "20": [
+              "null_reference",
+              "null_reference",
+              "null_reference"
+            ],
+            "50": [
+              "null_reference",
+              "null_reference",
+              "null_reference"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "text": "lots of TypeError errors since the deploy",
+      "set": "codes",
+      "kind": "sentence",
+      "expected": [
+        "null_reference"
+      ],
+      "hybrid": {
+        "before": 1,
+        "after": {
+          "20": 1,
+          "50": 1
+        },
+        "ceiling": {
+          "20": 1,
+          "50": 1
+        },
+        "ms": {
+          "20": 20.808802999999898,
+          "50": 20.174566999994568
+        },
+        "top3": {
+          "before": [
+            "null_reference",
+            "null_reference",
+            "null_reference"
+          ],
+          "after": {
+            "20": [
+              "null_reference",
+              "null_reference",
+              "null_reference"
+            ],
+            "50": [
+              "null_reference",
+              "null_reference",
+              "null_reference"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "text": "UNHANDLED",
+      "set": "codes",
+      "kind": "exact",
+      "expected": [
+        "null_reference"
+      ],
+      "hybrid": {
+        "before": 1,
+        "after": {
+          "20": 1,
+          "50": 1
+        },
+        "ceiling": {
+          "20": 1,
+          "50": 1
+        },
+        "ms": {
+          "20": 24.656888999998046,
+          "50": 8.461299000002327
+        },
+        "top3": {
+          "before": [
+            "null_reference",
+            "null_reference",
+            "null_reference"
+          ],
+          "after": {
+            "20": [
+              "null_reference",
+              "null_reference",
+              "null_reference"
+            ],
+            "50": [
+              "null_reference",
+              "null_reference",
+              "null_reference"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "text": "unhandled",
+      "set": "codes",
+      "kind": "lower",
+      "expected": [
+        "null_reference"
+      ],
+      "hybrid": {
+        "before": 1,
+        "after": {
+          "20": 1,
+          "50": 1
+        },
+        "ceiling": {
+          "20": 1,
+          "50": 1
+        },
+        "ms": {
+          "20": 19.218885000002047,
+          "50": 8.429498999998032
+        },
+        "top3": {
+          "before": [
+            "null_reference",
+            "null_reference",
+            "null_reference"
+          ],
+          "after": {
+            "20": [
+              "null_reference",
+              "null_reference",
+              "null_reference"
+            ],
+            "50": [
+              "null_reference",
+              "null_reference",
+              "null_reference"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "text": "lots of UNHANDLED errors since the deploy",
+      "set": "codes",
+      "kind": "sentence",
+      "expected": [
+        "null_reference"
+      ],
+      "hybrid": {
+        "before": 0.9,
+        "after": {
+          "20": 1,
+          "50": 1
+        },
+        "ceiling": {
+          "20": 1,
+          "50": 1
+        },
+        "ms": {
+          "20": 28.5478460000013,
+          "50": 15.274284999999509
+        },
+        "top3": {
+          "before": [
+            "null_reference",
+            "null_reference",
+            "null_reference"
+          ],
+          "after": {
+            "20": [
+              "null_reference",
+              "null_reference",
+              "null_reference"
+            ],
+            "50": [
+              "null_reference",
+              "null_reference",
+              "null_reference"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "text": "X509",
+      "set": "codes",
+      "kind": "exact",
+      "expected": [
+        "tls_cert_expired"
+      ],
+      "hybrid": {
+        "before": 1,
+        "after": {
+          "20": 1,
+          "50": 1
+        },
+        "ceiling": {
+          "20": 1,
+          "50": 1
+        },
+        "ms": {
+          "20": 25.672945999998774,
+          "50": 28.1739929999967
+        },
+        "top3": {
+          "before": [
+            "tls_cert_expired",
+            "tls_cert_expired",
+            "tls_cert_expired"
+          ],
+          "after": {
+            "20": [
+              "tls_cert_expired",
+              "tls_cert_expired",
+              "tls_cert_expired"
+            ],
+            "50": [
+              "tls_cert_expired",
+              "tls_cert_expired",
+              "tls_cert_expired"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "text": "x509",
+      "set": "codes",
+      "kind": "lower",
+      "expected": [
+        "tls_cert_expired"
+      ],
+      "hybrid": {
+        "before": 1,
+        "after": {
+          "20": 1,
+          "50": 1
+        },
+        "ceiling": {
+          "20": 1,
+          "50": 1
+        },
+        "ms": {
+          "20": 24.560272999995505,
+          "50": 18.070658000004187
+        },
+        "top3": {
+          "before": [
+            "tls_cert_expired",
+            "tls_cert_expired",
+            "tls_cert_expired"
+          ],
+          "after": {
+            "20": [
+              "tls_cert_expired",
+              "tls_cert_expired",
+              "tls_cert_expired"
+            ],
+            "50": [
+              "tls_cert_expired",
+              "tls_cert_expired",
+              "tls_cert_expired"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "text": "lots of X509 errors since the deploy",
+      "set": "codes",
+      "kind": "sentence",
+      "expected": [
+        "tls_cert_expired"
+      ],
+      "hybrid": {
+        "before": 1,
+        "after": {
+          "20": 1,
+          "50": 1
+        },
+        "ceiling": {
+          "20": 1,
+          "50": 1
+        },
+        "ms": {
+          "20": 20.32992099999683,
+          "50": 45.886207000003196
+        },
+        "top3": {
+          "before": [
+            "tls_cert_expired",
+            "tls_cert_expired",
+            "tls_cert_expired"
+          ],
+          "after": {
+            "20": [
+              "tls_cert_expired",
+              "tls_cert_expired",
+              "tls_cert_expired"
+            ],
+            "50": [
+              "tls_cert_expired",
+              "tls_cert_expired",
+              "tls_cert_expired"
+            ]
+          }
+        }
+      }
+    }
+  ]
+}

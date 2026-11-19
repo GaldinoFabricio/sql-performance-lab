@@ -1,5 +1,5 @@
 {
-  "created_at": "2026-11-18T23:31:48.918Z",
+  "created_at": "2026-11-19T00:25:19.782Z",
   "rows": 10000,
   "k": 10,
   "reranker": {
@@ -24,26 +24,26 @@
     "hybrid": {
       "text: all": {
         "queries": 60,
-        "before": 0.965,
+        "before": 0.9616666666666666,
         "zero_before": 1,
         "by_n": {
           "20": {
-            "after": 0.9483333333333334,
+            "after": 0.9516666666666667,
             "ceiling": 0.9833333333333333,
             "zero_after": 1,
-            "better": 1,
-            "worse": 5,
-            "p50_ms": 65.14656800000012,
-            "p95_ms": 187.88788100000238
+            "better": 2,
+            "worse": 4,
+            "p50_ms": 67.07321400000365,
+            "p95_ms": 185.4455999999991
           },
           "50": {
-            "after": 0.935,
+            "after": 0.9483333333333335,
             "ceiling": 0.9833333333333333,
             "zero_after": 2,
-            "better": 1,
-            "worse": 4,
-            "p50_ms": 165.66554799999722,
-            "p95_ms": 423.9652780000033
+            "better": 2,
+            "worse": 3,
+            "p50_ms": 161.47301400000106,
+            "p95_ms": 417.4934150000008
           }
         }
       },
@@ -53,53 +53,53 @@
         "zero_before": 0,
         "by_n": {
           "20": {
-            "after": 0.9916666666666667,
+            "after": 1,
             "ceiling": 1,
             "zero_after": 0,
             "better": 0,
-            "worse": 1,
-            "p50_ms": 62.20460499999899,
-            "p95_ms": 246.2894709999964
+            "worse": 0,
+            "p50_ms": 62.276505000001634,
+            "p95_ms": 236.0988970000035
           },
           "50": {
-            "after": 0.9666666666666667,
+            "after": 1,
             "ceiling": 1,
             "zero_after": 0,
             "better": 0,
-            "worse": 1,
-            "p50_ms": 143.67129399999976,
-            "p95_ms": 497.193231000012
+            "worse": 0,
+            "p50_ms": 147.24578800000018,
+            "p95_ms": 489.6632629999949
           }
         }
       },
       "text: mixed": {
         "queries": 19,
-        "before": 0.9894736842105264,
+        "before": 0.9842105263157894,
         "zero_before": 0,
         "by_n": {
           "20": {
             "after": 0.9789473684210527,
             "ceiling": 1,
             "zero_after": 0,
-            "better": 0,
+            "better": 1,
             "worse": 1,
-            "p50_ms": 68.02392499998678,
-            "p95_ms": 161.39544899999964
+            "p50_ms": 64.96904799999902,
+            "p95_ms": 171.7850049999979
           },
           "50": {
             "after": 1,
             "ceiling": 1,
             "zero_after": 0,
-            "better": 1,
+            "better": 2,
             "worse": 0,
-            "p50_ms": 164.63717299999553,
-            "p95_ms": 320.80144400000063
+            "p50_ms": 164.9286030000003,
+            "p95_ms": 312.3826630000003
           }
         }
       },
       "text: paraphrase": {
         "queries": 17,
-        "before": 0.888235294117647,
+        "before": 0.8823529411764706,
         "zero_before": 1,
         "by_n": {
           "20": {
@@ -108,8 +108,8 @@
             "zero_after": 1,
             "better": 1,
             "worse": 3,
-            "p50_ms": 71.56374399999913,
-            "p95_ms": 192.44336199999816
+            "p50_ms": 71.99039799999446,
+            "p95_ms": 202.4111069999999
           },
           "50": {
             "after": 0.8176470588235293,
@@ -117,8 +117,8 @@
             "zero_after": 2,
             "better": 0,
             "worse": 3,
-            "p50_ms": 190.5604439999879,
-            "p95_ms": 423.9652780000033
+            "p50_ms": 188.6555459999945,
+            "p95_ms": 423.0751509999973
           }
         }
       },
@@ -133,8 +133,8 @@
             "zero_after": 0,
             "better": 3,
             "worse": 0,
-            "p50_ms": 64.8598199999833,
-            "p95_ms": 273.34460700000636
+            "p50_ms": 64.80366700000013,
+            "p95_ms": 261.3006030000106
           },
           "50": {
             "after": 1,
@@ -142,135 +142,8 @@
             "zero_after": 0,
             "better": 3,
             "worse": 0,
-            "p50_ms": 168.8695000000007,
-            "p95_ms": 626.2295980000054
-          }
-        }
-      }
-    },
-    "vector": {
-      "text: all": {
-        "queries": 60,
-        "before": 0.9483333333333334,
-        "zero_before": 3,
-        "by_n": {
-          "20": {
-            "after": 0.95,
-            "ceiling": 0.95,
-            "zero_after": 3,
-            "better": 1,
-            "worse": 0,
-            "p50_ms": 65.71880800000145,
-            "p95_ms": 90.56488799999352
-          },
-          "50": {
-            "after": 0.9333333333333333,
-            "ceiling": 0.9516666666666667,
-            "zero_after": 3,
-            "better": 1,
-            "worse": 2,
-            "p50_ms": 161.2302720000007,
-            "p95_ms": 313.4832230000029
-          }
-        }
-      },
-      "text: keyword": {
-        "queries": 24,
-        "before": 0.9125,
-        "zero_before": 2,
-        "by_n": {
-          "20": {
-            "after": 0.9166666666666666,
-            "ceiling": 0.9166666666666666,
-            "zero_after": 2,
-            "better": 1,
-            "worse": 0,
-            "p50_ms": 61.595509999999194,
-            "p95_ms": 241.1251889999985
-          },
-          "50": {
-            "after": 0.9166666666666666,
-            "ceiling": 0.9166666666666666,
-            "zero_after": 2,
-            "better": 1,
-            "worse": 0,
-            "p50_ms": 155.15487099999882,
-            "p95_ms": 619.4112849999947
-          }
-        }
-      },
-      "text: mixed": {
-        "queries": 19,
-        "before": 1,
-        "zero_before": 0,
-        "by_n": {
-          "20": {
-            "after": 1,
-            "ceiling": 1,
-            "zero_after": 0,
-            "better": 0,
-            "worse": 0,
-            "p50_ms": 65.71880800000145,
-            "p95_ms": 90.56488799999352
-          },
-          "50": {
-            "after": 0.9842105263157894,
-            "ceiling": 1,
-            "zero_after": 0,
-            "better": 0,
-            "worse": 1,
-            "p50_ms": 169.04135499999393,
-            "p95_ms": 207.08705400000326
-          }
-        }
-      },
-      "text: paraphrase": {
-        "queries": 17,
-        "before": 0.9411764705882353,
-        "zero_before": 1,
-        "by_n": {
-          "20": {
-            "after": 0.9411764705882353,
-            "ceiling": 0.9411764705882353,
-            "zero_after": 1,
-            "better": 0,
-            "worse": 0,
-            "p50_ms": 68.88217299999815,
-            "p95_ms": 156.75341499999922
-          },
-          "50": {
-            "after": 0.9,
-            "ceiling": 0.9470588235294118,
-            "zero_after": 1,
-            "better": 0,
-            "worse": 1,
-            "p50_ms": 167.98630500000218,
-            "p95_ms": 313.4832230000029
-          }
-        }
-      },
-      "codes: all": {
-        "queries": 114,
-        "before": 0.6921052631578946,
-        "zero_before": 25,
-        "by_n": {
-          "20": {
-            "after": 0.7421052631578948,
-            "ceiling": 0.7500000000000001,
-            "zero_after": 23,
-            "better": 16,
-            "worse": 1,
-            "p50_ms": 63.8512510000146,
-            "p95_ms": 114.50275799998781
-          },
-          "50": {
-            "after": 0.7605263157894737,
-            "ceiling": 0.7824561403508773,
-            "zero_after": 23,
-            "better": 17,
-            "worse": 6,
-            "p50_ms": 167.7957400000014,
-            "p95_ms": 307.9332399999839
+            "p50_ms": 164.81707999999344,
+            "p95_ms": 623.0010820000025
           }
         }
       }
@@ -295,8 +168,8 @@
           "50": 1
         },
         "ms": {
-          "20": 58.30129299999999,
-          "50": 123.96824100000003
+          "20": 54.45251499999995,
+          "50": 125.28699200000005
         },
         "top3": {
           "before": [
@@ -314,40 +187,6 @@
               "cache_unavailable",
               "cache_unavailable",
               "cache_unavailable"
-            ]
-          }
-        }
-      },
-      "vector": {
-        "before": 0,
-        "after": {
-          "20": 0,
-          "50": 0
-        },
-        "ceiling": {
-          "20": 0,
-          "50": 0
-        },
-        "ms": {
-          "20": 45.19550000000004,
-          "50": 119.01094199999989
-        },
-        "top3": {
-          "before": [
-            "db_connection_timeout",
-            "db_connection_timeout",
-            "db_connection_timeout"
-          ],
-          "after": {
-            "20": [
-              "db_connection_timeout",
-              "db_connection_timeout",
-              "db_connection_timeout"
-            ],
-            "50": [
-              "db_connection_timeout",
-              "db_connection_timeout",
-              "db_connection_timeout"
             ]
           }
         }
@@ -371,8 +210,8 @@
           "50": 1
         },
         "ms": {
-          "20": 53.510507999999845,
-          "50": 136.03194299999996
+          "20": 59.135837999999694,
+          "50": 152.6269339999999
         },
         "top3": {
           "before": [
@@ -390,40 +229,6 @@
               "cache_unavailable",
               "cache_unavailable",
               "cache_unavailable"
-            ]
-          }
-        }
-      },
-      "vector": {
-        "before": 1,
-        "after": {
-          "20": 1,
-          "50": 0.7
-        },
-        "ceiling": {
-          "20": 1,
-          "50": 1
-        },
-        "ms": {
-          "20": 52.00664800000004,
-          "50": 139.82610999999997
-        },
-        "top3": {
-          "before": [
-            "cache_unavailable",
-            "cache_unavailable",
-            "cache_unavailable"
-          ],
-          "after": {
-            "20": [
-              "cache_unavailable",
-              "cache_unavailable",
-              "cache_unavailable"
-            ],
-            "50": [
-              "dns_failure",
-              "dns_failure",
-              "dns_failure"
             ]
           }
         }
@@ -437,7 +242,7 @@
         "cache_unavailable"
       ],
       "hybrid": {
-        "before": 1,
+        "before": 0.9,
         "after": {
           "20": 1,
           "50": 1
@@ -447,42 +252,8 @@
           "50": 1
         },
         "ms": {
-          "20": 39.578693000000385,
-          "50": 115.3490410000004
-        },
-        "top3": {
-          "before": [
-            "cache_unavailable",
-            "cache_unavailable",
-            "cache_unavailable"
-          ],
-          "after": {
-            "20": [
-              "cache_unavailable",
-              "cache_unavailable",
-              "cache_unavailable"
-            ],
-            "50": [
-              "cache_unavailable",
-              "cache_unavailable",
-              "cache_unavailable"
-            ]
-          }
-        }
-      },
-      "vector": {
-        "before": 1,
-        "after": {
-          "20": 1,
-          "50": 1
-        },
-        "ceiling": {
-          "20": 1,
-          "50": 1
-        },
-        "ms": {
-          "20": 38.399272999999994,
-          "50": 98.82335400000011
+          "20": 58.05626099999972,
+          "50": 122.40656599999966
         },
         "top3": {
           "before": [
@@ -513,7 +284,7 @@
         "cache_unavailable"
       ],
       "hybrid": {
-        "before": 1,
+        "before": 0.9,
         "after": {
           "20": 0.5,
           "50": 0.6
@@ -523,42 +294,8 @@
           "50": 1
         },
         "ms": {
-          "20": 49.24840900000072,
-          "50": 136.1710810000004
-        },
-        "top3": {
-          "before": [
-            "cache_unavailable",
-            "cache_unavailable",
-            "cache_unavailable"
-          ],
-          "after": {
-            "20": [
-              "cache_unavailable",
-              "cache_unavailable",
-              "cache_unavailable"
-            ],
-            "50": [
-              "cache_unavailable",
-              "cache_unavailable",
-              "cache_unavailable"
-            ]
-          }
-        }
-      },
-      "vector": {
-        "before": 1,
-        "after": {
-          "20": 1,
-          "50": 1
-        },
-        "ceiling": {
-          "20": 1,
-          "50": 1
-        },
-        "ms": {
-          "20": 39.40434000000005,
-          "50": 106.48371700000007
+          "20": 59.986519000000044,
+          "50": 143.99599300000045
         },
         "top3": {
           "before": [
@@ -586,21 +323,22 @@
       "set": "text",
       "kind": "keyword",
       "expected": [
-        "db_connection_timeout"
+        "db_connection_timeout",
+        "cache_unavailable"
       ],
       "hybrid": {
         "before": 1,
         "after": {
-          "20": 0.8,
-          "50": 0.2
+          "20": 1,
+          "50": 1
         },
         "ceiling": {
           "20": 1,
           "50": 1
         },
         "ms": {
-          "20": 54.51003800000035,
-          "50": 134.76295300000038
+          "20": 54.31532299999981,
+          "50": 147.03946599999927
         },
         "top3": {
           "before": [
@@ -618,40 +356,6 @@
               "cache_unavailable",
               "cache_unavailable",
               "cache_unavailable"
-            ]
-          }
-        }
-      },
-      "vector": {
-        "before": 1,
-        "after": {
-          "20": 1,
-          "50": 1
-        },
-        "ceiling": {
-          "20": 1,
-          "50": 1
-        },
-        "ms": {
-          "20": 67.33919800000149,
-          "50": 115.8360530000009
-        },
-        "top3": {
-          "before": [
-            "db_connection_timeout",
-            "db_connection_timeout",
-            "db_connection_timeout"
-          ],
-          "after": {
-            "20": [
-              "db_connection_timeout",
-              "db_connection_timeout",
-              "db_connection_timeout"
-            ],
-            "50": [
-              "db_connection_timeout",
-              "db_connection_timeout",
-              "db_connection_timeout"
             ]
           }
         }
@@ -675,42 +379,8 @@
           "50": 1
         },
         "ms": {
-          "20": 299.4770719999997,
-          "50": 782.1455640000004
-        },
-        "top3": {
-          "before": [
-            "db_connection_timeout",
-            "db_connection_timeout",
-            "db_connection_timeout"
-          ],
-          "after": {
-            "20": [
-              "db_connection_timeout",
-              "db_connection_timeout",
-              "db_connection_timeout"
-            ],
-            "50": [
-              "db_connection_timeout",
-              "db_connection_timeout",
-              "db_connection_timeout"
-            ]
-          }
-        }
-      },
-      "vector": {
-        "before": 1,
-        "after": {
-          "20": 1,
-          "50": 1
-        },
-        "ceiling": {
-          "20": 1,
-          "50": 1
-        },
-        "ms": {
-          "20": 297.42791299999953,
-          "50": 811.8879109999998
+          "20": 311.1529190000001,
+          "50": 783.2959840000003
         },
         "top3": {
           "before": [
@@ -751,42 +421,8 @@
           "50": 1
         },
         "ms": {
-          "20": 161.39544899999964,
-          "50": 320.80144400000063
-        },
-        "top3": {
-          "before": [
-            "db_connection_timeout",
-            "db_connection_timeout",
-            "db_connection_timeout"
-          ],
-          "after": {
-            "20": [
-              "db_connection_timeout",
-              "db_connection_timeout",
-              "db_connection_timeout"
-            ],
-            "50": [
-              "db_connection_timeout",
-              "db_connection_timeout",
-              "db_connection_timeout"
-            ]
-          }
-        }
-      },
-      "vector": {
-        "before": 1,
-        "after": {
-          "20": 1,
-          "50": 1
-        },
-        "ceiling": {
-          "20": 1,
-          "50": 1
-        },
-        "ms": {
-          "20": 52.13374399999884,
-          "50": 127.12644300000102
+          "20": 162.78944199999933,
+          "50": 312.3826630000003
         },
         "top3": {
           "before": [
@@ -827,42 +463,8 @@
           "50": 1
         },
         "ms": {
-          "20": 51.867872999999236,
-          "50": 134.50955199999953
-        },
-        "top3": {
-          "before": [
-            "db_connection_timeout",
-            "db_connection_timeout",
-            "db_connection_timeout"
-          ],
-          "after": {
-            "20": [
-              "db_connection_timeout",
-              "db_connection_timeout",
-              "db_connection_timeout"
-            ],
-            "50": [
-              "db_connection_timeout",
-              "db_connection_timeout",
-              "db_connection_timeout"
-            ]
-          }
-        }
-      },
-      "vector": {
-        "before": 1,
-        "after": {
-          "20": 1,
-          "50": 1
-        },
-        "ceiling": {
-          "20": 1,
-          "50": 1
-        },
-        "ms": {
-          "20": 52.789927999998326,
-          "50": 142.8809489999985
+          "20": 63.29691699999967,
+          "50": 161.47301400000106
         },
         "top3": {
           "before": [
@@ -903,42 +505,8 @@
           "50": 1
         },
         "ms": {
-          "20": 65.3724430000002,
-          "50": 153.52597199999946
-        },
-        "top3": {
-          "before": [
-            "deadlock",
-            "deadlock",
-            "deadlock"
-          ],
-          "after": {
-            "20": [
-              "deadlock",
-              "deadlock",
-              "deadlock"
-            ],
-            "50": [
-              "deadlock",
-              "deadlock",
-              "deadlock"
-            ]
-          }
-        }
-      },
-      "vector": {
-        "before": 1,
-        "after": {
-          "20": 1,
-          "50": 1
-        },
-        "ceiling": {
-          "20": 1,
-          "50": 1
-        },
-        "ms": {
-          "20": 71.39271200000076,
-          "50": 176.55305699999735
+          "20": 67.53876599999967,
+          "50": 167.2579939999996
         },
         "top3": {
           "before": [
@@ -979,42 +547,8 @@
           "50": 1
         },
         "ms": {
-          "20": 69.00471400000242,
-          "50": 127.12926699999662
-        },
-        "top3": {
-          "before": [
-            "deadlock",
-            "deadlock",
-            "deadlock"
-          ],
-          "after": {
-            "20": [
-              "deadlock",
-              "deadlock",
-              "deadlock"
-            ],
-            "50": [
-              "deadlock",
-              "deadlock",
-              "deadlock"
-            ]
-          }
-        }
-      },
-      "vector": {
-        "before": 1,
-        "after": {
-          "20": 1,
-          "50": 1
-        },
-        "ceiling": {
-          "20": 1,
-          "50": 1
-        },
-        "ms": {
-          "20": 65.71880800000145,
-          "50": 183.7158070000005
+          "20": 58.74776700000075,
+          "50": 168.71444200000042
         },
         "top3": {
           "before": [
@@ -1055,42 +589,8 @@
           "50": 1
         },
         "ms": {
-          "20": 67.11966400000165,
-          "50": 215.84732999999687
-        },
-        "top3": {
-          "before": [
-            "deadlock",
-            "deadlock",
-            "deadlock"
-          ],
-          "after": {
-            "20": [
-              "deadlock",
-              "deadlock",
-              "deadlock"
-            ],
-            "50": [
-              "deadlock",
-              "deadlock",
-              "deadlock"
-            ]
-          }
-        }
-      },
-      "vector": {
-        "before": 1,
-        "after": {
-          "20": 1,
-          "50": 1
-        },
-        "ceiling": {
-          "20": 1,
-          "50": 1
-        },
-        "ms": {
-          "20": 80.0193650000001,
-          "50": 160.60455100000036
+          "20": 62.3655660000004,
+          "50": 218.27628899999945
         },
         "top3": {
           "before": [
@@ -1131,42 +631,8 @@
           "50": 1
         },
         "ms": {
-          "20": 64.73592100000315,
-          "50": 129.00816599999962
-        },
-        "top3": {
-          "before": [
-            "deadlock",
-            "deadlock",
-            "deadlock"
-          ],
-          "after": {
-            "20": [
-              "deadlock",
-              "deadlock",
-              "deadlock"
-            ],
-            "50": [
-              "deadlock",
-              "deadlock",
-              "deadlock"
-            ]
-          }
-        }
-      },
-      "vector": {
-        "before": 1,
-        "after": {
-          "20": 1,
-          "50": 1
-        },
-        "ceiling": {
-          "20": 1,
-          "50": 1
-        },
-        "ms": {
-          "20": 67.86780700000236,
-          "50": 167.98630500000218
+          "20": 79.39812600000005,
+          "50": 133.1764409999996
         },
         "top3": {
           "before": [
@@ -1207,42 +673,8 @@
           "50": 1
         },
         "ms": {
-          "20": 57.86940900000263,
-          "50": 97.12311000000045
-        },
-        "top3": {
-          "before": [
-            "disk_full",
-            "disk_full",
-            "disk_full"
-          ],
-          "after": {
-            "20": [
-              "disk_full",
-              "disk_full",
-              "disk_full"
-            ],
-            "50": [
-              "disk_full",
-              "disk_full",
-              "disk_full"
-            ]
-          }
-        }
-      },
-      "vector": {
-        "before": 1,
-        "after": {
-          "20": 1,
-          "50": 1
-        },
-        "ceiling": {
-          "20": 1,
-          "50": 1
-        },
-        "ms": {
-          "20": 54.01620600000024,
-          "50": 125.71110299999782
+          "20": 67.15217699999994,
+          "50": 106.45001000000047
         },
         "top3": {
           "before": [
@@ -1283,42 +715,8 @@
           "50": 1
         },
         "ms": {
-          "20": 65.14656800000012,
-          "50": 193.92416299999968
-        },
-        "top3": {
-          "before": [
-            "disk_full",
-            "disk_full",
-            "disk_full"
-          ],
-          "after": {
-            "20": [
-              "disk_full",
-              "disk_full",
-              "disk_full"
-            ],
-            "50": [
-              "disk_full",
-              "disk_full",
-              "disk_full"
-            ]
-          }
-        }
-      },
-      "vector": {
-        "before": 1,
-        "after": {
-          "20": 1,
-          "50": 1
-        },
-        "ceiling": {
-          "20": 1,
-          "50": 1
-        },
-        "ms": {
-          "20": 63.451256000000285,
-          "50": 161.2302720000007
+          "20": 63.66657699999996,
+          "50": 205.13033200000064
         },
         "top3": {
           "before": [
@@ -1359,42 +757,8 @@
           "50": 1
         },
         "ms": {
-          "20": 168.94680399999925,
-          "50": 418.6133069999996
-        },
-        "top3": {
-          "before": [
-            "disk_full",
-            "disk_full",
-            "disk_full"
-          ],
-          "after": {
-            "20": [
-              "disk_full",
-              "disk_full",
-              "disk_full"
-            ],
-            "50": [
-              "disk_full",
-              "disk_full",
-              "disk_full"
-            ]
-          }
-        }
-      },
-      "vector": {
-        "before": 1,
-        "after": {
-          "20": 1,
-          "50": 1
-        },
-        "ceiling": {
-          "20": 1,
-          "50": 1
-        },
-        "ms": {
-          "20": 51.89900399999897,
-          "50": 147.2259019999983
+          "20": 157.8970180000033,
+          "50": 417.4934150000008
         },
         "top3": {
           "before": [
@@ -1435,42 +799,8 @@
           "50": 1
         },
         "ms": {
-          "20": 71.96387900000263,
-          "50": 325.4303409999993
-        },
-        "top3": {
-          "before": [
-            "disk_full",
-            "disk_full",
-            "disk_full"
-          ],
-          "after": {
-            "20": [
-              "disk_full",
-              "disk_full",
-              "disk_full"
-            ],
-            "50": [
-              "disk_full",
-              "disk_full",
-              "disk_full"
-            ]
-          }
-        }
-      },
-      "vector": {
-        "before": 1,
-        "after": {
-          "20": 1,
-          "50": 1
-        },
-        "ceiling": {
-          "20": 1,
-          "50": 1
-        },
-        "ms": {
-          "20": 68.88217299999815,
-          "50": 182.97564099999727
+          "20": 71.66021199999886,
+          "50": 332.9302519999983
         },
         "top3": {
           "before": [
@@ -1511,42 +841,8 @@
           "50": 1
         },
         "ms": {
-          "20": 61.0267989999993,
-          "50": 139.84833000000071
-        },
-        "top3": {
-          "before": [
-            "dns_failure",
-            "dns_failure",
-            "dns_failure"
-          ],
-          "after": {
-            "20": [
-              "dns_failure",
-              "dns_failure",
-              "dns_failure"
-            ],
-            "50": [
-              "dns_failure",
-              "dns_failure",
-              "dns_failure"
-            ]
-          }
-        }
-      },
-      "vector": {
-        "before": 0.9,
-        "after": {
-          "20": 1,
-          "50": 1
-        },
-        "ceiling": {
-          "20": 1,
-          "50": 1
-        },
-        "ms": {
-          "20": 54.836873000000196,
-          "50": 131.88284600000043
+          "20": 54.545239000002766,
+          "50": 138.9221600000019
         },
         "top3": {
           "before": [
@@ -1587,42 +883,8 @@
           "50": 1
         },
         "ms": {
-          "20": 72.62565099999483,
-          "50": 143.67129399999976
-        },
-        "top3": {
-          "before": [
-            "dns_failure",
-            "dns_failure",
-            "dns_failure"
-          ],
-          "after": {
-            "20": [
-              "dns_failure",
-              "dns_failure",
-              "dns_failure"
-            ],
-            "50": [
-              "dns_failure",
-              "dns_failure",
-              "dns_failure"
-            ]
-          }
-        }
-      },
-      "vector": {
-        "before": 1,
-        "after": {
-          "20": 1,
-          "50": 1
-        },
-        "ceiling": {
-          "20": 1,
-          "50": 1
-        },
-        "ms": {
-          "20": 70.81098600000405,
-          "50": 155.15487099999882
+          "20": 75.99472600000081,
+          "50": 127.07706999999937
         },
         "top3": {
           "before": [
@@ -1663,42 +925,8 @@
           "50": 1
         },
         "ms": {
-          "20": 68.99632600000041,
-          "50": 166.7675919999965
-        },
-        "top3": {
-          "before": [
-            "dns_failure",
-            "dns_failure",
-            "dns_failure"
-          ],
-          "after": {
-            "20": [
-              "dns_failure",
-              "dns_failure",
-              "dns_failure"
-            ],
-            "50": [
-              "dns_failure",
-              "dns_failure",
-              "dns_failure"
-            ]
-          }
-        }
-      },
-      "vector": {
-        "before": 1,
-        "after": {
-          "20": 1,
-          "50": 1
-        },
-        "ceiling": {
-          "20": 1,
-          "50": 1
-        },
-        "ms": {
-          "20": 69.82039399999485,
-          "50": 158.54661299999862
+          "20": 71.81156700000065,
+          "50": 156.82367700000032
         },
         "top3": {
           "before": [
@@ -1739,42 +967,8 @@
           "50": 0
         },
         "ms": {
-          "20": 192.44336199999816,
-          "50": 423.0264729999981
-        },
-        "top3": {
-          "before": [
-            "null_reference",
-            "null_reference",
-            "null_reference"
-          ],
-          "after": {
-            "20": [
-              "null_reference",
-              "null_reference",
-              "null_reference"
-            ],
-            "50": [
-              "null_reference",
-              "null_reference",
-              "null_reference"
-            ]
-          }
-        }
-      },
-      "vector": {
-        "before": 0,
-        "after": {
-          "20": 0,
-          "50": 0
-        },
-        "ceiling": {
-          "20": 0,
-          "50": 0.1
-        },
-        "ms": {
-          "20": 156.75341499999922,
-          "50": 313.4832230000029
+          "20": 202.4111069999999,
+          "50": 409.80148199999894
         },
         "top3": {
           "before": [
@@ -1815,42 +1009,8 @@
           "50": 1
         },
         "ms": {
-          "20": 46.806211000002804,
-          "50": 143.2705879999994
-        },
-        "top3": {
-          "before": [
-            "duplicate_key",
-            "duplicate_key",
-            "duplicate_key"
-          ],
-          "after": {
-            "20": [
-              "duplicate_key",
-              "duplicate_key",
-              "duplicate_key"
-            ],
-            "50": [
-              "duplicate_key",
-              "duplicate_key",
-              "duplicate_key"
-            ]
-          }
-        }
-      },
-      "vector": {
-        "before": 1,
-        "after": {
-          "20": 1,
-          "50": 1
-        },
-        "ceiling": {
-          "20": 1,
-          "50": 1
-        },
-        "ms": {
-          "20": 49.720203999997466,
-          "50": 128.80743300000177
+          "20": 60.627323000000615,
+          "50": 112.10286700000142
         },
         "top3": {
           "before": [
@@ -1891,42 +1051,8 @@
           "50": 1
         },
         "ms": {
-          "20": 50.68462699999509,
-          "50": 127.73623199999565
-        },
-        "top3": {
-          "before": [
-            "duplicate_key",
-            "duplicate_key",
-            "duplicate_key"
-          ],
-          "after": {
-            "20": [
-              "duplicate_key",
-              "duplicate_key",
-              "duplicate_key"
-            ],
-            "50": [
-              "duplicate_key",
-              "duplicate_key",
-              "duplicate_key"
-            ]
-          }
-        }
-      },
-      "vector": {
-        "before": 1,
-        "after": {
-          "20": 1,
-          "50": 1
-        },
-        "ceiling": {
-          "20": 1,
-          "50": 1
-        },
-        "ms": {
-          "20": 66.38986899999873,
-          "50": 155.0293290000045
+          "20": 57.175077999996574,
+          "50": 119.58507599999939
         },
         "top3": {
           "before": [
@@ -1967,42 +1093,8 @@
           "50": 1
         },
         "ms": {
-          "20": 62.20460499999899,
-          "50": 131.13279799999873
-        },
-        "top3": {
-          "before": [
-            "stock_inconsistency",
-            "stock_inconsistency",
-            "stock_inconsistency"
-          ],
-          "after": {
-            "20": [
-              "stock_inconsistency",
-              "stock_inconsistency",
-              "stock_inconsistency"
-            ],
-            "50": [
-              "stock_inconsistency",
-              "stock_inconsistency",
-              "stock_inconsistency"
-            ]
-          }
-        }
-      },
-      "vector": {
-        "before": 1,
-        "after": {
-          "20": 1,
-          "50": 1
-        },
-        "ceiling": {
-          "20": 1,
-          "50": 1
-        },
-        "ms": {
-          "20": 60.57484900000418,
-          "50": 181.96702599999844
+          "20": 59.37186599999768,
+          "50": 121.80018199999904
         },
         "top3": {
           "before": [
@@ -2043,42 +1135,8 @@
           "50": 1
         },
         "ms": {
-          "20": 53.96063300000242,
-          "50": 137.14086799999495
-        },
-        "top3": {
-          "before": [
-            "duplicate_key",
-            "duplicate_key",
-            "duplicate_key"
-          ],
-          "after": {
-            "20": [
-              "duplicate_key",
-              "duplicate_key",
-              "duplicate_key"
-            ],
-            "50": [
-              "duplicate_key",
-              "duplicate_key",
-              "duplicate_key"
-            ]
-          }
-        }
-      },
-      "vector": {
-        "before": 1,
-        "after": {
-          "20": 1,
-          "50": 1
-        },
-        "ceiling": {
-          "20": 1,
-          "50": 1
-        },
-        "ms": {
-          "20": 58.07070599999861,
-          "50": 126.30759299999772
+          "20": 57.99022100000002,
+          "50": 136.34859000000142
         },
         "top3": {
           "before": [
@@ -2119,42 +1177,8 @@
           "50": 1
         },
         "ms": {
-          "20": 74.04368500000419,
-          "50": 175.25623300000007
-        },
-        "top3": {
-          "before": [
-            "duplicate_key",
-            "duplicate_key",
-            "duplicate_key"
-          ],
-          "after": {
-            "20": [
-              "duplicate_key",
-              "duplicate_key",
-              "duplicate_key"
-            ],
-            "50": [
-              "duplicate_key",
-              "duplicate_key",
-              "duplicate_key"
-            ]
-          }
-        }
-      },
-      "vector": {
-        "before": 1,
-        "after": {
-          "20": 1,
-          "50": 1
-        },
-        "ceiling": {
-          "20": 1,
-          "50": 1
-        },
-        "ms": {
-          "20": 69.67864700000064,
-          "50": 155.43561799999588
+          "20": 72.87880700000096,
+          "50": 225.6335360000012
         },
         "top3": {
           "before": [
@@ -2195,42 +1219,8 @@
           "50": 1
         },
         "ms": {
-          "20": 68.65907300000254,
-          "50": 165.18252799999755
-        },
-        "top3": {
-          "before": [
-            "jwt_expired",
-            "jwt_expired",
-            "jwt_expired"
-          ],
-          "after": {
-            "20": [
-              "jwt_expired",
-              "jwt_expired",
-              "jwt_expired"
-            ],
-            "50": [
-              "jwt_expired",
-              "jwt_expired",
-              "jwt_expired"
-            ]
-          }
-        }
-      },
-      "vector": {
-        "before": 1,
-        "after": {
-          "20": 1,
-          "50": 1
-        },
-        "ceiling": {
-          "20": 1,
-          "50": 1
-        },
-        "ms": {
-          "20": 69.14335199999914,
-          "50": 169.7949329999974
+          "20": 77.54040199999872,
+          "50": 169.1302629999991
         },
         "top3": {
           "before": [
@@ -2271,42 +1261,8 @@
           "50": 1
         },
         "ms": {
-          "20": 73.53169500000513,
-          "50": 164.63717299999553
-        },
-        "top3": {
-          "before": [
-            "jwt_expired",
-            "jwt_expired",
-            "jwt_expired"
-          ],
-          "after": {
-            "20": [
-              "jwt_expired",
-              "jwt_expired",
-              "jwt_expired"
-            ],
-            "50": [
-              "jwt_expired",
-              "jwt_expired",
-              "jwt_expired"
-            ]
-          }
-        }
-      },
-      "vector": {
-        "before": 1,
-        "after": {
-          "20": 1,
-          "50": 1
-        },
-        "ceiling": {
-          "20": 1,
-          "50": 1
-        },
-        "ms": {
-          "20": 71.46275199999945,
-          "50": 179.11922200000117
+          "20": 74.07389599999442,
+          "50": 179.481031000003
         },
         "top3": {
           "before": [
@@ -2347,42 +1303,8 @@
           "50": 1
         },
         "ms": {
-          "20": 89.53414399999747,
-          "50": 165.66554799999722
-        },
-        "top3": {
-          "before": [
-            "jwt_expired",
-            "jwt_expired",
-            "jwt_expired"
-          ],
-          "after": {
-            "20": [
-              "jwt_expired",
-              "jwt_expired",
-              "jwt_expired"
-            ],
-            "50": [
-              "jwt_expired",
-              "jwt_expired",
-              "jwt_expired"
-            ]
-          }
-        }
-      },
-      "vector": {
-        "before": 1,
-        "after": {
-          "20": 1,
-          "50": 1
-        },
-        "ceiling": {
-          "20": 1,
-          "50": 1
-        },
-        "ms": {
-          "20": 73.00156900000002,
-          "50": 182.530998000002
+          "20": 77.14979499999754,
+          "50": 164.9286030000003
         },
         "top3": {
           "before": [
@@ -2423,42 +1345,8 @@
           "50": 1
         },
         "ms": {
-          "20": 73.27838899999915,
-          "50": 174.08275600000343
-        },
-        "top3": {
-          "before": [
-            "jwt_expired",
-            "jwt_expired",
-            "jwt_expired"
-          ],
-          "after": {
-            "20": [
-              "jwt_expired",
-              "jwt_expired",
-              "jwt_expired"
-            ],
-            "50": [
-              "jwt_expired",
-              "jwt_expired",
-              "jwt_expired"
-            ]
-          }
-        }
-      },
-      "vector": {
-        "before": 1,
-        "after": {
-          "20": 1,
-          "50": 1
-        },
-        "ceiling": {
-          "20": 1,
-          "50": 1
-        },
-        "ms": {
-          "20": 74.32147699999769,
-          "50": 173.72036099999968
+          "20": 67.07321400000365,
+          "50": 165.47343600000022
         },
         "top3": {
           "before": [
@@ -2499,42 +1387,8 @@
           "50": 1
         },
         "ms": {
-          "20": 246.2894709999964,
-          "50": 497.193231000012
-        },
-        "top3": {
-          "before": [
-            "null_reference",
-            "null_reference",
-            "null_reference"
-          ],
-          "after": {
-            "20": [
-              "null_reference",
-              "null_reference",
-              "null_reference"
-            ],
-            "50": [
-              "null_reference",
-              "null_reference",
-              "null_reference"
-            ]
-          }
-        }
-      },
-      "vector": {
-        "before": 1,
-        "after": {
-          "20": 1,
-          "50": 1
-        },
-        "ceiling": {
-          "20": 1,
-          "50": 1
-        },
-        "ms": {
-          "20": 241.1251889999985,
-          "50": 619.4112849999947
+          "20": 236.0988970000035,
+          "50": 489.6632629999949
         },
         "top3": {
           "before": [
@@ -2575,42 +1429,8 @@
           "50": 1
         },
         "ms": {
-          "20": 187.88788100000238,
-          "50": 444.1817319999973
-        },
-        "top3": {
-          "before": [
-            "null_reference",
-            "null_reference",
-            "null_reference"
-          ],
-          "after": {
-            "20": [
-              "null_reference",
-              "null_reference",
-              "null_reference"
-            ],
-            "50": [
-              "null_reference",
-              "null_reference",
-              "null_reference"
-            ]
-          }
-        }
-      },
-      "vector": {
-        "before": 1,
-        "after": {
-          "20": 1,
-          "50": 1
-        },
-        "ceiling": {
-          "20": 1,
-          "50": 1
-        },
-        "ms": {
-          "20": 47.67977699999756,
-          "50": 131.1669610000099
+          "20": 185.4455999999991,
+          "50": 401.2332630000019
         },
         "top3": {
           "before": [
@@ -2651,42 +1471,8 @@
           "50": 1
         },
         "ms": {
-          "20": 60.33886599999096,
-          "50": 140.61023599999317
-        },
-        "top3": {
-          "before": [
-            "null_reference",
-            "null_reference",
-            "null_reference"
-          ],
-          "after": {
-            "20": [
-              "null_reference",
-              "null_reference",
-              "null_reference"
-            ],
-            "50": [
-              "null_reference",
-              "null_reference",
-              "null_reference"
-            ]
-          }
-        }
-      },
-      "vector": {
-        "before": 1,
-        "after": {
-          "20": 1,
-          "50": 1
-        },
-        "ceiling": {
-          "20": 1,
-          "50": 1
-        },
-        "ms": {
-          "20": 56.798835999987205,
-          "50": 133.84131300001172
+          "20": 50.074962999999116,
+          "50": 144.40353499999765
         },
         "top3": {
           "before": [
@@ -2727,8 +1513,8 @@
           "50": 1
         },
         "ms": {
-          "20": 166.7059009999939,
-          "50": 363.63224099999934
+          "20": 166.84899900000164,
+          "50": 374.61034899999504
         },
         "top3": {
           "before": [
@@ -2746,40 +1532,6 @@
               "out_of_memory",
               "out_of_memory",
               "out_of_memory"
-            ]
-          }
-        }
-      },
-      "vector": {
-        "before": 1,
-        "after": {
-          "20": 1,
-          "50": 1
-        },
-        "ceiling": {
-          "20": 1,
-          "50": 1
-        },
-        "ms": {
-          "20": 53.92739799999981,
-          "50": 135.69624400000612
-        },
-        "top3": {
-          "before": [
-            "null_reference",
-            "null_reference",
-            "null_reference"
-          ],
-          "after": {
-            "20": [
-              "null_reference",
-              "null_reference",
-              "null_reference"
-            ],
-            "50": [
-              "null_reference",
-              "null_reference",
-              "null_reference"
             ]
           }
         }
@@ -2803,42 +1555,8 @@
           "50": 1
         },
         "ms": {
-          "20": 64.23065100000531,
-          "50": 133.5957170000038
-        },
-        "top3": {
-          "before": [
-            "out_of_memory",
-            "out_of_memory",
-            "out_of_memory"
-          ],
-          "after": {
-            "20": [
-              "out_of_memory",
-              "out_of_memory",
-              "out_of_memory"
-            ],
-            "50": [
-              "out_of_memory",
-              "out_of_memory",
-              "out_of_memory"
-            ]
-          }
-        }
-      },
-      "vector": {
-        "before": 1,
-        "after": {
-          "20": 1,
-          "50": 1
-        },
-        "ceiling": {
-          "20": 1,
-          "50": 1
-        },
-        "ms": {
-          "20": 60.56222799999523,
-          "50": 177.42770299999393
+          "20": 59.32385400000203,
+          "50": 143.3787999999986
         },
         "top3": {
           "before": [
@@ -2879,42 +1597,8 @@
           "50": 1
         },
         "ms": {
-          "20": 59.9624829999957,
-          "50": 275.88216499998816
-        },
-        "top3": {
-          "before": [
-            "out_of_memory",
-            "out_of_memory",
-            "out_of_memory"
-          ],
-          "after": {
-            "20": [
-              "out_of_memory",
-              "out_of_memory",
-              "out_of_memory"
-            ],
-            "50": [
-              "out_of_memory",
-              "out_of_memory",
-              "out_of_memory"
-            ]
-          }
-        }
-      },
-      "vector": {
-        "before": 1,
-        "after": {
-          "20": 1,
-          "50": 1
-        },
-        "ceiling": {
-          "20": 1,
-          "50": 1
-        },
-        "ms": {
-          "20": 71.05097999999998,
-          "50": 326.9043079999974
+          "20": 68.70494900000631,
+          "50": 287.94136399999843
         },
         "top3": {
           "before": [
@@ -2955,42 +1639,8 @@
           "50": 1
         },
         "ms": {
-          "20": 59.13671000000613,
-          "50": 190.47378799998842
-        },
-        "top3": {
-          "before": [
-            "out_of_memory",
-            "out_of_memory",
-            "out_of_memory"
-          ],
-          "after": {
-            "20": [
-              "out_of_memory",
-              "out_of_memory",
-              "out_of_memory"
-            ],
-            "50": [
-              "out_of_memory",
-              "out_of_memory",
-              "out_of_memory"
-            ]
-          }
-        }
-      },
-      "vector": {
-        "before": 1,
-        "after": {
-          "20": 1,
-          "50": 1
-        },
-        "ceiling": {
-          "20": 1,
-          "50": 1
-        },
-        "ms": {
-          "20": 60.397022999997716,
-          "50": 151.73503199999686
+          "20": 57.574884000001475,
+          "50": 172.13775200000237
         },
         "top3": {
           "before": [
@@ -3031,42 +1681,8 @@
           "50": 1
         },
         "ms": {
-          "20": 60.57735999999568,
-          "50": 130.4739380000101
-        },
-        "top3": {
-          "before": [
-            "out_of_memory",
-            "out_of_memory",
-            "out_of_memory"
-          ],
-          "after": {
-            "20": [
-              "out_of_memory",
-              "out_of_memory",
-              "out_of_memory"
-            ],
-            "50": [
-              "out_of_memory",
-              "out_of_memory",
-              "out_of_memory"
-            ]
-          }
-        }
-      },
-      "vector": {
-        "before": 1,
-        "after": {
-          "20": 1,
-          "50": 1
-        },
-        "ceiling": {
-          "20": 1,
-          "50": 1
-        },
-        "ms": {
-          "20": 65.51548499999626,
-          "50": 149.5933490000025
+          "20": 67.51805700000114,
+          "50": 123.36791799999628
         },
         "top3": {
           "before": [
@@ -3107,42 +1723,8 @@
           "50": 1
         },
         "ms": {
-          "20": 65.1389979999949,
-          "50": 173.98768000000564
-        },
-        "top3": {
-          "before": [
-            "payment_gateway_5xx",
-            "payment_gateway_5xx",
-            "payment_gateway_5xx"
-          ],
-          "after": {
-            "20": [
-              "payment_gateway_5xx",
-              "payment_gateway_5xx",
-              "payment_gateway_5xx"
-            ],
-            "50": [
-              "payment_gateway_5xx",
-              "payment_gateway_5xx",
-              "payment_gateway_5xx"
-            ]
-          }
-        }
-      },
-      "vector": {
-        "before": 1,
-        "after": {
-          "20": 1,
-          "50": 1
-        },
-        "ceiling": {
-          "20": 1,
-          "50": 1
-        },
-        "ms": {
-          "20": 61.595509999999194,
-          "50": 172.39899500001047
+          "20": 68.5272580000019,
+          "50": 179.89572000000044
         },
         "top3": {
           "before": [
@@ -3183,42 +1765,8 @@
           "50": 1
         },
         "ms": {
-          "20": 70.31904799999029,
-          "50": 208.8477339999954
-        },
-        "top3": {
-          "before": [
-            "payment_gateway_5xx",
-            "payment_gateway_5xx",
-            "payment_gateway_5xx"
-          ],
-          "after": {
-            "20": [
-              "payment_gateway_5xx",
-              "payment_gateway_5xx",
-              "payment_gateway_5xx"
-            ],
-            "50": [
-              "payment_gateway_5xx",
-              "payment_gateway_5xx",
-              "payment_gateway_5xx"
-            ]
-          }
-        }
-      },
-      "vector": {
-        "before": 1,
-        "after": {
-          "20": 1,
-          "50": 1
-        },
-        "ceiling": {
-          "20": 1,
-          "50": 1
-        },
-        "ms": {
-          "20": 84.8511659999931,
-          "50": 203.9494660000055
+          "20": 78.15581600000587,
+          "50": 219.28582499999902
         },
         "top3": {
           "before": [
@@ -3259,42 +1807,8 @@
           "50": 1
         },
         "ms": {
-          "20": 74.49096900000586,
-          "50": 201.6979330000031
-        },
-        "top3": {
-          "before": [
-            "payment_gateway_5xx",
-            "payment_gateway_5xx",
-            "payment_gateway_5xx"
-          ],
-          "after": {
-            "20": [
-              "payment_gateway_5xx",
-              "payment_gateway_5xx",
-              "payment_gateway_5xx"
-            ],
-            "50": [
-              "payment_gateway_5xx",
-              "payment_gateway_5xx",
-              "payment_gateway_5xx"
-            ]
-          }
-        }
-      },
-      "vector": {
-        "before": 1,
-        "after": {
-          "20": 1,
-          "50": 1
-        },
-        "ceiling": {
-          "20": 1,
-          "50": 1
-        },
-        "ms": {
-          "20": 77.65747700000065,
-          "50": 184.2195800000045
+          "20": 73.09570900000108,
+          "50": 179.73642100000143
         },
         "top3": {
           "before": [
@@ -3335,8 +1849,8 @@
           "50": 1
         },
         "ms": {
-          "20": 177.16896700000507,
-          "50": 423.9652780000033
+          "20": 182.2535990000033,
+          "50": 423.0751509999973
         },
         "top3": {
           "before": [
@@ -3353,40 +1867,6 @@
             "50": [
               "null_reference",
               "null_reference",
-              "payment_gateway_5xx"
-            ]
-          }
-        }
-      },
-      "vector": {
-        "before": 1,
-        "after": {
-          "20": 1,
-          "50": 1
-        },
-        "ceiling": {
-          "20": 1,
-          "50": 1
-        },
-        "ms": {
-          "20": 82.3592009999993,
-          "50": 205.5828290000063
-        },
-        "top3": {
-          "before": [
-            "payment_gateway_5xx",
-            "payment_gateway_5xx",
-            "payment_gateway_5xx"
-          ],
-          "after": {
-            "20": [
-              "payment_gateway_5xx",
-              "payment_gateway_5xx",
-              "payment_gateway_5xx"
-            ],
-            "50": [
-              "payment_gateway_5xx",
-              "payment_gateway_5xx",
               "payment_gateway_5xx"
             ]
           }
@@ -3411,42 +1891,8 @@
           "50": 1
         },
         "ms": {
-          "20": 56.878192000003764,
-          "50": 170.88392199999362
-        },
-        "top3": {
-          "before": [
-            "queue_lag",
-            "queue_lag",
-            "queue_lag"
-          ],
-          "after": {
-            "20": [
-              "queue_lag",
-              "queue_lag",
-              "queue_lag"
-            ],
-            "50": [
-              "queue_lag",
-              "queue_lag",
-              "queue_lag"
-            ]
-          }
-        }
-      },
-      "vector": {
-        "before": 1,
-        "after": {
-          "20": 1,
-          "50": 1
-        },
-        "ceiling": {
-          "20": 1,
-          "50": 1
-        },
-        "ms": {
-          "20": 66.13783699998748,
-          "50": 168.7472090000083
+          "20": 62.276505000001634,
+          "50": 160.4156010000006
         },
         "top3": {
           "before": [
@@ -3487,42 +1933,8 @@
           "50": 1
         },
         "ms": {
-          "20": 53.21693499998946,
-          "50": 107.5458779999899
-        },
-        "top3": {
-          "before": [
-            "queue_lag",
-            "queue_lag",
-            "queue_lag"
-          ],
-          "after": {
-            "20": [
-              "queue_lag",
-              "queue_lag",
-              "queue_lag"
-            ],
-            "50": [
-              "queue_lag",
-              "queue_lag",
-              "queue_lag"
-            ]
-          }
-        }
-      },
-      "vector": {
-        "before": 1,
-        "after": {
-          "20": 1,
-          "50": 1
-        },
-        "ceiling": {
-          "20": 1,
-          "50": 1
-        },
-        "ms": {
-          "20": 47.53914700000314,
-          "50": 142.0979740000039
+          "20": 46.56732799999736,
+          "50": 108.4746559999985
         },
         "top3": {
           "before": [
@@ -3563,42 +1975,8 @@
           "50": 1
         },
         "ms": {
-          "20": 74.01395700000285,
-          "50": 190.5604439999879
-        },
-        "top3": {
-          "before": [
-            "queue_lag",
-            "queue_lag",
-            "queue_lag"
-          ],
-          "after": {
-            "20": [
-              "queue_lag",
-              "queue_lag",
-              "queue_lag"
-            ],
-            "50": [
-              "queue_lag",
-              "queue_lag",
-              "queue_lag"
-            ]
-          }
-        }
-      },
-      "vector": {
-        "before": 1,
-        "after": {
-          "20": 1,
-          "50": 1
-        },
-        "ceiling": {
-          "20": 1,
-          "50": 1
-        },
-        "ms": {
-          "20": 75.17453499999829,
-          "50": 192.49617600000056
+          "20": 78.36617000000115,
+          "50": 179.54673200000252
         },
         "top3": {
           "before": [
@@ -3639,42 +2017,8 @@
           "50": 1
         },
         "ms": {
-          "20": 63.60231200000271,
-          "50": 152.14870299999893
-        },
-        "top3": {
-          "before": [
-            "queue_lag",
-            "queue_lag",
-            "queue_lag"
-          ],
-          "after": {
-            "20": [
-              "queue_lag",
-              "queue_lag",
-              "queue_lag"
-            ],
-            "50": [
-              "queue_lag",
-              "queue_lag",
-              "queue_lag"
-            ]
-          }
-        }
-      },
-      "vector": {
-        "before": 1,
-        "after": {
-          "20": 1,
-          "50": 1
-        },
-        "ceiling": {
-          "20": 1,
-          "50": 1
-        },
-        "ms": {
-          "20": 60.33380999999645,
-          "50": 173.8470740000048
+          "20": 61.53043700000126,
+          "50": 150.83606500000315
         },
         "top3": {
           "before": [
@@ -3715,42 +2059,8 @@
           "50": 1
         },
         "ms": {
-          "20": 65.90098900000157,
-          "50": 173.23643000000448
-        },
-        "top3": {
-          "before": [
-            "rate_limited",
-            "rate_limited",
-            "rate_limited"
-          ],
-          "after": {
-            "20": [
-              "rate_limited",
-              "rate_limited",
-              "rate_limited"
-            ],
-            "50": [
-              "rate_limited",
-              "rate_limited",
-              "rate_limited"
-            ]
-          }
-        }
-      },
-      "vector": {
-        "before": 1,
-        "after": {
-          "20": 1,
-          "50": 1
-        },
-        "ceiling": {
-          "20": 1,
-          "50": 1
-        },
-        "ms": {
-          "20": 67.59347200000775,
-          "50": 164.12212500000896
+          "20": 61.527735000003304,
+          "50": 157.22890699999698
         },
         "top3": {
           "before": [
@@ -3791,42 +2101,8 @@
           "50": 1
         },
         "ms": {
-          "20": 55.6767519999994,
-          "50": 133.90749000001233
-        },
-        "top3": {
-          "before": [
-            "rate_limited",
-            "rate_limited",
-            "rate_limited"
-          ],
-          "after": {
-            "20": [
-              "rate_limited",
-              "rate_limited",
-              "rate_limited"
-            ],
-            "50": [
-              "rate_limited",
-              "rate_limited",
-              "rate_limited"
-            ]
-          }
-        }
-      },
-      "vector": {
-        "before": 1,
-        "after": {
-          "20": 1,
-          "50": 1
-        },
-        "ceiling": {
-          "20": 1,
-          "50": 1
-        },
-        "ms": {
-          "20": 57.76162900000054,
-          "50": 129.6294809999963
+          "20": 54.16576600000553,
+          "50": 133.84781300000031
         },
         "top3": {
           "before": [
@@ -3867,42 +2143,8 @@
           "50": 1
         },
         "ms": {
-          "20": 63.4611300000106,
-          "50": 156.8369529999909
-        },
-        "top3": {
-          "before": [
-            "rate_limited",
-            "rate_limited",
-            "rate_limited"
-          ],
-          "after": {
-            "20": [
-              "rate_limited",
-              "rate_limited",
-              "rate_limited"
-            ],
-            "50": [
-              "rate_limited",
-              "rate_limited",
-              "rate_limited"
-            ]
-          }
-        }
-      },
-      "vector": {
-        "before": 1,
-        "after": {
-          "20": 1,
-          "50": 1
-        },
-        "ceiling": {
-          "20": 1,
-          "50": 1
-        },
-        "ms": {
-          "20": 63.06287199999497,
-          "50": 169.04135499999393
+          "20": 63.01819499999692,
+          "50": 141.8930210000035
         },
         "top3": {
           "before": [
@@ -3943,42 +2185,8 @@
           "50": 1
         },
         "ms": {
-          "20": 71.56374399999913,
-          "50": 194.19544199999655
-        },
-        "top3": {
-          "before": [
-            "rate_limited",
-            "rate_limited",
-            "rate_limited"
-          ],
-          "after": {
-            "20": [
-              "rate_limited",
-              "rate_limited",
-              "rate_limited"
-            ],
-            "50": [
-              "rate_limited",
-              "rate_limited",
-              "rate_limited"
-            ]
-          }
-        }
-      },
-      "vector": {
-        "before": 1,
-        "after": {
-          "20": 1,
-          "50": 1
-        },
-        "ceiling": {
-          "20": 1,
-          "50": 1
-        },
-        "ms": {
-          "20": 78.10314500000095,
-          "50": 185.06432800000766
+          "20": 78.21237100000144,
+          "50": 188.6555459999945
         },
         "top3": {
           "before": [
@@ -4019,42 +2227,8 @@
           "50": 1
         },
         "ms": {
-          "20": 39.39920699999493,
-          "50": 85.30466700000397
-        },
-        "top3": {
-          "before": [
-            "slow_query",
-            "slow_query",
-            "slow_query"
-          ],
-          "after": {
-            "20": [
-              "slow_query",
-              "slow_query",
-              "slow_query"
-            ],
-            "50": [
-              "slow_query",
-              "slow_query",
-              "slow_query"
-            ]
-          }
-        }
-      },
-      "vector": {
-        "before": 1,
-        "after": {
-          "20": 1,
-          "50": 1
-        },
-        "ceiling": {
-          "20": 1,
-          "50": 1
-        },
-        "ms": {
-          "20": 35.537690999990446,
-          "50": 96.88027699998929
+          "20": 36.193138000002364,
+          "50": 112.7212570000047
         },
         "top3": {
           "before": [
@@ -4095,42 +2269,8 @@
           "50": 1
         },
         "ms": {
-          "20": 79.9647990000085,
-          "50": 187.65969899999618
-        },
-        "top3": {
-          "before": [
-            "slow_query",
-            "slow_query",
-            "slow_query"
-          ],
-          "after": {
-            "20": [
-              "slow_query",
-              "slow_query",
-              "slow_query"
-            ],
-            "50": [
-              "slow_query",
-              "slow_query",
-              "slow_query"
-            ]
-          }
-        }
-      },
-      "vector": {
-        "before": 1,
-        "after": {
-          "20": 1,
-          "50": 1
-        },
-        "ceiling": {
-          "20": 1,
-          "50": 1
-        },
-        "ms": {
-          "20": 72.46784200001275,
-          "50": 185.1357810000045
+          "20": 70.77790000000095,
+          "50": 189.43222600000445
         },
         "top3": {
           "before": [
@@ -4171,42 +2311,8 @@
           "50": 1
         },
         "ms": {
-          "20": 47.83847799999057,
-          "50": 124.48495399999956
-        },
-        "top3": {
-          "before": [
-            "slow_query",
-            "slow_query",
-            "slow_query"
-          ],
-          "after": {
-            "20": [
-              "slow_query",
-              "slow_query",
-              "slow_query"
-            ],
-            "50": [
-              "slow_query",
-              "slow_query",
-              "slow_query"
-            ]
-          }
-        }
-      },
-      "vector": {
-        "before": 1,
-        "after": {
-          "20": 1,
-          "50": 1
-        },
-        "ceiling": {
-          "20": 1,
-          "50": 1
-        },
-        "ms": {
-          "20": 49.25962900000741,
-          "50": 128.7314469999983
+          "20": 45.42212400000426,
+          "50": 133.1740690000006
         },
         "top3": {
           "before": [
@@ -4247,8 +2353,8 @@
           "50": 1
         },
         "ms": {
-          "20": 63.03362499999639,
-          "50": 177.2211340000067
+          "20": 71.99039799999446,
+          "50": 153.704270000002
         },
         "top3": {
           "before": [
@@ -4260,40 +2366,6 @@
             "20": [
               "cache_unavailable",
               "cache_unavailable",
-              "slow_query"
-            ],
-            "50": [
-              "cache_unavailable",
-              "cache_unavailable",
-              "cache_unavailable"
-            ]
-          }
-        }
-      },
-      "vector": {
-        "before": 1,
-        "after": {
-          "20": 1,
-          "50": 0.3
-        },
-        "ceiling": {
-          "20": 1,
-          "50": 1
-        },
-        "ms": {
-          "20": 56.36045599999488,
-          "50": 160.74997299999814
-        },
-        "top3": {
-          "before": [
-            "slow_query",
-            "slow_query",
-            "slow_query"
-          ],
-          "after": {
-            "20": [
-              "slow_query",
-              "slow_query",
               "slow_query"
             ],
             "50": [
@@ -4323,42 +2395,8 @@
           "50": 1
         },
         "ms": {
-          "20": 54.645808000001125,
-          "50": 133.3018199999933
-        },
-        "top3": {
-          "before": [
-            "stock_inconsistency",
-            "stock_inconsistency",
-            "stock_inconsistency"
-          ],
-          "after": {
-            "20": [
-              "stock_inconsistency",
-              "stock_inconsistency",
-              "stock_inconsistency"
-            ],
-            "50": [
-              "stock_inconsistency",
-              "stock_inconsistency",
-              "stock_inconsistency"
-            ]
-          }
-        }
-      },
-      "vector": {
-        "before": 1,
-        "after": {
-          "20": 1,
-          "50": 1
-        },
-        "ceiling": {
-          "20": 1,
-          "50": 1
-        },
-        "ms": {
-          "20": 57.44119100000535,
-          "50": 148.05209500000637
+          "20": 61.03093700000318,
+          "50": 147.24578800000018
         },
         "top3": {
           "before": [
@@ -4399,42 +2437,8 @@
           "50": 1
         },
         "ms": {
-          "20": 59.7294200000033,
-          "50": 156.18663399999787
-        },
-        "top3": {
-          "before": [
-            "stock_inconsistency",
-            "stock_inconsistency",
-            "stock_inconsistency"
-          ],
-          "after": {
-            "20": [
-              "stock_inconsistency",
-              "stock_inconsistency",
-              "stock_inconsistency"
-            ],
-            "50": [
-              "stock_inconsistency",
-              "stock_inconsistency",
-              "stock_inconsistency"
-            ]
-          }
-        }
-      },
-      "vector": {
-        "before": 1,
-        "after": {
-          "20": 1,
-          "50": 1
-        },
-        "ceiling": {
-          "20": 1,
-          "50": 1
-        },
-        "ms": {
-          "20": 69.24047900000005,
-          "50": 174.4549030000053
+          "20": 64.96904799999902,
+          "50": 143.51038799999515
         },
         "top3": {
           "before": [
@@ -4475,42 +2479,8 @@
           "50": 1
         },
         "ms": {
-          "20": 66.33819799999765,
-          "50": 264.49377000000095
-        },
-        "top3": {
-          "before": [
-            "stock_inconsistency",
-            "stock_inconsistency",
-            "stock_inconsistency"
-          ],
-          "after": {
-            "20": [
-              "stock_inconsistency",
-              "stock_inconsistency",
-              "stock_inconsistency"
-            ],
-            "50": [
-              "stock_inconsistency",
-              "stock_inconsistency",
-              "stock_inconsistency"
-            ]
-          }
-        }
-      },
-      "vector": {
-        "before": 1,
-        "after": {
-          "20": 1,
-          "50": 1
-        },
-        "ceiling": {
-          "20": 1,
-          "50": 1
-        },
-        "ms": {
-          "20": 79.18879499999457,
-          "50": 173.54315899999347
+          "20": 66.00564199998917,
+          "50": 261.21142300000065
         },
         "top3": {
           "before": [
@@ -4551,8 +2521,8 @@
           "50": 1
         },
         "ms": {
-          "20": 66.89944300000207,
-          "50": 167.5657099999953
+          "20": 64.63457799999742,
+          "50": 155.72980500000995
         },
         "top3": {
           "before": [
@@ -4570,40 +2540,6 @@
               "tls_cert_expired",
               "tls_cert_expired",
               "tls_cert_expired"
-            ]
-          }
-        }
-      },
-      "vector": {
-        "before": 0,
-        "after": {
-          "20": 0,
-          "50": 0
-        },
-        "ceiling": {
-          "20": 0,
-          "50": 0
-        },
-        "ms": {
-          "20": 58.41413900000043,
-          "50": 119.88838000000396
-        },
-        "top3": {
-          "before": [
-            "payment_gateway_5xx",
-            "db_connection_timeout",
-            "db_connection_timeout"
-          ],
-          "after": {
-            "20": [
-              "payment_gateway_5xx",
-              "payment_gateway_5xx",
-              "db_connection_timeout"
-            ],
-            "50": [
-              "payment_gateway_5xx",
-              "payment_gateway_5xx",
-              "payment_gateway_5xx"
             ]
           }
         }
@@ -4627,42 +2563,8 @@
           "50": 1
         },
         "ms": {
-          "20": 71.7077500000014,
-          "50": 204.6451090000046
-        },
-        "top3": {
-          "before": [
-            "tls_cert_expired",
-            "tls_cert_expired",
-            "tls_cert_expired"
-          ],
-          "after": {
-            "20": [
-              "tls_cert_expired",
-              "tls_cert_expired",
-              "tls_cert_expired"
-            ],
-            "50": [
-              "tls_cert_expired",
-              "tls_cert_expired",
-              "tls_cert_expired"
-            ]
-          }
-        }
-      },
-      "vector": {
-        "before": 1,
-        "after": {
-          "20": 1,
-          "50": 1
-        },
-        "ceiling": {
-          "20": 1,
-          "50": 1
-        },
-        "ms": {
-          "20": 69.27185600000666,
-          "50": 183.65142999999807
+          "20": 72.19350300000224,
+          "50": 182.751723999987
         },
         "top3": {
           "before": [
@@ -4703,42 +2605,8 @@
           "50": 1
         },
         "ms": {
-          "20": 68.02392499998678,
-          "50": 192.01886300000479
-        },
-        "top3": {
-          "before": [
-            "tls_cert_expired",
-            "tls_cert_expired",
-            "tls_cert_expired"
-          ],
-          "after": {
-            "20": [
-              "tls_cert_expired",
-              "tls_cert_expired",
-              "tls_cert_expired"
-            ],
-            "50": [
-              "tls_cert_expired",
-              "tls_cert_expired",
-              "tls_cert_expired"
-            ]
-          }
-        }
-      },
-      "vector": {
-        "before": 1,
-        "after": {
-          "20": 1,
-          "50": 1
-        },
-        "ceiling": {
-          "20": 1,
-          "50": 1
-        },
-        "ms": {
-          "20": 77.40129700000398,
-          "50": 175.2720730000001
+          "20": 171.7850049999979,
+          "50": 223.22823900000367
         },
         "top3": {
           "before": [
@@ -4779,42 +2647,8 @@
           "50": 1
         },
         "ms": {
-          "20": 126.29444999998668,
-          "50": 225.8765129999956
-        },
-        "top3": {
-          "before": [
-            "tls_cert_expired",
-            "tls_cert_expired",
-            "tls_cert_expired"
-          ],
-          "after": {
-            "20": [
-              "tls_cert_expired",
-              "tls_cert_expired",
-              "tls_cert_expired"
-            ],
-            "50": [
-              "tls_cert_expired",
-              "tls_cert_expired",
-              "tls_cert_expired"
-            ]
-          }
-        }
-      },
-      "vector": {
-        "before": 1,
-        "after": {
-          "20": 1,
-          "50": 1
-        },
-        "ceiling": {
-          "20": 1,
-          "50": 1
-        },
-        "ms": {
-          "20": 90.56488799999352,
-          "50": 207.08705400000326
+          "20": 157.62849400000414,
+          "50": 226.6022959999973
         },
         "top3": {
           "before": [
@@ -4855,8 +2689,8 @@
           "50": 1
         },
         "ms": {
-          "20": 56.21959200000856,
-          "50": 141.09982900001341
+          "20": 57.96136300000944,
+          "50": 140.88938300000154
         },
         "top3": {
           "before": [
@@ -4874,40 +2708,6 @@
               "duplicate_key",
               "duplicate_key",
               "duplicate_key"
-            ]
-          }
-        }
-      },
-      "vector": {
-        "before": 0,
-        "after": {
-          "20": 0,
-          "50": 0
-        },
-        "ceiling": {
-          "20": 0,
-          "50": 0
-        },
-        "ms": {
-          "20": 48.95194699999411,
-          "50": 124.06005500000902
-        },
-        "top3": {
-          "before": [
-            "db_connection_timeout",
-            "db_connection_timeout",
-            "db_connection_timeout"
-          ],
-          "after": {
-            "20": [
-              "db_connection_timeout",
-              "db_connection_timeout",
-              "db_connection_timeout"
-            ],
-            "50": [
-              "out_of_memory",
-              "deadlock",
-              "db_connection_timeout"
             ]
           }
         }
@@ -4931,8 +2731,8 @@
           "50": 1
         },
         "ms": {
-          "20": 56.56581100000767,
-          "50": 149.79435700000613
+          "20": 59.848190999997314,
+          "50": 133.92114500000025
         },
         "top3": {
           "before": [
@@ -4950,40 +2750,6 @@
               "duplicate_key",
               "duplicate_key",
               "duplicate_key"
-            ]
-          }
-        }
-      },
-      "vector": {
-        "before": 0,
-        "after": {
-          "20": 0,
-          "50": 0
-        },
-        "ceiling": {
-          "20": 0,
-          "50": 0
-        },
-        "ms": {
-          "20": 57.41987300000619,
-          "50": 117.09554000000935
-        },
-        "top3": {
-          "before": [
-            "db_connection_timeout",
-            "db_connection_timeout",
-            "db_connection_timeout"
-          ],
-          "after": {
-            "20": [
-              "db_connection_timeout",
-              "db_connection_timeout",
-              "db_connection_timeout"
-            ],
-            "50": [
-              "out_of_memory",
-              "deadlock",
-              "db_connection_timeout"
             ]
           }
         }
@@ -5007,8 +2773,8 @@
           "50": 1
         },
         "ms": {
-          "20": 66.56018200001563,
-          "50": 193.28504100002465
+          "20": 59.59583200000634,
+          "50": 159.80381100000523
         },
         "top3": {
           "before": [
@@ -5026,40 +2792,6 @@
               "duplicate_key",
               "duplicate_key",
               "duplicate_key"
-            ]
-          }
-        }
-      },
-      "vector": {
-        "before": 0,
-        "after": {
-          "20": 0,
-          "50": 0
-        },
-        "ceiling": {
-          "20": 0,
-          "50": 0
-        },
-        "ms": {
-          "20": 68.41803100000834,
-          "50": 180.47377799998503
-        },
-        "top3": {
-          "before": [
-            "out_of_memory",
-            "out_of_memory",
-            "out_of_memory"
-          ],
-          "after": {
-            "20": [
-              "rate_limited",
-              "out_of_memory",
-              "rate_limited"
-            ],
-            "50": [
-              "out_of_memory",
-              "rate_limited",
-              "rate_limited"
             ]
           }
         }
@@ -5083,8 +2815,8 @@
           "50": 1
         },
         "ms": {
-          "20": 67.22079799999483,
-          "50": 183.05618100002175
+          "20": 65.88846899999771,
+          "50": 160.93909300000814
         },
         "top3": {
           "before": [
@@ -5102,40 +2834,6 @@
               "deadlock",
               "deadlock",
               "deadlock"
-            ]
-          }
-        }
-      },
-      "vector": {
-        "before": 0,
-        "after": {
-          "20": 0,
-          "50": 0
-        },
-        "ceiling": {
-          "20": 0,
-          "50": 0
-        },
-        "ms": {
-          "20": 62.44598099999712,
-          "50": 138.76390099999844
-        },
-        "top3": {
-          "before": [
-            "db_connection_timeout",
-            "db_connection_timeout",
-            "payment_gateway_5xx"
-          ],
-          "after": {
-            "20": [
-              "stock_inconsistency",
-              "stock_inconsistency",
-              "out_of_memory"
-            ],
-            "50": [
-              "stock_inconsistency",
-              "stock_inconsistency",
-              "out_of_memory"
             ]
           }
         }
@@ -5159,8 +2857,8 @@
           "50": 1
         },
         "ms": {
-          "20": 68.5118890000158,
-          "50": 173.46507000000565
+          "20": 74.17627700000594,
+          "50": 183.15329000000202
         },
         "top3": {
           "before": [
@@ -5178,40 +2876,6 @@
               "deadlock",
               "deadlock",
               "deadlock"
-            ]
-          }
-        }
-      },
-      "vector": {
-        "before": 0,
-        "after": {
-          "20": 0,
-          "50": 0
-        },
-        "ceiling": {
-          "20": 0,
-          "50": 0
-        },
-        "ms": {
-          "20": 68.48544800002128,
-          "50": 148.14582399997744
-        },
-        "top3": {
-          "before": [
-            "db_connection_timeout",
-            "db_connection_timeout",
-            "payment_gateway_5xx"
-          ],
-          "after": {
-            "20": [
-              "stock_inconsistency",
-              "stock_inconsistency",
-              "out_of_memory"
-            ],
-            "50": [
-              "stock_inconsistency",
-              "stock_inconsistency",
-              "out_of_memory"
             ]
           }
         }
@@ -5235,8 +2899,8 @@
           "50": 1
         },
         "ms": {
-          "20": 77.81205400000908,
-          "50": 198.13278799998807
+          "20": 79.54942999999912,
+          "50": 193.8895679999987
         },
         "top3": {
           "before": [
@@ -5254,40 +2918,6 @@
               "deadlock",
               "deadlock",
               "deadlock"
-            ]
-          }
-        }
-      },
-      "vector": {
-        "before": 0,
-        "after": {
-          "20": 0,
-          "50": 0
-        },
-        "ceiling": {
-          "20": 0,
-          "50": 0
-        },
-        "ms": {
-          "20": 77.23913099998026,
-          "50": 184.79442000002018
-        },
-        "top3": {
-          "before": [
-            "out_of_memory",
-            "out_of_memory",
-            "out_of_memory"
-          ],
-          "after": {
-            "20": [
-              "out_of_memory",
-              "payment_gateway_5xx",
-              "out_of_memory"
-            ],
-            "50": [
-              "out_of_memory",
-              "out_of_memory",
-              "payment_gateway_5xx"
             ]
           }
         }
@@ -5311,8 +2941,8 @@
           "50": 1
         },
         "ms": {
-          "20": 74.34484200002044,
-          "50": 135.1945570000098
+          "20": 64.6402209999942,
+          "50": 140.62697599999956
         },
         "top3": {
           "before": [
@@ -5330,40 +2960,6 @@
               "disk_full",
               "disk_full",
               "disk_full"
-            ]
-          }
-        }
-      },
-      "vector": {
-        "before": 0,
-        "after": {
-          "20": 0,
-          "50": 0
-        },
-        "ceiling": {
-          "20": 0,
-          "50": 0
-        },
-        "ms": {
-          "20": 48.625265000009676,
-          "50": 129.51848199998494
-        },
-        "top3": {
-          "before": [
-            "out_of_memory",
-            "db_connection_timeout",
-            "db_connection_timeout"
-          ],
-          "after": {
-            "20": [
-              "out_of_memory",
-              "rate_limited",
-              "deadlock"
-            ],
-            "50": [
-              "out_of_memory",
-              "rate_limited",
-              "deadlock"
             ]
           }
         }
@@ -5387,8 +2983,8 @@
           "50": 1
         },
         "ms": {
-          "20": 61.1187440000067,
-          "50": 136.13315000000875
+          "20": 62.10370000000694,
+          "50": 136.8162949999969
         },
         "top3": {
           "before": [
@@ -5406,40 +3002,6 @@
               "disk_full",
               "disk_full",
               "disk_full"
-            ]
-          }
-        }
-      },
-      "vector": {
-        "before": 0,
-        "after": {
-          "20": 0,
-          "50": 0
-        },
-        "ceiling": {
-          "20": 0,
-          "50": 0
-        },
-        "ms": {
-          "20": 48.47526600002311,
-          "50": 118.80991700000595
-        },
-        "top3": {
-          "before": [
-            "out_of_memory",
-            "db_connection_timeout",
-            "db_connection_timeout"
-          ],
-          "after": {
-            "20": [
-              "out_of_memory",
-              "rate_limited",
-              "deadlock"
-            ],
-            "50": [
-              "out_of_memory",
-              "rate_limited",
-              "deadlock"
             ]
           }
         }
@@ -5463,8 +3025,8 @@
           "50": 1
         },
         "ms": {
-          "20": 78.5188349999953,
-          "50": 184.31481800001347
+          "20": 70.36355399999593,
+          "50": 190.7508300000045
         },
         "top3": {
           "before": [
@@ -5482,40 +3044,6 @@
               "disk_full",
               "disk_full",
               "disk_full"
-            ]
-          }
-        }
-      },
-      "vector": {
-        "before": 0,
-        "after": {
-          "20": 0,
-          "50": 0
-        },
-        "ceiling": {
-          "20": 0,
-          "50": 0
-        },
-        "ms": {
-          "20": 71.83490899999742,
-          "50": 178.47055399999954
-        },
-        "top3": {
-          "before": [
-            "out_of_memory",
-            "rate_limited",
-            "rate_limited"
-          ],
-          "after": {
-            "20": [
-              "rate_limited",
-              "out_of_memory",
-              "rate_limited"
-            ],
-            "50": [
-              "rate_limited",
-              "out_of_memory",
-              "rate_limited"
             ]
           }
         }
@@ -5539,8 +3067,8 @@
           "50": 1
         },
         "ms": {
-          "20": 49.788549999997485,
-          "50": 114.97397199997795
+          "20": 51.93655999998737,
+          "50": 134.62246699999378
         },
         "top3": {
           "before": [
@@ -5558,40 +3086,6 @@
               "db_connection_timeout",
               "db_connection_timeout",
               "db_connection_timeout"
-            ]
-          }
-        }
-      },
-      "vector": {
-        "before": 0.9,
-        "after": {
-          "20": 0.9,
-          "50": 0.6
-        },
-        "ceiling": {
-          "20": 1,
-          "50": 1
-        },
-        "ms": {
-          "20": 43.02541000000201,
-          "50": 113.64115500001935
-        },
-        "top3": {
-          "before": [
-            "db_connection_timeout",
-            "db_connection_timeout",
-            "db_connection_timeout"
-          ],
-          "after": {
-            "20": [
-              "out_of_memory",
-              "db_connection_timeout",
-              "db_connection_timeout"
-            ],
-            "50": [
-              "out_of_memory",
-              "jwt_expired",
-              "deadlock"
             ]
           }
         }
@@ -5615,8 +3109,8 @@
           "50": 1
         },
         "ms": {
-          "20": 44.78797800000757,
-          "50": 142.00070899998536
+          "20": 49.57518400000117,
+          "50": 116.41525499999989
         },
         "top3": {
           "before": [
@@ -5634,40 +3128,6 @@
               "db_connection_timeout",
               "db_connection_timeout",
               "db_connection_timeout"
-            ]
-          }
-        }
-      },
-      "vector": {
-        "before": 0.9,
-        "after": {
-          "20": 0.9,
-          "50": 0.6
-        },
-        "ceiling": {
-          "20": 1,
-          "50": 1
-        },
-        "ms": {
-          "20": 48.08757400000468,
-          "50": 124.16216000000713
-        },
-        "top3": {
-          "before": [
-            "db_connection_timeout",
-            "db_connection_timeout",
-            "db_connection_timeout"
-          ],
-          "after": {
-            "20": [
-              "out_of_memory",
-              "db_connection_timeout",
-              "db_connection_timeout"
-            ],
-            "50": [
-              "out_of_memory",
-              "jwt_expired",
-              "deadlock"
             ]
           }
         }
@@ -5691,8 +3151,8 @@
           "50": 1
         },
         "ms": {
-          "20": 58.26101999997627,
-          "50": 154.11825899998075
+          "20": 58.84387399999832,
+          "50": 152.4193760000053
         },
         "top3": {
           "before": [
@@ -5710,40 +3170,6 @@
               "db_connection_timeout",
               "db_connection_timeout",
               "db_connection_timeout"
-            ]
-          }
-        }
-      },
-      "vector": {
-        "before": 0,
-        "after": {
-          "20": 0,
-          "50": 0
-        },
-        "ceiling": {
-          "20": 0,
-          "50": 0
-        },
-        "ms": {
-          "20": 91.5041879999917,
-          "50": 182.31793600000674
-        },
-        "top3": {
-          "before": [
-            "out_of_memory",
-            "out_of_memory",
-            "out_of_memory"
-          ],
-          "after": {
-            "20": [
-              "out_of_memory",
-              "rate_limited",
-              "rate_limited"
-            ],
-            "50": [
-              "out_of_memory",
-              "rate_limited",
-              "payment_gateway_5xx"
             ]
           }
         }
@@ -5767,8 +3193,8 @@
           "50": 1
         },
         "ms": {
-          "20": 40.02889499999583,
-          "50": 88.53416400001151
+          "20": 33.777167000007466,
+          "50": 92.01272500000778
         },
         "top3": {
           "before": [
@@ -5786,40 +3212,6 @@
               "slow_query",
               "slow_query",
               "slow_query"
-            ]
-          }
-        }
-      },
-      "vector": {
-        "before": 0,
-        "after": {
-          "20": 0,
-          "50": 0
-        },
-        "ceiling": {
-          "20": 0,
-          "50": 0
-        },
-        "ms": {
-          "20": 39.95593100000406,
-          "50": 116.6303960000223
-        },
-        "top3": {
-          "before": [
-            "db_connection_timeout",
-            "db_connection_timeout",
-            "db_connection_timeout"
-          ],
-          "after": {
-            "20": [
-              "db_connection_timeout",
-              "db_connection_timeout",
-              "db_connection_timeout"
-            ],
-            "50": [
-              "db_connection_timeout",
-              "db_connection_timeout",
-              "db_connection_timeout"
             ]
           }
         }
@@ -5843,8 +3235,8 @@
           "50": 1
         },
         "ms": {
-          "20": 39.8695520000183,
-          "50": 91.45457199998782
+          "20": 37.89512000000104,
+          "50": 103.77928399998927
         },
         "top3": {
           "before": [
@@ -5862,40 +3254,6 @@
               "slow_query",
               "slow_query",
               "slow_query"
-            ]
-          }
-        }
-      },
-      "vector": {
-        "before": 0,
-        "after": {
-          "20": 0,
-          "50": 0
-        },
-        "ceiling": {
-          "20": 0,
-          "50": 0
-        },
-        "ms": {
-          "20": 47.53008000002592,
-          "50": 103.98398699998506
-        },
-        "top3": {
-          "before": [
-            "db_connection_timeout",
-            "db_connection_timeout",
-            "db_connection_timeout"
-          ],
-          "after": {
-            "20": [
-              "db_connection_timeout",
-              "db_connection_timeout",
-              "db_connection_timeout"
-            ],
-            "50": [
-              "db_connection_timeout",
-              "db_connection_timeout",
-              "db_connection_timeout"
             ]
           }
         }
@@ -5919,8 +3277,8 @@
           "50": 1
         },
         "ms": {
-          "20": 40.72721400001319,
-          "50": 130.18544500001008
+          "20": 43.01901800000633,
+          "50": 128.87940599999274
         },
         "top3": {
           "before": [
@@ -5938,40 +3296,6 @@
               "slow_query",
               "slow_query",
               "slow_query"
-            ]
-          }
-        }
-      },
-      "vector": {
-        "before": 0,
-        "after": {
-          "20": 0,
-          "50": 0
-        },
-        "ceiling": {
-          "20": 0,
-          "50": 0
-        },
-        "ms": {
-          "20": 86.58659900000202,
-          "50": 180.24505800000043
-        },
-        "top3": {
-          "before": [
-            "out_of_memory",
-            "out_of_memory",
-            "out_of_memory"
-          ],
-          "after": {
-            "20": [
-              "rate_limited",
-              "rate_limited",
-              "rate_limited"
-            ],
-            "50": [
-              "rate_limited",
-              "rate_limited",
-              "rate_limited"
             ]
           }
         }
@@ -5995,42 +3319,8 @@
           "50": 1
         },
         "ms": {
-          "20": 78.25612800000818,
-          "50": 192.78999399999157
-        },
-        "top3": {
-          "before": [
-            "tls_cert_expired",
-            "tls_cert_expired",
-            "tls_cert_expired"
-          ],
-          "after": {
-            "20": [
-              "tls_cert_expired",
-              "tls_cert_expired",
-              "tls_cert_expired"
-            ],
-            "50": [
-              "tls_cert_expired",
-              "tls_cert_expired",
-              "tls_cert_expired"
-            ]
-          }
-        }
-      },
-      "vector": {
-        "before": 1,
-        "after": {
-          "20": 1,
-          "50": 1
-        },
-        "ceiling": {
-          "20": 1,
-          "50": 1
-        },
-        "ms": {
-          "20": 71.86757900001248,
-          "50": 179.91501399999834
+          "20": 65.57674899999984,
+          "50": 185.0922850000061
         },
         "top3": {
           "before": [
@@ -6071,42 +3361,8 @@
           "50": 1
         },
         "ms": {
-          "20": 66.90241300000343,
-          "50": 186.66244099999312
-        },
-        "top3": {
-          "before": [
-            "tls_cert_expired",
-            "tls_cert_expired",
-            "tls_cert_expired"
-          ],
-          "after": {
-            "20": [
-              "tls_cert_expired",
-              "tls_cert_expired",
-              "tls_cert_expired"
-            ],
-            "50": [
-              "tls_cert_expired",
-              "tls_cert_expired",
-              "tls_cert_expired"
-            ]
-          }
-        }
-      },
-      "vector": {
-        "before": 1,
-        "after": {
-          "20": 1,
-          "50": 1
-        },
-        "ceiling": {
-          "20": 1,
-          "50": 1
-        },
-        "ms": {
-          "20": 70.74278999998933,
-          "50": 183.41907000000356
+          "20": 70.592227000001,
+          "50": 194.78918599999452
         },
         "top3": {
           "before": [
@@ -6147,42 +3403,8 @@
           "50": 1
         },
         "ms": {
-          "20": 76.51591200000257,
-          "50": 255.7559509999992
-        },
-        "top3": {
-          "before": [
-            "tls_cert_expired",
-            "tls_cert_expired",
-            "tls_cert_expired"
-          ],
-          "after": {
-            "20": [
-              "tls_cert_expired",
-              "tls_cert_expired",
-              "tls_cert_expired"
-            ],
-            "50": [
-              "tls_cert_expired",
-              "tls_cert_expired",
-              "tls_cert_expired"
-            ]
-          }
-        }
-      },
-      "vector": {
-        "before": 1,
-        "after": {
-          "20": 1,
-          "50": 1
-        },
-        "ceiling": {
-          "20": 1,
-          "50": 1
-        },
-        "ms": {
-          "20": 82.08786699999473,
-          "50": 205.9288360000064
+          "20": 79.01116200000979,
+          "50": 236.63604500000656
         },
         "top3": {
           "before": [
@@ -6223,42 +3445,8 @@
           "50": 1
         },
         "ms": {
-          "20": 55.96207599999616,
-          "50": 342.34163999999873
-        },
-        "top3": {
-          "before": [
-            "disk_full",
-            "disk_full",
-            "disk_full"
-          ],
-          "after": {
-            "20": [
-              "disk_full",
-              "disk_full",
-              "disk_full"
-            ],
-            "50": [
-              "disk_full",
-              "disk_full",
-              "disk_full"
-            ]
-          }
-        }
-      },
-      "vector": {
-        "before": 1,
-        "after": {
-          "20": 1,
-          "50": 1
-        },
-        "ceiling": {
-          "20": 1,
-          "50": 1
-        },
-        "ms": {
-          "20": 55.82325099999434,
-          "50": 155.38501699999324
+          "20": 61.819694000005256,
+          "50": 343.01727100000426
         },
         "top3": {
           "before": [
@@ -6299,42 +3487,8 @@
           "50": 1
         },
         "ms": {
-          "20": 48.9027219999989,
-          "50": 351.8878970000078
-        },
-        "top3": {
-          "before": [
-            "disk_full",
-            "disk_full",
-            "disk_full"
-          ],
-          "after": {
-            "20": [
-              "disk_full",
-              "disk_full",
-              "disk_full"
-            ],
-            "50": [
-              "disk_full",
-              "disk_full",
-              "disk_full"
-            ]
-          }
-        }
-      },
-      "vector": {
-        "before": 1,
-        "after": {
-          "20": 1,
-          "50": 1
-        },
-        "ceiling": {
-          "20": 1,
-          "50": 1
-        },
-        "ms": {
-          "20": 52.211057999986224,
-          "50": 141.28031100000953
+          "20": 56.728025999997044,
+          "50": 350.791756000006
         },
         "top3": {
           "before": [
@@ -6375,42 +3529,8 @@
           "50": 1
         },
         "ms": {
-          "20": 57.517290999996476,
-          "50": 342.9658200000122
-        },
-        "top3": {
-          "before": [
-            "disk_full",
-            "disk_full",
-            "disk_full"
-          ],
-          "after": {
-            "20": [
-              "disk_full",
-              "disk_full",
-              "disk_full"
-            ],
-            "50": [
-              "disk_full",
-              "disk_full",
-              "disk_full"
-            ]
-          }
-        }
-      },
-      "vector": {
-        "before": 1,
-        "after": {
-          "20": 1,
-          "50": 1
-        },
-        "ceiling": {
-          "20": 1,
-          "50": 1
-        },
-        "ms": {
-          "20": 63.15910400002031,
-          "50": 171.4532590000017
+          "20": 72.39671600000293,
+          "50": 323.332355999999
         },
         "top3": {
           "before": [
@@ -6451,48 +3571,14 @@
           "50": 1
         },
         "ms": {
-          "20": 67.56074400001671,
-          "50": 178.86407700000564
+          "20": 66.17830600000161,
+          "50": 164.81707999999344
         },
         "top3": {
           "before": [
             "dns_failure",
             "dns_failure",
             "dns_failure"
-          ],
-          "after": {
-            "20": [
-              "dns_failure",
-              "dns_failure",
-              "dns_failure"
-            ],
-            "50": [
-              "dns_failure",
-              "dns_failure",
-              "dns_failure"
-            ]
-          }
-        }
-      },
-      "vector": {
-        "before": 0.3,
-        "after": {
-          "20": 0.7,
-          "50": 1
-        },
-        "ceiling": {
-          "20": 0.7,
-          "50": 1
-        },
-        "ms": {
-          "20": 67.16158300000825,
-          "50": 164.56847300002119
-        },
-        "top3": {
-          "before": [
-            "dns_failure",
-            "duplicate_key",
-            "duplicate_key"
           ],
           "after": {
             "20": [
@@ -6527,48 +3613,14 @@
           "50": 1
         },
         "ms": {
-          "20": 67.7776329999906,
-          "50": 182.22220299998298
+          "20": 66.92572400000063,
+          "50": 157.55790099999285
         },
         "top3": {
           "before": [
             "dns_failure",
             "dns_failure",
             "dns_failure"
-          ],
-          "after": {
-            "20": [
-              "dns_failure",
-              "dns_failure",
-              "dns_failure"
-            ],
-            "50": [
-              "dns_failure",
-              "dns_failure",
-              "dns_failure"
-            ]
-          }
-        }
-      },
-      "vector": {
-        "before": 0.3,
-        "after": {
-          "20": 0.7,
-          "50": 1
-        },
-        "ceiling": {
-          "20": 0.7,
-          "50": 1
-        },
-        "ms": {
-          "20": 72.51267299999017,
-          "50": 176.12848200000008
-        },
-        "top3": {
-          "before": [
-            "dns_failure",
-            "duplicate_key",
-            "duplicate_key"
           ],
           "after": {
             "20": [
@@ -6603,42 +3655,8 @@
           "50": 1
         },
         "ms": {
-          "20": 80.17191800000728,
-          "50": 208.95829000000958
-        },
-        "top3": {
-          "before": [
-            "dns_failure",
-            "dns_failure",
-            "dns_failure"
-          ],
-          "after": {
-            "20": [
-              "dns_failure",
-              "dns_failure",
-              "dns_failure"
-            ],
-            "50": [
-              "dns_failure",
-              "dns_failure",
-              "dns_failure"
-            ]
-          }
-        }
-      },
-      "vector": {
-        "before": 1,
-        "after": {
-          "20": 1,
-          "50": 1
-        },
-        "ceiling": {
-          "20": 1,
-          "50": 1
-        },
-        "ms": {
-          "20": 73.95226000002003,
-          "50": 189.54847299997346
+          "20": 77.06334200000856,
+          "50": 189.35581300000194
         },
         "top3": {
           "before": [
@@ -6680,8 +3698,8 @@
           "50": 1
         },
         "ms": {
-          "20": 62.62274900000193,
-          "50": 164.1081000000122
+          "20": 55.50700699999288,
+          "50": 126.05459400000109
         },
         "top3": {
           "before": [
@@ -6699,40 +3717,6 @@
               "cache_unavailable",
               "cache_unavailable",
               "cache_unavailable"
-            ]
-          }
-        }
-      },
-      "vector": {
-        "before": 1,
-        "after": {
-          "20": 1,
-          "50": 1
-        },
-        "ceiling": {
-          "20": 1,
-          "50": 1
-        },
-        "ms": {
-          "20": 46.491546000004746,
-          "50": 122.01629699999467
-        },
-        "top3": {
-          "before": [
-            "db_connection_timeout",
-            "db_connection_timeout",
-            "db_connection_timeout"
-          ],
-          "after": {
-            "20": [
-              "db_connection_timeout",
-              "db_connection_timeout",
-              "db_connection_timeout"
-            ],
-            "50": [
-              "db_connection_timeout",
-              "db_connection_timeout",
-              "db_connection_timeout"
             ]
           }
         }
@@ -6757,8 +3741,8 @@
           "50": 1
         },
         "ms": {
-          "20": 60.439738000015495,
-          "50": 131.67601499997545
+          "20": 59.73420299999998,
+          "50": 138.28719200000342
         },
         "top3": {
           "before": [
@@ -6776,40 +3760,6 @@
               "cache_unavailable",
               "cache_unavailable",
               "cache_unavailable"
-            ]
-          }
-        }
-      },
-      "vector": {
-        "before": 1,
-        "after": {
-          "20": 1,
-          "50": 1
-        },
-        "ceiling": {
-          "20": 1,
-          "50": 1
-        },
-        "ms": {
-          "20": 45.66538600000786,
-          "50": 136.00838899999508
-        },
-        "top3": {
-          "before": [
-            "db_connection_timeout",
-            "db_connection_timeout",
-            "db_connection_timeout"
-          ],
-          "after": {
-            "20": [
-              "db_connection_timeout",
-              "db_connection_timeout",
-              "db_connection_timeout"
-            ],
-            "50": [
-              "db_connection_timeout",
-              "db_connection_timeout",
-              "db_connection_timeout"
             ]
           }
         }
@@ -6834,8 +3784,8 @@
           "50": 1
         },
         "ms": {
-          "20": 65.78438600001391,
-          "50": 159.44674400001531
+          "20": 61.628186999994796,
+          "50": 173.55024799999956
         },
         "top3": {
           "before": [
@@ -6853,40 +3803,6 @@
               "cache_unavailable",
               "cache_unavailable",
               "cache_unavailable"
-            ]
-          }
-        }
-      },
-      "vector": {
-        "before": 0.9,
-        "after": {
-          "20": 1,
-          "50": 1
-        },
-        "ceiling": {
-          "20": 1,
-          "50": 1
-        },
-        "ms": {
-          "20": 63.1416700000118,
-          "50": 164.18969500000821
-        },
-        "top3": {
-          "before": [
-            "db_connection_timeout",
-            "db_connection_timeout",
-            "db_connection_timeout"
-          ],
-          "after": {
-            "20": [
-              "db_connection_timeout",
-              "db_connection_timeout",
-              "db_connection_timeout"
-            ],
-            "50": [
-              "db_connection_timeout",
-              "db_connection_timeout",
-              "db_connection_timeout"
             ]
           }
         }
@@ -6910,8 +3826,8 @@
           "50": 1
         },
         "ms": {
-          "20": 48.55635100000654,
-          "50": 127.0070640000049
+          "20": 46.79490700000315,
+          "50": 130.9363960000046
         },
         "top3": {
           "before": [
@@ -6929,40 +3845,6 @@
               "cache_unavailable",
               "cache_unavailable",
               "cache_unavailable"
-            ]
-          }
-        }
-      },
-      "vector": {
-        "before": 0,
-        "after": {
-          "20": 0,
-          "50": 0
-        },
-        "ceiling": {
-          "20": 0,
-          "50": 0
-        },
-        "ms": {
-          "20": 43.01693599999999,
-          "50": 127.2802490000031
-        },
-        "top3": {
-          "before": [
-            "db_connection_timeout",
-            "db_connection_timeout",
-            "db_connection_timeout"
-          ],
-          "after": {
-            "20": [
-              "db_connection_timeout",
-              "db_connection_timeout",
-              "db_connection_timeout"
-            ],
-            "50": [
-              "db_connection_timeout",
-              "db_connection_timeout",
-              "db_connection_timeout"
             ]
           }
         }
@@ -6986,8 +3868,8 @@
           "50": 1
         },
         "ms": {
-          "20": 52.01156600000104,
-          "50": 132.21694600000046
+          "20": 43.66123399999924,
+          "50": 125.48274800000945
         },
         "top3": {
           "before": [
@@ -7005,40 +3887,6 @@
               "cache_unavailable",
               "cache_unavailable",
               "cache_unavailable"
-            ]
-          }
-        }
-      },
-      "vector": {
-        "before": 0,
-        "after": {
-          "20": 0,
-          "50": 0
-        },
-        "ceiling": {
-          "20": 0,
-          "50": 0
-        },
-        "ms": {
-          "20": 45.70715799997561,
-          "50": 120.080237999995
-        },
-        "top3": {
-          "before": [
-            "db_connection_timeout",
-            "db_connection_timeout",
-            "db_connection_timeout"
-          ],
-          "after": {
-            "20": [
-              "db_connection_timeout",
-              "db_connection_timeout",
-              "db_connection_timeout"
-            ],
-            "50": [
-              "db_connection_timeout",
-              "db_connection_timeout",
-              "db_connection_timeout"
             ]
           }
         }
@@ -7062,48 +3910,14 @@
           "50": 1
         },
         "ms": {
-          "20": 65.41318699999829,
-          "50": 157.77722299998277
+          "20": 64.27026600000681,
+          "50": 148.87684799999988
         },
         "top3": {
           "before": [
             "cache_unavailable",
             "cache_unavailable",
             "cache_unavailable"
-          ],
-          "after": {
-            "20": [
-              "cache_unavailable",
-              "cache_unavailable",
-              "cache_unavailable"
-            ],
-            "50": [
-              "cache_unavailable",
-              "cache_unavailable",
-              "cache_unavailable"
-            ]
-          }
-        }
-      },
-      "vector": {
-        "before": 0.2,
-        "after": {
-          "20": 1,
-          "50": 1
-        },
-        "ceiling": {
-          "20": 1,
-          "50": 1
-        },
-        "ms": {
-          "20": 66.52614500001073,
-          "50": 152.35917099998915
-        },
-        "top3": {
-          "before": [
-            "cache_unavailable",
-            "db_connection_timeout",
-            "db_connection_timeout"
           ],
           "after": {
             "20": [
@@ -7138,8 +3952,8 @@
           "50": 1
         },
         "ms": {
-          "20": 62.76189300001715,
-          "50": 141.6980479999911
+          "20": 57.1381490000058,
+          "50": 147.76673400000436
         },
         "top3": {
           "before": [
@@ -7157,40 +3971,6 @@
               "disk_full",
               "disk_full",
               "disk_full"
-            ]
-          }
-        }
-      },
-      "vector": {
-        "before": 0,
-        "after": {
-          "20": 0,
-          "50": 0
-        },
-        "ceiling": {
-          "20": 0,
-          "50": 0
-        },
-        "ms": {
-          "20": 51.49786599999061,
-          "50": 136.66174099998898
-        },
-        "top3": {
-          "before": [
-            "dns_failure",
-            "dns_failure",
-            "dns_failure"
-          ],
-          "after": {
-            "20": [
-              "dns_failure",
-              "dns_failure",
-              "db_connection_timeout"
-            ],
-            "50": [
-              "dns_failure",
-              "dns_failure",
-              "db_connection_timeout"
             ]
           }
         }
@@ -7214,8 +3994,8 @@
           "50": 1
         },
         "ms": {
-          "20": 58.206059999996796,
-          "50": 144.26373900001636
+          "20": 64.05526499998814,
+          "50": 137.92145500000333
         },
         "top3": {
           "before": [
@@ -7233,40 +4013,6 @@
               "disk_full",
               "disk_full",
               "disk_full"
-            ]
-          }
-        }
-      },
-      "vector": {
-        "before": 0,
-        "after": {
-          "20": 0,
-          "50": 0
-        },
-        "ceiling": {
-          "20": 0,
-          "50": 0
-        },
-        "ms": {
-          "20": 57.51320200000191,
-          "50": 140.3135889999976
-        },
-        "top3": {
-          "before": [
-            "dns_failure",
-            "dns_failure",
-            "dns_failure"
-          ],
-          "after": {
-            "20": [
-              "dns_failure",
-              "dns_failure",
-              "db_connection_timeout"
-            ],
-            "50": [
-              "dns_failure",
-              "dns_failure",
-              "db_connection_timeout"
             ]
           }
         }
@@ -7290,8 +4036,8 @@
           "50": 1
         },
         "ms": {
-          "20": 67.98803799998132,
-          "50": 185.8402519999945
+          "20": 71.00758100001258,
+          "50": 181.19604399999662
         },
         "top3": {
           "before": [
@@ -7309,40 +4055,6 @@
               "disk_full",
               "disk_full",
               "disk_full"
-            ]
-          }
-        }
-      },
-      "vector": {
-        "before": 0.1,
-        "after": {
-          "20": 0.1,
-          "50": 0.1
-        },
-        "ceiling": {
-          "20": 0.1,
-          "50": 0.1
-        },
-        "ms": {
-          "20": 77.99029600000358,
-          "50": 193.82377700001234
-        },
-        "top3": {
-          "before": [
-            "out_of_memory",
-            "duplicate_key",
-            "disk_full"
-          ],
-          "after": {
-            "20": [
-              "disk_full",
-              "payment_gateway_5xx",
-              "cache_unavailable"
-            ],
-            "50": [
-              "disk_full",
-              "payment_gateway_5xx",
-              "null_reference"
             ]
           }
         }
@@ -7366,42 +4078,8 @@
           "50": 1
         },
         "ms": {
-          "20": 54.61646000001929,
-          "50": 140.11715499998536
-        },
-        "top3": {
-          "before": [
-            "duplicate_key",
-            "duplicate_key",
-            "duplicate_key"
-          ],
-          "after": {
-            "20": [
-              "duplicate_key",
-              "duplicate_key",
-              "duplicate_key"
-            ],
-            "50": [
-              "duplicate_key",
-              "duplicate_key",
-              "duplicate_key"
-            ]
-          }
-        }
-      },
-      "vector": {
-        "before": 1,
-        "after": {
-          "20": 1,
-          "50": 1
-        },
-        "ceiling": {
-          "20": 1,
-          "50": 1
-        },
-        "ms": {
-          "20": 49.810530999995535,
-          "50": 124.52702700000373
+          "20": 118.11107699999411,
+          "50": 180.53364500000316
         },
         "top3": {
           "before": [
@@ -7442,42 +4120,8 @@
           "50": 1
         },
         "ms": {
-          "20": 53.27432100000442,
-          "50": 147.21944300000905
-        },
-        "top3": {
-          "before": [
-            "duplicate_key",
-            "duplicate_key",
-            "duplicate_key"
-          ],
-          "after": {
-            "20": [
-              "duplicate_key",
-              "duplicate_key",
-              "duplicate_key"
-            ],
-            "50": [
-              "duplicate_key",
-              "duplicate_key",
-              "duplicate_key"
-            ]
-          }
-        }
-      },
-      "vector": {
-        "before": 1,
-        "after": {
-          "20": 1,
-          "50": 1
-        },
-        "ceiling": {
-          "20": 1,
-          "50": 1
-        },
-        "ms": {
-          "20": 47.264228000014555,
-          "50": 135.10108299998683
+          "20": 50.732336999994004,
+          "50": 165.4608750000043
         },
         "top3": {
           "before": [
@@ -7518,8 +4162,8 @@
           "50": 1
         },
         "ms": {
-          "20": 64.4345199999807,
-          "50": 180.55227600000217
+          "20": 57.536976999996114,
+          "50": 150.14077899999393
         },
         "top3": {
           "before": [
@@ -7537,40 +4181,6 @@
               "duplicate_key",
               "duplicate_key",
               "duplicate_key"
-            ]
-          }
-        }
-      },
-      "vector": {
-        "before": 0.4,
-        "after": {
-          "20": 0.4,
-          "50": 0.4
-        },
-        "ceiling": {
-          "20": 1,
-          "50": 1
-        },
-        "ms": {
-          "20": 53.86578700001701,
-          "50": 153.73456499999156
-        },
-        "top3": {
-          "before": [
-            "queue_lag",
-            "queue_lag",
-            "queue_lag"
-          ],
-          "after": {
-            "20": [
-              "queue_lag",
-              "queue_lag",
-              "queue_lag"
-            ],
-            "50": [
-              "queue_lag",
-              "queue_lag",
-              "queue_lag"
             ]
           }
         }
@@ -7594,42 +4204,8 @@
           "50": 1
         },
         "ms": {
-          "20": 52.69402500000433,
-          "50": 110.12954699998954
-        },
-        "top3": {
-          "before": [
-            "disk_full",
-            "disk_full",
-            "disk_full"
-          ],
-          "after": {
-            "20": [
-              "disk_full",
-              "disk_full",
-              "disk_full"
-            ],
-            "50": [
-              "disk_full",
-              "disk_full",
-              "disk_full"
-            ]
-          }
-        }
-      },
-      "vector": {
-        "before": 1,
-        "after": {
-          "20": 1,
-          "50": 1
-        },
-        "ceiling": {
-          "20": 1,
-          "50": 1
-        },
-        "ms": {
-          "20": 60.442703000007896,
-          "50": 134.2415729999775
+          "20": 61.04019600000174,
+          "50": 104.87199200000032
         },
         "top3": {
           "before": [
@@ -7670,42 +4246,8 @@
           "50": 1
         },
         "ms": {
-          "20": 55.950829000008525,
-          "50": 105.64390999998432
-        },
-        "top3": {
-          "before": [
-            "disk_full",
-            "disk_full",
-            "disk_full"
-          ],
-          "after": {
-            "20": [
-              "disk_full",
-              "disk_full",
-              "disk_full"
-            ],
-            "50": [
-              "disk_full",
-              "disk_full",
-              "disk_full"
-            ]
-          }
-        }
-      },
-      "vector": {
-        "before": 1,
-        "after": {
-          "20": 1,
-          "50": 1
-        },
-        "ceiling": {
-          "20": 1,
-          "50": 1
-        },
-        "ms": {
-          "20": 59.790122999984305,
-          "50": 125.775186999992
+          "20": 85.51255100000708,
+          "50": 101.75397499999963
         },
         "top3": {
           "before": [
@@ -7746,42 +4288,8 @@
           "50": 1
         },
         "ms": {
-          "20": 64.01414799998747,
-          "50": 191.12454300001264
-        },
-        "top3": {
-          "before": [
-            "disk_full",
-            "disk_full",
-            "disk_full"
-          ],
-          "after": {
-            "20": [
-              "disk_full",
-              "disk_full",
-              "disk_full"
-            ],
-            "50": [
-              "disk_full",
-              "disk_full",
-              "disk_full"
-            ]
-          }
-        }
-      },
-      "vector": {
-        "before": 1,
-        "after": {
-          "20": 1,
-          "50": 1
-        },
-        "ceiling": {
-          "20": 1,
-          "50": 1
-        },
-        "ms": {
-          "20": 67.61204899998847,
-          "50": 178.77550399999018
+          "20": 76.53980900000897,
+          "50": 181.7975299999962
         },
         "top3": {
           "before": [
@@ -7822,42 +4330,8 @@
           "50": 1
         },
         "ms": {
-          "20": 48.193834000005154,
-          "50": 162.55215899998439
-        },
-        "top3": {
-          "before": [
-            "dns_failure",
-            "dns_failure",
-            "dns_failure"
-          ],
-          "after": {
-            "20": [
-              "dns_failure",
-              "dns_failure",
-              "dns_failure"
-            ],
-            "50": [
-              "dns_failure",
-              "dns_failure",
-              "dns_failure"
-            ]
-          }
-        }
-      },
-      "vector": {
-        "before": 0.9,
-        "after": {
-          "20": 1,
-          "50": 1
-        },
-        "ceiling": {
-          "20": 1,
-          "50": 1
-        },
-        "ms": {
-          "20": 54.36586700001499,
-          "50": 132.360182000004
+          "20": 66.41087900000275,
+          "50": 132.09508800000185
         },
         "top3": {
           "before": [
@@ -7898,42 +4372,8 @@
           "50": 1
         },
         "ms": {
-          "20": 58.54938199999742,
-          "50": 150.98019999999087
-        },
-        "top3": {
-          "before": [
-            "dns_failure",
-            "dns_failure",
-            "dns_failure"
-          ],
-          "after": {
-            "20": [
-              "dns_failure",
-              "dns_failure",
-              "dns_failure"
-            ],
-            "50": [
-              "dns_failure",
-              "dns_failure",
-              "dns_failure"
-            ]
-          }
-        }
-      },
-      "vector": {
-        "before": 0.9,
-        "after": {
-          "20": 1,
-          "50": 1
-        },
-        "ceiling": {
-          "20": 1,
-          "50": 1
-        },
-        "ms": {
-          "20": 52.65489599999273,
-          "50": 131.11853800000972
+          "20": 48.597856000007596,
+          "50": 128.1601559999981
         },
         "top3": {
           "before": [
@@ -7974,8 +4414,8 @@
           "50": 1
         },
         "ms": {
-          "20": 63.01965100000962,
-          "50": 166.45722599999863
+          "20": 62.682077999998,
+          "50": 157.35115699999733
         },
         "top3": {
           "before": [
@@ -7993,40 +4433,6 @@
               "dns_failure",
               "dns_failure",
               "dns_failure"
-            ]
-          }
-        }
-      },
-      "vector": {
-        "before": 0,
-        "after": {
-          "20": 0,
-          "50": 0
-        },
-        "ceiling": {
-          "20": 0,
-          "50": 0
-        },
-        "ms": {
-          "20": 78.51704500001506,
-          "50": 179.72063500000513
-        },
-        "top3": {
-          "before": [
-            "out_of_memory",
-            "out_of_memory",
-            "null_reference"
-          ],
-          "after": {
-            "20": [
-              "out_of_memory",
-              "null_reference",
-              "null_reference"
-            ],
-            "50": [
-              "disk_full",
-              "disk_full",
-              "out_of_memory"
             ]
           }
         }
@@ -8050,42 +4456,8 @@
           "50": 1
         },
         "ms": {
-          "20": 62.84576399999787,
-          "50": 354.2938190000132
-        },
-        "top3": {
-          "before": [
-            "out_of_memory",
-            "out_of_memory",
-            "out_of_memory"
-          ],
-          "after": {
-            "20": [
-              "out_of_memory",
-              "out_of_memory",
-              "out_of_memory"
-            ],
-            "50": [
-              "out_of_memory",
-              "out_of_memory",
-              "out_of_memory"
-            ]
-          }
-        }
-      },
-      "vector": {
-        "before": 1,
-        "after": {
-          "20": 1,
-          "50": 1
-        },
-        "ceiling": {
-          "20": 1,
-          "50": 1
-        },
-        "ms": {
-          "20": 59.924838999984786,
-          "50": 307.9332399999839
+          "20": 59.753538999997545,
+          "50": 310.8498499999987
         },
         "top3": {
           "before": [
@@ -8126,42 +4498,8 @@
           "50": 1
         },
         "ms": {
-          "20": 87.6492309999885,
-          "50": 328.1748190000071
-        },
-        "top3": {
-          "before": [
-            "out_of_memory",
-            "out_of_memory",
-            "out_of_memory"
-          ],
-          "after": {
-            "20": [
-              "out_of_memory",
-              "out_of_memory",
-              "out_of_memory"
-            ],
-            "50": [
-              "out_of_memory",
-              "out_of_memory",
-              "out_of_memory"
-            ]
-          }
-        }
-      },
-      "vector": {
-        "before": 1,
-        "after": {
-          "20": 1,
-          "50": 1
-        },
-        "ceiling": {
-          "20": 1,
-          "50": 1
-        },
-        "ms": {
-          "20": 64.6869290000177,
-          "50": 303.75694099999964
+          "20": 60.792476999995415,
+          "50": 319.44913599999563
         },
         "top3": {
           "before": [
@@ -8202,42 +4540,8 @@
           "50": 1
         },
         "ms": {
-          "20": 73.32049600000028,
-          "50": 267.194771999988
-        },
-        "top3": {
-          "before": [
-            "out_of_memory",
-            "out_of_memory",
-            "out_of_memory"
-          ],
-          "after": {
-            "20": [
-              "out_of_memory",
-              "out_of_memory",
-              "out_of_memory"
-            ],
-            "50": [
-              "out_of_memory",
-              "out_of_memory",
-              "out_of_memory"
-            ]
-          }
-        }
-      },
-      "vector": {
-        "before": 1,
-        "after": {
-          "20": 1,
-          "50": 1
-        },
-        "ceiling": {
-          "20": 1,
-          "50": 1
-        },
-        "ms": {
-          "20": 113.98209399997722,
-          "50": 226.9410280000011
+          "20": 77.54227000000537,
+          "50": 238.03414299999713
         },
         "top3": {
           "before": [
@@ -8278,8 +4582,8 @@
           "50": 1
         },
         "ms": {
-          "20": 58.680045999994036,
-          "50": 130.07120600002236
+          "20": 60.65858200000366,
+          "50": 144.59265900000173
         },
         "top3": {
           "before": [
@@ -8295,40 +4599,6 @@
             ],
             "50": [
               "db_connection_timeout",
-              "db_connection_timeout",
-              "db_connection_timeout"
-            ]
-          }
-        }
-      },
-      "vector": {
-        "before": 1,
-        "after": {
-          "20": 1,
-          "50": 0.9
-        },
-        "ceiling": {
-          "20": 1,
-          "50": 1
-        },
-        "ms": {
-          "20": 49.17616200001794,
-          "50": 187.27329500002088
-        },
-        "top3": {
-          "before": [
-            "db_connection_timeout",
-            "db_connection_timeout",
-            "db_connection_timeout"
-          ],
-          "after": {
-            "20": [
-              "db_connection_timeout",
-              "db_connection_timeout",
-              "db_connection_timeout"
-            ],
-            "50": [
-              "out_of_memory",
               "db_connection_timeout",
               "db_connection_timeout"
             ]
@@ -8354,8 +4624,8 @@
           "50": 1
         },
         "ms": {
-          "20": 59.18205299999681,
-          "50": 153.2890999999945
+          "20": 60.13013499999943,
+          "50": 137.2419030000019
         },
         "top3": {
           "before": [
@@ -8371,40 +4641,6 @@
             ],
             "50": [
               "db_connection_timeout",
-              "db_connection_timeout",
-              "db_connection_timeout"
-            ]
-          }
-        }
-      },
-      "vector": {
-        "before": 1,
-        "after": {
-          "20": 1,
-          "50": 0.9
-        },
-        "ceiling": {
-          "20": 1,
-          "50": 1
-        },
-        "ms": {
-          "20": 47.216781999974046,
-          "50": 191.33214100002078
-        },
-        "top3": {
-          "before": [
-            "db_connection_timeout",
-            "db_connection_timeout",
-            "db_connection_timeout"
-          ],
-          "after": {
-            "20": [
-              "db_connection_timeout",
-              "db_connection_timeout",
-              "db_connection_timeout"
-            ],
-            "50": [
-              "out_of_memory",
               "db_connection_timeout",
               "db_connection_timeout"
             ]
@@ -8430,8 +4666,8 @@
           "50": 1
         },
         "ms": {
-          "20": 73.44846100002178,
-          "50": 194.29451400000835
+          "20": 63.299075999995694,
+          "50": 161.41747800000303
         },
         "top3": {
           "before": [
@@ -8449,40 +4685,6 @@
               "db_connection_timeout",
               "db_connection_timeout",
               "db_connection_timeout"
-            ]
-          }
-        }
-      },
-      "vector": {
-        "before": 0,
-        "after": {
-          "20": 0,
-          "50": 0
-        },
-        "ceiling": {
-          "20": 0,
-          "50": 0
-        },
-        "ms": {
-          "20": 72.64686999999685,
-          "50": 168.47157699998934
-        },
-        "top3": {
-          "before": [
-            "out_of_memory",
-            "out_of_memory",
-            "out_of_memory"
-          ],
-          "after": {
-            "20": [
-              "out_of_memory",
-              "out_of_memory",
-              "out_of_memory"
-            ],
-            "50": [
-              "null_reference",
-              "null_reference",
-              "null_reference"
             ]
           }
         }
@@ -8506,42 +4708,8 @@
           "50": 1
         },
         "ms": {
-          "20": 60.44057299999986,
-          "50": 160.15855000002193
-        },
-        "top3": {
-          "before": [
-            "jwt_expired",
-            "jwt_expired",
-            "jwt_expired"
-          ],
-          "after": {
-            "20": [
-              "jwt_expired",
-              "jwt_expired",
-              "jwt_expired"
-            ],
-            "50": [
-              "jwt_expired",
-              "jwt_expired",
-              "jwt_expired"
-            ]
-          }
-        }
-      },
-      "vector": {
-        "before": 1,
-        "after": {
-          "20": 1,
-          "50": 1
-        },
-        "ceiling": {
-          "20": 1,
-          "50": 1
-        },
-        "ms": {
-          "20": 64.00786899999366,
-          "50": 167.7957400000014
+          "20": 57.15925799999968,
+          "50": 147.24307199999748
         },
         "top3": {
           "before": [
@@ -8582,42 +4750,8 @@
           "50": 1
         },
         "ms": {
-          "20": 59.532242999994196,
-          "50": 167.52432100000442
-        },
-        "top3": {
-          "before": [
-            "jwt_expired",
-            "jwt_expired",
-            "jwt_expired"
-          ],
-          "after": {
-            "20": [
-              "jwt_expired",
-              "jwt_expired",
-              "jwt_expired"
-            ],
-            "50": [
-              "jwt_expired",
-              "jwt_expired",
-              "jwt_expired"
-            ]
-          }
-        }
-      },
-      "vector": {
-        "before": 1,
-        "after": {
-          "20": 1,
-          "50": 1
-        },
-        "ceiling": {
-          "20": 1,
-          "50": 1
-        },
-        "ms": {
-          "20": 83.94997700001113,
-          "50": 162.64423199999146
+          "20": 64.99216999999771,
+          "50": 142.7464489999984
         },
         "top3": {
           "before": [
@@ -8658,42 +4792,8 @@
           "50": 1
         },
         "ms": {
-          "20": 73.63460499999928,
-          "50": 186.735480000003
-        },
-        "top3": {
-          "before": [
-            "jwt_expired",
-            "jwt_expired",
-            "jwt_expired"
-          ],
-          "after": {
-            "20": [
-              "jwt_expired",
-              "jwt_expired",
-              "jwt_expired"
-            ],
-            "50": [
-              "jwt_expired",
-              "jwt_expired",
-              "jwt_expired"
-            ]
-          }
-        }
-      },
-      "vector": {
-        "before": 1,
-        "after": {
-          "20": 1,
-          "50": 1
-        },
-        "ceiling": {
-          "20": 1,
-          "50": 1
-        },
-        "ms": {
-          "20": 77.18776000000071,
-          "50": 182.33149599999888
+          "20": 91.70299499999965,
+          "50": 177.599675999998
         },
         "top3": {
           "before": [
@@ -8734,42 +4834,8 @@
           "50": 1
         },
         "ms": {
-          "20": 64.8598199999833,
-          "50": 162.928115000017
-        },
-        "top3": {
-          "before": [
-            "rate_limited",
-            "rate_limited",
-            "rate_limited"
-          ],
-          "after": {
-            "20": [
-              "rate_limited",
-              "rate_limited",
-              "rate_limited"
-            ],
-            "50": [
-              "rate_limited",
-              "rate_limited",
-              "rate_limited"
-            ]
-          }
-        }
-      },
-      "vector": {
-        "before": 1,
-        "after": {
-          "20": 1,
-          "50": 1
-        },
-        "ceiling": {
-          "20": 1,
-          "50": 1
-        },
-        "ms": {
-          "20": 63.206695000000764,
-          "50": 160.3067409999785
+          "20": 60.148979000005056,
+          "50": 155.18712699999742
         },
         "top3": {
           "before": [
@@ -8810,42 +4876,8 @@
           "50": 1
         },
         "ms": {
-          "20": 61.318358000018634,
-          "50": 161.48963399999775
-        },
-        "top3": {
-          "before": [
-            "rate_limited",
-            "rate_limited",
-            "rate_limited"
-          ],
-          "after": {
-            "20": [
-              "rate_limited",
-              "rate_limited",
-              "rate_limited"
-            ],
-            "50": [
-              "rate_limited",
-              "rate_limited",
-              "rate_limited"
-            ]
-          }
-        }
-      },
-      "vector": {
-        "before": 1,
-        "after": {
-          "20": 1,
-          "50": 1
-        },
-        "ceiling": {
-          "20": 1,
-          "50": 1
-        },
-        "ms": {
-          "20": 57.740231999981916,
-          "50": 165.99446600000374
+          "20": 70.37053000000014,
+          "50": 169.20380499999737
         },
         "top3": {
           "before": [
@@ -8886,42 +4918,8 @@
           "50": 1
         },
         "ms": {
-          "20": 69.42756899999222,
-          "50": 188.72258500001044
-        },
-        "top3": {
-          "before": [
-            "rate_limited",
-            "rate_limited",
-            "rate_limited"
-          ],
-          "after": {
-            "20": [
-              "rate_limited",
-              "rate_limited",
-              "rate_limited"
-            ],
-            "50": [
-              "rate_limited",
-              "rate_limited",
-              "rate_limited"
-            ]
-          }
-        }
-      },
-      "vector": {
-        "before": 1,
-        "after": {
-          "20": 1,
-          "50": 1
-        },
-        "ceiling": {
-          "20": 1,
-          "50": 1
-        },
-        "ms": {
-          "20": 73.11497200001031,
-          "50": 190.33538500001305
+          "20": 72.33545199999935,
+          "50": 183.95325200000661
         },
         "top3": {
           "before": [
@@ -8962,42 +4960,8 @@
           "50": 1
         },
         "ms": {
-          "20": 66.12331799999811,
-          "50": 168.8695000000007
-        },
-        "top3": {
-          "before": [
-            "payment_gateway_5xx",
-            "payment_gateway_5xx",
-            "payment_gateway_5xx"
-          ],
-          "after": {
-            "20": [
-              "payment_gateway_5xx",
-              "payment_gateway_5xx",
-              "payment_gateway_5xx"
-            ],
-            "50": [
-              "payment_gateway_5xx",
-              "payment_gateway_5xx",
-              "payment_gateway_5xx"
-            ]
-          }
-        }
-      },
-      "vector": {
-        "before": 1,
-        "after": {
-          "20": 1,
-          "50": 1
-        },
-        "ceiling": {
-          "20": 1,
-          "50": 1
-        },
-        "ms": {
-          "20": 77.19196600001305,
-          "50": 163.6881069999945
+          "20": 65.9635540000163,
+          "50": 158.0884430000151
         },
         "top3": {
           "before": [
@@ -9038,42 +5002,8 @@
           "50": 1
         },
         "ms": {
-          "20": 61.10442600000533,
-          "50": 181.7776100000192
-        },
-        "top3": {
-          "before": [
-            "payment_gateway_5xx",
-            "payment_gateway_5xx",
-            "payment_gateway_5xx"
-          ],
-          "after": {
-            "20": [
-              "payment_gateway_5xx",
-              "payment_gateway_5xx",
-              "payment_gateway_5xx"
-            ],
-            "50": [
-              "payment_gateway_5xx",
-              "payment_gateway_5xx",
-              "payment_gateway_5xx"
-            ]
-          }
-        }
-      },
-      "vector": {
-        "before": 1,
-        "after": {
-          "20": 1,
-          "50": 1
-        },
-        "ceiling": {
-          "20": 1,
-          "50": 1
-        },
-        "ms": {
-          "20": 71.97141699999338,
-          "50": 170.79524099998525
+          "20": 57.953249999991385,
+          "50": 176.7716359999904
         },
         "top3": {
           "before": [
@@ -9114,47 +5044,13 @@
           "50": 1
         },
         "ms": {
-          "20": 68.47121700001298,
-          "50": 205.94141900000977
+          "20": 233.74641500000143,
+          "50": 254.6890040000144
         },
         "top3": {
           "before": [
             "payment_gateway_5xx",
             "payment_gateway_5xx",
-            "payment_gateway_5xx"
-          ],
-          "after": {
-            "20": [
-              "payment_gateway_5xx",
-              "payment_gateway_5xx",
-              "payment_gateway_5xx"
-            ],
-            "50": [
-              "payment_gateway_5xx",
-              "payment_gateway_5xx",
-              "payment_gateway_5xx"
-            ]
-          }
-        }
-      },
-      "vector": {
-        "before": 0.5,
-        "after": {
-          "20": 1,
-          "50": 1
-        },
-        "ceiling": {
-          "20": 1,
-          "50": 1
-        },
-        "ms": {
-          "20": 80.65295700001298,
-          "50": 209.23697899997933
-        },
-        "top3": {
-          "before": [
-            "payment_gateway_5xx",
-            "rate_limited",
             "payment_gateway_5xx"
           ],
           "after": {
@@ -9190,42 +5086,8 @@
           "50": 1
         },
         "ms": {
-          "20": 80.68026699998882,
-          "50": 203.46818500000518
-        },
-        "top3": {
-          "before": [
-            "payment_gateway_5xx",
-            "payment_gateway_5xx",
-            "payment_gateway_5xx"
-          ],
-          "after": {
-            "20": [
-              "payment_gateway_5xx",
-              "payment_gateway_5xx",
-              "payment_gateway_5xx"
-            ],
-            "50": [
-              "payment_gateway_5xx",
-              "payment_gateway_5xx",
-              "payment_gateway_5xx"
-            ]
-          }
-        }
-      },
-      "vector": {
-        "before": 1,
-        "after": {
-          "20": 1,
-          "50": 1
-        },
-        "ceiling": {
-          "20": 1,
-          "50": 1
-        },
-        "ms": {
-          "20": 74.28927999999723,
-          "50": 184.78697099999408
+          "20": 89.48457999998936,
+          "50": 202.34335300000384
         },
         "top3": {
           "before": [
@@ -9266,42 +5128,8 @@
           "50": 1
         },
         "ms": {
-          "20": 81.06005799997365,
-          "50": 209.03395100001944
-        },
-        "top3": {
-          "before": [
-            "payment_gateway_5xx",
-            "payment_gateway_5xx",
-            "payment_gateway_5xx"
-          ],
-          "after": {
-            "20": [
-              "payment_gateway_5xx",
-              "payment_gateway_5xx",
-              "payment_gateway_5xx"
-            ],
-            "50": [
-              "payment_gateway_5xx",
-              "payment_gateway_5xx",
-              "payment_gateway_5xx"
-            ]
-          }
-        }
-      },
-      "vector": {
-        "before": 1,
-        "after": {
-          "20": 1,
-          "50": 1
-        },
-        "ceiling": {
-          "20": 1,
-          "50": 1
-        },
-        "ms": {
-          "20": 74.50868599998648,
-          "50": 180.2930950000009
+          "20": 86.7244059999939,
+          "50": 209.29912999999942
         },
         "top3": {
           "before": [
@@ -9342,42 +5170,8 @@
           "50": 1
         },
         "ms": {
-          "20": 92.36303599999519,
-          "50": 225.18057200001203
-        },
-        "top3": {
-          "before": [
-            "payment_gateway_5xx",
-            "payment_gateway_5xx",
-            "payment_gateway_5xx"
-          ],
-          "after": {
-            "20": [
-              "payment_gateway_5xx",
-              "payment_gateway_5xx",
-              "payment_gateway_5xx"
-            ],
-            "50": [
-              "payment_gateway_5xx",
-              "payment_gateway_5xx",
-              "payment_gateway_5xx"
-            ]
-          }
-        }
-      },
-      "vector": {
-        "before": 1,
-        "after": {
-          "20": 1,
-          "50": 1
-        },
-        "ceiling": {
-          "20": 1,
-          "50": 1
-        },
-        "ms": {
-          "20": 90.22383000000264,
-          "50": 226.4132770000142
+          "20": 105.85935900002369,
+          "50": 275.7928590000083
         },
         "top3": {
           "before": [
@@ -9418,42 +5212,8 @@
           "50": 1
         },
         "ms": {
-          "20": 66.71347799999057,
-          "50": 173.19945899999584
-        },
-        "top3": {
-          "before": [
-            "payment_gateway_5xx",
-            "payment_gateway_5xx",
-            "payment_gateway_5xx"
-          ],
-          "after": {
-            "20": [
-              "payment_gateway_5xx",
-              "payment_gateway_5xx",
-              "payment_gateway_5xx"
-            ],
-            "50": [
-              "payment_gateway_5xx",
-              "payment_gateway_5xx",
-              "payment_gateway_5xx"
-            ]
-          }
-        }
-      },
-      "vector": {
-        "before": 1,
-        "after": {
-          "20": 1,
-          "50": 1
-        },
-        "ceiling": {
-          "20": 1,
-          "50": 1
-        },
-        "ms": {
-          "20": 65.91243500000564,
-          "50": 169.22590099999798
+          "20": 80.84844800000428,
+          "50": 204.7992019999947
         },
         "top3": {
           "before": [
@@ -9494,42 +5254,8 @@
           "50": 1
         },
         "ms": {
-          "20": 68.2200549999834,
-          "50": 193.69684200000484
-        },
-        "top3": {
-          "before": [
-            "payment_gateway_5xx",
-            "payment_gateway_5xx",
-            "payment_gateway_5xx"
-          ],
-          "after": {
-            "20": [
-              "payment_gateway_5xx",
-              "payment_gateway_5xx",
-              "payment_gateway_5xx"
-            ],
-            "50": [
-              "payment_gateway_5xx",
-              "payment_gateway_5xx",
-              "payment_gateway_5xx"
-            ]
-          }
-        }
-      },
-      "vector": {
-        "before": 1,
-        "after": {
-          "20": 1,
-          "50": 1
-        },
-        "ceiling": {
-          "20": 1,
-          "50": 1
-        },
-        "ms": {
-          "20": 61.78973400001996,
-          "50": 171.33243399998173
+          "20": 78.90873100000317,
+          "50": 331.36527099998784
         },
         "top3": {
           "before": [
@@ -9570,48 +5296,14 @@
           "50": 1
         },
         "ms": {
-          "20": 74.4230760000064,
-          "50": 205.51953399999184
+          "20": 174.55517999999574,
+          "50": 272.6790429999819
         },
         "top3": {
           "before": [
             "payment_gateway_5xx",
             "payment_gateway_5xx",
             "payment_gateway_5xx"
-          ],
-          "after": {
-            "20": [
-              "payment_gateway_5xx",
-              "payment_gateway_5xx",
-              "payment_gateway_5xx"
-            ],
-            "50": [
-              "payment_gateway_5xx",
-              "payment_gateway_5xx",
-              "payment_gateway_5xx"
-            ]
-          }
-        }
-      },
-      "vector": {
-        "before": 0.3,
-        "after": {
-          "20": 0.7,
-          "50": 1
-        },
-        "ceiling": {
-          "20": 0.7,
-          "50": 1
-        },
-        "ms": {
-          "20": 70.99882499998785,
-          "50": 209.43894300001557
-        },
-        "top3": {
-          "before": [
-            "rate_limited",
-            "rate_limited",
-            "rate_limited"
           ],
           "after": {
             "20": [
@@ -9646,42 +5338,8 @@
           "50": 1
         },
         "ms": {
-          "20": 74.67484399999375,
-          "50": 134.31924899999285
-        },
-        "top3": {
-          "before": [
-            "duplicate_key",
-            "duplicate_key",
-            "duplicate_key"
-          ],
-          "after": {
-            "20": [
-              "duplicate_key",
-              "duplicate_key",
-              "duplicate_key"
-            ],
-            "50": [
-              "duplicate_key",
-              "duplicate_key",
-              "duplicate_key"
-            ]
-          }
-        }
-      },
-      "vector": {
-        "before": 1,
-        "after": {
-          "20": 1,
-          "50": 1
-        },
-        "ceiling": {
-          "20": 1,
-          "50": 1
-        },
-        "ms": {
-          "20": 68.98595699999714,
-          "50": 189.38062100001844
+          "20": 91.86448600000585,
+          "50": 165.27852100000018
         },
         "top3": {
           "before": [
@@ -9722,42 +5380,8 @@
           "50": 1
         },
         "ms": {
-          "20": 66.9475509999902,
-          "50": 142.9034340000362
-        },
-        "top3": {
-          "before": [
-            "duplicate_key",
-            "duplicate_key",
-            "duplicate_key"
-          ],
-          "after": {
-            "20": [
-              "duplicate_key",
-              "duplicate_key",
-              "duplicate_key"
-            ],
-            "50": [
-              "duplicate_key",
-              "duplicate_key",
-              "duplicate_key"
-            ]
-          }
-        }
-      },
-      "vector": {
-        "before": 1,
-        "after": {
-          "20": 1,
-          "50": 1
-        },
-        "ceiling": {
-          "20": 1,
-          "50": 1
-        },
-        "ms": {
-          "20": 70.68584499997087,
-          "50": 180.47772099997383
+          "20": 76.28520899999421,
+          "50": 151.22932899999432
         },
         "top3": {
           "before": [
@@ -9798,42 +5422,8 @@
           "50": 1
         },
         "ms": {
-          "20": 76.94970300002024,
-          "50": 167.49270299996715
-        },
-        "top3": {
-          "before": [
-            "duplicate_key",
-            "duplicate_key",
-            "duplicate_key"
-          ],
-          "after": {
-            "20": [
-              "duplicate_key",
-              "duplicate_key",
-              "duplicate_key"
-            ],
-            "50": [
-              "duplicate_key",
-              "duplicate_key",
-              "duplicate_key"
-            ]
-          }
-        }
-      },
-      "vector": {
-        "before": 1,
-        "after": {
-          "20": 1,
-          "50": 1
-        },
-        "ceiling": {
-          "20": 1,
-          "50": 1
-        },
-        "ms": {
-          "20": 79.62070400000084,
-          "50": 204.9950409999583
+          "20": 87.98603200001526,
+          "50": 203.5737439999939
         },
         "top3": {
           "before": [
@@ -9874,42 +5464,8 @@
           "50": 1
         },
         "ms": {
-          "20": 49.081838999991305,
-          "50": 139.70887099998072
-        },
-        "top3": {
-          "before": [
-            "stock_inconsistency",
-            "stock_inconsistency",
-            "stock_inconsistency"
-          ],
-          "after": {
-            "20": [
-              "stock_inconsistency",
-              "stock_inconsistency",
-              "stock_inconsistency"
-            ],
-            "50": [
-              "stock_inconsistency",
-              "stock_inconsistency",
-              "stock_inconsistency"
-            ]
-          }
-        }
-      },
-      "vector": {
-        "before": 1,
-        "after": {
-          "20": 1,
-          "50": 1
-        },
-        "ceiling": {
-          "20": 1,
-          "50": 1
-        },
-        "ms": {
-          "20": 52.445398000010755,
-          "50": 143.05023100000108
+          "20": 60.23453999997582,
+          "50": 163.71670699998504
         },
         "top3": {
           "before": [
@@ -9950,42 +5506,8 @@
           "50": 1
         },
         "ms": {
-          "20": 50.55733899999177,
-          "50": 135.9628569999477
-        },
-        "top3": {
-          "before": [
-            "stock_inconsistency",
-            "stock_inconsistency",
-            "stock_inconsistency"
-          ],
-          "after": {
-            "20": [
-              "stock_inconsistency",
-              "stock_inconsistency",
-              "stock_inconsistency"
-            ],
-            "50": [
-              "stock_inconsistency",
-              "stock_inconsistency",
-              "stock_inconsistency"
-            ]
-          }
-        }
-      },
-      "vector": {
-        "before": 1,
-        "after": {
-          "20": 1,
-          "50": 1
-        },
-        "ceiling": {
-          "20": 1,
-          "50": 1
-        },
-        "ms": {
-          "20": 48.69349700002931,
-          "50": 131.7903740000329
+          "20": 60.02156900000409,
+          "50": 165.30609700002242
         },
         "top3": {
           "before": [
@@ -10026,42 +5548,8 @@
           "50": 1
         },
         "ms": {
-          "20": 64.91591899999185,
-          "50": 183.75516999996034
-        },
-        "top3": {
-          "before": [
-            "stock_inconsistency",
-            "stock_inconsistency",
-            "stock_inconsistency"
-          ],
-          "after": {
-            "20": [
-              "stock_inconsistency",
-              "stock_inconsistency",
-              "stock_inconsistency"
-            ],
-            "50": [
-              "stock_inconsistency",
-              "stock_inconsistency",
-              "stock_inconsistency"
-            ]
-          }
-        }
-      },
-      "vector": {
-        "before": 1,
-        "after": {
-          "20": 1,
-          "50": 1
-        },
-        "ceiling": {
-          "20": 1,
-          "50": 1
-        },
-        "ms": {
-          "20": 63.0308349999832,
-          "50": 171.26982399995904
+          "20": 69.93382099998416,
+          "50": 186.32234099999187
         },
         "top3": {
           "before": [
@@ -10102,42 +5590,8 @@
           "50": 1
         },
         "ms": {
-          "20": 57.38699099997757,
-          "50": 184.54671600001166
-        },
-        "top3": {
-          "before": [
-            "queue_lag",
-            "queue_lag",
-            "queue_lag"
-          ],
-          "after": {
-            "20": [
-              "queue_lag",
-              "queue_lag",
-              "queue_lag"
-            ],
-            "50": [
-              "queue_lag",
-              "queue_lag",
-              "queue_lag"
-            ]
-          }
-        }
-      },
-      "vector": {
-        "before": 1,
-        "after": {
-          "20": 1,
-          "50": 1
-        },
-        "ceiling": {
-          "20": 1,
-          "50": 1
-        },
-        "ms": {
-          "20": 65.09055900003295,
-          "50": 156.1267499999958
+          "20": 170.23537700000452,
+          "50": 164.23772100001224
         },
         "top3": {
           "before": [
@@ -10178,42 +5632,8 @@
           "50": 1
         },
         "ms": {
-          "20": 61.94648899999447,
-          "50": 174.37898199999472
-        },
-        "top3": {
-          "before": [
-            "queue_lag",
-            "queue_lag",
-            "queue_lag"
-          ],
-          "after": {
-            "20": [
-              "queue_lag",
-              "queue_lag",
-              "queue_lag"
-            ],
-            "50": [
-              "queue_lag",
-              "queue_lag",
-              "queue_lag"
-            ]
-          }
-        }
-      },
-      "vector": {
-        "before": 1,
-        "after": {
-          "20": 1,
-          "50": 1
-        },
-        "ceiling": {
-          "20": 1,
-          "50": 1
-        },
-        "ms": {
-          "20": 69.24989800003823,
-          "50": 174.75296600000001
+          "20": 54.87928500000271,
+          "50": 156.0507360000047
         },
         "top3": {
           "before": [
@@ -10254,42 +5674,8 @@
           "50": 1
         },
         "ms": {
-          "20": 67.92035099997884,
-          "50": 197.85901000001468
-        },
-        "top3": {
-          "before": [
-            "queue_lag",
-            "queue_lag",
-            "queue_lag"
-          ],
-          "after": {
-            "20": [
-              "queue_lag",
-              "queue_lag",
-              "queue_lag"
-            ],
-            "50": [
-              "queue_lag",
-              "queue_lag",
-              "queue_lag"
-            ]
-          }
-        }
-      },
-      "vector": {
-        "before": 1,
-        "after": {
-          "20": 1,
-          "50": 1
-        },
-        "ceiling": {
-          "20": 1,
-          "50": 1
-        },
-        "ms": {
-          "20": 75.49728400004096,
-          "50": 196.13506900001084
+          "20": 73.45430499999202,
+          "50": 190.14366999999038
         },
         "top3": {
           "before": [
@@ -10330,42 +5716,8 @@
           "50": 1
         },
         "ms": {
-          "20": 324.8710789999459,
-          "50": 843.7483810000122
-        },
-        "top3": {
-          "before": [
-            "db_connection_timeout",
-            "db_connection_timeout",
-            "db_connection_timeout"
-          ],
-          "after": {
-            "20": [
-              "db_connection_timeout",
-              "db_connection_timeout",
-              "db_connection_timeout"
-            ],
-            "50": [
-              "db_connection_timeout",
-              "db_connection_timeout",
-              "db_connection_timeout"
-            ]
-          }
-        }
-      },
-      "vector": {
-        "before": 1,
-        "after": {
-          "20": 1,
-          "50": 1
-        },
-        "ceiling": {
-          "20": 1,
-          "50": 1
-        },
-        "ms": {
-          "20": 317.08023299998604,
-          "50": 789.661672999966
+          "20": 324.22779800000717,
+          "50": 815.6450900000054
         },
         "top3": {
           "before": [
@@ -10406,42 +5758,8 @@
           "50": 1
         },
         "ms": {
-          "20": 341.80443299998296,
-          "50": 840.3483600000036
-        },
-        "top3": {
-          "before": [
-            "db_connection_timeout",
-            "db_connection_timeout",
-            "db_connection_timeout"
-          ],
-          "after": {
-            "20": [
-              "db_connection_timeout",
-              "db_connection_timeout",
-              "db_connection_timeout"
-            ],
-            "50": [
-              "db_connection_timeout",
-              "db_connection_timeout",
-              "db_connection_timeout"
-            ]
-          }
-        }
-      },
-      "vector": {
-        "before": 1,
-        "after": {
-          "20": 1,
-          "50": 1
-        },
-        "ceiling": {
-          "20": 1,
-          "50": 1
-        },
-        "ms": {
-          "20": 313.046548000013,
-          "50": 796.5790530000231
+          "20": 333.76525699999183,
+          "50": 832.3072009999887
         },
         "top3": {
           "before": [
@@ -10482,42 +5800,8 @@
           "50": 1
         },
         "ms": {
-          "20": 354.03267099999357,
-          "50": 874.5141919999733
-        },
-        "top3": {
-          "before": [
-            "db_connection_timeout",
-            "db_connection_timeout",
-            "db_connection_timeout"
-          ],
-          "after": {
-            "20": [
-              "db_connection_timeout",
-              "db_connection_timeout",
-              "db_connection_timeout"
-            ],
-            "50": [
-              "db_connection_timeout",
-              "db_connection_timeout",
-              "db_connection_timeout"
-            ]
-          }
-        }
-      },
-      "vector": {
-        "before": 1,
-        "after": {
-          "20": 1,
-          "50": 1
-        },
-        "ceiling": {
-          "20": 1,
-          "50": 1
-        },
-        "ms": {
-          "20": 351.1712520000292,
-          "50": 867.6800960000255
+          "20": 372.57040399999823,
+          "50": 866.1333440000017
         },
         "top3": {
           "before": [
@@ -10558,8 +5842,8 @@
           "50": 1
         },
         "ms": {
-          "20": 257.92554199998267,
-          "50": 533.1969129999634
+          "20": 248.32985399998142,
+          "50": 522.5931780000101
         },
         "top3": {
           "before": [
@@ -10572,40 +5856,6 @@
               "null_reference",
               "null_reference",
               "null_reference"
-            ],
-            "50": [
-              "null_reference",
-              "null_reference",
-              "null_reference"
-            ]
-          }
-        }
-      },
-      "vector": {
-        "before": 0,
-        "after": {
-          "20": 0.1,
-          "50": 0.7
-        },
-        "ceiling": {
-          "20": 0.1,
-          "50": 0.7
-        },
-        "ms": {
-          "20": 78.31617499998538,
-          "50": 197.07204900000943
-        },
-        "top3": {
-          "before": [
-            "db_connection_timeout",
-            "db_connection_timeout",
-            "db_connection_timeout"
-          ],
-          "after": {
-            "20": [
-              "null_reference",
-              "db_connection_timeout",
-              "db_connection_timeout"
             ],
             "50": [
               "null_reference",
@@ -10634,8 +5884,8 @@
           "50": 1
         },
         "ms": {
-          "20": 278.265951999987,
-          "50": 538.1147999999812
+          "20": 259.95249799999874,
+          "50": 597.1847259999777
         },
         "top3": {
           "before": [
@@ -10648,40 +5898,6 @@
               "null_reference",
               "null_reference",
               "null_reference"
-            ],
-            "50": [
-              "null_reference",
-              "null_reference",
-              "null_reference"
-            ]
-          }
-        }
-      },
-      "vector": {
-        "before": 0,
-        "after": {
-          "20": 0.1,
-          "50": 0.7
-        },
-        "ceiling": {
-          "20": 0.1,
-          "50": 0.7
-        },
-        "ms": {
-          "20": 68.50270299997646,
-          "50": 193.44389799999772
-        },
-        "top3": {
-          "before": [
-            "db_connection_timeout",
-            "db_connection_timeout",
-            "db_connection_timeout"
-          ],
-          "after": {
-            "20": [
-              "null_reference",
-              "db_connection_timeout",
-              "db_connection_timeout"
             ],
             "50": [
               "null_reference",
@@ -10710,8 +5926,8 @@
           "50": 1
         },
         "ms": {
-          "20": 225.51470900001004,
-          "50": 490.75268000003416
+          "20": 234.1702970000042,
+          "50": 528.2719799999904
         },
         "top3": {
           "before": [
@@ -10729,40 +5945,6 @@
               "null_reference",
               "null_reference",
               "null_reference"
-            ]
-          }
-        }
-      },
-      "vector": {
-        "before": 0.1,
-        "after": {
-          "20": 0,
-          "50": 0
-        },
-        "ceiling": {
-          "20": 0.1,
-          "50": 0.2
-        },
-        "ms": {
-          "20": 107.01989200001117,
-          "50": 224.2915459999931
-        },
-        "top3": {
-          "before": [
-            "out_of_memory",
-            "out_of_memory",
-            "null_reference"
-          ],
-          "after": {
-            "20": [
-              "out_of_memory",
-              "out_of_memory",
-              "out_of_memory"
-            ],
-            "50": [
-              "out_of_memory",
-              "out_of_memory",
-              "out_of_memory"
             ]
           }
         }
@@ -10786,48 +5968,14 @@
           "50": 1
         },
         "ms": {
-          "20": 148.06923500000266,
-          "50": 319.62218599999323
+          "20": 160.00354199999128,
+          "50": 349.69322600000305
         },
         "top3": {
           "before": [
             "out_of_memory",
             "out_of_memory",
             "out_of_memory"
-          ],
-          "after": {
-            "20": [
-              "out_of_memory",
-              "out_of_memory",
-              "out_of_memory"
-            ],
-            "50": [
-              "out_of_memory",
-              "out_of_memory",
-              "out_of_memory"
-            ]
-          }
-        }
-      },
-      "vector": {
-        "before": 0.3,
-        "after": {
-          "20": 0.8,
-          "50": 1
-        },
-        "ceiling": {
-          "20": 0.8,
-          "50": 1
-        },
-        "ms": {
-          "20": 64.5247569999774,
-          "50": 153.23890600004233
-        },
-        "top3": {
-          "before": [
-            "out_of_memory",
-            "duplicate_key",
-            "duplicate_key"
           ],
           "after": {
             "20": [
@@ -10862,48 +6010,14 @@
           "50": 1
         },
         "ms": {
-          "20": 142.62118100002408,
-          "50": 317.3804869999876
+          "20": 151.2630749999953,
+          "50": 411.65315699999337
         },
         "top3": {
           "before": [
             "out_of_memory",
             "out_of_memory",
             "out_of_memory"
-          ],
-          "after": {
-            "20": [
-              "out_of_memory",
-              "out_of_memory",
-              "out_of_memory"
-            ],
-            "50": [
-              "out_of_memory",
-              "out_of_memory",
-              "out_of_memory"
-            ]
-          }
-        }
-      },
-      "vector": {
-        "before": 0.3,
-        "after": {
-          "20": 0.8,
-          "50": 1
-        },
-        "ceiling": {
-          "20": 0.8,
-          "50": 1
-        },
-        "ms": {
-          "20": 63.852415000030305,
-          "50": 161.69003699999303
-        },
-        "top3": {
-          "before": [
-            "out_of_memory",
-            "duplicate_key",
-            "duplicate_key"
           ],
           "after": {
             "20": [
@@ -10938,42 +6052,8 @@
           "50": 1
         },
         "ms": {
-          "20": 148.59811199997785,
-          "50": 340.6386770000099
-        },
-        "top3": {
-          "before": [
-            "out_of_memory",
-            "out_of_memory",
-            "out_of_memory"
-          ],
-          "after": {
-            "20": [
-              "out_of_memory",
-              "out_of_memory",
-              "out_of_memory"
-            ],
-            "50": [
-              "out_of_memory",
-              "out_of_memory",
-              "out_of_memory"
-            ]
-          }
-        }
-      },
-      "vector": {
-        "before": 1,
-        "after": {
-          "20": 1,
-          "50": 1
-        },
-        "ceiling": {
-          "20": 1,
-          "50": 1
-        },
-        "ms": {
-          "20": 69.61798500001896,
-          "50": 172.5605870000436
+          "20": 157.6615950000123,
+          "50": 366.8844190000091
         },
         "top3": {
           "before": [
@@ -11014,42 +6094,8 @@
           "50": 1
         },
         "ms": {
-          "20": 71.71128400001908,
-          "50": 134.46794499998214
-        },
-        "top3": {
-          "before": [
-            "out_of_memory",
-            "out_of_memory",
-            "out_of_memory"
-          ],
-          "after": {
-            "20": [
-              "out_of_memory",
-              "out_of_memory",
-              "out_of_memory"
-            ],
-            "50": [
-              "out_of_memory",
-              "out_of_memory",
-              "out_of_memory"
-            ]
-          }
-        }
-      },
-      "vector": {
-        "before": 1,
-        "after": {
-          "20": 1,
-          "50": 1
-        },
-        "ceiling": {
-          "20": 1,
-          "50": 1
-        },
-        "ms": {
-          "20": 60.60298899997724,
-          "50": 178.81439299997874
+          "20": 55.33859400000074,
+          "50": 133.11721900000703
         },
         "top3": {
           "before": [
@@ -11090,42 +6136,8 @@
           "50": 1
         },
         "ms": {
-          "20": 71.31036100001074,
-          "50": 138.5304410000099
-        },
-        "top3": {
-          "before": [
-            "out_of_memory",
-            "out_of_memory",
-            "out_of_memory"
-          ],
-          "after": {
-            "20": [
-              "out_of_memory",
-              "out_of_memory",
-              "out_of_memory"
-            ],
-            "50": [
-              "out_of_memory",
-              "out_of_memory",
-              "out_of_memory"
-            ]
-          }
-        }
-      },
-      "vector": {
-        "before": 1,
-        "after": {
-          "20": 1,
-          "50": 1
-        },
-        "ceiling": {
-          "20": 1,
-          "50": 1
-        },
-        "ms": {
-          "20": 55.539026999962516,
-          "50": 173.2813460000325
+          "20": 58.774317000003066,
+          "50": 130.7440260000003
         },
         "top3": {
           "before": [
@@ -11166,42 +6178,8 @@
           "50": 1
         },
         "ms": {
-          "20": 71.41363500000443,
-          "50": 181.47505499998806
-        },
-        "top3": {
-          "before": [
-            "out_of_memory",
-            "out_of_memory",
-            "out_of_memory"
-          ],
-          "after": {
-            "20": [
-              "out_of_memory",
-              "out_of_memory",
-              "out_of_memory"
-            ],
-            "50": [
-              "out_of_memory",
-              "out_of_memory",
-              "out_of_memory"
-            ]
-          }
-        }
-      },
-      "vector": {
-        "before": 1,
-        "after": {
-          "20": 1,
-          "50": 1
-        },
-        "ceiling": {
-          "20": 1,
-          "50": 1
-        },
-        "ms": {
-          "20": 70.01840599998832,
-          "50": 165.0310649999883
+          "20": 61.15184499998577,
+          "50": 210.28337099999771
         },
         "top3": {
           "before": [
@@ -11242,42 +6220,8 @@
           "50": 1
         },
         "ms": {
-          "20": 45.15497700002743,
-          "50": 131.75673500000266
-        },
-        "top3": {
-          "before": [
-            "stock_inconsistency",
-            "stock_inconsistency",
-            "stock_inconsistency"
-          ],
-          "after": {
-            "20": [
-              "stock_inconsistency",
-              "stock_inconsistency",
-              "stock_inconsistency"
-            ],
-            "50": [
-              "stock_inconsistency",
-              "stock_inconsistency",
-              "stock_inconsistency"
-            ]
-          }
-        }
-      },
-      "vector": {
-        "before": 1,
-        "after": {
-          "20": 1,
-          "50": 1
-        },
-        "ceiling": {
-          "20": 1,
-          "50": 1
-        },
-        "ms": {
-          "20": 55.11477799998829,
-          "50": 217.4282799999928
+          "20": 47.80370099999709,
+          "50": 156.51758700000937
         },
         "top3": {
           "before": [
@@ -11318,42 +6262,8 @@
           "50": 1
         },
         "ms": {
-          "20": 46.51310199999716,
-          "50": 151.62102900003083
-        },
-        "top3": {
-          "before": [
-            "stock_inconsistency",
-            "stock_inconsistency",
-            "stock_inconsistency"
-          ],
-          "after": {
-            "20": [
-              "stock_inconsistency",
-              "stock_inconsistency",
-              "stock_inconsistency"
-            ],
-            "50": [
-              "stock_inconsistency",
-              "stock_inconsistency",
-              "stock_inconsistency"
-            ]
-          }
-        }
-      },
-      "vector": {
-        "before": 1,
-        "after": {
-          "20": 1,
-          "50": 1
-        },
-        "ceiling": {
-          "20": 1,
-          "50": 1
-        },
-        "ms": {
-          "20": 48.14650700002676,
-          "50": 209.67853400000604
+          "20": 54.674437999987276,
+          "50": 139.56541500001913
         },
         "top3": {
           "before": [
@@ -11394,42 +6304,8 @@
           "50": 1
         },
         "ms": {
-          "20": 59.90892800001893,
-          "50": 183.45645699999295
-        },
-        "top3": {
-          "before": [
-            "stock_inconsistency",
-            "stock_inconsistency",
-            "stock_inconsistency"
-          ],
-          "after": {
-            "20": [
-              "stock_inconsistency",
-              "stock_inconsistency",
-              "stock_inconsistency"
-            ],
-            "50": [
-              "stock_inconsistency",
-              "stock_inconsistency",
-              "stock_inconsistency"
-            ]
-          }
-        }
-      },
-      "vector": {
-        "before": 1,
-        "after": {
-          "20": 1,
-          "50": 1
-        },
-        "ceiling": {
-          "20": 1,
-          "50": 1
-        },
-        "ms": {
-          "20": 61.88298200001009,
-          "50": 162.72800900001312
+          "20": 67.54675700000371,
+          "50": 168.17279199999757
         },
         "top3": {
           "before": [
@@ -11470,42 +6346,8 @@
           "50": 1
         },
         "ms": {
-          "20": 48.84328699996695,
-          "50": 121.36507200001506
-        },
-        "top3": {
-          "before": [
-            "db_connection_timeout",
-            "db_connection_timeout",
-            "db_connection_timeout"
-          ],
-          "after": {
-            "20": [
-              "db_connection_timeout",
-              "db_connection_timeout",
-              "db_connection_timeout"
-            ],
-            "50": [
-              "db_connection_timeout",
-              "db_connection_timeout",
-              "db_connection_timeout"
-            ]
-          }
-        }
-      },
-      "vector": {
-        "before": 1,
-        "after": {
-          "20": 1,
-          "50": 1
-        },
-        "ceiling": {
-          "20": 1,
-          "50": 1
-        },
-        "ms": {
-          "20": 51.93755500001134,
-          "50": 128.0489880000241
+          "20": 46.57664099999238,
+          "50": 145.81061400001636
         },
         "top3": {
           "before": [
@@ -11546,42 +6388,8 @@
           "50": 1
         },
         "ms": {
-          "20": 51.66693000000669,
-          "50": 133.1483110000263
-        },
-        "top3": {
-          "before": [
-            "db_connection_timeout",
-            "db_connection_timeout",
-            "db_connection_timeout"
-          ],
-          "after": {
-            "20": [
-              "db_connection_timeout",
-              "db_connection_timeout",
-              "db_connection_timeout"
-            ],
-            "50": [
-              "db_connection_timeout",
-              "db_connection_timeout",
-              "db_connection_timeout"
-            ]
-          }
-        }
-      },
-      "vector": {
-        "before": 1,
-        "after": {
-          "20": 1,
-          "50": 1
-        },
-        "ceiling": {
-          "20": 1,
-          "50": 1
-        },
-        "ms": {
-          "20": 47.664151999983005,
-          "50": 123.89085799996974
+          "20": 51.60818099998869,
+          "50": 141.62266200000886
         },
         "top3": {
           "before": [
@@ -11622,42 +6430,8 @@
           "50": 1
         },
         "ms": {
-          "20": 59.59474099997897,
-          "50": 146.69999599998118
-        },
-        "top3": {
-          "before": [
-            "db_connection_timeout",
-            "db_connection_timeout",
-            "db_connection_timeout"
-          ],
-          "after": {
-            "20": [
-              "db_connection_timeout",
-              "db_connection_timeout",
-              "db_connection_timeout"
-            ],
-            "50": [
-              "db_connection_timeout",
-              "db_connection_timeout",
-              "db_connection_timeout"
-            ]
-          }
-        }
-      },
-      "vector": {
-        "before": 1,
-        "after": {
-          "20": 1,
-          "50": 1
-        },
-        "ceiling": {
-          "20": 1,
-          "50": 1
-        },
-        "ms": {
-          "20": 63.58672399999341,
-          "50": 160.1048379999702
+          "20": 65.86311000000569,
+          "50": 185.26671599998372
         },
         "top3": {
           "before": [
@@ -11698,48 +6472,14 @@
           "50": 1
         },
         "ms": {
-          "20": 61.40518800000427,
-          "50": 169.41098200000124
+          "20": 61.08262499998091,
+          "50": 166.4887260000105
         },
         "top3": {
           "before": [
             "rate_limited",
             "rate_limited",
             "rate_limited"
-          ],
-          "after": {
-            "20": [
-              "rate_limited",
-              "rate_limited",
-              "rate_limited"
-            ],
-            "50": [
-              "rate_limited",
-              "rate_limited",
-              "rate_limited"
-            ]
-          }
-        }
-      },
-      "vector": {
-        "before": 0.3,
-        "after": {
-          "20": 0.9,
-          "50": 1
-        },
-        "ceiling": {
-          "20": 0.9,
-          "50": 1
-        },
-        "ms": {
-          "20": 61.94253000000026,
-          "50": 167.25234499998624
-        },
-        "top3": {
-          "before": [
-            "disk_full",
-            "disk_full",
-            "disk_full"
           ],
           "after": {
             "20": [
@@ -11774,48 +6514,14 @@
           "50": 1
         },
         "ms": {
-          "20": 56.00230599998031,
-          "50": 154.84050099999877
+          "20": 74.60140499999397,
+          "50": 152.15331299998797
         },
         "top3": {
           "before": [
             "rate_limited",
             "rate_limited",
             "rate_limited"
-          ],
-          "after": {
-            "20": [
-              "rate_limited",
-              "rate_limited",
-              "rate_limited"
-            ],
-            "50": [
-              "rate_limited",
-              "rate_limited",
-              "rate_limited"
-            ]
-          }
-        }
-      },
-      "vector": {
-        "before": 0.3,
-        "after": {
-          "20": 0.9,
-          "50": 1
-        },
-        "ceiling": {
-          "20": 0.9,
-          "50": 1
-        },
-        "ms": {
-          "20": 58.041897999995854,
-          "50": 159.88050600001588
-        },
-        "top3": {
-          "before": [
-            "disk_full",
-            "disk_full",
-            "disk_full"
           ],
           "after": {
             "20": [
@@ -11850,8 +6556,8 @@
           "50": 1
         },
         "ms": {
-          "20": 63.67532999999821,
-          "50": 175.6703620000044
+          "20": 71.25091100001009,
+          "50": 193.5394119999837
         },
         "top3": {
           "before": [
@@ -11864,40 +6570,6 @@
               "rate_limited",
               "rate_limited",
               "rate_limited"
-            ],
-            "50": [
-              "rate_limited",
-              "rate_limited",
-              "rate_limited"
-            ]
-          }
-        }
-      },
-      "vector": {
-        "before": 0,
-        "after": {
-          "20": 0.2,
-          "50": 0.5
-        },
-        "ceiling": {
-          "20": 0.2,
-          "50": 0.5
-        },
-        "ms": {
-          "20": 66.57849899999565,
-          "50": 174.9877100000158
-        },
-        "top3": {
-          "before": [
-            "disk_full",
-            "disk_full",
-            "disk_full"
-          ],
-          "after": {
-            "20": [
-              "rate_limited",
-              "rate_limited",
-              "disk_full"
             ],
             "50": [
               "rate_limited",
@@ -11926,42 +6598,8 @@
           "50": 1
         },
         "ms": {
-          "20": 58.2776179999928,
-          "50": 125.9857019999763
-        },
-        "top3": {
-          "before": [
-            "stock_inconsistency",
-            "stock_inconsistency",
-            "stock_inconsistency"
-          ],
-          "after": {
-            "20": [
-              "stock_inconsistency",
-              "stock_inconsistency",
-              "stock_inconsistency"
-            ],
-            "50": [
-              "stock_inconsistency",
-              "stock_inconsistency",
-              "stock_inconsistency"
-            ]
-          }
-        }
-      },
-      "vector": {
-        "before": 1,
-        "after": {
-          "20": 1,
-          "50": 1
-        },
-        "ceiling": {
-          "20": 1,
-          "50": 1
-        },
-        "ms": {
-          "20": 63.842341999989,
-          "50": 168.5053600000101
+          "20": 60.48390899997321,
+          "50": 121.37257700000191
         },
         "top3": {
           "before": [
@@ -12002,42 +6640,8 @@
           "50": 1
         },
         "ms": {
-          "20": 58.30737300001783,
-          "50": 125.21112900000298
-        },
-        "top3": {
-          "before": [
-            "stock_inconsistency",
-            "stock_inconsistency",
-            "stock_inconsistency"
-          ],
-          "after": {
-            "20": [
-              "stock_inconsistency",
-              "stock_inconsistency",
-              "stock_inconsistency"
-            ],
-            "50": [
-              "stock_inconsistency",
-              "stock_inconsistency",
-              "stock_inconsistency"
-            ]
-          }
-        }
-      },
-      "vector": {
-        "before": 1,
-        "after": {
-          "20": 1,
-          "50": 1
-        },
-        "ceiling": {
-          "20": 1,
-          "50": 1
-        },
-        "ms": {
-          "20": 63.06764900003327,
-          "50": 165.94216400000732
+          "20": 58.735327000002144,
+          "50": 121.11060200000065
         },
         "top3": {
           "before": [
@@ -12078,42 +6682,8 @@
           "50": 1
         },
         "ms": {
-          "20": 81.18163000000641,
-          "50": 193.43455199996242
-        },
-        "top3": {
-          "before": [
-            "stock_inconsistency",
-            "stock_inconsistency",
-            "stock_inconsistency"
-          ],
-          "after": {
-            "20": [
-              "stock_inconsistency",
-              "stock_inconsistency",
-              "stock_inconsistency"
-            ],
-            "50": [
-              "stock_inconsistency",
-              "stock_inconsistency",
-              "stock_inconsistency"
-            ]
-          }
-        }
-      },
-      "vector": {
-        "before": 1,
-        "after": {
-          "20": 1,
-          "50": 1
-        },
-        "ceiling": {
-          "20": 1,
-          "50": 1
-        },
-        "ms": {
-          "20": 71.1893239999772,
-          "50": 215.01216699997894
+          "20": 71.42032699999982,
+          "50": 166.3044359999767
         },
         "top3": {
           "before": [
@@ -12154,42 +6724,8 @@
           "50": 1
         },
         "ms": {
-          "20": 47.6145489999908,
-          "50": 129.83386700000847
-        },
-        "top3": {
-          "before": [
-            "cache_unavailable",
-            "cache_unavailable",
-            "cache_unavailable"
-          ],
-          "after": {
-            "20": [
-              "cache_unavailable",
-              "cache_unavailable",
-              "cache_unavailable"
-            ],
-            "50": [
-              "cache_unavailable",
-              "cache_unavailable",
-              "cache_unavailable"
-            ]
-          }
-        }
-      },
-      "vector": {
-        "before": 1,
-        "after": {
-          "20": 1,
-          "50": 1
-        },
-        "ceiling": {
-          "20": 1,
-          "50": 1
-        },
-        "ms": {
-          "20": 53.775324999995064,
-          "50": 142.42330999998376
+          "20": 52.97086000000127,
+          "50": 121.24384700000519
         },
         "top3": {
           "before": [
@@ -12230,42 +6766,8 @@
           "50": 1
         },
         "ms": {
-          "20": 46.1111839999794,
-          "50": 142.69258099998115
-        },
-        "top3": {
-          "before": [
-            "cache_unavailable",
-            "cache_unavailable",
-            "cache_unavailable"
-          ],
-          "after": {
-            "20": [
-              "cache_unavailable",
-              "cache_unavailable",
-              "cache_unavailable"
-            ],
-            "50": [
-              "cache_unavailable",
-              "cache_unavailable",
-              "cache_unavailable"
-            ]
-          }
-        }
-      },
-      "vector": {
-        "before": 1,
-        "after": {
-          "20": 1,
-          "50": 1
-        },
-        "ceiling": {
-          "20": 1,
-          "50": 1
-        },
-        "ms": {
-          "20": 54.34784599998966,
-          "50": 138.4663489999948
+          "20": 54.30856199999107,
+          "50": 124.9358320000174
         },
         "top3": {
           "before": [
@@ -12306,42 +6808,8 @@
           "50": 1
         },
         "ms": {
-          "20": 73.01584800001001,
-          "50": 162.94795400003204
-        },
-        "top3": {
-          "before": [
-            "cache_unavailable",
-            "cache_unavailable",
-            "cache_unavailable"
-          ],
-          "after": {
-            "20": [
-              "cache_unavailable",
-              "cache_unavailable",
-              "cache_unavailable"
-            ],
-            "50": [
-              "cache_unavailable",
-              "cache_unavailable",
-              "cache_unavailable"
-            ]
-          }
-        }
-      },
-      "vector": {
-        "before": 1,
-        "after": {
-          "20": 1,
-          "50": 1
-        },
-        "ceiling": {
-          "20": 1,
-          "50": 1
-        },
-        "ms": {
-          "20": 63.8512510000146,
-          "50": 152.47737300000153
+          "20": 61.499474000011105,
+          "50": 152.01639199999045
         },
         "top3": {
           "before": [
@@ -12382,42 +6850,8 @@
           "50": 1
         },
         "ms": {
-          "20": 67.86144499998773,
-          "50": 163.3391689999844
-        },
-        "top3": {
-          "before": [
-            "slow_query",
-            "slow_query",
-            "slow_query"
-          ],
-          "after": {
-            "20": [
-              "slow_query",
-              "slow_query",
-              "slow_query"
-            ],
-            "50": [
-              "slow_query",
-              "slow_query",
-              "slow_query"
-            ]
-          }
-        }
-      },
-      "vector": {
-        "before": 1,
-        "after": {
-          "20": 1,
-          "50": 1
-        },
-        "ceiling": {
-          "20": 1,
-          "50": 1
-        },
-        "ms": {
-          "20": 66.69644500000868,
-          "50": 176.2095219999901
+          "20": 65.26819899998372,
+          "50": 163.13182800001232
         },
         "top3": {
           "before": [
@@ -12458,42 +6892,8 @@
           "50": 1
         },
         "ms": {
-          "20": 65.63498599996092,
-          "50": 169.59343499998795
-        },
-        "top3": {
-          "before": [
-            "slow_query",
-            "slow_query",
-            "slow_query"
-          ],
-          "after": {
-            "20": [
-              "slow_query",
-              "slow_query",
-              "slow_query"
-            ],
-            "50": [
-              "slow_query",
-              "slow_query",
-              "slow_query"
-            ]
-          }
-        }
-      },
-      "vector": {
-        "before": 1,
-        "after": {
-          "20": 1,
-          "50": 1
-        },
-        "ceiling": {
-          "20": 1,
-          "50": 1
-        },
-        "ms": {
-          "20": 62.52000499999849,
-          "50": 167.19923500000732
+          "20": 69.54644299999927,
+          "50": 157.55500100000063
         },
         "top3": {
           "before": [
@@ -12534,42 +6934,8 @@
           "50": 1
         },
         "ms": {
-          "20": 70.73089499998605,
-          "50": 178.14067799999611
-        },
-        "top3": {
-          "before": [
-            "slow_query",
-            "slow_query",
-            "slow_query"
-          ],
-          "after": {
-            "20": [
-              "slow_query",
-              "slow_query",
-              "slow_query"
-            ],
-            "50": [
-              "slow_query",
-              "slow_query",
-              "slow_query"
-            ]
-          }
-        }
-      },
-      "vector": {
-        "before": 0.6,
-        "after": {
-          "20": 1,
-          "50": 1
-        },
-        "ceiling": {
-          "20": 1,
-          "50": 1
-        },
-        "ms": {
-          "20": 72.93705899995985,
-          "50": 178.08248499996262
+          "20": 75.13689200000954,
+          "50": 176.12498299998697
         },
         "top3": {
           "before": [
@@ -12610,42 +6976,8 @@
           "50": 1
         },
         "ms": {
-          "20": 64.5519000000204,
-          "50": 169.61499700002605
-        },
-        "top3": {
-          "before": [
-            "jwt_expired",
-            "jwt_expired",
-            "jwt_expired"
-          ],
-          "after": {
-            "20": [
-              "jwt_expired",
-              "jwt_expired",
-              "jwt_expired"
-            ],
-            "50": [
-              "jwt_expired",
-              "jwt_expired",
-              "jwt_expired"
-            ]
-          }
-        }
-      },
-      "vector": {
-        "before": 1,
-        "after": {
-          "20": 1,
-          "50": 1
-        },
-        "ceiling": {
-          "20": 1,
-          "50": 1
-        },
-        "ms": {
-          "20": 60.580715999996755,
-          "50": 166.10298099997453
+          "20": 64.80366700000013,
+          "50": 162.1451320000051
         },
         "top3": {
           "before": [
@@ -12686,42 +7018,8 @@
           "50": 1
         },
         "ms": {
-          "20": 60.62605000002077,
-          "50": 164.57969099999173
-        },
-        "top3": {
-          "before": [
-            "jwt_expired",
-            "jwt_expired",
-            "jwt_expired"
-          ],
-          "after": {
-            "20": [
-              "jwt_expired",
-              "jwt_expired",
-              "jwt_expired"
-            ],
-            "50": [
-              "jwt_expired",
-              "jwt_expired",
-              "jwt_expired"
-            ]
-          }
-        }
-      },
-      "vector": {
-        "before": 1,
-        "after": {
-          "20": 1,
-          "50": 1
-        },
-        "ceiling": {
-          "20": 1,
-          "50": 1
-        },
-        "ms": {
-          "20": 59.768404000031296,
-          "50": 161.03682999999728
+          "20": 63.79715200001374,
+          "50": 168.51092999998946
         },
         "top3": {
           "before": [
@@ -12762,42 +7060,8 @@
           "50": 1
         },
         "ms": {
-          "20": 73.03558999998495,
-          "50": 197.77936899999622
-        },
-        "top3": {
-          "before": [
-            "jwt_expired",
-            "jwt_expired",
-            "jwt_expired"
-          ],
-          "after": {
-            "20": [
-              "jwt_expired",
-              "jwt_expired",
-              "jwt_expired"
-            ],
-            "50": [
-              "jwt_expired",
-              "jwt_expired",
-              "jwt_expired"
-            ]
-          }
-        }
-      },
-      "vector": {
-        "before": 1,
-        "after": {
-          "20": 1,
-          "50": 1
-        },
-        "ceiling": {
-          "20": 1,
-          "50": 1
-        },
-        "ms": {
-          "20": 79.77269299997715,
-          "50": 199.3730360000045
+          "20": 71.62047500000335,
+          "50": 185.82007799998973
         },
         "top3": {
           "before": [
@@ -12838,42 +7102,8 @@
           "50": 1
         },
         "ms": {
-          "20": 285.36717500002123,
-          "50": 658.2667210000218
-        },
-        "top3": {
-          "before": [
-            "null_reference",
-            "null_reference",
-            "null_reference"
-          ],
-          "after": {
-            "20": [
-              "null_reference",
-              "null_reference",
-              "null_reference"
-            ],
-            "50": [
-              "null_reference",
-              "null_reference",
-              "null_reference"
-            ]
-          }
-        }
-      },
-      "vector": {
-        "before": 1,
-        "after": {
-          "20": 1,
-          "50": 1
-        },
-        "ceiling": {
-          "20": 1,
-          "50": 1
-        },
-        "ms": {
-          "20": 203.49981900001876,
-          "50": 473.07338300003903
+          "20": 292.02832700000727,
+          "50": 647.413922000007
         },
         "top3": {
           "before": [
@@ -12914,42 +7144,8 @@
           "50": 1
         },
         "ms": {
-          "20": 272.90817900002,
-          "50": 665.2372520000208
-        },
-        "top3": {
-          "before": [
-            "null_reference",
-            "null_reference",
-            "null_reference"
-          ],
-          "after": {
-            "20": [
-              "null_reference",
-              "null_reference",
-              "null_reference"
-            ],
-            "50": [
-              "null_reference",
-              "null_reference",
-              "null_reference"
-            ]
-          }
-        }
-      },
-      "vector": {
-        "before": 1,
-        "after": {
-          "20": 1,
-          "50": 1
-        },
-        "ceiling": {
-          "20": 1,
-          "50": 1
-        },
-        "ms": {
-          "20": 223.7480729999952,
-          "50": 489.33969900000375
+          "20": 261.3006030000106,
+          "50": 632.7185719999834
         },
         "top3": {
           "before": [
@@ -12990,42 +7186,8 @@
           "50": 1
         },
         "ms": {
-          "20": 273.34460700000636,
-          "50": 626.2295980000054
-        },
-        "top3": {
-          "before": [
-            "null_reference",
-            "null_reference",
-            "null_reference"
-          ],
-          "after": {
-            "20": [
-              "null_reference",
-              "null_reference",
-              "null_reference"
-            ],
-            "50": [
-              "null_reference",
-              "null_reference",
-              "null_reference"
-            ]
-          }
-        }
-      },
-      "vector": {
-        "before": 1,
-        "after": {
-          "20": 1,
-          "50": 0.3
-        },
-        "ceiling": {
-          "20": 1,
-          "50": 1
-        },
-        "ms": {
-          "20": 114.50275799998781,
-          "50": 205.69320500001777
+          "20": 266.0064209999982,
+          "50": 623.0010820000025
         },
         "top3": {
           "before": [
@@ -13066,42 +7228,8 @@
           "50": 1
         },
         "ms": {
-          "20": 44.98151599999983,
-          "50": 118.62440299999435
-        },
-        "top3": {
-          "before": [
-            "null_reference",
-            "null_reference",
-            "null_reference"
-          ],
-          "after": {
-            "20": [
-              "null_reference",
-              "null_reference",
-              "null_reference"
-            ],
-            "50": [
-              "null_reference",
-              "null_reference",
-              "null_reference"
-            ]
-          }
-        }
-      },
-      "vector": {
-        "before": 1,
-        "after": {
-          "20": 1,
-          "50": 1
-        },
-        "ceiling": {
-          "20": 1,
-          "50": 1
-        },
-        "ms": {
-          "20": 52.73775899998145,
-          "50": 120.25103200000012
+          "20": 49.51204699999653,
+          "50": 118.05202500001178
         },
         "top3": {
           "before": [
@@ -13142,42 +7270,8 @@
           "50": 1
         },
         "ms": {
-          "20": 47.060289999993984,
-          "50": 114.03878900001291
-        },
-        "top3": {
-          "before": [
-            "null_reference",
-            "null_reference",
-            "null_reference"
-          ],
-          "after": {
-            "20": [
-              "null_reference",
-              "null_reference",
-              "null_reference"
-            ],
-            "50": [
-              "null_reference",
-              "null_reference",
-              "null_reference"
-            ]
-          }
-        }
-      },
-      "vector": {
-        "before": 1,
-        "after": {
-          "20": 1,
-          "50": 1
-        },
-        "ceiling": {
-          "20": 1,
-          "50": 1
-        },
-        "ms": {
-          "20": 44.16206300002523,
-          "50": 124.38031199999386
+          "20": 46.80737200001022,
+          "50": 125.84355599997798
         },
         "top3": {
           "before": [
@@ -13218,42 +7312,8 @@
           "50": 1
         },
         "ms": {
-          "20": 61.997695000027306,
-          "50": 149.92941599996993
-        },
-        "top3": {
-          "before": [
-            "null_reference",
-            "null_reference",
-            "null_reference"
-          ],
-          "after": {
-            "20": [
-              "null_reference",
-              "null_reference",
-              "null_reference"
-            ],
-            "50": [
-              "null_reference",
-              "null_reference",
-              "null_reference"
-            ]
-          }
-        }
-      },
-      "vector": {
-        "before": 0.4,
-        "after": {
-          "20": 0.4,
-          "50": 1
-        },
-        "ceiling": {
-          "20": 0.4,
-          "50": 1
-        },
-        "ms": {
-          "20": 65.27990700001828,
-          "50": 163.88351100002183
+          "20": 58.291812000010395,
+          "50": 156.54287800000748
         },
         "top3": {
           "before": [
@@ -13294,8 +7354,8 @@
           "50": 1
         },
         "ms": {
-          "20": 68.55624200002057,
-          "50": 138.23614100000123
+          "20": 63.258196000009775,
+          "50": 151.02419700002065
         },
         "top3": {
           "before": [
@@ -13313,40 +7373,6 @@
               "tls_cert_expired",
               "tls_cert_expired",
               "tls_cert_expired"
-            ]
-          }
-        }
-      },
-      "vector": {
-        "before": 0,
-        "after": {
-          "20": 0,
-          "50": 0
-        },
-        "ceiling": {
-          "20": 0,
-          "50": 0
-        },
-        "ms": {
-          "20": 44.238111999991816,
-          "50": 116.19421300000977
-        },
-        "top3": {
-          "before": [
-            "payment_gateway_5xx",
-            "db_connection_timeout",
-            "db_connection_timeout"
-          ],
-          "after": {
-            "20": [
-              "payment_gateway_5xx",
-              "payment_gateway_5xx",
-              "db_connection_timeout"
-            ],
-            "50": [
-              "payment_gateway_5xx",
-              "payment_gateway_5xx",
-              "payment_gateway_5xx"
             ]
           }
         }
@@ -13370,8 +7396,8 @@
           "50": 1
         },
         "ms": {
-          "20": 65.10187000001315,
-          "50": 161.2869279999868
+          "20": 61.08977900000173,
+          "50": 182.82262200000696
         },
         "top3": {
           "before": [
@@ -13389,40 +7415,6 @@
               "tls_cert_expired",
               "tls_cert_expired",
               "tls_cert_expired"
-            ]
-          }
-        }
-      },
-      "vector": {
-        "before": 0,
-        "after": {
-          "20": 0,
-          "50": 0
-        },
-        "ceiling": {
-          "20": 0,
-          "50": 0
-        },
-        "ms": {
-          "20": 45.62381499999901,
-          "50": 119.22267600003397
-        },
-        "top3": {
-          "before": [
-            "payment_gateway_5xx",
-            "db_connection_timeout",
-            "db_connection_timeout"
-          ],
-          "after": {
-            "20": [
-              "payment_gateway_5xx",
-              "payment_gateway_5xx",
-              "db_connection_timeout"
-            ],
-            "50": [
-              "payment_gateway_5xx",
-              "payment_gateway_5xx",
-              "payment_gateway_5xx"
             ]
           }
         }
@@ -13446,8 +7438,8 @@
           "50": 1
         },
         "ms": {
-          "20": 74.86226699996041,
-          "50": 200.36796699999832
+          "20": 78.37909499998204,
+          "50": 195.87972500000615
         },
         "top3": {
           "before": [
@@ -13465,40 +7457,6 @@
               "tls_cert_expired",
               "tls_cert_expired",
               "tls_cert_expired"
-            ]
-          }
-        }
-      },
-      "vector": {
-        "before": 0,
-        "after": {
-          "20": 0,
-          "50": 0
-        },
-        "ceiling": {
-          "20": 0,
-          "50": 0
-        },
-        "ms": {
-          "20": 73.99532899999758,
-          "50": 183.70212100003846
-        },
-        "top3": {
-          "before": [
-            "payment_gateway_5xx",
-            "out_of_memory",
-            "out_of_memory"
-          ],
-          "after": {
-            "20": [
-              "deadlock",
-              "payment_gateway_5xx",
-              "payment_gateway_5xx"
-            ],
-            "50": [
-              "deadlock",
-              "payment_gateway_5xx",
-              "payment_gateway_5xx"
             ]
           }
         }
