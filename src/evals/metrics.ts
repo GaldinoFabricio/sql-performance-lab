@@ -31,12 +31,35 @@ export function recallAtK(
 }
 
 /**
- * Relevance proxy: share of the k slots filled with a log of the expected
+ * A typed query from evals/text_queries.json. `expected` is the root cause a
+ * good answer is about; `also` lists other root causes that are just as
+ * right when the query itself is ambiguous (a bare ECONNREFUSED is logged
+ * by both the cache and the database clients).
+ */
+export interface TextQuery {
+   text: string;
+   expected: string;
+   also?: string[];
+   kind: string;
+}
+
+/** Every root cause that counts as relevant for a query. */
+export function relevantCauses(q: { expected: string | null; also?: string[] }): (string | null)[] {
+   return [q.expected, ...(q.also ?? [])];
+}
+
+export function isRelevant(q: { expected: string | null; also?: string[] }, rootCause: string | null): boolean {
+   return rootCause !== null && relevantCauses(q).includes(rootCause);
+}
+
+/**
+ * Relevance proxy: share of the k slots filled with a log of an expected
  * root cause. Divides by k, not by the number returned, so a method that
  * returns 3 good results out of 10 slots scores 0.3, not 1.0.
  */
-export function precisionAtK(rootCauses: (string | null)[], expected: string | null, k: number): number {
-   return rootCauses.slice(0, k).filter((r) => r === expected).length / k;
+export function precisionAtK(rootCauses: (string | null)[], expected: string | null | (string | null)[], k: number): number {
+   const ok = Array.isArray(expected) ? expected : [expected];
+   return rootCauses.slice(0, k).filter((r) => ok.includes(r)).length / k;
 }
 
 /** Nearest-rank percentile (p in 0..100). Same definition at every scale, no interpolation. */

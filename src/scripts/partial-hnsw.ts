@@ -3,7 +3,7 @@ import path from "path";
 import type { Knex } from "knex";
 import db from "../db/knex";
 import { embed, toPgVector } from "../embeddings/embedder";
-import { mean, percentile, recallAtK } from "../evals/metrics";
+import { mean, percentile, recallAtK, isRelevant, TextQuery } from "../evals/metrics";
 
 /**
  * Full HNSW index vs a partial one without INFO logs, on the 60 typed
@@ -43,7 +43,6 @@ import { mean, percentile, recallAtK } from "../evals/metrics";
  */
 
 type Conn = Knex | Knex.Transaction;
-interface TextQuery { text: string; expected: string; kind: string }
 interface Row { id: number; root_cause: string; distance: number }
 type How = { name: string; filter: boolean; ef: number | null; iterative?: boolean; index?: string };
 interface Measured { recall: number; precision: number; results: number; ms: number }
@@ -157,7 +156,7 @@ async function measure(queries: Q[], how: How): Promise<Measured[]> {
       const kth = how.filter ? q.kthNotInfo : q.kthAll;
       out.push({
          recall: recallAtK(rows, { id: -1, kth_distance: kth }, K),
-         precision: rows.filter((r) => r.root_cause === q.expected).length / K,
+         precision: rows.filter((r) => isRelevant(q, r.root_cause)).length / K,
          results: rows.length,
          ms,
       });

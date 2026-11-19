@@ -3,7 +3,7 @@ import path from "path";
 import db from "../db/knex";
 import { embed, toPgVector } from "../embeddings/embedder";
 import { RERANKER_MODEL } from "../embeddings/model";
-import { mean, percentile } from "../evals/metrics";
+import { mean, percentile, relevantCauses, TextQuery } from "../evals/metrics";
 import { codesIn, knownCodes as loadKnownCodes } from "../search/codes";
 import { rerank, RerankDoc } from "../search/rerank";
 import { Hit, hybridSearch, vectorSearch } from "../search/search";
@@ -51,9 +51,9 @@ const DOC = (flag("doc") ?? "code") as RerankDoc;
 const pct = (x: number) => `${(x * 100).toFixed(1)}%`;
 
 function loadQueries(): Query[] {
-   const text: { text: string; expected: string; kind: string }[] =
+   const text: TextQuery[] =
       JSON.parse(readFileSync(path.join(ROOT, "evals/text_queries.json"), "utf8")).queries;
-   const queries: Query[] = text.map((q) => ({ text: q.text, expected: [q.expected], set: "text", kind: q.kind }));
+   const queries: Query[] = text.map((q) => ({ text: q.text, expected: relevantCauses(q) as string[], set: "text", kind: q.kind }));
    if (WITH_CODES) {
       const codes: { text: string; expected: string[]; form: string }[] =
          JSON.parse(readFileSync(path.join(ROOT, "evals/code_queries.json"), "utf8")).queries;

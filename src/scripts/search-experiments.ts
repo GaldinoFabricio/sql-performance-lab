@@ -9,6 +9,8 @@ import {
    mean,
    percentile,
    precisionAtK,
+   relevantCauses,
+   TextQuery,
    recallAtK,
 } from "../evals/metrics";
 import {
@@ -95,6 +97,7 @@ interface Query {
    text: string;
    vec: string; // pgvector literal
    expected: string | null;
+   also?: string[];
    excludeId: number | null;
    kth_distance?: number;
 }
@@ -292,7 +295,7 @@ async function runMethod(
             recall,
             precision: precisionAtK(
                hits.map((h) => h.root_cause),
-               q.expected,
+               relevantCauses(q),
                k,
             ),
             results: hits.length,
@@ -392,10 +395,10 @@ async function runTemplatesOnly() {
    if (!(await templatesCurrent(db))) throw new Error("templates are stale or missing: run pnpm templates:build");
    const { rows: [info] } = await db.raw("SELECT count(*)::int AS rows, (SELECT count(*)::int FROM log_templates) AS templates FROM logs");
    const k = 10;
-   const textSpec: { text: string; expected: string; kind: string }[] = JSON.parse(readFileSync(TEXT_QUERIES_PATH, "utf8")).queries;
+   const textSpec: TextQuery[] = JSON.parse(readFileSync(TEXT_QUERIES_PATH, "utf8")).queries;
    const queries: Query[] = [];
    for (const t of textSpec) {
-      queries.push({ key: t.text, text: t.text, vec: toPgVector((await embed([t.text]))[0]), expected: t.expected, excludeId: null });
+      queries.push({ key: t.text, text: t.text, vec: toPgVector((await embed([t.text]))[0]), expected: t.expected, also: t.also, excludeId: null });
    }
    console.log(`${info.rows.toLocaleString("en-US")} rows, ${info.templates} templates, ${queries.length} free-text queries, ${ROUNDS} measured rounds`);
    const r = await runMethod(template(k), queries, k);
@@ -484,7 +487,7 @@ async function run() {
       kth_distance: q.kth_distance,
    }));
 
-   const textSpec: { text: string; expected: string; kind: string }[] =
+   const textSpec: TextQuery[] =
       JSON.parse(readFileSync(TEXT_QUERIES_PATH, "utf8")).queries;
    const embedTimes: number[] = [];
    const textQueries: Query[] = [];
@@ -497,6 +500,7 @@ async function run() {
          text: t.text,
          vec: toPgVector(v),
          expected: t.expected,
+         also: t.also,
          excludeId: null,
       });
    }

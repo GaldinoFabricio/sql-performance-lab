@@ -1,11 +1,11 @@
 {
-  "description": "Hand-written free-text searches, the way an on-call engineer would type them. 'expected' is the root_cause a good answer is about. 'kind': keyword = an exact token that appears in the logs; paraphrase = describes the problem without the logs' words; mixed = shares some words.",
+  "description": "Hand-written free-text searches, the way an on-call engineer would type them. 'expected' is the root_cause a good answer is about; 'also' (optional) lists other root causes that are just as right when the query is ambiguous (a bare ECONNREFUSED is logged by both the cache and the database clients). 'kind': keyword = an exact token that appears in the logs; paraphrase = describes the problem without the logs' words; mixed = shares some words.",
   "queries": [
     { "text": "ECONNRESET", "expected": "cache_unavailable", "kind": "keyword" },
     { "text": "redis is down", "expected": "cache_unavailable", "kind": "mixed" },
     { "text": "cannot connect to the cache", "expected": "cache_unavailable", "kind": "mixed" },
     { "text": "session store unreachable", "expected": "cache_unavailable", "kind": "paraphrase" },
-    { "text": "ECONNREFUSED", "expected": "db_connection_timeout", "kind": "keyword" },
+    { "text": "ECONNREFUSED", "expected": "db_connection_timeout", "also": ["cache_unavailable"], "kind": "keyword" },
     { "text": "KnexTimeoutError", "expected": "db_connection_timeout", "kind": "keyword" },
     { "text": "db connection timeout", "expected": "db_connection_timeout", "kind": "mixed" },
     { "text": "database is not accepting new connections", "expected": "db_connection_timeout", "kind": "paraphrase" },
