@@ -435,7 +435,7 @@ With cw = 2 no code query comes back with nothing relevant (22 before at 10k, 28
 
 **2. Read the code-query eval with care: its relevance is circular.** A relevant log is defined as a log of the code's root causes, and the code list returns exactly the logs that carry the code. So a higher `cw` always scores better there, and cw = 3 hits 100% by construction. The typed queries (labelled by hand, independent of the codes) are the check that matters. They don't tell cw = 2 from cw = 3 apart either. The default is 2: the smallest weight that left no code query empty-handed. At 2, a log found only by the code list ties with one that vector and full-text both ranked first.
 
-**3. An ambiguous code loses the context.** At 100k, the typed query `ECONNREFUSED` (labelled `db_connection_timeout`) fell from 100% to 70%: the code list brings the newest logs with that code, and some are `cache_unavailable`. For a bare code both answers are defensible, but the list ignores any other words in the query. `cw=0` turns it off.
+**3. An ambiguous code loses the context.** At 100k, the typed query `ECONNREFUSED` (labelled `db_connection_timeout`) fell from 100% to 70%: the code list brings the newest logs with that code, and some are `cache_unavailable`. For a bare code both answers are defensible, but the list ignores any other words in the query. `cw=0` turns it off. (Later, in the reranker work, the query was relabelled to accept both causes; the numbers in this section use the old label.)
 
 **4. Typed queries without a code don't change.** Of the 60, only the 7 that contain a known code changed: `ECONNRESET` and `x509` went from 50% to 100%, and `ECONNREFUSED` went down at 100k.
 
@@ -445,6 +445,84 @@ With cw = 2 no code query comes back with nothing relevant (22 before at 10k, 28
 - **A common word that is also a code triggers the list.** `OVERSOLD` or `TypeError` in a sentence counts as the code. In this data that is the intended meaning; in real logs, check the code list for plain words.
 - **Only hybrid uses it.** `vector`, `fulltext` and `template` still search the message alone. The template mode, for example, still misses the `HTTP_4xx`/`5xx` codes.
 - **Newest first inside the list.** Every log with the code ranks by recency, not by how well the rest of the query matches.
+
+## Reranking with a cross-encoder
+
+Every search above compares two things made separately: a query vector and a log vector (a bi-encoder), or the words they share. A **cross-encoder** reads the query and one log *together*, so every word of one can attend to every word of the other, and outputs one relevance score for the pair. It is usually more precise and much slower (one model run per pair), so it only **reorders the few candidates a first search returns** (`src/search/rerank.ts`, `rerank=N` in the API). The model is `Xenova/ms-marco-MiniLM-L-6-v2` (fp32, 91 MB, pinned by SHA-256 like the embedding model). `pnpm eval:rerank` measures it on the 60 typed queries and the 114 code queries, with the first stage run as the API runs it (hybrid, no INFO, ef_search 160, `cw` 2).
+
+Three numbers per run: **before** (the first stage's own top 10), **after** (the top 10 after reranking its top N) and the **ceiling**, the best any reordering of those N can do. A reranker can't find a log the first stage didn't return: when *after* is far below the *ceiling* the model is the problem, when the *ceiling* is low the first stage is.
+
+Batching matters more than expected. A batch is padded to its longest pair, and logs range from ~20 tokens to ~190 (stack traces). Scoring 40 pairs took 683 ms as one batch, 173 ms in length-sorted batches of 4. In fp32 a pair's score is bit-identical alone or in any batch (tested), so batching is free to tune.
+
+### First try: reading the log message
+
+| hybrid, typed queries | before | top 20 | top 50 | ceiling | rerank cost (p50) |
+| :--- | ---: | ---: | ---: | ---: | ---: |
+| 10k | 96.5% | 94.8% | 93.5% | 98.3% | 65 ms |
+| 100k | 89.2% | 93.3% | 93.0% | 98.3% | 56 ms |
+
+(10k: `evals/results/rerank-10k-message.json`; the 100k file of this run was later overwritten, it is `evals/results/rerank-100k.json` at commit `705a294`.) Reading the message alone, it also broke the code fix: codes that live only in `error_code` (53100, EDQUOT, NPE) went from 99.6% to 81.8% at top 50, because the reranker can't see them. With the code in front of the message (`EDQUOT: <message>`) they went back to 100%. At 100k it helped (paraphrases 77% → 85%) but made 4 queries worse.
+
+### Why it got worse: four cases, three causes
+
+`pnpm eval:rerank` saves every query; the four regressions, looked at one by one:
+
+| query | what went up | cause |
+| :--- | :--- | :--- |
+| `ECONNREFUSED` | "ECONNREFUSED: Cache unreachable…" | **the eval's label.** Both the cache and the database clients log the code; `code_queries.json` already listed it as ambiguous, `text_queries.json` accepted only the database. It now has `also: ["cache_unavailable"]` (0.2 → 1.0) |
+| "HTTPS certificate is no longer valid" | "session for user … is **no longer valid**" (jwt) | **the model matches words.** It also doesn't know `:443` means HTTPS |
+| "code crashed on a missing field" | "OOMKilled (exit **code** 137)" | **the model**: every score was −8.7 to −11, it found nothing relevant and the order was noise |
+| "cannot find the **address** of the payment server" | TypeError "reading '**address**'" (+2.4) | **the model and the first stage**: the DNS logs ("Unable to resolve hostname") scored −11, and the nearest one was at vector rank 29, so the ceiling was 0 |
+
+Two engineering fixes, measured offline on saved scores (a one-off experiment, not in the repo; 100k, top 20), did not work: **skipping the reranker when its best score is low** fell to 89.7% (ms-marco's scores are not comparable across queries: on paraphrases it orders correctly with low scores), and **fusing its order with the first stage's** (RRF) gave 92.5–93.0%, below the plain reranker. A check with an LLM (`claude -p`) on the same candidates got all three model cases right, and put three injected DNS logs on top. The data and the questions were fine; the small model lacked the domain knowledge.
+
+### The fix: an LLM describes each template, once
+
+`pnpm templates:describe` asks an LLM (`claude -p`) for one plain-English sentence per log template (68), written to `data/template-descriptions.json` and committed. The LLM sees **only the template and one example**, never the `root_cause` labels or the eval queries. Nothing was edited by hand. For `Unable to resolve hostname <host> while calling <*>` it wrote *"Hostname could not be resolved (DNS ENOTFOUND) while calling an external provider or internal dependency, so the outbound request failed and that integration is unavailable."* Search never calls the LLM: its knowledge enters as data, and search stays fast and repeatable ("document expansion").
+
+The descriptions go to two places: the template's `embed_text` (`pnpm templates:build`; `--no-describe` leaves them out) and what the reranker reads. Three reranker inputs (`--doc`): `code` (code + message), `described` (+ the template's description) and `template` (the template + its description instead of the message, so copies of one template read the same text and are scored once).
+
+| hybrid, typed queries, top 50 | before | `code` | `described` | **`template`** | ceiling | rerank cost (p50 / p95) |
+| :--- | ---: | ---: | ---: | ---: | ---: | ---: |
+| 10k | 96.2% | 94.8% | 98.3% | **98.3%** | 98.3% | **19 / 43 ms** |
+| 100k | 88.8% | 94.7% | 96.5% | **96.5%** | 96.7% | **14 / 34 ms** |
+| 100k, paraphrases | 68.2% | 82.4% | 88.2% | **88.2%** | 88.2% | |
+
+At 100k, `template` made 15 queries better and none worse, and code queries stayed at 100%. It is also **cheaper than the first try** (14 ms vs 127 ms): 50 copies of one template are one pair. In template mode alone, the descriptions took precision from 95.0% to 98.3% at both 10k and 100k (`evals/results/search-<rows>-templates-only*.json`): `ECONNRESET` and `OOMKilled` went from 0% to 100%.
+
+### A fourth RRF list: logs of the nearest templates
+
+Could the descriptions also fix the first stage? `tw` adds a fourth list to hybrid: the 3 (or 5) nearest templates by exact distance and their newest logs, interleaved so a wrong nearest template can't take every slot. Same 100k build for every row:
+
+| 100k, typed queries | before (nothing relevant) | + reranker top 20 | top 50 | ceiling top 50 |
+| :--- | ---: | ---: | ---: | ---: |
+| **no template list (default)** | 91.3% (1) | 96.7% | **98.2%** | 98.3% |
+| tw 1, 3 templates | 91.7% (0) | 96.7% | 97.5% | 99.2% |
+| tw 1, 5 templates | 90.8% (0) | 95.8% | 97.8% | 99.3% |
+| tw 2, 3 templates | 88.7% (0) | 94.3% | 96.7% | 100% |
+
+The list raises the ceiling (at weight 2 the DNS logs reach the candidates) and leaves no query empty-handed, but with the reranker on it scored lower: the reranker pushes the DNS logs back down. Alone, its gain (+0.4 to +1.0 point) is within build noise, and at weight 2 it hurt code queries (99.7% → 89.3% before reranking). It stays off by default.
+
+### Findings
+
+**1. Measure the ceiling before trusting a reranker.** It only helps when the right answer is already among the candidates, in a bad position. At 10k the ceiling was 1.8 points above the first stage, and the first try only lost.
+
+**2. The reranker must read what the first stage used.** Reading the message alone, it undid the `error_code` fix.
+
+**3. Check the label before blaming the model.** One of the four "model errors" was the eval asking for one answer to an ambiguous code.
+
+**4. Put the LLM's knowledge in the data, not in the request.** Four LLM calls, once, turned a reranker that made 4 queries worse into one that reaches the ceiling, at 14 ms and with repeatable results. Calling the LLM per search worked too, but took seconds and gave different answers between runs.
+
+**5. Rerank distinct units, not copies.** With repetitive data (logs, tickets, similar products), grouping before reranking costs a fraction and scores the same.
+
+**6. Vector + reranker didn't move at 100k.** Without INFO, the vector side's top 50 are copies of a single template: all relevant or none, nothing to reorder (86.7% before, after and ceiling, in the first run).
+
+### Limits
+
+- **"cannot find the address of the payment server" is still 0%.** Neither MiniLM nor ms-marco link "find the address" to "hostname could not be resolved", even with the description. Only the LLM did. It needs a larger or domain-trained model.
+- **The descriptions belong to the templates.** A new template has none until `pnpm templates:describe` runs (it asks only for the missing ones), and reranking with `template` falls back to the code + message for logs not mapped yet (inserted after the last `templates:build`).
+- **One HNSW build per number.** First-stage precision moved from 88.8% to 91.3% between two 100k builds, and "code crashed on a missing field" had a ceiling of 0 in one build and not in the other. Gaps under ~2 points between rows of different tables are noise.
+- **A second model in memory.** `rerank` loads 91 MB and takes ~0.4 s on the first request, so it is off by default.
 
 ## API
 
@@ -461,8 +539,10 @@ With cw = 2 no code query comes back with nothing relevant (22 before at 10k, 28
 | `rrf_k` | 60 | 1–1000 | hybrid only: RRF constant, `score = weight / (rrf_k + rank)` |
 | `route` | `false` | `true`/`false` (or `1`/`0`) | hybrid only: pick the weights from the query (`src/search/routing.ts`) when `vw`/`fw` are not given |
 | `include_info` | `false` | `true`/`false` (or `1`/`0`) | every mode: also search INFO logs. The HNSW index leaves them out, so `vector`/`hybrid` become an exact scan (`ef_search: null`) |
+| `rerank` | 0 (off) | 0, or `k`–100 | every mode: the first stage returns this many candidates and the cross-encoder keeps the best `k`, reading each log's template + description. See [Reranking with a cross-encoder](#reranking-with-a-cross-encoder) |
+| `tw` | 0 (off) | 0–5 | hybrid only: RRF weight of the nearest templates' logs (3 templates) |
 
-The response says `include_info`. In hybrid mode it has `hybrid: { vector_weight, keyword_weight, weights_from, rrf_k, codes, code_weight }`, where `codes` lists the error codes found in `q`, and `weights_from` is `explicit` (from `vw`/`fw`), `routed` or `fixed`. For the other modes, `hybrid` is `null`.
+The response says `include_info`, and `ms: { embed, search, rerank, total }`. With `rerank` it has `rerank: { candidates, model, doc }` and a `rerank_score` on every result (a logit: only the order means something); without it, `rerank` is `null`. In hybrid mode it has `hybrid: { vector_weight, keyword_weight, weights_from, rrf_k, codes, code_weight, template_weight }`, where `codes` lists the error codes found in `q`, and `weights_from` is `explicit` (from `vw`/`fw`), `routed` or `fixed`. For the other modes, `hybrid` is `null`.
 
 **Why routing is off by default.** The router favors full-text (weights 0.5/1) when the query has a token shaped like a code (`ECONNRESET`, `HTTP_502`, `x509`) and the vector side (1/0.5) otherwise. On the 60 free-text queries at 10k rows (3 HNSW builds, `evals/results/search-10k-routing.json`), routed minus fixed was:
 
@@ -495,4 +575,7 @@ pnpm eval:search --templates-only   # template mode alone on free text, e.g. at 
 pnpm eval:partial-hnsw --rebuild=3 --rebuild-full=3   # full vs partial (no INFO) HNSW; --skip-full at 1M
 pnpm eval:codes --generate          # evals/code_queries.json from the generator, no DB needed
 pnpm eval:codes --cw=1,2,3          # every mode on the 114 code queries, and hybrid with the code list
+pnpm templates:describe             # LLM descriptions of new templates (claude -p), then templates:build again
+pnpm eval:rerank --stages=hybrid --doc=template          # before / after / ceiling, top 20 and 50
+pnpm eval:rerank --stages=hybrid --doc=template --tw=1 --tt=3   # with the template list in the first stage
 ```
