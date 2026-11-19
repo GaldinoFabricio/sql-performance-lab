@@ -1,6 +1,6 @@
-import { fetchModel, MODEL_ID, MODEL_REVISION, modelDir, verifyModel } from "../embeddings/model";
+import { fetchModel, MODELS, modelDir, verifyModel } from "../embeddings/model";
 
-// Usage: pnpm model:fetch | pnpm model:verify
+// Usage: pnpm model:fetch | pnpm model:verify  (both models: embeddings and reranker)
 async function main() {
    const cmd = process.argv[2];
    if (cmd !== "fetch" && cmd !== "verify") {
@@ -8,12 +8,16 @@ async function main() {
       process.exit(2);
    }
 
-   console.log(`${MODEL_ID}@${MODEL_REVISION.slice(0, 7)} -> ${modelDir()}`);
-   if (cmd === "fetch") await fetchModel();
+   let failed = false;
+   for (const spec of MODELS) {
+      console.log(`${spec.id}@${spec.revision.slice(0, 7)} -> ${modelDir(spec)}`);
+      if (cmd === "fetch") await fetchModel(spec);
 
-   const results = await verifyModel();
-   for (const r of results) console.log(`${r.ok ? "ok  " : "FAIL"} ${r.file}${r.reason ? ` (${r.reason})` : ""}`);
-   if (results.some((r) => !r.ok)) {
+      const results = await verifyModel(spec);
+      for (const r of results) console.log(`${r.ok ? "ok  " : "FAIL"} ${r.file}${r.reason ? ` (${r.reason})` : ""}`);
+      failed ||= results.some((r) => !r.ok);
+   }
+   if (failed) {
       console.error("model files do not match the pinned SHA-256 hashes");
       process.exit(1);
    }

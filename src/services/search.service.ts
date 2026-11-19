@@ -5,6 +5,8 @@ import { codesIn, KnownCodes, knownCodes } from "../search/codes";
 import { routeWeights } from "../search/routing";
 import { fullTextSearch, Hit, hybridSearch, likeSearch, vectorSearch } from "../search/search";
 import { templateSearch, templatesReady, TemplateHit } from "../search/templates";
+import { RERANKER_MODEL } from "../embeddings/model";
+import { rerank as rerankHits, RerankDoc, rerankerReady } from "../search/rerank";
 
 /**
  * Log search behind GET /search/logs.
@@ -24,6 +26,17 @@ import { templateSearch, templatesReady, TemplateHit } from "../search/templates
  *    hybrid scan every row exactly: fine at 10k, ~220 ms at 1M rows.
  *  - template: exact search over one embedding per log template
  *    (pnpm templates:build), then the newest logs of the nearest templates.
+ *  - rerank=N: the first stage returns N candidates and a cross-encoder
+ *    (src/search/rerank.ts) reorders them, reading each log's template + its
+ *    LLM-written description. On by default in hybrid mode, with N = 50:
+ *    pnpm eval:rerank, 3 HNSW builds at 100k rows, top 50: 88.7–92.2% ->
+ *    98.2% in every build (ceiling 98.3%), 12 ms p50 / 25 ms p95. Only hybrid
+ *    was measured, so the other modes rerank only when asked (rerank=N);
+ *    rerank=0 turns it off. Without the model on disk the default skips it
+ *    (and an explicit rerank returns 503). server.ts loads it at start.
+ *  - tw (off by default): hybrid's 4th RRF list, logs of the nearest
+ *    templates. It raises the candidates' ceiling, but with the reranker on
+ *    it measured lower (97.5% vs 98.2% at 100k), and alone it was within noise.
  */
 export const SEARCH_MODES = ["hybrid", "vector", "fulltext", "like", "template"] as const;
 export type SearchMode = (typeof SEARCH_MODES)[number];
@@ -47,6 +60,12 @@ export const SEARCH_DEFAULTS = {
    weightRange: [0, 5] as const,
    rrfK: 60,
    rrfKRange: [1, 1000] as const,
+   /** Candidates reranked by default, hybrid mode only (rerank not given). */
+   hybridRerank: 50,
+   maxRerank: 100,
+   rerankDoc: "template" as RerankDoc,
+   templateWeight: 0,
+   templateLists: 3,
    maxQueryLength: 500,
 };
 
@@ -66,6 +85,13 @@ export interface SearchParams {
    route: boolean;
    /** Search INFO logs too. Off by default: the HNSW index leaves them out. */
    includeInfo: boolean;
+   /**
+    * Rerank the first stage's top N with the cross-encoder; 0 = off, N >= k.
+    * Undefined = not set by the caller: hybrid uses hybridRerank, the other modes 0.
+    */
+   rerank?: number;
+   /** Hybrid only: RRF weight of the nearest templates' logs (0 turns it off). */
+   templateWeight: number;
 }
 
 /** Where the hybrid weights came from: the caller, the router, or the fixed default. */
@@ -103,6 +129,8 @@ export interface LogResult {
    message: string;
    /** Template mode only: the template this log matched through. */
    template?: { id: number; text: string; log_count: number; distance: number };
+   /** With rerank: the cross-encoder's logit (higher = more relevant; only the order means something). */
+   rerank_score?: number;
 }
 
 /** The search can't run yet (e.g. templates not built); maps to HTTP 503. */
@@ -123,8 +151,12 @@ export interface SearchResponse {
       /** Error codes found in the query (src/search/codes.ts) and the weight of their list. */
       codes: string[];
       code_weight: number;
+      /** Weight of the nearest-templates list (0 = off). */
+      template_weight: number;
    } | null;
-   ms: { embed: number; search: number; total: number };
+   /** null when no rerank ran (rerank=0, a mode other than hybrid without rerank, or no model). */
+   rerank: { candidates: number; model: string; doc: RerankDoc } | null;
+   ms: { embed: number; search: number; rerank: number; total: number };
    results: LogResult[];
 }
 
@@ -159,22 +191,33 @@ export async function searchLogs(p: SearchParams): Promise<SearchResponse> {
       embedMs = performance.now() - t;
    }
 
+   // Rerank: explicit N, or the hybrid default when the model is on disk.
+   let rerankN = p.rerank ?? (p.mode === "hybrid" && rerankerReady() ? SEARCH_DEFAULTS.hybridRerank : 0);
+   if (rerankN > 0 && !rerankerReady()) {
+      throw new SearchUnavailableError("the reranker model is missing: run pnpm model:fetch");
+   }
+   rerankN = rerankN > 0 ? Math.max(rerankN, p.k) : 0;
+
+   // With rerank the first stage returns N candidates instead of k.
+   const firstK = rerankN > 0 ? rerankN : p.k;
+
    // ef_search is per transaction (SET LOCAL), so it never leaks into other
    // requests sharing the pooled connection. Hybrid asks the vector side for
-   // `hybridCandidates` rows, so ef_search must be at least that.
-   const efSearch = p.mode === "hybrid" ? Math.max(p.efSearch, SEARCH_DEFAULTS.hybridCandidates) : p.efSearch;
+   // `hybridCandidates` rows, and vector for firstK, so ef_search must be at
+   // least that or HNSW returns fewer rows.
+   const efSearch = Math.max(p.efSearch, p.mode === "hybrid" ? SEARCH_DEFAULTS.hybridCandidates : firstK);
    const weights = p.mode === "hybrid" ? hybridWeights(p) : null;
    const codes = p.mode === "hybrid" ? codesIn(p.q, await cachedKnownCodes()) : [];
    const t = performance.now();
-   const hits: (Hit | TemplateHit)[] = await db.transaction(async (trx) => {
+   const firstHits: (Hit | TemplateHit)[] = await db.transaction(async (trx) => {
       if (usesHnsw) {
          await trx.raw(`SET LOCAL hnsw.ef_search = ${Number(efSearch)}`);
       }
       switch (p.mode) {
          case "vector":
-            return vectorSearch(trx, vec, p.k, null, notInfo);
+            return vectorSearch(trx, vec, firstK, null, notInfo);
          case "hybrid":
-            return hybridSearch(trx, p.q, vec, p.k, null, {
+            return hybridSearch(trx, p.q, vec, firstK, null, {
                candidates: SEARCH_DEFAULTS.hybridCandidates,
                vectorWeight: weights!.vectorWeight,
                keywordWeight: weights!.keywordWeight,
@@ -182,27 +225,43 @@ export async function searchLogs(p: SearchParams): Promise<SearchResponse> {
                notInfo,
                codes,
                codeWeight: p.codeWeight,
+               templateWeight: p.templateWeight,
+               templates: SEARCH_DEFAULTS.templateLists,
             });
          case "fulltext":
-            return fullTextSearch(trx, p.q, p.k, null, notInfo);
+            return fullTextSearch(trx, p.q, firstK, null, notInfo);
          case "like":
-            return likeSearch(trx, likePattern(p.q, Number.MAX_SAFE_INTEGER), p.k, null, notInfo);
+            return likeSearch(trx, likePattern(p.q, Number.MAX_SAFE_INTEGER), firstK, null, notInfo);
          case "template":
-            return templateSearch(trx, vec, p.k, null, notInfo);
+            return templateSearch(trx, vec, firstK, null, notInfo);
       }
    });
+   const searchDone = performance.now();
+
+   // Second stage: the cross-encoder reorders the N candidates and keeps k.
+   let ranked: ((Hit | TemplateHit) & { rerank_score?: number })[] = firstHits;
+   let rerankMs = 0;
+   if (rerankN > 0) {
+      ranked = await rerankHits(db, p.q, firstHits, p.k, SEARCH_DEFAULTS.rerankDoc);
+      rerankMs = performance.now() - searchDone;
+   }
 
    // Search returns ranked ids; the rows are fetched once, by primary key,
    // and put back in rank order. root_cause is a seed-only eval label and is
    // never exposed.
-   const ids = hits.map((h) => h.id);
+   const ids = ranked.map((h) => h.id);
    const { rows } = await db.raw(
       `SELECT id, created_at, service, level, error_code, message FROM logs WHERE id = ANY(?::bigint[])`,
       [ids],
    );
    const byId = new Map<number, LogResult>(rows.map((r: any) => [Number(r.id), { ...r, id: Number(r.id) }]));
-   for (const h of hits) if ("template" in h && byId.has(h.id)) byId.get(h.id)!.template = h.template;
-   const searchMs = performance.now() - t;
+   for (const h of ranked) {
+      const log = byId.get(h.id);
+      if (!log) continue;
+      if ("template" in h) log.template = h.template;
+      if (h.rerank_score !== undefined) log.rerank_score = round(h.rerank_score);
+   }
+   const searchMs = performance.now() - t - rerankMs;
 
    return {
       query: p.q,
@@ -217,8 +276,10 @@ export async function searchLogs(p: SearchParams): Promise<SearchResponse> {
          rrf_k: p.rrfK,
          codes,
          code_weight: p.codeWeight,
+         template_weight: p.templateWeight,
       },
-      ms: { embed: round(embedMs), search: round(searchMs), total: round(performance.now() - start) },
+      rerank: rerankN > 0 ? { candidates: firstK, model: RERANKER_MODEL.id, doc: SEARCH_DEFAULTS.rerankDoc } : null,
+      ms: { embed: round(embedMs), search: round(searchMs), rerank: round(rerankMs), total: round(performance.now() - start) },
       results: ids.map((id) => byId.get(id)!).filter(Boolean),
    };
 }

@@ -89,6 +89,14 @@ They measure two things: recall against exact search (computed at run time)
 and precision@10, the share of the 10 slots filled with a log of the expected
 root cause.
 
+An optional `also` lists other root causes that are just as right when the
+query is ambiguous. Only `ECONNREFUSED` has one (`cache_unavailable`): both
+the cache and the database clients log it. Added during the reranker work;
+result files written before that (`search-*`, `codes-*`, `partial-hnsw-*`,
+`hnsw-dive-*`, `rerank-10k-message.json`) used the database label alone.
+Every eval decides relevance through `isRelevant` / `relevantCauses`
+(`src/evals/metrics.ts`).
+
 ## `results/search-<rows>.json`
 
 Output of `pnpm eval:search --truth=<ground truth for that table size>`:
@@ -220,3 +228,41 @@ exactly the typed code), queries with nothing relevant and p50 latency.
 queries, and lists those that contain a known code. `per_query` also has
 `code_in_message`: the share of the code's logs whose message contains the
 code as text.
+
+## `results/rerank-<rows>[-<doc>][-tw<w>x<n>].json`
+
+Output of `pnpm eval:rerank` (`src/scripts/rerank-eval.ts`). For each typed
+and code query, the first stage runs like the API (hybrid, no INFO,
+ef_search 160, `cw` 2; `--tw`/`--tt` add the template list) and the
+cross-encoder reorders its top 20 and top 50. `summary` has, per group,
+`before` (the first stage's top 10), `after` and `ceiling` (the best any
+reordering of the N candidates can do) for each N, how many queries got
+better or worse, and the reranker's p50/p95 latency (message fetch +
+scoring, median of 3 runs after a warm-up). `per_query` keeps every number
+and the top-3 root causes before and after. The file name says what the
+reranker read: none = `code`, `-described`, `-template`; `-message` is the
+first try (message only, old `ECONNREFUSED` label, hybrid and vector); the
+100k first try is `rerank-100k.json` at commit `705a294`.
+Within one table size, files measured on the same HNSW build are comparable;
+`-template` and `-template-tw*` at 100k share a build, `rerank-100k.json`
+and `-described` share another.
+
+`rerank-100k-3builds.json` aggregates three runs on three builds of the
+partial HNSW index over the same 100k rows (`REINDEX` between them), for the
+`template`, `template` + `tw 1 x 3` and `code` readers: mean, min, max and
+the per-build values of every number in `summary`.
+
+## `results/search-<rows>-templates-only[-nodesc].json`
+
+`pnpm eval:search --templates-only` with the templates' embeddings built
+with the LLM descriptions (`pnpm templates:build`) and without them
+(`-nodesc`, `pnpm templates:build --no-describe`).
+
+## `../data/template-descriptions.json`
+
+Not an eval file, but the evals depend on it: one plain-English description
+per log template, keyed by `partition<TAB>template`, written by
+`pnpm templates:describe` with `claude -p`. The LLM saw only the template and
+one example, never `root_cause` or the eval queries, so the evals don't
+measure the labels. Regenerating it changes the numbers; edit by hand only
+with a note here.

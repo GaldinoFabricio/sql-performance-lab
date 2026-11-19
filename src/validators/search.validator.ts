@@ -58,6 +58,17 @@ const fields = {
    include_info: Joi.boolean().truthy("1").falsy("0").empty("").default(false).messages({
       "boolean.base": "include_info must be true or false",
    }),
+   // rerank=N: the first stage returns N candidates and the cross-encoder keeps the best k.
+   // 0 = off; N must be at least k, or there would be fewer than k results. No default
+   // on purpose: missing = the service decides (hybrid reranks 50, other modes don't).
+   rerank: Joi.number().integer().min(0).max(SEARCH_DEFAULTS.maxRerank).empty("").messages({
+      "number.base": `rerank must be an integer between 0 and ${SEARCH_DEFAULTS.maxRerank}`,
+      "number.integer": `rerank must be an integer between 0 and ${SEARCH_DEFAULTS.maxRerank}`,
+      "number.min": `rerank must be an integer between 0 and ${SEARCH_DEFAULTS.maxRerank}`,
+      "number.max": `rerank must be an integer between 0 and ${SEARCH_DEFAULTS.maxRerank}`,
+   }),
+   // Weight of hybrid's nearest-templates list (search.ts); 0 (default) turns it off.
+   tw: weightParam("tw").default(SEARCH_DEFAULTS.templateWeight),
 };
 
 // celebrate replaces req.query with the validated values: q trimmed, k/ef_search as
@@ -70,7 +81,9 @@ export const validateLogSearch = celebrate({
    [Segments.QUERY]: Joi.object(fields)
       // vw = fw = 0 gives every row a score of 0, so the order would be just the id.
       .custom((v, helpers) => (v.vw === 0 && v.fw === 0 ? helpers.error("weights.zero") : v))
+      .custom((v, helpers) => (v.rerank > 0 && v.rerank < v.k ? helpers.error("rerank.k") : v))
       .messages({
+         "rerank.k": "rerank must be 0 (off) or at least k",
          "object.unknown": `unknown parameter {#key}; allowed: ${Object.keys(fields).join(", ")}`,
          "weights.zero": "vw and fw cannot both be 0",
       }),
@@ -87,4 +100,6 @@ export interface LogSearchQuery {
    rrf_k: number;
    route: boolean;
    include_info: boolean;
+   rerank?: number;
+   tw: number;
 }

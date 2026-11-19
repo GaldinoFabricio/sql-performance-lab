@@ -2,12 +2,18 @@ import type { Knex } from "knex";
 import { embed, toPgVector } from "../embeddings/embedder";
 import { TemplateMiner, clusterText } from "../logs/miner";
 import { toTemplate } from "../logs/template";
+import { describe } from "../logs/descriptions";
 import { embedText, wildcardValues } from "../logs/values";
 
 /**
  * Builds the template tables (migration 20261117120000_create_log_templates.ts)
  * from the logs table: every log goes through toTemplate and TemplateMiner,
  * in id order so the result is deterministic.
+ *
+ * `describe` (default on) appends the template's plain-English description
+ * (data/template-descriptions.json, pnpm templates:describe) to embed_text,
+ * so the embedding carries the words a person would search with, not only
+ * the log's own words. Off = the template text with its category values only.
  *
  * A full rebuild, in one transaction: readers see the old templates or the
  * new ones, never half. Embeddings whose embed_text did not change are kept,
@@ -22,6 +28,8 @@ export interface BuildStats {
    templates: number;
    variants: number;
    embeddings_kept: number;
+   /** Templates whose embed_text includes a description (0 with describe off). */
+   described: number;
    ms: { mine: number; write: number };
 }
 
@@ -31,7 +39,7 @@ async function insertBatches(trx: Knex.Transaction, table: string, rows: object[
    for (let i = 0; i < rows.length; i += WRITE_BATCH) await trx(table).insert(rows.slice(i, i + WRITE_BATCH));
 }
 
-export async function buildTemplates(db: Knex): Promise<BuildStats> {
+export async function buildTemplates(db: Knex, { describe: withDescriptions = true } = {}): Promise<BuildStats> {
    const t0 = performance.now();
    const miner = new TemplateMiner();
    const map: { log_id: number; template_id: number }[] = [];
@@ -76,7 +84,7 @@ export async function buildTemplates(db: Knex): Promise<BuildStats> {
          id: c.id,
          partition: c.partition,
          template,
-         embed_text: embedText(template, wildcards),
+         embed_text: [embedText(template, wildcards), withDescriptions ? describe(c.partition, template) : null].filter(Boolean).join("\n"),
          log_count: stats.log_count,
          last_log_id: stats.last_log_id,
          example: stats.example,
@@ -112,6 +120,7 @@ export async function buildTemplates(db: Knex): Promise<BuildStats> {
       templates: templates.length,
       variants: variants.size,
       embeddings_kept: kept,
+      described: withDescriptions ? templates.filter((t) => describe(t.partition, t.template)).length : 0,
       ms: { mine: Math.round(mineMs), write: Math.round(performance.now() - t1) },
    };
 }

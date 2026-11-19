@@ -3,7 +3,7 @@ import path from "path";
 import db from "../db/knex";
 import { embed, toPgVector } from "../embeddings/embedder";
 import { DEFAULT_SEED, generateLogs } from "../logs/generator";
-import { mean, percentile } from "../evals/metrics";
+import { isRelevant, mean, percentile, TextQuery } from "../evals/metrics";
 import { routeWeights } from "../search/routing";
 import { fullTextSearch, Hit, hybridSearch, vectorSearch } from "../search/search";
 import { codesIn, knownCodes as loadKnownCodes } from "../search/codes";
@@ -205,7 +205,7 @@ async function run() {
    }
 
    // ---- the 60 typed queries: hybrid with and without the code list ----
-   const textQueries: { text: string; expected: string; kind: string }[] =
+   const textQueries: TextQuery[] =
       JSON.parse(readFileSync(path.join(ROOT, "evals/text_queries.json"), "utf8")).queries;
    const textMethods: Method[] = ["hybrid", ...codeMethods];
    const textPer: Record<string, number[]> = {};
@@ -215,7 +215,7 @@ async function run() {
       const row: Record<string, number> = {};
       for (const m of textMethods) {
          const hits = await searchOnce(q, vec, m);
-         row[m] = hits.filter((h) => h.root_cause === q.expected).length / K;
+         row[m] = hits.filter((h) => isRelevant(q, h.root_cause)).length / K;
          (textPer[m] ??= []).push(row[m]);
       }
       const codes = codesIn(q.text, knownCodes);

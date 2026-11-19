@@ -26,7 +26,9 @@
       "eval:hnsw-dive": "ts-node --transpile-only src/scripts/hnsw-dive.ts",
       "eval:templates": "ts-node --transpile-only src/scripts/templates-eval.ts",
       "eval:partial-hnsw": "ts-node --transpile-only src/scripts/partial-hnsw.ts",
-      "eval:codes": "ts-node --transpile-only src/scripts/codes-eval.ts"
+      "eval:codes": "ts-node --transpile-only src/scripts/codes-eval.ts",
+      "templates:describe": "ts-node --transpile-only src/scripts/templates-describe.ts",
+      "eval:rerank": "ts-node --transpile-only src/scripts/rerank-eval.ts"
    },
    "keywords": [],
    "author": "",

@@ -1,5 +1,5 @@
 import { describe, it, expect } from "vitest";
-import { likePattern, percentile, precisionAtK, recallAtK } from "../evals/metrics";
+import { isRelevant, likePattern, percentile, precisionAtK, recallAtK } from "../evals/metrics";
 
 describe("recallAtK (com empates)", () => {
    const truth = { id: 1, kth_distance: 0.3 };
@@ -32,6 +32,14 @@ describe("precisionAtK", () => {
    it("divide por k, não pelo número de resultados", () => {
       expect(precisionAtK(["a", "a", "b"], "a", 10)).toBe(0.2);
       expect(precisionAtK(["a", "a"], "a", 2)).toBe(1);
+   });
+
+   it("aceita mais de uma causa relevante (consulta ambígua)", () => {
+      expect(precisionAtK(["a", "b", "c", null], ["a", "b"], 4)).toBe(0.5);
+      const q = { expected: "db", also: ["cache"] };
+      expect(isRelevant(q, "cache")).toBe(true);
+      expect(isRelevant(q, "dns")).toBe(false);
+      expect(isRelevant({ expected: "db" }, null)).toBe(false);
    });
 });
 

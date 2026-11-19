@@ -3,7 +3,7 @@ import path from "path";
 import type { Knex } from "knex";
 import db from "../db/knex";
 import { embed, toPgVector } from "../embeddings/embedder";
-import { mean, recallAtK } from "../evals/metrics";
+import { mean, recallAtK, isRelevant, TextQuery } from "../evals/metrics";
 
 /**
  * Exact search vs HNSW, up close, on the 60 typed queries (evals/text_queries.json).
@@ -35,7 +35,6 @@ import { mean, recallAtK } from "../evals/metrics";
  */
 
 type Conn = Knex | Knex.Transaction;
-interface TextQuery { text: string; expected: string; kind: string }
 interface Row { id: number; root_cause: string; message: string; distance: number }
 type Query = TextQuery & { vec: string; exact: Row[]; exactPrecision: number };
 
@@ -121,7 +120,7 @@ async function measure(q: TextQuery & { vec: string; exact: Row[] }) {
       const hits = await search(q.vec, ef);
       out[`ef${ef}`] = {
          recall: recallAtK(hits, { id: -1, kth_distance: kth }, K), // tie-aware, as in eval:search
-         precision: hits.filter((h) => h.root_cause === q.expected).length / K,
+         precision: hits.filter((h) => isRelevant(q, h.root_cause)).length / K,
          hits,
       };
    }
@@ -145,7 +144,7 @@ async function main() {
    for (const q of queries) {
       const vec = toPgVector((await embed([q.text]))[0]);
       const exact = await search(vec, "exact");
-      base.push({ ...q, vec, exact, exactPrecision: exact.filter((r) => r.root_cause === q.expected).length / K });
+      base.push({ ...q, vec, exact, exactPrecision: exact.filter((r) => isRelevant(q, r.root_cause)).length / K });
    }
 
    // ---- 1. averages, per build ----
