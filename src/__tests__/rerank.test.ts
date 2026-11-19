@@ -2,7 +2,7 @@ import { existsSync } from "fs";
 import path from "path";
 import { describe, it, expect } from "vitest";
 import { modelDir, RERANKER_MODEL } from "../embeddings/model";
-import { orderByScore, RERANK_BATCH, scorePairs } from "../search/rerank";
+import { orderByScore, RERANK_BATCH, rerankText, scorePairs } from "../search/rerank";
 
 describe("orderByScore", () => {
    it("ordena pela nota, maior primeiro, e corta em k", () => {
@@ -47,7 +47,33 @@ describe.skipIf(!hasModel)("scorePairs", () => {
       }
    });
 
+   it("textos repetidos recebem a mesma nota de quando vão sozinhos", async () => {
+      const [a, b, c] = await scorePairs("redis is down", [logs[0], logs[1], logs[0]]);
+      const [alone] = await scorePairs("redis is down", [logs[0]]);
+      expect(a).toBe(alone);
+      expect(c).toBe(alone);
+      expect(b).not.toBe(alone);
+   });
+
    it("lista vazia não carrega o modelo à toa", async () => {
       expect(await scorePairs("anything", [])).toEqual([]);
+   });
+});
+
+describe("rerankText", () => {
+   const log = { message: "Unable to resolve hostname api.stripe.com while calling fedex", error_code: "ENOTFOUND", partition: "ERROR|ENOTFOUND", template: "Unable to resolve hostname <host> while calling <*>" };
+
+   it("message: só a mensagem", () => {
+      expect(rerankText(log, "message")).toBe(log.message);
+   });
+
+   it("code: põe o código na frente quando a mensagem não o contém", () => {
+      expect(rerankText(log, "code")).toBe(`ENOTFOUND: ${log.message}`);
+      expect(rerankText({ message: "connect ECONNREFUSED 10.0.0.1:5432", error_code: "ECONNREFUSED" }, "code")).toBe("connect ECONNREFUSED 10.0.0.1:5432");
+   });
+
+   it("described/template: sem template conhecido, cai no texto de code", () => {
+      expect(rerankText({ ...log, partition: "X|Y", template: "nada parecido" }, "described")).toBe(`ENOTFOUND: ${log.message}`);
+      expect(rerankText({ ...log, template: null }, "template")).toBe(`ENOTFOUND: ${log.message}`);
    });
 });

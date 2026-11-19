@@ -7,6 +7,7 @@ import {
    type PreTrainedTokenizer,
 } from "@huggingface/transformers";
 import { MODELS_ROOT, RERANKER_MODEL } from "../embeddings/model";
+import { describe } from "../logs/descriptions";
 import type { Conn } from "./search";
 
 /**
@@ -56,9 +57,22 @@ function load() {
    return loaded;
 }
 
-/** One relevance logit per text, in the same order as `texts`. */
+/**
+ * One relevance logit per text, in the same order as `texts`. Identical
+ * texts are scored once (the score is deterministic per pair).
+ */
 export async function scorePairs(query: string, texts: string[]): Promise<number[]> {
    if (texts.length === 0) return [];
+   const distinct = [...new Set(texts)];
+   if (distinct.length < texts.length) {
+      const scores = await scoreDistinct(query, distinct);
+      const byText = new Map(distinct.map((t, i) => [t, scores[i]]));
+      return texts.map((t) => byText.get(t)!);
+   }
+   return scoreDistinct(query, texts);
+}
+
+async function scoreDistinct(query: string, texts: string[]): Promise<number[]> {
    const { tok, model } = await load();
    const lengths = texts.map((t) => tok(query, { text_pair: t }).input_ids.dims[1]);
    const order = texts.map((_, i) => i).sort((a, b) => lengths[a] - lengths[b] || a - b);
@@ -100,17 +114,40 @@ export function orderByScore<T>(items: T[], scores: number[], k: number): (T & {
  *    column (SQLSTATE 53100, EDQUOT, NPE), and the first stage finds them
  *    there (src/search/codes.ts); reading the message alone, the reranker
  *    can't see them and pushes those logs down.
+ *  - "described": "code", then the description of the log's template
+ *    (data/template-descriptions.json) on the next line. The model only knows
+ *    words; the description adds the ones the log doesn't contain ("HTTPS"
+ *    for an x509 error, "DNS" for ENOTFOUND).
+ *  - "template": like "described", but the template text instead of the
+ *    message. Copies of one template then read the same text, which is
+ *    scored once: fewer and shorter pairs. Logs of the same template tie
+ *    and keep the first stage's order.
  */
-export type RerankDoc = "message" | "code";
+export type RerankDoc = "message" | "code" | "described" | "template";
 
-export function rerankText(log: { message: string; error_code: string | null }, doc: RerankDoc): string {
-   if (doc === "message" || !log.error_code) return log.message;
-   return log.message.toLowerCase().includes(log.error_code.toLowerCase()) ? log.message : `${log.error_code}: ${log.message}`;
+export interface RerankLog {
+   message: string;
+   error_code: string | null;
+   /** The log's template (log_template_map), when templates are built. */
+   partition?: string | null;
+   template?: string | null;
+}
+
+export function rerankText(log: RerankLog, doc: RerankDoc): string {
+   if (doc === "message") return log.message;
+   const body = doc === "template" && log.template ? log.template : log.message;
+   const code = log.error_code && !body.toLowerCase().includes(log.error_code.toLowerCase())
+      ? `${log.error_code}: ${body}`
+      : body;
+   if (doc === "code" || !log.partition || !log.template) return code;
+   const description = describe(log.partition, log.template);
+   return description ? `${code}\n${description}` : code;
 }
 
 /**
  * Reorders first-stage `hits` by the cross-encoder and keeps the top `k`.
- * Reads each candidate's text once by primary key.
+ * Reads each candidate's text (and template, for "described") once by
+ * primary key.
  */
 export async function rerank<T extends { id: number }>(
    db: Conn,
@@ -120,7 +157,16 @@ export async function rerank<T extends { id: number }>(
    doc: RerankDoc = "code",
 ): Promise<(T & { rerank_score: number })[]> {
    if (hits.length === 0) return [];
-   const { rows } = await db.raw("SELECT id, message, error_code FROM logs WHERE id = ANY(?::bigint[])", [hits.map((h) => h.id)]);
+   const { rows } = await db.raw(
+      doc === "described" || doc === "template"
+         ? `SELECT l.id, l.message, l.error_code, t.partition, t.template
+            FROM logs l
+            LEFT JOIN log_template_map m ON m.log_id = l.id
+            LEFT JOIN log_templates t ON t.id = m.template_id
+            WHERE l.id = ANY(?::bigint[])`
+         : "SELECT id, message, error_code FROM logs WHERE id = ANY(?::bigint[])",
+      [hits.map((h) => h.id)],
+   );
    const text = new Map<number, string>(rows.map((r: any) => [Number(r.id), rerankText(r, doc)]));
    const scores = await scorePairs(query, hits.map((h) => text.get(h.id) ?? ""));
    return orderByScore(hits, scores, k);

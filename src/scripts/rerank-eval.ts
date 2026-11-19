@@ -6,6 +6,7 @@ import { RERANKER_MODEL } from "../embeddings/model";
 import { mean, percentile, relevantCauses, TextQuery } from "../evals/metrics";
 import { codesIn, knownCodes as loadKnownCodes } from "../search/codes";
 import { rerank, RerankDoc } from "../search/rerank";
+import { templatesCurrent } from "../search/templates";
 import { Hit, hybridSearch, vectorSearch } from "../search/search";
 import { SEARCH_DEFAULTS } from "../services/search.service";
 
@@ -33,9 +34,11 @@ import { SEARCH_DEFAULTS } from "../services/search.service";
  * time, median of 3 runs after a warm-up; first-stage time is in eval:search.
  *
  * --doc picks what the reranker reads (rerankText): "code" (default) puts
- * the error code in front of the message, "message" is the message alone.
+ * the error code in front of the message, "message" is the message alone,
+ * "described" adds the template's description, "template" reads the
+ * template + description instead of the message (both need pnpm templates:build).
  *
- * Usage: pnpm eval:rerank [--n=20,50] [--doc=code|message] [--stages=hybrid,vector] [--codes=false] [--out=...]
+ * Usage: pnpm eval:rerank [--n=20,50] [--doc=code|message|described|template] [--stages=hybrid,vector] [--codes=false] [--out=...]
  */
 
 type Stage = "hybrid" | "vector";
@@ -74,6 +77,7 @@ async function run() {
    const queries = loadQueries();
    const { rows: [info] } = await db.raw("SELECT count(*)::int AS rows, count(embedding)::int AS embedded FROM logs");
    if (info.rows === 0 || info.embedded !== info.rows) throw new Error("run pnpm seed:logs and pnpm embed:logs first");
+   if ((DOC === "described" || DOC === "template") && !(await templatesCurrent(db))) throw new Error("--doc=described needs current templates: run pnpm templates:build");
    const size = info.rows >= 1_000_000 ? `${info.rows / 1_000_000}m` : `${info.rows / 1000}k`;
    const known = await loadKnownCodes(db);
    const maxN = NS[NS.length - 1];
