@@ -4,7 +4,7 @@ import { describe, it, expect, beforeAll, afterAll } from "vitest";
 import request from "supertest";
 import app from "../app";
 import db from "../db/knex";
-import { modelDir } from "../embeddings/model";
+import { modelDir, RERANKER_MODEL } from "../embeddings/model";
 import { NOT_INFO } from "../search/search";
 import { buildTemplates, embedTemplates } from "../search/templates";
 
@@ -12,6 +12,7 @@ import { buildTemplates, embedTemplates } from "../search/templates";
 // `pnpm model:fetch`, `seed:run` and `embed:logs` first; locally, without
 // them, the search tests are skipped instead of failing.
 const hasModel = existsSync(path.join(modelDir(), "onnx/model_quantized.onnx"));
+const hasReranker = existsSync(path.join(modelDir(RERANKER_MODEL), "onnx/model.onnx"));
 await db.migrate.latest();
 const { rows: [counts] } = await db.raw(
    "SELECT count(*) AS total, count(embedding) AS embedded FROM logs",
@@ -49,6 +50,10 @@ describe("GET /search/logs: validação", () => {
       [{ q: "redis", cw: 6 }, /cw must be a number between 0 and 5/],
       [{ q: "redis", vw: 0, fw: 0 }, /vw and fw cannot both be 0/],
       [{ q: "redis", ef_serach: 1000 }, /unknown parameter ef_serach; allowed: q, mode, k/],
+      [{ q: "redis", rerank: 101 }, /rerank must be an integer between 0 and 100/],
+      [{ q: "redis", rerank: 5 }, /rerank must be 0 \(off\) or at least k/],
+      [{ q: "redis", rerank: 20, k: 30 }, /rerank must be 0 \(off\) or at least k/],
+      [{ q: "redis", tw: 6 }, /tw must be a number between 0 and 5/],
    ])("400 para %j", async (query, message) => {
       const res = await search(query as Record<string, string | number>);
       expect(res.status).toBe(400);
@@ -77,7 +82,9 @@ describe.skipIf(!ready)("GET /search/logs: resultados", () => {
          );
          expect(r).not.toHaveProperty("root_cause");
       }
-      expect(res.body.ms).toEqual({ embed: expect.any(Number), search: expect.any(Number), total: expect.any(Number) });
+      expect(res.body.ms).toEqual({ embed: expect.any(Number), search: expect.any(Number), rerank: 0, total: expect.any(Number) });
+      expect(res.body.rerank).toBeNull();
+      expect(res.body.results[0]).not.toHaveProperty("rerank_score");
    });
 
    it("respeita k", async () => {
@@ -133,7 +140,7 @@ describe.skipIf(!ready)("GET /search/logs: resultados", () => {
       const res = await search({ q: "customers cannot pay", route: "true" });
 
       expect(res.status).toBe(200);
-      expect(res.body.hybrid).toEqual({ vector_weight: 1, keyword_weight: 0.5, weights_from: "routed", rrf_k: 60, codes: [], code_weight: 2 });
+      expect(res.body.hybrid).toEqual({ vector_weight: 1, keyword_weight: 0.5, weights_from: "routed", rrf_k: 60, codes: [], code_weight: 2, template_weight: 0 });
       const causes = await rootCauses(res.body.results.map((r: any) => r.id));
       expect(causes.filter((c) => c === "payment_gateway_5xx").length).toBeGreaterThanOrEqual(8);
    });
@@ -141,7 +148,7 @@ describe.skipIf(!ready)("GET /search/logs: resultados", () => {
    it("hybrid roteado: código favorece o full-text (ECONNRESET nos 10 resultados)", async () => {
       const res = await search({ q: "ECONNRESET", route: "true" });
 
-      expect(res.body.hybrid).toEqual({ vector_weight: 0.5, keyword_weight: 1, weights_from: "routed", rrf_k: 60, codes: ["ECONNRESET"], code_weight: 2 });
+      expect(res.body.hybrid).toEqual({ vector_weight: 0.5, keyword_weight: 1, weights_from: "routed", rrf_k: 60, codes: ["ECONNRESET"], code_weight: 2, template_weight: 0 });
       expect(res.body.results).toHaveLength(10);
       for (const r of res.body.results) expect(r.message).toMatch(/ECONNRESET/);
    });
@@ -157,7 +164,7 @@ describe.skipIf(!ready)("GET /search/logs: resultados", () => {
 
    it("sem route, o hybrid usa os pesos fixos 1/1 (roteamento desligado por padrão)", async () => {
       const res = await search({ q: "ECONNRESET" });
-      expect(res.body.hybrid).toEqual({ vector_weight: 1, keyword_weight: 1, weights_from: "fixed", rrf_k: 60, codes: ["ECONNRESET"], code_weight: 2 });
+      expect(res.body.hybrid).toEqual({ vector_weight: 1, keyword_weight: 1, weights_from: "fixed", rrf_k: 60, codes: ["ECONNRESET"], code_weight: 2, template_weight: 0 });
 
       const off = await search({ q: "ECONNRESET", route: "false" });
       expect(off.body.hybrid).toMatchObject({ weights_from: "fixed" });
@@ -202,6 +209,43 @@ describe.skipIf(!ready)("GET /search/logs: códigos de erro no hybrid", () => {
       const res = await search({ q: "redis is down" });
       expect(res.body.hybrid.codes).toEqual([]);
    });
+
+   it("tw liga a lista de templates no hybrid e aparece na resposta", async () => {
+      const res = await search({ q: "redis is down", tw: 1 });
+      expect(res.status).toBe(200);
+      expect(res.body.hybrid.template_weight).toBe(1);
+      expect(res.body.results).toHaveLength(10);
+   });
+});
+
+describe.skipIf(!ready || !hasReranker)("GET /search/logs: rerank", () => {
+   it("rerank=N reordena N candidatos e devolve k, da maior nota para a menor", async () => {
+      const res = await search({ q: "redis is down", rerank: 30, k: 10 });
+      expect(res.status).toBe(200);
+      expect(res.body.rerank).toEqual({ candidates: 30, model: "Xenova/ms-marco-MiniLM-L-6-v2", doc: "template" });
+      expect(res.body.results).toHaveLength(10);
+      const scores = res.body.results.map((r: any) => r.rerank_score);
+      expect(scores.every((x: unknown) => typeof x === "number")).toBe(true);
+      expect([...scores].sort((a, b) => b - a)).toEqual(scores);
+      expect(res.body.ms.rerank).toBeGreaterThan(0);
+      expect(await rootCauses(res.body.results.map((r: any) => r.id))).toContain("cache_unavailable");
+   }, 30_000);
+
+   it("os resultados com rerank saem dos candidatos sem rerank", async () => {
+      const [plain, reranked] = await Promise.all([
+         search({ q: "deadlock detected", k: 20 }),
+         search({ q: "deadlock detected", rerank: 20, k: 5 }),
+      ]);
+      const candidates = new Set(plain.body.results.map((r: any) => r.id));
+      for (const r of reranked.body.results) expect(candidates.has(r.id)).toBe(true);
+   }, 30_000);
+
+   it("funciona nos outros modos (vector)", async () => {
+      const res = await search({ q: "server ran out of RAM", mode: "vector", rerank: 20 });
+      expect(res.status).toBe(200);
+      expect(res.body.rerank.candidates).toBe(20);
+      expect(res.body.results).toHaveLength(10);
+   }, 30_000);
 });
 
 async function levels(ids: number[]): Promise<string[]> {
