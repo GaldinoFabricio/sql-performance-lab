@@ -1,4 +1,6 @@
+import { existsSync } from "fs";
 import { cpus } from "os";
+import path from "path";
 import {
    AutoModelForSequenceClassification,
    AutoTokenizer,
@@ -6,7 +8,7 @@ import {
    type PreTrainedModel,
    type PreTrainedTokenizer,
 } from "@huggingface/transformers";
-import { MODELS_ROOT, RERANKER_MODEL } from "../embeddings/model";
+import { modelDir, MODELS_ROOT, RERANKER_MODEL } from "../embeddings/model";
 import { describe } from "../logs/descriptions";
 import type { Conn } from "./search";
 
@@ -55,6 +57,16 @@ function load() {
       }),
    }))();
    return loaded;
+}
+
+/** Whether the reranker model is on disk (`pnpm model:fetch`). */
+export function rerankerReady(): boolean {
+   return existsSync(path.join(modelDir(RERANKER_MODEL), "onnx/model.onnx"));
+}
+
+/** Loads the model and scores one pair, so the first search doesn't pay for it (~0.4 s). */
+export async function warmUpReranker(): Promise<void> {
+   await scorePairs("warm up", ["warm up"]);
 }
 
 /**

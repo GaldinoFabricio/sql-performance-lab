@@ -82,9 +82,10 @@ describe.skipIf(!ready)("GET /search/logs: resultados", () => {
          );
          expect(r).not.toHaveProperty("root_cause");
       }
-      expect(res.body.ms).toEqual({ embed: expect.any(Number), search: expect.any(Number), rerank: 0, total: expect.any(Number) });
-      expect(res.body.rerank).toBeNull();
-      expect(res.body.results[0]).not.toHaveProperty("rerank_score");
+      expect(res.body.ms).toEqual({ embed: expect.any(Number), search: expect.any(Number), rerank: expect.any(Number), total: expect.any(Number) });
+      // hybrid reranks the top 50 by default when the reranker model is on disk
+      expect(res.body.rerank).toEqual(hasReranker ? { candidates: 50, model: "Xenova/ms-marco-MiniLM-L-6-v2", doc: "template" } : null);
+      expect("rerank_score" in res.body.results[0]).toBe(hasReranker);
    });
 
    it("respeita k", async () => {
@@ -200,7 +201,8 @@ describe.skipIf(!ready)("GET /search/logs: códigos de erro no hybrid", () => {
    });
 
    it("cw=0 desliga a lista de códigos", async () => {
-      const res = await search({ q: "40P01", cw: 0 });
+      // rerank=0: the reranker reads the error code too, so it would still bring 40P01 up
+      const res = await search({ q: "40P01", cw: 0, rerank: 0 });
       expect(res.body.hybrid).toMatchObject({ codes: ["40P01"], code_weight: 0 });
       expect(res.body.results.some((r: any) => r.error_code === "40P01")).toBe(false);
    });
@@ -238,6 +240,27 @@ describe.skipIf(!ready || !hasReranker)("GET /search/logs: rerank", () => {
       ]);
       const candidates = new Set(plain.body.results.map((r: any) => r.id));
       for (const r of reranked.body.results) expect(candidates.has(r.id)).toBe(true);
+   }, 30_000);
+
+   it("rerank=0 desliga o reranker do hybrid", async () => {
+      const res = await search({ q: "redis is down", rerank: 0 });
+      expect(res.body.rerank).toBeNull();
+      expect(res.body.ms.rerank).toBe(0);
+      expect(res.body.results[0]).not.toHaveProperty("rerank_score");
+   });
+
+   it("os outros modos não reordenam por padrão", async () => {
+      for (const mode of ["vector", "fulltext", "like", "template"]) {
+         const res = await search({ q: "redis is down", mode });
+         if (res.status === 503) continue; // template mode before templates:build
+         expect(res.body.rerank).toBeNull();
+      }
+   });
+
+   it("k maior que o padrão de candidatos: reordena k", async () => {
+      const res = await search({ q: "redis is down", k: 50 });
+      expect(res.body.rerank.candidates).toBe(50);
+      expect(res.body.results).toHaveLength(50);
    }, 30_000);
 
    it("funciona nos outros modos (vector)", async () => {

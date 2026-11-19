@@ -59,8 +59,14 @@ const fields = {
       "boolean.base": "include_info must be true or false",
    }),
    // rerank=N: the first stage returns N candidates and the cross-encoder keeps the best k.
-   // 0 (default) = off. N must be at least k, or there would be fewer than k results.
-   rerank: intParam("rerank", 0, SEARCH_DEFAULTS.maxRerank, SEARCH_DEFAULTS.rerank),
+   // 0 = off; N must be at least k, or there would be fewer than k results. No default
+   // on purpose: missing = the service decides (hybrid reranks 50, other modes don't).
+   rerank: Joi.number().integer().min(0).max(SEARCH_DEFAULTS.maxRerank).empty("").messages({
+      "number.base": `rerank must be an integer between 0 and ${SEARCH_DEFAULTS.maxRerank}`,
+      "number.integer": `rerank must be an integer between 0 and ${SEARCH_DEFAULTS.maxRerank}`,
+      "number.min": `rerank must be an integer between 0 and ${SEARCH_DEFAULTS.maxRerank}`,
+      "number.max": `rerank must be an integer between 0 and ${SEARCH_DEFAULTS.maxRerank}`,
+   }),
    // Weight of hybrid's nearest-templates list (search.ts); 0 (default) turns it off.
    tw: weightParam("tw").default(SEARCH_DEFAULTS.templateWeight),
 };
@@ -94,6 +100,6 @@ export interface LogSearchQuery {
    rrf_k: number;
    route: boolean;
    include_info: boolean;
-   rerank: number;
+   rerank?: number;
    tw: number;
 }

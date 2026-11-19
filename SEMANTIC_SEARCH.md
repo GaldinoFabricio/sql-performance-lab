@@ -535,7 +535,9 @@ The list raises the ceiling (at weight 2 the DNS logs reach the candidates) and 
 - **"cannot find the address of the payment server" is still 0%.** Neither MiniLM nor ms-marco link "find the address" to "hostname could not be resolved", even with the description. Only the LLM did. It needs a larger or domain-trained model.
 - **The descriptions belong to the templates.** A new template has none until `pnpm templates:describe` runs (it asks only for the missing ones), and reranking with `template` falls back to the code + message for logs not mapped yet (inserted after the last `templates:build`).
 - **One HNSW build per number.** First-stage precision moved from 88.8% to 91.3% between two 100k builds, and "code crashed on a missing field" had a ceiling of 0 in one build and not in the other. Gaps under ~2 points between rows of different tables are noise.
-- **A second model in memory.** `rerank` loads 91 MB and takes ~0.4 s on the first request, so it is off by default.
+- **A second model in memory.** The reranker loads 91 MB (~0.4 s); `server.ts` loads it at start so the first search doesn't pay for it. Without it on disk, hybrid runs without reranking and an explicit `rerank=N` returns 503.
+- **Measured on hybrid only.** That is why only hybrid reranks by default; the other modes rerank only with `rerank=N`.
+- **`cw=0` no longer removes the code's effect.** It turns off the code list, but the reranker reads the error code in front of each candidate, so logs with the typed code still rise among the 50 candidates. Use `cw=0&rerank=0` for the old behavior.
 
 ## API
 
@@ -552,10 +554,10 @@ The list raises the ceiling (at weight 2 the DNS logs reach the candidates) and 
 | `rrf_k` | 60 | 1–1000 | hybrid only: RRF constant, `score = weight / (rrf_k + rank)` |
 | `route` | `false` | `true`/`false` (or `1`/`0`) | hybrid only: pick the weights from the query (`src/search/routing.ts`) when `vw`/`fw` are not given |
 | `include_info` | `false` | `true`/`false` (or `1`/`0`) | every mode: also search INFO logs. The HNSW index leaves them out, so `vector`/`hybrid` become an exact scan (`ef_search: null`) |
-| `rerank` | 0 (off) | 0, or `k`–100 | every mode: the first stage returns this many candidates and the cross-encoder keeps the best `k`, reading each log's template + description. See [Reranking with a cross-encoder](#reranking-with-a-cross-encoder) |
+| `rerank` | 50 in `hybrid`, 0 (off) in the other modes | 0, or `k`–100 | the first stage returns this many candidates and the cross-encoder keeps the best `k`, reading each log's template + description; 0 turns it off. On by default in hybrid since 3 HNSW builds at 100k gave 98.2% vs 88.7–92.2% without it, for 12 ms p50. See [Reranking with a cross-encoder](#reranking-with-a-cross-encoder) |
 | `tw` | 0 (off) | 0–5 | hybrid only: RRF weight of the nearest templates' logs (3 templates) |
 
-The response says `include_info`, and `ms: { embed, search, rerank, total }`. With `rerank` it has `rerank: { candidates, model, doc }` and a `rerank_score` on every result (a logit: only the order means something); without it, `rerank` is `null`. In hybrid mode it has `hybrid: { vector_weight, keyword_weight, weights_from, rrf_k, codes, code_weight, template_weight }`, where `codes` lists the error codes found in `q`, and `weights_from` is `explicit` (from `vw`/`fw`), `routed` or `fixed`. For the other modes, `hybrid` is `null`.
+The response says `include_info`, and `ms: { embed, search, rerank, total }`. When a rerank ran (hybrid by default, or `rerank=N`) it has `rerank: { candidates, model, doc }` and a `rerank_score` on every result (a logit: only the order means something); otherwise `rerank` is `null`. In hybrid mode it has `hybrid: { vector_weight, keyword_weight, weights_from, rrf_k, codes, code_weight, template_weight }`, where `codes` lists the error codes found in `q`, and `weights_from` is `explicit` (from `vw`/`fw`), `routed` or `fixed`. For the other modes, `hybrid` is `null`.
 
 **Why routing is off by default.** The router favors full-text (weights 0.5/1) when the query has a token shaped like a code (`ECONNRESET`, `HTTP_502`, `x509`) and the vector side (1/0.5) otherwise. On the 60 free-text queries at 10k rows (3 HNSW builds, `evals/results/search-10k-routing.json`), routed minus fixed was:
 

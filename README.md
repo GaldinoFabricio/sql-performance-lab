@@ -157,7 +157,7 @@ pnpm dev
 | GET    | `/queries/join/optimized` | JOIN with composite index (index scan)              |
 | GET    | `/queries/explain/:type`  | Execution plan for `slow` or `fast`                 |
 | GET    | `/benchmarks/run`         | Side-by-side benchmark comparison (5 iterations)    |
-| GET    | `/search/logs?q=&mode=`   | Log search: `hybrid` (default), `vector`, `fulltext`, `like`, `template`; optional `k`, `ef_search`, `include_info` (INFO logs are left out by default), `rerank` (cross-encoder over the top N), and for hybrid `vw`, `fw`, `cw`, `tw`, `rrf_k`, `route` ([SEMANTIC_SEARCH.md](SEMANTIC_SEARCH.md#api)) |
+| GET    | `/search/logs?q=&mode=`   | Log search: `hybrid` (default), `vector`, `fulltext`, `like`, `template`; optional `k`, `ef_search`, `include_info` (INFO logs are left out by default), `rerank` (cross-encoder over the top N; 50 by default in hybrid, `rerank=0` turns it off), and for hybrid `vw`, `fw`, `cw`, `tw`, `rrf_k`, `route` ([SEMANTIC_SEARCH.md](SEMANTIC_SEARCH.md#api)) |
 
 **Example response from `/benchmarks/run`:**
 
