@@ -38,7 +38,10 @@ import { SEARCH_DEFAULTS } from "../services/search.service";
  * "described" adds the template's description, "template" reads the
  * template + description instead of the message (both need pnpm templates:build).
  *
- * Usage: pnpm eval:rerank [--n=20,50] [--doc=code|message|described|template] [--stages=hybrid,vector] [--codes=false] [--out=...]
+ * --tw / --tt add hybrid's template list to the first stage (weight, number
+ * of nearest templates); --tw=0 (default) leaves it out.
+ *
+ * Usage: pnpm eval:rerank [--tw=1] [--tt=3] [--n=20,50] [--doc=code|message|described|template] [--stages=hybrid,vector] [--codes=false] [--out=...]
  */
 
 type Stage = "hybrid" | "vector";
@@ -51,6 +54,9 @@ const NS = (flag("n") ?? "20,50").split(",").map(Number).sort((a, b) => a - b);
 const WITH_CODES = flag("codes") !== "false";
 const STAGES = (flag("stages") ?? "hybrid,vector").split(",") as Stage[];
 const DOC = (flag("doc") ?? "code") as RerankDoc;
+const TW = Number(flag("tw") ?? 0);
+const TT = Number(flag("tt") ?? 3);
+if (!(TW >= 0) || !Number.isInteger(TT) || TT < 1) throw new Error(`--tw must be a number >= 0 and --tt an integer >= 1 (got ${flag("tw")}, ${flag("tt")})`);
 const pct = (x: number) => `${(x * 100).toFixed(1)}%`;
 
 function loadQueries(): Query[] {
@@ -77,7 +83,7 @@ async function run() {
    const queries = loadQueries();
    const { rows: [info] } = await db.raw("SELECT count(*)::int AS rows, count(embedding)::int AS embedded FROM logs");
    if (info.rows === 0 || info.embedded !== info.rows) throw new Error("run pnpm seed:logs and pnpm embed:logs first");
-   if ((DOC === "described" || DOC === "template") && !(await templatesCurrent(db))) throw new Error("--doc=described needs current templates: run pnpm templates:build");
+   if ((DOC === "described" || DOC === "template" || TW > 0) && !(await templatesCurrent(db))) throw new Error("--doc=described needs current templates: run pnpm templates:build");
    const size = info.rows >= 1_000_000 ? `${info.rows / 1_000_000}m` : `${info.rows / 1000}k`;
    const known = await loadKnownCodes(db);
    const maxN = NS[NS.length - 1];
@@ -94,6 +100,8 @@ async function run() {
             notInfo: true,
             codes: codesIn(q.text, known),
             codeWeight: SEARCH_DEFAULTS.codeWeight,
+            templateWeight: TW,
+            templates: TT,
          });
       });
 
@@ -155,7 +163,7 @@ async function run() {
    };
    const summary = Object.fromEntries(STAGES.map((s) => [s, Object.fromEntries(groups.map((g) => [g.name, summarize(s, g.idx)]))]));
 
-   console.log(`logs: ${info.rows.toLocaleString()} rows; reranker ${RERANKER_MODEL.id} reading ${DOC}; first stage like GET /search/logs (no INFO, ef_search ${SEARCH_DEFAULTS.efSearch}, cw ${SEARCH_DEFAULTS.codeWeight})`);
+   console.log(`logs: ${info.rows.toLocaleString()} rows; reranker ${RERANKER_MODEL.id} reading ${DOC}; first stage like GET /search/logs (no INFO, ef_search ${SEARCH_DEFAULTS.efSearch}, cw ${SEARCH_DEFAULTS.codeWeight}${TW ? `, template list tw ${TW} x ${TT} templates` : ""})`);
    for (const stage of STAGES) {
       console.log(`\n${stage}: precision@10 (queries with 0 relevant)`);
       console.log(`${"".padEnd(18)}${"before".padEnd(14)}${NS.map((N) => `top ${N}: after / ceiling`.padEnd(32)).join("")}`);
@@ -176,7 +184,7 @@ async function run() {
       console.log(`  ${q.text.slice(0, 44).padEnd(46)}${pct(r.before).padStart(6)} -> ${pct(r.after[NS[0]]).padEnd(7)} [${r.top3.before.join(", ")}] -> [${r.top3.after[NS[0]].join(", ")}]`);
    }
 
-   const out = flag("out") ? path.resolve(ROOT, flag("out")!) : path.join(ROOT, `evals/results/rerank-${size}${DOC === "code" ? "" : `-${DOC}`}.json`);
+   const out = flag("out") ? path.resolve(ROOT, flag("out")!) : path.join(ROOT, `evals/results/rerank-${size}${DOC === "code" ? "" : `-${DOC}`}${TW ? `-tw${TW}x${TT}` : ""}.json`);
    mkdirSync(path.dirname(out), { recursive: true });
    writeFileSync(
       out,
@@ -186,7 +194,7 @@ async function run() {
             rows: info.rows,
             k: K,
             reranker: { model: RERANKER_MODEL.id, revision: RERANKER_MODEL.revision, dtype: "fp32", doc: DOC },
-            settings: { not_info: true, ef_search: SEARCH_DEFAULTS.efSearch, hybrid_candidates: SEARCH_DEFAULTS.hybridCandidates, rrf_k: SEARCH_DEFAULTS.rrfK, code_weight: SEARCH_DEFAULTS.codeWeight, n: NS },
+            settings: { not_info: true, ef_search: SEARCH_DEFAULTS.efSearch, hybrid_candidates: SEARCH_DEFAULTS.hybridCandidates, rrf_k: SEARCH_DEFAULTS.rrfK, code_weight: SEARCH_DEFAULTS.codeWeight, template_weight: TW, templates: TT, n: NS },
             latency_note: "reranker only (message fetch + scoring), client-side wall time, median of 3 runs per query after a warm-up run",
             summary,
             per_query: queries.map((q, i) => ({
