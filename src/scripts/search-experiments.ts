@@ -8,7 +8,9 @@ import {
    likePattern,
    mean,
    percentile,
+   meanReciprocalRank,
    precisionAtK,
+   reciprocalRank,
    relevantCauses,
    TextQuery,
    recallAtK,
@@ -100,6 +102,8 @@ interface Query {
    also?: string[];
    excludeId: number | null;
    kth_distance?: number;
+   /** A typed query (vs a log query): the only kind MRR is defined for. */
+   typed?: boolean;
 }
 
 type Setup = (trx: Conn) => Promise<void>;
@@ -124,6 +128,8 @@ interface MethodResult {
    queries: number;
    recall_at_k: number | null;
    precision_at_k: number;
+   /** MRR@k over the typed queries; null when the run has none. */
+   mrr_at_k: number | null;
    latency_ms: { p50: number; p95: number; mean: number; samples: number };
    avg_results: number;
    empty_results: number;
@@ -132,11 +138,16 @@ interface MethodResult {
       key: string;
       recall: number | null;
       precision: number;
+      /** Null for log queries: MRR is defined for typed queries only. */
+      reciprocal_rank: number | null;
       results: number;
    }[];
    /** Raw latencies, kept in memory to pool across builds; not written out. */
    times?: number[];
 }
+
+/** MRR of a list of per-query reciprocal ranks; null when there are none (no typed queries). */
+const mrrOf = (rrs: number[]) => (rrs.length ? meanReciprocalRank(rrs) : null);
 
 /** Merges the same method measured on several builds of the index. */
 function aggregate(runs: MethodResult[]): MethodResult {
@@ -153,6 +164,7 @@ function aggregate(runs: MethodResult[]): MethodResult {
          ? [Math.min(...recalls), Math.max(...recalls)]
          : undefined,
       precision_at_k: mean(runs.map((r) => r.precision_at_k)),
+      mrr_at_k: mrrOf(runs.map((r) => r.mrr_at_k).filter((x): x is number => x !== null)),
       precision_range: [
          Math.min(...runs.map((r) => r.precision_at_k)),
          Math.max(...runs.map((r) => r.precision_at_k)),
@@ -173,6 +185,7 @@ function aggregate(runs: MethodResult[]): MethodResult {
             ...p,
             recall: rs.length ? mean(rs) : null,
             precision: mean(runs.map((r) => r.per_query[i].precision)),
+            reciprocal_rank: p.reciprocal_rank === null ? null : mean(runs.map((r) => r.per_query[i].reciprocal_rank!)),
          };
       }),
       times,
@@ -298,6 +311,9 @@ async function runMethod(
                relevantCauses(q),
                k,
             ),
+            reciprocal_rank: q.typed
+               ? reciprocalRank(hits.map((h) => h.root_cause), relevantCauses(q), k)
+               : null,
             results: hits.length,
          });
       }
@@ -310,6 +326,9 @@ async function runMethod(
          queries: queries.length,
          recall_at_k: recalls.length ? mean(recalls) : null,
          precision_at_k: mean(perQuery.map((p) => p.precision)),
+         mrr_at_k: mrrOf(
+            perQuery.map((p) => p.reciprocal_rank).filter((x): x is number => x !== null),
+         ),
          latency_ms: {
             p50: ms(percentile(times, 50)),
             p95: ms(percentile(times, 95)),
@@ -376,14 +395,14 @@ const mb = (b: number) => `${(b / 1024 / 1024).toFixed(1)} MB`;
 function printTable(title: string, rows: MethodResult[]) {
    console.log(`\n${title}`);
    console.log(
-      `${"method".padEnd(34)} recall@10 [min-max]     prec@10     p50 ms     p95 ms  avg n  empty`,
+      `${"method".padEnd(34)} recall@10 [min-max]     prec@10   mrr@10     p50 ms     p95 ms  avg n  empty`,
    );
    for (const r of rows) {
       const range = r.recall_range
          ? `[${(r.recall_range[0] * 100).toFixed(0)}-${(r.recall_range[1] * 100).toFixed(0)}]`
          : "";
       console.log(
-         `${r.method.padEnd(34)} ${pct(r.recall_at_k).padStart(9)} ${range.padEnd(11)}  ${pct(r.precision_at_k).padStart(7)}` +
+         `${r.method.padEnd(34)} ${pct(r.recall_at_k).padStart(9)} ${range.padEnd(11)}  ${pct(r.precision_at_k).padStart(7)}  ${pct(r.mrr_at_k).padStart(7)}` +
             `  ${fmtMs(r.latency_ms.p50).padStart(9)}  ${fmtMs(r.latency_ms.p95).padStart(9)}` +
             `  ${r.avg_results.toFixed(1).padStart(5)}  ${String(r.empty_results).padStart(5)}`,
       );
@@ -398,15 +417,16 @@ async function runTemplatesOnly() {
    const textSpec: TextQuery[] = JSON.parse(readFileSync(TEXT_QUERIES_PATH, "utf8")).queries;
    const queries: Query[] = [];
    for (const t of textSpec) {
-      queries.push({ key: t.text, text: t.text, vec: toPgVector((await embed([t.text]))[0]), expected: t.expected, also: t.also, excludeId: null });
+      queries.push({ key: t.text, text: t.text, vec: toPgVector((await embed([t.text]))[0]), expected: t.expected, also: t.also, excludeId: null, typed: true });
    }
    console.log(`${info.rows.toLocaleString("en-US")} rows, ${info.templates} templates, ${queries.length} free-text queries, ${ROUNDS} measured rounds`);
    const r = await runMethod(template(k), queries, k);
    printTable("free-text queries", [r]);
    for (const kind of ["keyword", "mixed", "paraphrase"]) {
       const idx = textSpec.flatMap((t, i) => (t.kind === kind ? [i] : []));
-      console.log(`  ${kind.padEnd(10)} n=${idx.length}  precision@${k} ${pct(mean(idx.map((i) => r.per_query[i].precision)))}`);
+      console.log(`  ${kind.padEnd(10)} n=${idx.length}  precision@${k} ${pct(mean(idx.map((i) => r.per_query[i].precision)))}  MRR@${k} ${pct(mrrOf(idx.map((i) => r.per_query[i].reciprocal_rank!)))}`);
    }
+   console.log(`  MRR@${k} (all typed queries): ${pct(r.mrr_at_k)}`);
    console.log(`  no relevant result: ${r.per_query.filter((p) => p.precision === 0).length} of ${queries.length}`);
    const size = info.rows >= 1_000_000 ? `${info.rows / 1_000_000}m` : `${info.rows / 1000}k`;
    const out = flag("out") ? path.resolve(flag("out")!) : path.join(ROOT, `evals/results/search-${size}-templates-only.json`);
@@ -502,6 +522,7 @@ async function run() {
          expected: t.expected,
          also: t.also,
          excludeId: null,
+         typed: true,
       });
    }
    // Exact k-th distance for each free-text query (forced sequential scan).
@@ -670,6 +691,19 @@ async function run() {
       console.log(
          `${kind.padEnd(10)} ${String(idx.length).padStart(2)}  ${p(like.name)} ${p(fts.name)} ${p(exact.name)} ${p(hnsw40)} ${p(hybridName)}` +
             (tpl ? `    ${p(tpl.method)}` : ""),
+      );
+   }
+   console.log(`\nfree-text MRR@${k} by kind (same columns):`);
+   console.log(`kind        n    LIKE     fts  exact   hnsw  hybrid${tpl ? "  template" : ""}`);
+   for (const kind of ["keyword", "mixed", "paraphrase"]) {
+      const idx = textSpec
+         .map((t, i) => (t.kind === kind ? i : -1))
+         .filter((i) => i >= 0);
+      const m = (name: string) =>
+         pct(mrrOf(idx.map((i) => pick(textResults, name).per_query[i].reciprocal_rank!)));
+      console.log(
+         `${kind.padEnd(10)} ${String(idx.length).padStart(2)}  ${m(like.name)} ${m(fts.name)} ${m(exact.name)} ${m(hnsw40)} ${m(hybridName)}` +
+            (tpl ? `    ${m(tpl.method)}` : ""),
       );
    }
    console.log(`\nwhere each one wins (precision@${k}, free text):`);

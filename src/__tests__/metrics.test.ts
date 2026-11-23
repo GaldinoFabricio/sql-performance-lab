@@ -1,5 +1,13 @@
 import { describe, it, expect } from "vitest";
-import { isRelevant, likePattern, percentile, precisionAtK, recallAtK } from "../evals/metrics";
+import {
+   isRelevant,
+   likePattern,
+   meanReciprocalRank,
+   percentile,
+   precisionAtK,
+   recallAtK,
+   reciprocalRank,
+} from "../evals/metrics";
 
 describe("recallAtK (com empates)", () => {
    const truth = { id: 1, kth_distance: 0.3 };
@@ -47,6 +55,41 @@ describe("precisionAtK com causa raiz null", () => {
    it("null nunca conta como acerto, mesmo se expected contém null", () => {
       expect(precisionAtK([null, "a", null], [null, "a"], 4)).toBe(0.25);
       expect(precisionAtK([null, null], null, 2)).toBe(0);
+   });
+});
+
+describe("reciprocalRank", () => {
+   it("primeiro resultado relevante vale 1", () => {
+      expect(reciprocalRank(["a", "b"], "a", 10)).toBe(1);
+   });
+
+   it("vale 1/posição do primeiro relevante", () => {
+      expect(reciprocalRank(["x", "y", "a", "a"], "a", 10)).toBeCloseTo(1 / 3);
+   });
+
+   it("nada relevante nos k primeiros vale 0, inclusive posição k+1", () => {
+      expect(reciprocalRank(["x", "y"], "a", 10)).toBe(0);
+      expect(reciprocalRank(["x", "y", "a"], "a", 2)).toBe(0);
+      expect(reciprocalRank([], "a", 10)).toBe(0);
+   });
+
+   it("com várias causas relevantes, vale a primeira que aparecer", () => {
+      expect(reciprocalRank(["x", "cache", "db"], ["db", "cache"], 10)).toBe(0.5);
+   });
+
+   it("causa raiz null nunca é relevante", () => {
+      expect(reciprocalRank([null, "a"], [null, "a"], 10)).toBe(0.5);
+      expect(reciprocalRank([null], null, 10)).toBe(0);
+   });
+});
+
+describe("meanReciprocalRank", () => {
+   it("tira a média dos reciprocal ranks", () => {
+      expect(meanReciprocalRank([1, 0.5, 0])).toBeCloseTo(0.5);
+   });
+
+   it("lista vazia dá NaN, como mean", () => {
+      expect(meanReciprocalRank([])).toBeNaN();
    });
 });
 

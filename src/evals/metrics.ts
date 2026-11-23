@@ -62,6 +62,22 @@ export function precisionAtK(rootCauses: (string | null)[], expected: string | n
    return rootCauses.slice(0, k).filter((r) => r !== null && ok.includes(r)).length / k;
 }
 
+/**
+ * Reciprocal rank of one typed query: 1 / (1-based rank of the first result
+ * whose root cause is relevant), or 0 when none of the first k is. A null
+ * root cause is never relevant, even if `expected` contains null.
+ */
+export function reciprocalRank(rootCauses: (string | null)[], expected: string | null | (string | null)[], k: number): number {
+   const ok = Array.isArray(expected) ? expected : [expected];
+   const i = rootCauses.slice(0, k).findIndex((r) => r !== null && ok.includes(r));
+   return i === -1 ? 0 : 1 / (i + 1);
+}
+
+/** Mean reciprocal rank (MRR@k) over typed queries: the mean of their reciprocal ranks. NaN when empty. */
+export function meanReciprocalRank(reciprocalRanks: number[]): number {
+   return mean(reciprocalRanks);
+}
+
 /** Nearest-rank percentile (p in 0..100). Same definition at every scale, no interpolation. */
 export function percentile(values: number[], p: number): number {
    if (values.length === 0) return NaN;
