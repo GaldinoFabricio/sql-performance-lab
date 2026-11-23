@@ -17,4 +17,5 @@ The semantic search chapter shows how to measure search quality with evals.
 Each file in [`.out-of-scope/`](./.out-of-scope/) records one rejected concept and why. Read them before filing an issue:
 
 - [`production-hardening.md`](./.out-of-scope/production-hardening.md)
+- [`result-caching.md`](./.out-of-scope/result-caching.md)
 - [`unmeasured-features.md`](./.out-of-scope/unmeasured-features.md)
