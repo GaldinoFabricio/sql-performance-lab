@@ -5,7 +5,8 @@ import request from "supertest";
 import app from "../app";
 import db from "../db/knex";
 import { modelDir, RERANKER_MODEL } from "../embeddings/model";
-import { NOT_INFO } from "../search/search";
+import { embed, toPgVector } from "../embeddings/embedder";
+import { hybridSearch, NOT_INFO, vectorSearch } from "../search/search";
 import { buildTemplates, embedTemplates } from "../search/templates";
 
 // Search tests need the model (for typed queries) and embedded logs. CI runs
@@ -61,6 +62,17 @@ describe("GET /search/logs: validação", () => {
    });
 });
 
+// Needs only the migrated database: no model, no seeded rows.
+describe("GET /search/logs: consulta sem palavras pesquisáveis", () => {
+   it("fulltext com consulta só de stop words devolve vazio e avisa por quê", async () => {
+      const res = await search({ q: "the and of", mode: "fulltext" });
+
+      expect(res.status).toBe(200);
+      expect(res.body.results).toEqual([]);
+      expect(res.body.warnings).toEqual([expect.stringMatching(/no searchable words/i)]);
+   });
+});
+
 describe.skipIf(!ready)("GET /search/logs: resultados", () => {
    beforeAll(async () => {
       // Load the model once so the first test's timing isn't the cold start.
@@ -108,6 +120,15 @@ describe.skipIf(!ready)("GET /search/logs: resultados", () => {
       expect(res.body.ef_search).toBeNull();
       expect(res.body.results.length).toBeGreaterThan(0);
       for (const r of res.body.results) expect(r.message).toMatch(/x509/i);
+   });
+
+   it("hybrid com consulta só de stop words equivale ao vetor sozinho (o lado full-text não contribui)", async () => {
+      const vec = toPgVector((await embed(["the and of"]))[0]);
+
+      const hybrid = await hybridSearch(db, "the and of", vec, 10);
+      const vector = await vectorSearch(db, vec, 10);
+
+      expect(hybrid.map((h) => h.id)).toEqual(vector.map((h) => h.id));
    });
 
    it("hybrid traz o código exato para o topo (ECONNRESET)", async () => {

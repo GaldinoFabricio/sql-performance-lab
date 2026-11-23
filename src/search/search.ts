@@ -42,6 +42,15 @@ const hits = (rows: any[]): Hit[] => rows.map((r) => ({ id: Number(r.id), root_c
 const OR_TSQUERY = `(SELECT string_agg(quote_literal(lexeme), ' | ')::tsquery
                      FROM unnest(to_tsvector('english', :text)))`;
 
+/**
+ * Whether `text` has any word full-text search can use. A query of only stop
+ * words ("the and of") has none: its tsquery is NULL and matches no row.
+ */
+export async function hasSearchableWords(db: Conn, text: string): Promise<boolean> {
+   const { rows } = await db.raw("SELECT count(*) AS n FROM unnest(to_tsvector('english', :text))", { text });
+   return Number(rows[0].n) > 0;
+}
+
 export async function fullTextSearch(
    db: Conn,
    text: string,
@@ -124,8 +133,10 @@ export async function vectorSearch(
  * fewer rows than asked.
  *
  * `codes` (error codes found in the query, src/search/codes.ts) adds a third
- * list: the newest `candidates` logs whose error_code is one of them, read
- * from idx_logs_error_code. Many codes never appear in the message text, so
+ * list: the newest logs of each code, read from idx_logs_error_code and
+ * interleaved: every code's newest log first (newest id first among codes),
+ * then every code's second newest, and so on, capped at `candidates`.
+ * Interleaved so one noisy code can't take every slot of the list. Many codes never appear in the message text, so
  * neither of the other two lists can find them. With no codes the list is
  * empty and the result is the same as without it.
  *
@@ -173,15 +184,16 @@ export async function hybridSearch(
                 ORDER BY score DESC, l.id LIMIT :candidates) t
        ),
        code AS (
-          SELECT id, row_number() OVER (ORDER BY id DESC) AS rank
-          FROM (SELECT l.id
+          SELECT id, row_number() OVER (ORDER BY lrank, id DESC) AS rank
+          FROM (SELECT l.id, l.lrank
                 FROM jsonb_array_elements_text(:codes::jsonb) AS c(code)
                 CROSS JOIN LATERAL (
-                   SELECT id FROM logs
+                   SELECT id, row_number() OVER (ORDER BY id DESC) AS lrank
+                   FROM logs
                    WHERE error_code = c.code ${notInfo ? `AND ${NOT_INFO}` : ""}
                    ORDER BY id DESC LIMIT :candidates
                 ) l
-                ORDER BY l.id DESC LIMIT :candidates) c
+                ORDER BY l.lrank, l.id DESC LIMIT :candidates) c
        ),
        nearest_template AS (
           SELECT id, row_number() OVER (ORDER BY embedding <=> :vec::vector, id) AS trank

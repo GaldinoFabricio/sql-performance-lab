@@ -48,6 +48,18 @@ _Avoid_: Method, strategy
 Full-text and vector candidates fused into one ranking by Reciprocal Rank Fusion. It is the default mode; code lists, template lists and the reranker are add-ons to it, not part of it.
 _Avoid_: Combined search, mixed search
 
+**Error code**:
+The identifier a log carries, such as `ECONNRESET` or `40P01`, which may never appear in its message text. Found in the query text.
+_Avoid_: Error type, status
+
+**Code list**:
+The candidates a hybrid search takes from the logs of each error code found in the query: every code's newest log first, then every code's second newest, and so on, so one noisy code can't take every slot.
+_Avoid_: Code filter
+
 **Query routing**:
-Choosing which side of a hybrid search to favour, full-text or vector, from the shape of the query. It never drops a side.
+Choosing which side of a hybrid search to favour, full-text or vector, from the shape of the query. It never drops a side: a side that finds nothing (see **Stop-word-only query**) is a result of the query, not a routing decision.
 _Avoid_: Mode selection, query classification
+
+**Stop-word-only query**:
+A query whose words are all stop words ("the and of"), so it has nothing full-text search can match. In full-text mode the result is empty and the response carries a warning saying why. A hybrid search of it is vector-only, because its full-text side finds nothing.
+_Avoid_: Empty query, noise query

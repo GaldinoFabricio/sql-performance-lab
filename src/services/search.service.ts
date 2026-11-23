@@ -3,7 +3,7 @@ import { embed, toPgVector } from "../embeddings/embedder";
 import { likePattern } from "../evals/metrics";
 import { codesIn, KnownCodes, knownCodes } from "../search/codes";
 import { routeWeights } from "../search/routing";
-import { fullTextSearch, Hit, hybridSearch, likeSearch, vectorSearch } from "../search/search";
+import { fullTextSearch, hasSearchableWords, Hit, hybridSearch, likeSearch, vectorSearch } from "../search/search";
 import { templateSearch, templatesReady, TemplateHit } from "../search/templates";
 import { RERANKER_MODEL } from "../embeddings/model";
 import { rerank as rerankHits, RerankDoc, rerankerReady } from "../search/rerank";
@@ -138,6 +138,8 @@ export class SearchUnavailableError extends Error {}
 
 export interface SearchResponse {
    query: string;
+   /** Why a result may be empty or thinner than expected. Empty when there is nothing to say. */
+   warnings: string[];
    mode: SearchMode;
    k: number;
    ef_search: number | null;
@@ -263,8 +265,14 @@ export async function searchLogs(p: SearchParams): Promise<SearchResponse> {
    }
    const searchMs = performance.now() - t - rerankMs;
 
+   const warnings: string[] = [];
+   if (p.mode === "fulltext" && !(await hasSearchableWords(db, p.q))) {
+      warnings.push("the query has no searchable words (only stop words), so full-text search matches nothing");
+   }
+
    return {
       query: p.q,
+      warnings,
       mode: p.mode,
       k: p.k,
       ef_search: usesHnsw ? efSearch : null,
