@@ -152,6 +152,21 @@ const mrrOf = (rrs: number[]) => (rrs.length ? meanReciprocalRank(rrs) : null);
 /** Merges the same method measured on several builds of the index. */
 function aggregate(runs: MethodResult[]): MethodResult {
    if (runs.length === 1) return runs[0];
+   const perQuery = runs[0].per_query.map((p, i) => {
+      const rs = runs
+         .map((r) => r.per_query[i].recall)
+         .filter((x): x is number => x !== null);
+      // Typed-ness must agree across builds; a mismatch is a bug, not a 0.
+      const rrs = runs.map((r) => r.per_query[i].reciprocal_rank);
+      if (rrs.some((x) => (x === null) !== (rrs[0] === null)))
+         throw new Error(`${p.key}: builds disagree on whether this is a typed query`);
+      return {
+         ...p,
+         recall: rs.length ? mean(rs) : null,
+         precision: mean(runs.map((r) => r.per_query[i].precision)),
+         reciprocal_rank: rrs[0] === null ? null : mean(rrs as number[]),
+      };
+   });
    const times = runs.flatMap((r) => r.times ?? []);
    const recalls = runs
       .map((r) => r.recall_at_k)
@@ -164,7 +179,9 @@ function aggregate(runs: MethodResult[]): MethodResult {
          ? [Math.min(...recalls), Math.max(...recalls)]
          : undefined,
       precision_at_k: mean(runs.map((r) => r.precision_at_k)),
-      mrr_at_k: mrrOf(runs.map((r) => r.mrr_at_k).filter((x): x is number => x !== null)),
+      mrr_at_k: mrrOf(
+         perQuery.map((p) => p.reciprocal_rank).filter((x): x is number => x !== null),
+      ),
       precision_range: [
          Math.min(...runs.map((r) => r.precision_at_k)),
          Math.max(...runs.map((r) => r.precision_at_k)),
@@ -177,17 +194,7 @@ function aggregate(runs: MethodResult[]): MethodResult {
       },
       avg_results: mean(runs.map((r) => r.avg_results)),
       empty_results: Math.max(...runs.map((r) => r.empty_results)),
-      per_query: runs[0].per_query.map((p, i) => {
-         const rs = runs
-            .map((r) => r.per_query[i].recall)
-            .filter((x): x is number => x !== null);
-         return {
-            ...p,
-            recall: rs.length ? mean(rs) : null,
-            precision: mean(runs.map((r) => r.per_query[i].precision)),
-            reciprocal_rank: p.reciprocal_rank === null ? null : mean(runs.map((r) => r.per_query[i].reciprocal_rank!)),
-         };
-      }),
+      per_query: perQuery,
       times,
    };
 }
@@ -395,7 +402,7 @@ const mb = (b: number) => `${(b / 1024 / 1024).toFixed(1)} MB`;
 function printTable(title: string, rows: MethodResult[]) {
    console.log(`\n${title}`);
    console.log(
-      `${"method".padEnd(34)} recall@10 [min-max]     prec@10   mrr@10     p50 ms     p95 ms  avg n  empty`,
+      `${"method".padEnd(34)} ${"recall@10".padStart(9)} ${"[min-max]".padEnd(11)}  ${"prec@10".padStart(7)}  ${"mrr@10".padStart(7)}  ${"p50 ms".padStart(9)}  ${"p95 ms".padStart(9)}  ${"avg n".padStart(5)}  ${"empty".padStart(5)}`,
    );
    for (const r of rows) {
       const range = r.recall_range
@@ -693,7 +700,7 @@ async function run() {
             (tpl ? `    ${p(tpl.method)}` : ""),
       );
    }
-   console.log(`\nfree-text MRR@${k} by kind (same columns):`);
+   console.log(`\ntyped-query MRR@${k} by kind (same columns):`);
    console.log(`kind        n    LIKE     fts  exact   hnsw  hybrid${tpl ? "  template" : ""}`);
    for (const kind of ["keyword", "mixed", "paraphrase"]) {
       const idx = textSpec
