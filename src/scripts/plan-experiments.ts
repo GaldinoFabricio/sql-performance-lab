@@ -47,6 +47,16 @@ interface PlanRecord {
    rows: number;
    buffers: { hit: number; read: number }; // top node, 8 KB pages
 }
+/**
+ * What an experiment's title claims about its plan. plan() throws when the
+ * plan disagrees, so a title like "index ignored" can't be published next to
+ * a plan that used the index.
+ */
+interface Expect {
+   uses?: string; // this index appears in the plan
+   avoids?: string; // this index does not appear
+   node?: string; // some plan node's name contains this ("Seq Scan" also matches "Parallel Seq Scan")
+}
 const plans: PlanRecord[] = [];
 const extra: Record<string, unknown> = {};
 
@@ -86,6 +96,7 @@ async function plan(
    sql: string,
    bindings: readonly unknown[] = [],
    setup: string[] = [],
+   expect: Expect = {},
 ): Promise<PlanRecord> {
    const timing = await timeQuery(c, sql, bindings);
    const { rows } = await c.raw(`EXPLAIN (ANALYZE, BUFFERS) ${sql}`, bindings as any);
@@ -112,6 +123,14 @@ async function plan(
       rows: timing.rows,
       buffers: { hit: Number(top?.[1] ?? 0), read: Number(top?.[2] ?? 0) },
    };
+   const wrong = [
+      expect.uses && !indexes.includes(expect.uses) && `expected index ${expect.uses}`,
+      expect.avoids && indexes.includes(expect.avoids) && `expected the plan to avoid ${expect.avoids}`,
+      expect.node && !nodes.some((n) => n.includes(expect.node!)) && `expected a ${expect.node} node`,
+   ].filter(Boolean);
+   if (wrong.length) {
+      throw new Error(`${id} ("${title}"): ${wrong.join("; ")}, got ${nodes.join(" > ")} using [${indexes.join(", ")}]`);
+   }
    plans.push(record);
    writeFileSync(
       path.join(PLANS_DIR, `${id}.txt`),
@@ -140,15 +159,17 @@ async function composite(refTs: string) {
    await scratch(async (trx) => {
       const setup = [`DROP INDEX ${COMPOSITE}`];
       await run(trx, setup);
-      await plan(trx, "01-latest-by-service-no-index", "Latest 50 logs of a service, without the composite index", latest, ["payments"], setup);
+      await plan(trx, "01-latest-by-service-no-index", "Latest 50 logs of a service, without the composite index", latest, ["payments"], setup, { avoids: COMPOSITE, node: "Seq Scan" });
    });
-   await plan(db, "02-latest-by-service-composite", "Latest 50 logs of a service, with (service, created_at DESC)", latest, ["payments"]);
+   await plan(db, "02-latest-by-service-composite", "Latest 50 logs of a service, with (service, created_at DESC)", latest, ["payments"], [], { uses: COMPOSITE });
    await plan(
       db,
       "03-prefix-service-and-time",
       "Leftmost prefix: service = and a time range use both columns",
       `SELECT id, created_at, level FROM logs WHERE service = ? AND created_at >= ?::timestamptz - interval '1 hour' ORDER BY created_at DESC`,
       ["payments", refTs],
+      [],
+      { uses: COMPOSITE },
    );
    await plan(
       db,
@@ -156,6 +177,8 @@ async function composite(refTs: string) {
       "Leftmost prefix: created_at alone can't seek into (service, created_at)",
       `SELECT id, created_at, level FROM logs WHERE created_at >= ?::timestamptz - interval '1 hour' ORDER BY created_at DESC`,
       [refTs],
+      [],
+      { uses: COMPOSITE },
    );
    await plan(
       db,
@@ -163,6 +186,8 @@ async function composite(refTs: string) {
       "Leftmost prefix: service alone uses the index (first column)",
       `SELECT count(*) FROM logs WHERE service = ?`,
       ["shipping"],
+      [],
+      { uses: COMPOSITE },
    );
 }
 
@@ -254,11 +279,14 @@ async function smallTable() {
       const noIndex = ["SET LOCAL enable_indexscan = off", "SET LOCAL enable_bitmapscan = off", "SET LOCAL enable_indexonlyscan = off"];
       for (const [t, label, n] of [["logs_500", "500 rows", "07"], ["logs", "full table", "10"]] as const) {
          const tag = t === "logs" ? "full" : "500";
-         await plan(db, `${n}-${tag}-common-service`, `${label}, service = 'api-gateway' (36% of rows)`, q(t), ["api-gateway"]);
+         await plan(db, `${n}-${tag}-common-service`, `${label}, service = 'api-gateway' (36% of rows)`, q(t), ["api-gateway"], [], { node: "Seq Scan" });
          await plan(db, `${String(Number(n) + 1).padStart(2, "0")}-${tag}-rare-service`, `${label}, service = 'shipping' (~4% of rows)`, q(t), ["shipping"]);
          await scratch(async (trx) => {
             await run(trx, noIndex);
-            await plan(trx, `${String(Number(n) + 2).padStart(2, "0")}-${tag}-rare-service-no-index`, `${label}, service = 'shipping', index scans disabled`, q(t), ["shipping"], noIndex);
+            await plan(trx, `${String(Number(n) + 2).padStart(2, "0")}-${tag}-rare-service-no-index`, `${label}, service = 'shipping', index scans disabled`, q(t), ["shipping"], noIndex, {
+               avoids: t === "logs" ? COMPOSITE : "idx_logs_500_service_created_at",
+               node: "Seq Scan",
+            });
          });
       }
    } finally {
@@ -275,10 +303,10 @@ async function lowSelectivity() {
       const setup = ["CREATE INDEX idx_logs_level ON logs (level)", "ANALYZE logs"];
       await run(trx, setup);
       const q = `SELECT id, service FROM logs WHERE level = ?`;
-      await plan(trx, "13-level-info-74pct", "level = 'INFO' (most rows): index ignored", q, ["INFO"], setup);
-      await plan(trx, "14-level-fatal-1pct", "level = 'FATAL' (few rows): index used", q, ["FATAL"], setup);
+      await plan(trx, "13-level-info-74pct", "level = 'INFO' (most rows): index ignored", q, ["INFO"], setup, { avoids: "idx_logs_level", node: "Seq Scan" });
+      await plan(trx, "14-level-fatal-1pct", "level = 'FATAL' (few rows): index used", q, ["FATAL"], setup, { uses: "idx_logs_level" });
       await run(trx, ["SET LOCAL enable_seqscan = off"]);
-      await plan(trx, "15-level-info-forced-index", "level = 'INFO' with the index forced", q, ["INFO"], [...setup, "SET LOCAL enable_seqscan = off"]);
+      await plan(trx, "15-level-info-forced-index", "level = 'INFO' with the index forced", q, ["INFO"], [...setup, "SET LOCAL enable_seqscan = off"], { uses: "idx_logs_level" });
    });
 }
 
@@ -310,10 +338,10 @@ async function filteredVector() {
       }
    });
 
-   const variants: { id: string; title: string; setup: string[] }[] = [
-      { id: "16-filter-vector-ef40", title: "HNSW + WHERE service, ef_search = 40", setup: ["SET LOCAL hnsw.ef_search = 40", "SET LOCAL hnsw.iterative_scan = off"] },
-      { id: "17-filter-vector-ef400", title: "Mitigation: larger ef_search (400)", setup: ["SET LOCAL hnsw.ef_search = 400", "SET LOCAL hnsw.iterative_scan = off"] },
-      { id: "18-filter-vector-iterative", title: "Mitigation: iterative scan (pgvector 0.8, relaxed order)", setup: ["SET LOCAL hnsw.ef_search = 40", "SET LOCAL hnsw.iterative_scan = relaxed_order"] },
+   const variants: { id: string; title: string; setup: string[]; expect: Expect }[] = [
+      { id: "16-filter-vector-ef40", title: "HNSW + WHERE service, ef_search = 40", setup: ["SET LOCAL hnsw.ef_search = 40", "SET LOCAL hnsw.iterative_scan = off"], expect: { uses: HNSW } },
+      { id: "17-filter-vector-ef400", title: "Mitigation: larger ef_search (400)", setup: ["SET LOCAL hnsw.ef_search = 400", "SET LOCAL hnsw.iterative_scan = off"], expect: { uses: HNSW } },
+      { id: "18-filter-vector-iterative", title: "Mitigation: iterative scan (pgvector 0.8, relaxed order)", setup: ["SET LOCAL hnsw.ef_search = 40", "SET LOCAL hnsw.iterative_scan = relaxed_order"], expect: { uses: HNSW } },
       {
          id: "19-filter-vector-partial-index",
          title: "Mitigation: partial HNSW index WHERE service = 'shipping'",
@@ -323,8 +351,9 @@ async function filteredVector() {
             "SET LOCAL hnsw.ef_search = 40",
             "SET LOCAL hnsw.iterative_scan = off",
          ],
+         expect: { uses: "idx_logs_embedding_hnsw_shipping" },
       },
-      { id: "20-filter-vector-btree-exact", title: "Mitigation: no HNSW, the B-tree finds the service and distances are sorted exactly", setup: [`DROP INDEX ${HNSW}`] },
+      { id: "20-filter-vector-btree-exact", title: "Mitigation: no HNSW, the B-tree finds the service and distances are sorted exactly", setup: [`DROP INDEX ${HNSW}`], expect: { avoids: HNSW } },
    ];
    const summary: Record<string, unknown>[] = [];
    for (const v of variants) {
@@ -332,7 +361,7 @@ async function filteredVector() {
          const t = performance.now();
          await run(trx, v.setup);
          const setupMs = performance.now() - t;
-         const p = await plan(trx, v.id, v.title, sql, b(vecs[0]), v.setup);
+         const p = await plan(trx, v.id, v.title, sql, b(vecs[0]), v.setup, v.expect);
          const returned: number[] = [];
          const recall: number[] = [];
          const times: number[] = [];
