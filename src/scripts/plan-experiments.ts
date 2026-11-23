@@ -461,16 +461,27 @@ async function main() {
    console.log(`${t.rows.toLocaleString("en-US")} rows, newest log at ${refTs}`);
    await db.raw("ANALYZE logs");
 
-   if (enabled("composite")) await composite(refTs);
-   if (enabled("redundant")) await redundant();
-   if (enabled("small")) await smallTable();
-   if (enabled("selectivity")) await lowSelectivity();
-   if (enabled("vector")) await filteredVector();
-   if (enabled("stats")) await statStatements(refTs);
+   const experiments: [string, () => Promise<void>][] = [
+      ["composite", () => composite(refTs)],
+      ["redundant", redundant],
+      ["small", smallTable],
+      ["selectivity", lowSelectivity],
+      ["vector", filteredVector],
+      ["stats", () => statStatements(refTs)],
+   ];
+   // When each experiment last ran: with --only the file mixes runs, so a
+   // single top-level timestamp would date old results as new.
+   const ranAt: Record<string, string> = {};
+   for (const [name, fn] of experiments) {
+      if (!enabled(name)) continue;
+      await fn();
+      ranAt[name] = new Date().toISOString();
+   }
 
    const size = t.rows >= 1_000_000 ? `${t.rows / 1_000_000}m` : `${t.rows / 1000}k`;
    const out = path.join(ROOT, `evals/results/plans-${size}.json`);
-   // With --only, keep the other experiments' results from the last full run.
+   // With --only, keep the other experiments' results from the previous run;
+   // `ran_at` says when each experiment last ran, `created_at` is the last write.
    const prev = only && existsSync(out) ? JSON.parse(readFileSync(out, "utf8")) : {};
    const ids = new Set(plans.map((p) => p.id));
    const merged = [...(prev.plans ?? []).filter((p: PlanRecord) => !ids.has(p.id)), ...plans].sort((a, b) =>
@@ -478,7 +489,11 @@ async function main() {
    );
    writeFileSync(
       out,
-      JSON.stringify({ ...prev, created_at: new Date().toISOString(), rows: t.rows, plans: merged, ...extra }, null, 2) + "\n",
+      JSON.stringify(
+         { ...prev, created_at: new Date().toISOString(), rows: t.rows, ran_at: { ...prev.ran_at, ...ranAt }, plans: merged, ...extra },
+         null,
+         2,
+      ) + "\n",
    );
    console.log(`\nwrote ${path.relative(ROOT, out)} and evals/plans/*.txt`);
 }
