@@ -38,7 +38,13 @@ env.localModelPath = MODELS_ROOT;
  * fp32 has no dynamic quantization, so a pair's score is bit-identical
  * alone or in any batch (checked in rerank.test.ts).
  */
-export const RERANK_BATCH = Number(process.env.RERANK_BATCH ?? 4);
+export const RERANK_BATCH = positiveIntOr(process.env.RERANK_BATCH, 4);
+
+/** A positive integer, or `fallback` for anything else (0 would never advance the batch loop, NaN gives NaN scores). */
+function positiveIntOr(raw: string | undefined, fallback: number): number {
+   const n = Number(raw);
+   return raw?.trim() && Number.isInteger(n) && n > 0 ? n : fallback;
+}
 
 /** BERT's limit. Logs measured stay under ~200 tokens, so nothing is cut today. */
 const MAX_TOKENS = 512;

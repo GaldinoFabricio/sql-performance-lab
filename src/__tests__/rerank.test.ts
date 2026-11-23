@@ -1,8 +1,27 @@
 import { existsSync } from "fs";
 import path from "path";
-import { describe, it, expect } from "vitest";
+import { afterEach, describe, it, expect, vi } from "vitest";
 import { modelDir, RERANKER_MODEL } from "../embeddings/model";
 import { orderByScore, RERANK_BATCH, rerankText, scorePairs } from "../search/rerank";
+
+describe("RERANK_BATCH", () => {
+   const original = process.env.RERANK_BATCH;
+   afterEach(() => {
+      if (original === undefined) delete process.env.RERANK_BATCH;
+      else process.env.RERANK_BATCH = original;
+      vi.resetModules();
+   });
+
+   async function loadBatch(raw: string): Promise<number> {
+      process.env.RERANK_BATCH = raw;
+      vi.resetModules();
+      return (await import("../search/rerank")).RERANK_BATCH;
+   }
+
+   it.each(["0", "-3", "2.5", "abc", ""])("valor inválido %j cai para 4", async (raw) => {
+      expect(await loadBatch(raw)).toBe(4);
+   });
+});
 
 describe("orderByScore", () => {
    it("ordena pela nota, maior primeiro, e corta em k", () => {
