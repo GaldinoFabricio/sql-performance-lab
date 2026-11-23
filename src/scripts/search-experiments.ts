@@ -98,7 +98,7 @@ interface Query {
    key: string; // log id or the free text
    text: string;
    vec: string; // pgvector literal
-   expected: string | null;
+   expected: string;
    also?: string[];
    excludeId: number | null;
    kth_distance?: number;
@@ -505,14 +505,18 @@ async function run() {
    const vecById = new Map<number, string>(
       vecRows.map((r: any) => [Number(r.id), r.e as string]),
    );
-   const logQueries: Query[] = truth.queries.map((q) => ({
-      key: String(q.id),
-      text: q.message,
-      vec: vecById.get(q.id)!,
-      expected: q.root_cause,
-      excludeId: q.id,
-      kth_distance: q.kth_distance,
-   }));
+   const logQueries: Query[] = truth.queries.map((q) => {
+      // A log without a root cause is never relevant, so precision would silently be 0.
+      if (q.root_cause === null) throw new Error(`ground truth query ${q.id} has no root_cause; pick queries with one`);
+      return {
+         key: String(q.id),
+         text: q.message,
+         vec: vecById.get(q.id)!,
+         expected: q.root_cause,
+         excludeId: q.id,
+         kth_distance: q.kth_distance,
+      };
+   });
 
    const textSpec: TextQuery[] =
       JSON.parse(readFileSync(TEXT_QUERIES_PATH, "utf8")).queries;

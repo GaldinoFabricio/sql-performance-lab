@@ -1,3 +1,5 @@
+import { readFileSync } from "node:fs";
+import path from "node:path";
 import { describe, it, expect } from "vitest";
 import {
    isRelevant,
@@ -52,9 +54,9 @@ describe("precisionAtK", () => {
 });
 
 describe("precisionAtK com causa raiz null", () => {
-   it("null nunca conta como acerto, mesmo se expected contém null", () => {
-      expect(precisionAtK([null, "a", null], [null, "a"], 4)).toBe(0.25);
-      expect(precisionAtK([null, null], null, 2)).toBe(0);
+   it("null nunca conta como acerto", () => {
+      expect(precisionAtK([null, "a", null], ["a"], 4)).toBe(0.25);
+      expect(precisionAtK([null, null], "a", 2)).toBe(0);
    });
 });
 
@@ -78,8 +80,26 @@ describe("reciprocalRank", () => {
    });
 
    it("causa raiz null nunca é relevante", () => {
-      expect(reciprocalRank([null, "a"], [null, "a"], 10)).toBe(0.5);
-      expect(reciprocalRank([null], null, 10)).toBe(0);
+      expect(reciprocalRank([null, "a"], ["a"], 10)).toBe(0.5);
+      expect(reciprocalRank([null], "a", 10)).toBe(0);
+   });
+});
+
+describe("eval datasets", () => {
+   const load = (f: string): { expected: unknown }[] =>
+      JSON.parse(readFileSync(path.join(__dirname, "../../evals", f), "utf8")).queries;
+   const nonEmptyString = (x: unknown) => typeof x === "string" && x.length > 0;
+
+   it("text_queries.json: every expected is a non-empty string (null would always score 0)", () => {
+      const qs = load("text_queries.json");
+      expect(qs.length).toBeGreaterThan(0);
+      expect(qs.filter((q) => !nonEmptyString(q.expected))).toEqual([]);
+   });
+
+   it("code_queries.json: every expected is a non-empty array of non-empty strings", () => {
+      const qs = load("code_queries.json");
+      expect(qs.length).toBeGreaterThan(0);
+      expect(qs.filter((q) => !(Array.isArray(q.expected) && q.expected.length > 0 && q.expected.every(nonEmptyString)))).toEqual([]);
    });
 });
 

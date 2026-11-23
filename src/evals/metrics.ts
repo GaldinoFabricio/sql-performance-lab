@@ -50,12 +50,22 @@ export interface TextQuery {
 }
 
 /** Every root cause that counts as relevant for a query. */
-export function relevantCauses<E extends string | null>(q: { expected: E; also?: string[] }): (E | string)[] {
+export function relevantCauses(q: { expected: string; also?: string[] }): string[] {
    return [q.expected, ...(q.also ?? [])];
 }
 
-export function isRelevant(q: { expected: string | null; also?: string[] }, rootCause: string | null): boolean {
-   return rootCause !== null && relevantCauses(q).includes(rootCause);
+/**
+ * The one relevance rule. A log with no root cause (null) is never relevant:
+ * no query in the eval datasets expects "no root cause", and `expected` is
+ * typed string-only so the compiler rejects one (see metrics.test.ts for the
+ * dataset guard).
+ */
+function isRelevantCause(expected: readonly string[], rootCause: string | null): boolean {
+   return rootCause !== null && expected.includes(rootCause);
+}
+
+export function isRelevant(q: { expected: string; also?: string[] }, rootCause: string | null): boolean {
+   return isRelevantCause(relevantCauses(q), rootCause);
 }
 
 /**
@@ -63,21 +73,21 @@ export function isRelevant(q: { expected: string | null; also?: string[] }, root
  * root cause. Divides by k, not by the number returned, so a method that
  * returns 3 good results out of 10 slots scores 0.3, not 1.0.
  */
-export function precisionAtK(rootCauses: (string | null)[], expected: string | null | (string | null)[], k: number): number {
+export function precisionAtK(rootCauses: (string | null)[], expected: string | string[], k: number): number {
    assertPositiveK(k);
    const ok = Array.isArray(expected) ? expected : [expected];
-   return rootCauses.slice(0, k).filter((r) => r !== null && ok.includes(r)).length / k;
+   return rootCauses.slice(0, k).filter((r) => isRelevantCause(ok, r)).length / k;
 }
 
 /**
  * Reciprocal rank of one typed query: 1 / (1-based rank of the first result
  * whose root cause is relevant), or 0 when none of the first k is. A null
- * root cause is never relevant, even if `expected` contains null.
+ * root cause is never relevant.
  */
-export function reciprocalRank(rootCauses: (string | null)[], expected: string | null | (string | null)[], k: number): number {
+export function reciprocalRank(rootCauses: (string | null)[], expected: string | string[], k: number): number {
    assertPositiveK(k);
    const ok = Array.isArray(expected) ? expected : [expected];
-   const i = rootCauses.slice(0, k).findIndex((r) => r !== null && ok.includes(r));
+   const i = rootCauses.slice(0, k).findIndex((r) => isRelevantCause(ok, r));
    return i === -1 ? 0 : 1 / (i + 1);
 }
 
