@@ -1,11 +1,16 @@
 import db from "../db/knex";
 
+// One definition per query: /queries/slow|optimized run it, /queries/explain/:type
+// explains it. Keeping them apart let the plan describe a different query.
+const slowUsersQuery = () =>
+   db("users").where("country", "like", "%B%").select("id", "name", "email", "country");
+const fastUsersQuery = () =>
+   db("users").where("country", "BR").select("id", "name", "email", "country");
+
 export async function runSlowQuery() {
    const start = performance.now();
 
-   const rows = await db("users")
-      .where("country", "like", "%B%")
-      .select("id", "name", "email", "country");
+   const rows = await slowUsersQuery();
 
    return {
       type: "slow",
@@ -19,9 +24,7 @@ export async function runSlowQuery() {
 export async function runOptimizedQuery() {
    const start = performance.now();
 
-   const rows = await db("users")
-      .where("country", "BR")
-      .select("id", "name", "email", "country");
+   const rows = await fastUsersQuery();
 
    return {
       type: "optimized",
@@ -66,11 +69,13 @@ export async function runJoinOptimized() {
    };
 }
 
+/**
+ * The "fast" plan is taken with enable_seqscan = off so it shows the index
+ * path. The planner may pick a Seq Scan for this query on its own (country
+ * = 'BR' keeps a share of the table), so `planner` says which one this is.
+ */
 export async function explainQuery(type: "slow" | "fast") {
-   const query =
-      type === "slow"
-         ? db("users").where("country", "like", "%BR%").select("id").toSQL()
-         : db("users").where("country", "BR").select("id").toSQL();
+   const query = (type === "slow" ? slowUsersQuery() : fastUsersQuery()).toSQL();
 
    if (type === "fast") {
       return await db.transaction(async (trx) => {
@@ -81,6 +86,7 @@ export async function explainQuery(type: "slow" | "fast") {
          );
          return {
             type,
+            planner: "forced: enable_seqscan = off",
             plan: result.rows.map((r: any) => r["QUERY PLAN"]),
          };
       });
@@ -89,6 +95,7 @@ export async function explainQuery(type: "slow" | "fast") {
    const result = await db.raw(`EXPLAIN ANALYZE ${query.sql}`, query.bindings);
    return {
       type,
+      planner: "default",
       plan: result.rows.map((r: any) => r["QUERY PLAN"]),
    };
 }

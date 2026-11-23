@@ -155,7 +155,7 @@ pnpm dev
 | GET    | `/queries/optimized`      | Exact match using index                             |
 | GET    | `/queries/join/slow`      | JOIN without composite index (filesort + full scan) |
 | GET    | `/queries/join/optimized` | JOIN with composite index (index scan)              |
-| GET    | `/queries/explain/:type`  | Execution plan for `slow` or `fast`                 |
+| GET    | `/queries/explain/:type`  | Execution plan for `slow` or `fast` (`fast` is taken with `enable_seqscan = off`; see `planner` in the response) |
 | GET    | `/benchmarks/run`         | Side-by-side benchmark comparison (5 iterations)    |
 | GET    | `/search/logs?q=&mode=`   | Log search: `hybrid` (default), `vector`, `fulltext`, `like`, `template`; optional `k`, `ef_search`, `include_info` (INFO logs are left out by default), `rerank` (cross-encoder over the top N; 50 by default in hybrid, `rerank=0` turns it off), and for hybrid `vw`, `fw`, `cw`, `tw`, `rrf_k`, `route` ([SEMANTIC_SEARCH.md](SEMANTIC_SEARCH.md#api)) |
 
@@ -174,6 +174,7 @@ pnpm dev
 ```json
 {
   "type": "fast",
+  "planner": "forced: enable_seqscan = off",
   "plan": [
     "Bitmap Heap Scan on users  (cost=19.49..1339.16 rows=397 width=4) (actual time=0.503..1.246 rows=386 loops=1)",
     "  ->  Bitmap Index Scan on idx_users_country",
