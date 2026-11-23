@@ -93,6 +93,19 @@ describe("meanReciprocalRank", () => {
    });
 });
 
+describe("k <= 0", () => {
+   const truth = { id: 1, kth_distance: 0.5 };
+   const calls: [string, (k: number) => number][] = [
+      ["recallAtK", (k) => recallAtK([{ id: 2, distance: 0.1 }], truth, k)],
+      ["precisionAtK", (k) => precisionAtK(["a"], "a", k)],
+      ["reciprocalRank", (k) => reciprocalRank(["a"], "a", k)],
+   ];
+
+   it.each(calls)("%s lança um erro claro em vez de devolver NaN ou 0", (_name, call) => {
+      for (const k of [0, -1]) expect(() => call(k)).toThrow(new RangeError(`k must be a positive number, got ${k}`));
+   });
+});
+
 describe("percentile", () => {
    it("usa nearest-rank", () => {
       const v = Array.from({ length: 100 }, (_, i) => i + 1);

@@ -62,7 +62,7 @@ const pct = (x: number) => `${(x * 100).toFixed(1)}%`;
 function loadQueries(): Query[] {
    const text: TextQuery[] =
       JSON.parse(readFileSync(path.join(ROOT, "evals/text_queries.json"), "utf8")).queries;
-   const queries: Query[] = text.map((q) => ({ text: q.text, expected: relevantCauses(q) as string[], set: "text", kind: q.kind }));
+   const queries: Query[] = text.map((q) => ({ text: q.text, expected: relevantCauses(q), set: "text", kind: q.kind }));
    if (WITH_CODES) {
       const codes: { text: string; expected: string[]; form: string }[] =
          JSON.parse(readFileSync(path.join(ROOT, "evals/code_queries.json"), "utf8")).queries;

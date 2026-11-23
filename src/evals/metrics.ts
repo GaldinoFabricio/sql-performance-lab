@@ -5,6 +5,11 @@ import { DISTANCE_EPS, GroundTruthQuery } from "./ground-truth";
  * without a database.
  */
 
+/** k is a count of result slots: 0 would divide by zero (NaN) or silently score 0. */
+function assertPositiveK(k: number): void {
+   if (!(k > 0)) throw new RangeError(`k must be a positive number, got ${k}`);
+}
+
 /**
  * Tie-aware recall@k against the exact ground truth.
  *
@@ -19,6 +24,7 @@ export function recallAtK(
    k: number,
    eps = DISTANCE_EPS,
 ): number {
+   assertPositiveK(k);
    const seen = new Set<number>();
    let hits = 0;
    for (const r of returned) {
@@ -44,7 +50,7 @@ export interface TextQuery {
 }
 
 /** Every root cause that counts as relevant for a query. */
-export function relevantCauses(q: { expected: string | null; also?: string[] }): (string | null)[] {
+export function relevantCauses<E extends string | null>(q: { expected: E; also?: string[] }): (E | string)[] {
    return [q.expected, ...(q.also ?? [])];
 }
 
@@ -58,6 +64,7 @@ export function isRelevant(q: { expected: string | null; also?: string[] }, root
  * returns 3 good results out of 10 slots scores 0.3, not 1.0.
  */
 export function precisionAtK(rootCauses: (string | null)[], expected: string | null | (string | null)[], k: number): number {
+   assertPositiveK(k);
    const ok = Array.isArray(expected) ? expected : [expected];
    return rootCauses.slice(0, k).filter((r) => r !== null && ok.includes(r)).length / k;
 }
@@ -68,6 +75,7 @@ export function precisionAtK(rootCauses: (string | null)[], expected: string | n
  * root cause is never relevant, even if `expected` contains null.
  */
 export function reciprocalRank(rootCauses: (string | null)[], expected: string | null | (string | null)[], k: number): number {
+   assertPositiveK(k);
    const ok = Array.isArray(expected) ? expected : [expected];
    const i = rootCauses.slice(0, k).findIndex((r) => r !== null && ok.includes(r));
    return i === -1 ? 0 : 1 / (i + 1);
