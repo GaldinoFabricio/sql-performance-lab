@@ -1,5 +1,5 @@
 import { describe, it, expect } from "vitest";
-import { FAVORED, OTHER, looksLikeIdentifier, routeWeights } from "./routing";
+import { FAVORED, OTHER, looksLikeIdentifier, routeWeights } from "../search/routing";
 
 // Expected values are what we WANT, not what the regex does today.
 // The known limits of the simple token-shape rule are `it.fails`: they document
