@@ -43,6 +43,13 @@ describe("precisionAtK", () => {
    });
 });
 
+describe("precisionAtK com causa raiz null", () => {
+   it("null nunca conta como acerto, mesmo se expected contém null", () => {
+      expect(precisionAtK([null, "a", null], [null, "a"], 4)).toBe(0.25);
+      expect(precisionAtK([null, null], null, 2)).toBe(0);
+   });
+});
+
 describe("percentile", () => {
    it("usa nearest-rank", () => {
       const v = Array.from({ length: 100 }, (_, i) => i + 1);

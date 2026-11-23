@@ -59,7 +59,7 @@ export function isRelevant(q: { expected: string | null; also?: string[] }, root
  */
 export function precisionAtK(rootCauses: (string | null)[], expected: string | null | (string | null)[], k: number): number {
    const ok = Array.isArray(expected) ? expected : [expected];
-   return rootCauses.slice(0, k).filter((r) => ok.includes(r)).length / k;
+   return rootCauses.slice(0, k).filter((r) => r !== null && ok.includes(r)).length / k;
 }
 
 /** Nearest-rank percentile (p in 0..100). Same definition at every scale, no interpolation. */
