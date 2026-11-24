@@ -83,7 +83,7 @@ async function run() {
    const queries = loadQueries();
    const { rows: [info] } = await db.raw("SELECT count(*)::int AS rows, count(embedding)::int AS embedded FROM logs");
    if (info.rows === 0 || info.embedded !== info.rows) throw new Error("run pnpm seed:logs and pnpm embed:logs first");
-   if ((DOC === "described" || DOC === "template" || TW > 0) && !(await templatesCurrent(db))) throw new Error("--doc=described needs current templates: run pnpm templates:build");
+   if ((DOC === "described" || DOC === "template" || TW > 0) && !(await templatesCurrent(db))) throw new Error("--doc=described/template or --tw needs current templates: run pnpm templates:build");
    const size = info.rows >= 1_000_000 ? `${info.rows / 1_000_000}m` : `${info.rows / 1000}k`;
    const known = await loadKnownCodes(db);
    const maxN = NS[NS.length - 1];

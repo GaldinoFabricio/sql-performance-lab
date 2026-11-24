@@ -539,6 +539,74 @@ The list raises the ceiling (at weight 2 the DNS logs reach the candidates) and 
 - **Measured on hybrid only.** That is why only hybrid reranks by default; the other modes rerank only with `rerank=N`.
 - **`cw=0` no longer removes the code's effect.** It turns off the code list, but the reranker reads the error code in front of each candidate, so logs with the typed code still rise among the 50 candidates. Use `cw=0&rerank=0` for the old behavior.
 
+## Working at 10k, projecting to 1M
+
+A 1M-row eval takes hours: embedding the rows, the exact ground truth (a 1M-row sequential scan per query, plus a float64 cross-check), and three HNSW builds of 2 to 6 minutes each. A 10k run takes minutes. The question is how much of the 1M behaviour a 10k run shows. Three real runs exist (`evals/results/search-10k.json`, `search-100k.json`, `search-1m.json`), so it can be checked instead of assumed.
+
+### Method
+
+- Take the 10k and 100k measurements, extrapolate to 1M, compare with the measured 1M.
+- **Sizes and times** (`n` = rows): a power law through the two points, `proj = m100k * (m100k / m10k)`. This is the right shape when cost is proportional to a power of `n`.
+- **Recall and precision**: a straight line in `log10(n)`, `proj = m100k + (m100k - m10k)`.
+- Metrics are for HNSW m=32, ef_construction=200, ef_search=40, free-text queries unless noted.
+
+### Results
+
+| Metric | 10k | 100k | Projected 1M | Measured 1M | Error |
+| ------ | --- | ---- | ------------ | ----------- | ----- |
+| HNSW size (MB) | 17.4 | 156.1 | 1,400 | 1,455 | -4% |
+| Full-text p95 (ms) | 13.7 | 117.8 | 1,013 | 994 | +2% |
+| Hybrid precision@10 | 87.2% | 80.5% | 73.8% | 75.5% | -2% |
+| Full-text p50 (ms) | 3.89 | 26.90 | 186 | 142 | +31% |
+| HNSW build, m=32/200 (s) | 2.0 | 20.4 | 208 | 346 | -40% |
+| Exact vector p50 (ms), log queries | 5.31 | 27.04 | 138 | 232 | -41% |
+| Exact vector p50 (ms), free text | 5.58 | 27.01 | 131 | 231 | -43% |
+| HNSW p50 (ms) | 0.67 | 0.68 | 0.69 | 2.97 | -77% |
+| HNSW recall@10, log queries | 100.0% | 98.3% | 96.6% | 90.0% | +7% |
+| HNSW recall@10, free text | 90.4% | 79.3% | 68.2% | 54.8% | +24% |
+| HNSW recall@10, free text, ef_search 160 | 96.8% | 86.7% | 76.6% | 67.8% | +13% |
+
+Error is `(projected - measured) / measured`: positive means the projection was too optimistic about quality or too slow, negative means it hid a cost.
+
+### Findings
+
+**1. Size, tail latency of full-text and hybrid precision project well.** All within 4%, except full-text p50, which is 31% off but whose p95 (the number that matters for a user) is within 2%. The HNSW size is almost exactly linear in rows: 1.45 GB at 1M is 1.4 KB per row, about the same at every size. m and ef_construction barely move it (1,447 to 1,455 MB).
+
+**2. Latency and build time cost more than the trend says.**
+- Exact vector search grows 5x from 10k to 100k and 8.6x from 100k to 1M: the table (2 GB heap, 1.4 GB index) stops fitting in the page cache.
+- HNSW p50 is flat from 10k to 100k (0.67 and 0.68 ms), so a projection from those two sees no growth and says 0.69 ms. The measured 1M value is 2.97 ms. A flat segment is the wrong thing to extrapolate.
+- The build takes 346 s, not 208 s. Pgvector builds faster while the graph fits in `maintenance_work_mem` and slows down once it does not; the 1M run had 3,907 MB for a 1.45 GB index, so memory is not the explanation here and the cause was not isolated.
+- For these three, use the measured 1M number.
+
+**3. Recall falls faster than a line.**
+- Free text, m=32/200, ef_search 40: -11 points from 10k to 100k, -24.5 from 100k to 1M. A line through the first two says 68%; the measured value is 55%.
+- Log queries show the same shape on a smaller scale: 100% to 98.3% to 90.0%.
+- Raising ef_search helps but does not close the gap: at ef_search 160 the free-text recall is 67.8% at 1M, where the line says 76.6%.
+- A 10k run therefore cannot tell you the recall at 1M, and a recall of 100% at 10k says nothing about it. Pick `ef_search` from a 1M run (see [Conclusion](#conclusion)).
+
+**4. The ranking between methods mostly holds, with one swap.**
+- Exact vector search leads free-text precision at every size (92.0%, 92.5%, 91.7%).
+- HNSW sits below hybrid at every size, and LIKE is last at every size (35.0%).
+- Hybrid and full-text swap places. Hybrid (RRF m=32) is at 87.2% against 80.0% for full-text at 10k, and 75.5% against 80.5% at 1M. The router, +2.8 points over fixed RRF at 10k (noise 0.8), is 77.8% against 80.5% at 1M.
+- So a 10k run is a good way to compare ideas such as routing, templates or the reranker against each other, but a verdict of "hybrid beats full-text" at 10k does not hold at 1M.
+
+**5. The noise shrinks too.** The 1M run has one HNSW build per config (`repeats: 1`), so its min-max ranges and the routing noise (0.0) say nothing. At 10k, with 3 builds, noise is measurable: 0.8 points for all queries, 2.5 for keyword. Judge a routing or reranking difference at 10k against that noise, and treat 1M differences between builds as unmeasured.
+
+### What to run where
+
+| Question | Run at | Why |
+| -------- | ------ | --- |
+| Does the router, template list, code list or reranker help? | 10k (3 builds) | Needs several builds for noise; ranking among them mostly transfers |
+| How big is the index, and how slow is full-text's tail? | 10k, project | Scales as a power law, error under 5% |
+| Latency, build time, memory | 1M | Cache and `maintenance_work_mem` effects appear only there |
+| HNSW recall and the default `ef_search` | 1M | Falls faster than any projection from smaller sizes |
+
+### Limits
+
+- Two points make a fit with no check on its shape. The error table above is the check, and it is for one dataset and one machine, and `maintenance_work_mem` differs between runs (64 MB at 10k, 391 MB at 100k, 3,907 MB at 1M; see `hnsw_builds` in each result file), which affects build times.
+- The template method has no 1M entry in `search-1m.json` (it ran alone in `search-1m-templates-only.json`), so it is left out of the 1M column of the ranking above.
+- The 10k ground truth is `evals/ground_truth.10k.json`. Each size has its own file and `pnpm eval:search --truth=` must point at it; an eval at 10k against the 1M ground truth, or the reverse, measures nothing.
+
 ## API
 
 `GET /search/logs` (validated with celebrate, `src/validators/search.validator.ts`). An invalid or unknown param returns `400 { "error": "<message>" }`.
@@ -593,4 +661,6 @@ pnpm eval:codes --cw=1,2,3          # every mode on the 114 code queries, and hy
 pnpm templates:describe             # LLM descriptions of new templates (claude -p), then templates:build again
 pnpm eval:rerank --stages=hybrid --doc=template          # before / after / ceiling, top 20 and 50
 pnpm eval:rerank --stages=hybrid --doc=template --tw=1 --tt=3   # with the template list in the first stage
+pnpm eval:ground-truth --out=evals/ground_truth.10k.json   # 10k: day-to-day runs, project to 1M (see above)
+pnpm eval:search --truth=evals/ground_truth.10k.json       # LOGS_COUNT=10000 pnpm seed:logs && pnpm embed:logs before
 ```
