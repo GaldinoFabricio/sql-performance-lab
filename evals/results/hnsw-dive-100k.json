@@ -1,0 +1,2707 @@
+{
+  "created_at": "2026-11-20T01:03:41.897Z",
+  "rows": 100000,
+  "index": {
+    "m": 32,
+    "ef_construction": 200,
+    "bytes": 156057600,
+    "builds_s": [
+      23.41771408,
+      23.089112341,
+      23.213273405
+    ]
+  },
+  "k": 10,
+  "summary": {
+    "all/ef40": {
+      "recall": 0.6938888888888889,
+      "recall_range": [
+        0.63,
+        0.7516666666666667
+      ],
+      "precision": 0.6783333333333333,
+      "precision_range": [
+        0.6183333333333334,
+        0.7366666666666667
+      ]
+    },
+    "all/ef160": {
+      "recall": 0.7772222222222221,
+      "recall_range": [
+        0.7233333333333333,
+        0.8283333333333334
+      ],
+      "precision": 0.726111111111111,
+      "precision_range": [
+        0.6666666666666666,
+        0.7816666666666666
+      ]
+    },
+    "all/exact": {
+      "precision": 0.925
+    },
+    "keyword/ef40": {
+      "recall": 0.6805555555555557,
+      "recall_range": [
+        0.5750000000000001,
+        0.8375
+      ],
+      "precision": 0.6666666666666666,
+      "precision_range": [
+        0.5833333333333334,
+        0.8333333333333334
+      ]
+    },
+    "keyword/ef160": {
+      "recall": 0.763888888888889,
+      "recall_range": [
+        0.6708333333333334,
+        0.8791666666666668
+      ],
+      "precision": 0.7083333333333334,
+      "precision_range": [
+        0.625,
+        0.8333333333333334
+      ]
+    },
+    "keyword/exact": {
+      "precision": 0.9166666666666666
+    },
+    "mixed/ef40": {
+      "recall": 0.7087719298245614,
+      "recall_range": [
+        0.6368421052631579,
+        0.7473684210526316
+      ],
+      "precision": 0.7578947368421053,
+      "precision_range": [
+        0.6894736842105263,
+        0.7999999999999999
+      ]
+    },
+    "mixed/ef160": {
+      "recall": 0.7701754385964912,
+      "recall_range": [
+        0.6631578947368421,
+        0.8736842105263158
+      ],
+      "precision": 0.7894736842105264,
+      "precision_range": [
+        0.6894736842105263,
+        0.8947368421052632
+      ]
+    },
+    "mixed/exact": {
+      "precision": 0.9789473684210527
+    },
+    "paraphrase/ef40": {
+      "recall": 0.6960784313725491,
+      "recall_range": [
+        0.6411764705882353,
+        0.7470588235294118
+      ],
+      "precision": 0.6058823529411765,
+      "precision_range": [
+        0.5294117647058824,
+        0.7000000000000001
+      ]
+    },
+    "paraphrase/ef160": {
+      "recall": 0.8039215686274509,
+      "recall_range": [
+        0.7058823529411765,
+        0.9411764705882353
+      ],
+      "precision": 0.680392156862745,
+      "precision_range": [
+        0.5823529411764706,
+        0.8176470588235294
+      ]
+    },
+    "paraphrase/exact": {
+      "precision": 0.8764705882352941
+    }
+  },
+  "per_query": [
+    {
+      "text": "ECONNRESET",
+      "kind": "keyword",
+      "expected": "cache_unavailable",
+      "exact_precision": 0,
+      "builds": [
+        {
+          "ef40": {
+            "recall": 1,
+            "precision": 0
+          },
+          "ef160": {
+            "recall": 1,
+            "precision": 0
+          }
+        },
+        {
+          "ef40": {
+            "recall": 1,
+            "precision": 0
+          },
+          "ef160": {
+            "recall": 1,
+            "precision": 0
+          }
+        },
+        {
+          "ef40": {
+            "recall": 0,
+            "precision": 0
+          },
+          "ef160": {
+            "recall": 1,
+            "precision": 0
+          }
+        }
+      ]
+    },
+    {
+      "text": "redis is down",
+      "kind": "mixed",
+      "expected": "cache_unavailable",
+      "exact_precision": 1,
+      "builds": [
+        {
+          "ef40": {
+            "recall": 1,
+            "precision": 1
+          },
+          "ef160": {
+            "recall": 1,
+            "precision": 1
+          }
+        },
+        {
+          "ef40": {
+            "recall": 1,
+            "precision": 1
+          },
+          "ef160": {
+            "recall": 1,
+            "precision": 1
+          }
+        },
+        {
+          "ef40": {
+            "recall": 0,
+            "precision": 0
+          },
+          "ef160": {
+            "recall": 0,
+            "precision": 0
+          }
+        }
+      ]
+    },
+    {
+      "text": "cannot connect to the cache",
+      "kind": "mixed",
+      "expected": "cache_unavailable",
+      "exact_precision": 1,
+      "builds": [
+        {
+          "ef40": {
+            "recall": 1,
+            "precision": 1
+          },
+          "ef160": {
+            "recall": 1,
+            "precision": 1
+          }
+        },
+        {
+          "ef40": {
+            "recall": 1,
+            "precision": 1
+          },
+          "ef160": {
+            "recall": 1,
+            "precision": 1
+          }
+        },
+        {
+          "ef40": {
+            "recall": 0,
+            "precision": 0
+          },
+          "ef160": {
+            "recall": 0,
+            "precision": 0
+          }
+        }
+      ]
+    },
+    {
+      "text": "session store unreachable",
+      "kind": "paraphrase",
+      "expected": "cache_unavailable",
+      "exact_precision": 1,
+      "builds": [
+        {
+          "ef40": {
+            "recall": 1,
+            "precision": 1
+          },
+          "ef160": {
+            "recall": 1,
+            "precision": 1
+          }
+        },
+        {
+          "ef40": {
+            "recall": 0,
+            "precision": 0
+          },
+          "ef160": {
+            "recall": 0,
+            "precision": 0
+          }
+        },
+        {
+          "ef40": {
+            "recall": 1,
+            "precision": 1
+          },
+          "ef160": {
+            "recall": 1,
+            "precision": 1
+          }
+        }
+      ]
+    },
+    {
+      "text": "ECONNREFUSED",
+      "kind": "keyword",
+      "expected": "db_connection_timeout",
+      "exact_precision": 1,
+      "builds": [
+        {
+          "ef40": {
+            "recall": 1,
+            "precision": 1
+          },
+          "ef160": {
+            "recall": 1,
+            "precision": 1
+          }
+        },
+        {
+          "ef40": {
+            "recall": 1,
+            "precision": 1
+          },
+          "ef160": {
+            "recall": 1,
+            "precision": 1
+          }
+        },
+        {
+          "ef40": {
+            "recall": 0,
+            "precision": 0
+          },
+          "ef160": {
+            "recall": 1,
+            "precision": 1
+          }
+        }
+      ]
+    },
+    {
+      "text": "KnexTimeoutError",
+      "kind": "keyword",
+      "expected": "db_connection_timeout",
+      "exact_precision": 1,
+      "builds": [
+        {
+          "ef40": {
+            "recall": 1,
+            "precision": 1
+          },
+          "ef160": {
+            "recall": 1,
+            "precision": 1
+          }
+        },
+        {
+          "ef40": {
+            "recall": 1,
+            "precision": 1
+          },
+          "ef160": {
+            "recall": 1,
+            "precision": 1
+          }
+        },
+        {
+          "ef40": {
+            "recall": 1,
+            "precision": 1
+          },
+          "ef160": {
+            "recall": 1,
+            "precision": 1
+          }
+        }
+      ]
+    },
+    {
+      "text": "db connection timeout",
+      "kind": "mixed",
+      "expected": "db_connection_timeout",
+      "exact_precision": 1,
+      "builds": [
+        {
+          "ef40": {
+            "recall": 1,
+            "precision": 1
+          },
+          "ef160": {
+            "recall": 1,
+            "precision": 1
+          }
+        },
+        {
+          "ef40": {
+            "recall": 1,
+            "precision": 1
+          },
+          "ef160": {
+            "recall": 1,
+            "precision": 1
+          }
+        },
+        {
+          "ef40": {
+            "recall": 1,
+            "precision": 1
+          },
+          "ef160": {
+            "recall": 1,
+            "precision": 1
+          }
+        }
+      ]
+    },
+    {
+      "text": "database is not accepting new connections",
+      "kind": "paraphrase",
+      "expected": "db_connection_timeout",
+      "exact_precision": 1,
+      "builds": [
+        {
+          "ef40": {
+            "recall": 1,
+            "precision": 1
+          },
+          "ef160": {
+            "recall": 1,
+            "precision": 1
+          }
+        },
+        {
+          "ef40": {
+            "recall": 1,
+            "precision": 1
+          },
+          "ef160": {
+            "recall": 1,
+            "precision": 1
+          }
+        },
+        {
+          "ef40": {
+            "recall": 1,
+            "precision": 1
+          },
+          "ef160": {
+            "recall": 1,
+            "precision": 1
+          }
+        }
+      ]
+    },
+    {
+      "text": "deadlock detected",
+      "kind": "keyword",
+      "expected": "deadlock",
+      "exact_precision": 1,
+      "builds": [
+        {
+          "ef40": {
+            "recall": 1,
+            "precision": 1
+          },
+          "ef160": {
+            "recall": 1,
+            "precision": 1
+          }
+        },
+        {
+          "ef40": {
+            "recall": 1,
+            "precision": 1
+          },
+          "ef160": {
+            "recall": 1,
+            "precision": 1
+          }
+        },
+        {
+          "ef40": {
+            "recall": 1,
+            "precision": 1
+          },
+          "ef160": {
+            "recall": 1,
+            "precision": 1
+          }
+        }
+      ]
+    },
+    {
+      "text": "transaction rolled back by concurrent updates",
+      "kind": "mixed",
+      "expected": "deadlock",
+      "exact_precision": 1,
+      "builds": [
+        {
+          "ef40": {
+            "recall": 0,
+            "precision": 0
+          },
+          "ef160": {
+            "recall": 0,
+            "precision": 0
+          }
+        },
+        {
+          "ef40": {
+            "recall": 1,
+            "precision": 1
+          },
+          "ef160": {
+            "recall": 1,
+            "precision": 1
+          }
+        },
+        {
+          "ef40": {
+            "recall": 0,
+            "precision": 0
+          },
+          "ef160": {
+            "recall": 0,
+            "precision": 0
+          }
+        }
+      ]
+    },
+    {
+      "text": "two transactions blocking each other",
+      "kind": "paraphrase",
+      "expected": "deadlock",
+      "exact_precision": 1,
+      "builds": [
+        {
+          "ef40": {
+            "recall": 0,
+            "precision": 0
+          },
+          "ef160": {
+            "recall": 1,
+            "precision": 1
+          }
+        },
+        {
+          "ef40": {
+            "recall": 0,
+            "precision": 0
+          },
+          "ef160": {
+            "recall": 0,
+            "precision": 0
+          }
+        },
+        {
+          "ef40": {
+            "recall": 1,
+            "precision": 1
+          },
+          "ef160": {
+            "recall": 1,
+            "precision": 1
+          }
+        }
+      ]
+    },
+    {
+      "text": "rows locked by each other forever",
+      "kind": "paraphrase",
+      "expected": "deadlock",
+      "exact_precision": 1,
+      "builds": [
+        {
+          "ef40": {
+            "recall": 1,
+            "precision": 1
+          },
+          "ef160": {
+            "recall": 1,
+            "precision": 1
+          }
+        },
+        {
+          "ef40": {
+            "recall": 1,
+            "precision": 1
+          },
+          "ef160": {
+            "recall": 1,
+            "precision": 1
+          }
+        },
+        {
+          "ef40": {
+            "recall": 1,
+            "precision": 1
+          },
+          "ef160": {
+            "recall": 1,
+            "precision": 1
+          }
+        }
+      ]
+    },
+    {
+      "text": "ENOSPC",
+      "kind": "keyword",
+      "expected": "disk_full",
+      "exact_precision": 1,
+      "builds": [
+        {
+          "ef40": {
+            "recall": 0,
+            "precision": 0
+          },
+          "ef160": {
+            "recall": 0,
+            "precision": 0
+          }
+        },
+        {
+          "ef40": {
+            "recall": 0,
+            "precision": 0
+          },
+          "ef160": {
+            "recall": 0,
+            "precision": 0
+          }
+        },
+        {
+          "ef40": {
+            "recall": 0,
+            "precision": 0
+          },
+          "ef160": {
+            "recall": 0,
+            "precision": 0
+          }
+        }
+      ]
+    },
+    {
+      "text": "no space left on device",
+      "kind": "keyword",
+      "expected": "disk_full",
+      "exact_precision": 1,
+      "builds": [
+        {
+          "ef40": {
+            "recall": 0,
+            "precision": 0
+          },
+          "ef160": {
+            "recall": 0,
+            "precision": 0
+          }
+        },
+        {
+          "ef40": {
+            "recall": 1,
+            "precision": 1
+          },
+          "ef160": {
+            "recall": 1,
+            "precision": 1
+          }
+        },
+        {
+          "ef40": {
+            "recall": 0,
+            "precision": 0
+          },
+          "ef160": {
+            "recall": 0,
+            "precision": 0
+          }
+        }
+      ]
+    },
+    {
+      "text": "storage volume is full",
+      "kind": "paraphrase",
+      "expected": "disk_full",
+      "exact_precision": 1,
+      "builds": [
+        {
+          "ef40": {
+            "recall": 1,
+            "precision": 1
+          },
+          "ef160": {
+            "recall": 1,
+            "precision": 1
+          }
+        },
+        {
+          "ef40": {
+            "recall": 1,
+            "precision": 1
+          },
+          "ef160": {
+            "recall": 1,
+            "precision": 1
+          }
+        },
+        {
+          "ef40": {
+            "recall": 0,
+            "precision": 0
+          },
+          "ef160": {
+            "recall": 0,
+            "precision": 0
+          }
+        }
+      ]
+    },
+    {
+      "text": "cannot write files anymore, the drive is at capacity",
+      "kind": "paraphrase",
+      "expected": "disk_full",
+      "exact_precision": 1,
+      "builds": [
+        {
+          "ef40": {
+            "recall": 1,
+            "precision": 1
+          },
+          "ef160": {
+            "recall": 1,
+            "precision": 1
+          }
+        },
+        {
+          "ef40": {
+            "recall": 1,
+            "precision": 1
+          },
+          "ef160": {
+            "recall": 1,
+            "precision": 1
+          }
+        },
+        {
+          "ef40": {
+            "recall": 0,
+            "precision": 0
+          },
+          "ef160": {
+            "recall": 0,
+            "precision": 0
+          }
+        }
+      ]
+    },
+    {
+      "text": "ENOTFOUND",
+      "kind": "keyword",
+      "expected": "dns_failure",
+      "exact_precision": 1,
+      "builds": [
+        {
+          "ef40": {
+            "recall": 0,
+            "precision": 0
+          },
+          "ef160": {
+            "recall": 0,
+            "precision": 0
+          }
+        },
+        {
+          "ef40": {
+            "recall": 0,
+            "precision": 0
+          },
+          "ef160": {
+            "recall": 0,
+            "precision": 0
+          }
+        },
+        {
+          "ef40": {
+            "recall": 0,
+            "precision": 0
+          },
+          "ef160": {
+            "recall": 1,
+            "precision": 1
+          }
+        }
+      ]
+    },
+    {
+      "text": "temporary failure in name resolution",
+      "kind": "keyword",
+      "expected": "dns_failure",
+      "exact_precision": 1,
+      "builds": [
+        {
+          "ef40": {
+            "recall": 1,
+            "precision": 1
+          },
+          "ef160": {
+            "recall": 1,
+            "precision": 1
+          }
+        },
+        {
+          "ef40": {
+            "recall": 1,
+            "precision": 1
+          },
+          "ef160": {
+            "recall": 1,
+            "precision": 1
+          }
+        },
+        {
+          "ef40": {
+            "recall": 0,
+            "precision": 0
+          },
+          "ef160": {
+            "recall": 0,
+            "precision": 0
+          }
+        }
+      ]
+    },
+    {
+      "text": "hostname lookup failing",
+      "kind": "mixed",
+      "expected": "dns_failure",
+      "exact_precision": 1,
+      "builds": [
+        {
+          "ef40": {
+            "recall": 1,
+            "precision": 1
+          },
+          "ef160": {
+            "recall": 1,
+            "precision": 1
+          }
+        },
+        {
+          "ef40": {
+            "recall": 1,
+            "precision": 1
+          },
+          "ef160": {
+            "recall": 1,
+            "precision": 1
+          }
+        },
+        {
+          "ef40": {
+            "recall": 1,
+            "precision": 1
+          },
+          "ef160": {
+            "recall": 1,
+            "precision": 1
+          }
+        }
+      ]
+    },
+    {
+      "text": "cannot find the address of the payment server",
+      "kind": "paraphrase",
+      "expected": "dns_failure",
+      "exact_precision": 0,
+      "builds": [
+        {
+          "ef40": {
+            "recall": 0,
+            "precision": 0
+          },
+          "ef160": {
+            "recall": 1,
+            "precision": 0
+          }
+        },
+        {
+          "ef40": {
+            "recall": 1,
+            "precision": 0
+          },
+          "ef160": {
+            "recall": 1,
+            "precision": 0
+          }
+        },
+        {
+          "ef40": {
+            "recall": 1,
+            "precision": 0
+          },
+          "ef160": {
+            "recall": 1,
+            "precision": 0
+          }
+        }
+      ]
+    },
+    {
+      "text": "users_email_unique",
+      "kind": "keyword",
+      "expected": "duplicate_key",
+      "exact_precision": 1,
+      "builds": [
+        {
+          "ef40": {
+            "recall": 1,
+            "precision": 1
+          },
+          "ef160": {
+            "recall": 1,
+            "precision": 1
+          }
+        },
+        {
+          "ef40": {
+            "recall": 1,
+            "precision": 1
+          },
+          "ef160": {
+            "recall": 1,
+            "precision": 1
+          }
+        },
+        {
+          "ef40": {
+            "recall": 1,
+            "precision": 1
+          },
+          "ef160": {
+            "recall": 1,
+            "precision": 1
+          }
+        }
+      ]
+    },
+    {
+      "text": "duplicate key value violates unique constraint",
+      "kind": "keyword",
+      "expected": "duplicate_key",
+      "exact_precision": 1,
+      "builds": [
+        {
+          "ef40": {
+            "recall": 0,
+            "precision": 0
+          },
+          "ef160": {
+            "recall": 1,
+            "precision": 1
+          }
+        },
+        {
+          "ef40": {
+            "recall": 1,
+            "precision": 1
+          },
+          "ef160": {
+            "recall": 1,
+            "precision": 1
+          }
+        },
+        {
+          "ef40": {
+            "recall": 1,
+            "precision": 1
+          },
+          "ef160": {
+            "recall": 1,
+            "precision": 1
+          }
+        }
+      ]
+    },
+    {
+      "text": "warehouse reconciliation mismatch",
+      "kind": "keyword",
+      "expected": "stock_inconsistency",
+      "exact_precision": 1,
+      "builds": [
+        {
+          "ef40": {
+            "recall": 0,
+            "precision": 0
+          },
+          "ef160": {
+            "recall": 0,
+            "precision": 0
+          }
+        },
+        {
+          "ef40": {
+            "recall": 1,
+            "precision": 1
+          },
+          "ef160": {
+            "recall": 1,
+            "precision": 1
+          }
+        },
+        {
+          "ef40": {
+            "recall": 1,
+            "precision": 1
+          },
+          "ef160": {
+            "recall": 1,
+            "precision": 1
+          }
+        }
+      ]
+    },
+    {
+      "text": "email already registered",
+      "kind": "mixed",
+      "expected": "duplicate_key",
+      "exact_precision": 1,
+      "builds": [
+        {
+          "ef40": {
+            "recall": 1,
+            "precision": 1
+          },
+          "ef160": {
+            "recall": 1,
+            "precision": 1
+          }
+        },
+        {
+          "ef40": {
+            "recall": 1,
+            "precision": 1
+          },
+          "ef160": {
+            "recall": 1,
+            "precision": 1
+          }
+        },
+        {
+          "ef40": {
+            "recall": 1,
+            "precision": 1
+          },
+          "ef160": {
+            "recall": 1,
+            "precision": 1
+          }
+        }
+      ]
+    },
+    {
+      "text": "same order submitted twice",
+      "kind": "paraphrase",
+      "expected": "duplicate_key",
+      "exact_precision": 1,
+      "builds": [
+        {
+          "ef40": {
+            "recall": 0,
+            "precision": 0
+          },
+          "ef160": {
+            "recall": 0,
+            "precision": 0
+          }
+        },
+        {
+          "ef40": {
+            "recall": 0,
+            "precision": 0
+          },
+          "ef160": {
+            "recall": 0,
+            "precision": 0
+          }
+        },
+        {
+          "ef40": {
+            "recall": 0,
+            "precision": 0
+          },
+          "ef160": {
+            "recall": 0,
+            "precision": 0
+          }
+        }
+      ]
+    },
+    {
+      "text": "JWT expired",
+      "kind": "keyword",
+      "expected": "jwt_expired",
+      "exact_precision": 1,
+      "builds": [
+        {
+          "ef40": {
+            "recall": 1,
+            "precision": 1
+          },
+          "ef160": {
+            "recall": 1,
+            "precision": 1
+          }
+        },
+        {
+          "ef40": {
+            "recall": 1,
+            "precision": 1
+          },
+          "ef160": {
+            "recall": 1,
+            "precision": 1
+          }
+        },
+        {
+          "ef40": {
+            "recall": 1,
+            "precision": 1
+          },
+          "ef160": {
+            "recall": 1,
+            "precision": 1
+          }
+        }
+      ]
+    },
+    {
+      "text": "401 unauthorized after token expiry",
+      "kind": "mixed",
+      "expected": "jwt_expired",
+      "exact_precision": 0.6,
+      "builds": [
+        {
+          "ef40": {
+            "recall": 0.2,
+            "precision": 0.9
+          },
+          "ef160": {
+            "recall": 0.7,
+            "precision": 0.9
+          }
+        },
+        {
+          "ef40": {
+            "recall": 0.1,
+            "precision": 1
+          },
+          "ef160": {
+            "recall": 0.6,
+            "precision": 1
+          }
+        },
+        {
+          "ef40": {
+            "recall": 0.1,
+            "precision": 1
+          },
+          "ef160": {
+            "recall": 0.6,
+            "precision": 1
+          }
+        }
+      ]
+    },
+    {
+      "text": "login session no longer valid",
+      "kind": "mixed",
+      "expected": "jwt_expired",
+      "exact_precision": 1,
+      "builds": [
+        {
+          "ef40": {
+            "recall": 1,
+            "precision": 1
+          },
+          "ef160": {
+            "recall": 1,
+            "precision": 1
+          }
+        },
+        {
+          "ef40": {
+            "recall": 1,
+            "precision": 1
+          },
+          "ef160": {
+            "recall": 1,
+            "precision": 1
+          }
+        },
+        {
+          "ef40": {
+            "recall": 1,
+            "precision": 1
+          },
+          "ef160": {
+            "recall": 1,
+            "precision": 1
+          }
+        }
+      ]
+    },
+    {
+      "text": "users are being logged out unexpectedly",
+      "kind": "paraphrase",
+      "expected": "jwt_expired",
+      "exact_precision": 0,
+      "builds": [
+        {
+          "ef40": {
+            "recall": 0.9,
+            "precision": 0
+          },
+          "ef160": {
+            "recall": 1,
+            "precision": 0
+          }
+        },
+        {
+          "ef40": {
+            "recall": 0.9,
+            "precision": 0
+          },
+          "ef160": {
+            "recall": 1,
+            "precision": 0
+          }
+        },
+        {
+          "ef40": {
+            "recall": 0.9,
+            "precision": 0
+          },
+          "ef160": {
+            "recall": 1,
+            "precision": 0
+          }
+        }
+      ]
+    },
+    {
+      "text": "NullPointerException",
+      "kind": "keyword",
+      "expected": "null_reference",
+      "exact_precision": 1,
+      "builds": [
+        {
+          "ef40": {
+            "recall": 1,
+            "precision": 1
+          },
+          "ef160": {
+            "recall": 1,
+            "precision": 1
+          }
+        },
+        {
+          "ef40": {
+            "recall": 1,
+            "precision": 1
+          },
+          "ef160": {
+            "recall": 1,
+            "precision": 1
+          }
+        },
+        {
+          "ef40": {
+            "recall": 1,
+            "precision": 1
+          },
+          "ef160": {
+            "recall": 1,
+            "precision": 1
+          }
+        }
+      ]
+    },
+    {
+      "text": "Cannot read properties of undefined",
+      "kind": "keyword",
+      "expected": "null_reference",
+      "exact_precision": 1,
+      "builds": [
+        {
+          "ef40": {
+            "recall": 1,
+            "precision": 1
+          },
+          "ef160": {
+            "recall": 1,
+            "precision": 1
+          }
+        },
+        {
+          "ef40": {
+            "recall": 1,
+            "precision": 1
+          },
+          "ef160": {
+            "recall": 1,
+            "precision": 1
+          }
+        },
+        {
+          "ef40": {
+            "recall": 1,
+            "precision": 1
+          },
+          "ef160": {
+            "recall": 1,
+            "precision": 1
+          }
+        }
+      ]
+    },
+    {
+      "text": "accessing a property of an undefined object",
+      "kind": "mixed",
+      "expected": "null_reference",
+      "exact_precision": 1,
+      "builds": [
+        {
+          "ef40": {
+            "recall": 1,
+            "precision": 1
+          },
+          "ef160": {
+            "recall": 1,
+            "precision": 1
+          }
+        },
+        {
+          "ef40": {
+            "recall": 1,
+            "precision": 1
+          },
+          "ef160": {
+            "recall": 1,
+            "precision": 1
+          }
+        },
+        {
+          "ef40": {
+            "recall": 1,
+            "precision": 1
+          },
+          "ef160": {
+            "recall": 1,
+            "precision": 1
+          }
+        }
+      ]
+    },
+    {
+      "text": "code crashed on a missing field",
+      "kind": "paraphrase",
+      "expected": "null_reference",
+      "exact_precision": 1,
+      "builds": [
+        {
+          "ef40": {
+            "recall": 1,
+            "precision": 1
+          },
+          "ef160": {
+            "recall": 1,
+            "precision": 1
+          }
+        },
+        {
+          "ef40": {
+            "recall": 1,
+            "precision": 1
+          },
+          "ef160": {
+            "recall": 1,
+            "precision": 1
+          }
+        },
+        {
+          "ef40": {
+            "recall": 0,
+            "precision": 0
+          },
+          "ef160": {
+            "recall": 0,
+            "precision": 0
+          }
+        }
+      ]
+    },
+    {
+      "text": "OOMKilled",
+      "kind": "keyword",
+      "expected": "out_of_memory",
+      "exact_precision": 1,
+      "builds": [
+        {
+          "ef40": {
+            "recall": 0,
+            "precision": 0
+          },
+          "ef160": {
+            "recall": 0,
+            "precision": 0
+          }
+        },
+        {
+          "ef40": {
+            "recall": 1,
+            "precision": 1
+          },
+          "ef160": {
+            "recall": 1,
+            "precision": 1
+          }
+        },
+        {
+          "ef40": {
+            "recall": 0,
+            "precision": 0
+          },
+          "ef160": {
+            "recall": 0,
+            "precision": 0
+          }
+        }
+      ]
+    },
+    {
+      "text": "JavaScript heap out of memory",
+      "kind": "keyword",
+      "expected": "out_of_memory",
+      "exact_precision": 1,
+      "builds": [
+        {
+          "ef40": {
+            "recall": 1,
+            "precision": 1
+          },
+          "ef160": {
+            "recall": 1,
+            "precision": 1
+          }
+        },
+        {
+          "ef40": {
+            "recall": 1,
+            "precision": 1
+          },
+          "ef160": {
+            "recall": 1,
+            "precision": 1
+          }
+        },
+        {
+          "ef40": {
+            "recall": 1,
+            "precision": 1
+          },
+          "ef160": {
+            "recall": 1,
+            "precision": 1
+          }
+        }
+      ]
+    },
+    {
+      "text": "worker restarted for using too much memory",
+      "kind": "mixed",
+      "expected": "out_of_memory",
+      "exact_precision": 1,
+      "builds": [
+        {
+          "ef40": {
+            "recall": 1,
+            "precision": 1
+          },
+          "ef160": {
+            "recall": 1,
+            "precision": 1
+          }
+        },
+        {
+          "ef40": {
+            "recall": 1,
+            "precision": 1
+          },
+          "ef160": {
+            "recall": 1,
+            "precision": 1
+          }
+        },
+        {
+          "ef40": {
+            "recall": 1,
+            "precision": 1
+          },
+          "ef160": {
+            "recall": 1,
+            "precision": 1
+          }
+        }
+      ]
+    },
+    {
+      "text": "server ran out of RAM and crashed",
+      "kind": "paraphrase",
+      "expected": "out_of_memory",
+      "exact_precision": 1,
+      "builds": [
+        {
+          "ef40": {
+            "recall": 0.8,
+            "precision": 1
+          },
+          "ef160": {
+            "recall": 1,
+            "precision": 1
+          }
+        },
+        {
+          "ef40": {
+            "recall": 1,
+            "precision": 1
+          },
+          "ef160": {
+            "recall": 1,
+            "precision": 1
+          }
+        },
+        {
+          "ef40": {
+            "recall": 1,
+            "precision": 1
+          },
+          "ef160": {
+            "recall": 1,
+            "precision": 1
+          }
+        }
+      ]
+    },
+    {
+      "text": "502 Bad Gateway",
+      "kind": "keyword",
+      "expected": "payment_gateway_5xx",
+      "exact_precision": 1,
+      "builds": [
+        {
+          "ef40": {
+            "recall": 1,
+            "precision": 1
+          },
+          "ef160": {
+            "recall": 1,
+            "precision": 1
+          }
+        },
+        {
+          "ef40": {
+            "recall": 1,
+            "precision": 1
+          },
+          "ef160": {
+            "recall": 1,
+            "precision": 1
+          }
+        },
+        {
+          "ef40": {
+            "recall": 1,
+            "precision": 1
+          },
+          "ef160": {
+            "recall": 1,
+            "precision": 1
+          }
+        }
+      ]
+    },
+    {
+      "text": "stripe returning 503",
+      "kind": "mixed",
+      "expected": "payment_gateway_5xx",
+      "exact_precision": 1,
+      "builds": [
+        {
+          "ef40": {
+            "recall": 1,
+            "precision": 1
+          },
+          "ef160": {
+            "recall": 1,
+            "precision": 1
+          }
+        },
+        {
+          "ef40": {
+            "recall": 1,
+            "precision": 1
+          },
+          "ef160": {
+            "recall": 1,
+            "precision": 1
+          }
+        },
+        {
+          "ef40": {
+            "recall": 1,
+            "precision": 1
+          },
+          "ef160": {
+            "recall": 1,
+            "precision": 1
+          }
+        }
+      ]
+    },
+    {
+      "text": "charges failing because the provider is unavailable",
+      "kind": "mixed",
+      "expected": "payment_gateway_5xx",
+      "exact_precision": 1,
+      "builds": [
+        {
+          "ef40": {
+            "recall": 1,
+            "precision": 1
+          },
+          "ef160": {
+            "recall": 1,
+            "precision": 1
+          }
+        },
+        {
+          "ef40": {
+            "recall": 1,
+            "precision": 1
+          },
+          "ef160": {
+            "recall": 1,
+            "precision": 1
+          }
+        },
+        {
+          "ef40": {
+            "recall": 1,
+            "precision": 1
+          },
+          "ef160": {
+            "recall": 1,
+            "precision": 1
+          }
+        }
+      ]
+    },
+    {
+      "text": "customers cannot pay, card processor is down",
+      "kind": "paraphrase",
+      "expected": "payment_gateway_5xx",
+      "exact_precision": 1,
+      "builds": [
+        {
+          "ef40": {
+            "recall": 1,
+            "precision": 1
+          },
+          "ef160": {
+            "recall": 1,
+            "precision": 1
+          }
+        },
+        {
+          "ef40": {
+            "recall": 1,
+            "precision": 1
+          },
+          "ef160": {
+            "recall": 1,
+            "precision": 1
+          }
+        },
+        {
+          "ef40": {
+            "recall": 1,
+            "precision": 1
+          },
+          "ef160": {
+            "recall": 1,
+            "precision": 1
+          }
+        }
+      ]
+    },
+    {
+      "text": "kafka consumer lag",
+      "kind": "keyword",
+      "expected": "queue_lag",
+      "exact_precision": 1,
+      "builds": [
+        {
+          "ef40": {
+            "recall": 1,
+            "precision": 1
+          },
+          "ef160": {
+            "recall": 1,
+            "precision": 1
+          }
+        },
+        {
+          "ef40": {
+            "recall": 1,
+            "precision": 1
+          },
+          "ef160": {
+            "recall": 1,
+            "precision": 1
+          }
+        },
+        {
+          "ef40": {
+            "recall": 0,
+            "precision": 0
+          },
+          "ef160": {
+            "recall": 0,
+            "precision": 0
+          }
+        }
+      ]
+    },
+    {
+      "text": "backlog keeps growing",
+      "kind": "mixed",
+      "expected": "queue_lag",
+      "exact_precision": 1,
+      "builds": [
+        {
+          "ef40": {
+            "recall": 1,
+            "precision": 1
+          },
+          "ef160": {
+            "recall": 1,
+            "precision": 1
+          }
+        },
+        {
+          "ef40": {
+            "recall": 0,
+            "precision": 0
+          },
+          "ef160": {
+            "recall": 0,
+            "precision": 0
+          }
+        },
+        {
+          "ef40": {
+            "recall": 0,
+            "precision": 0.1
+          },
+          "ef160": {
+            "recall": 0,
+            "precision": 0.1
+          }
+        }
+      ]
+    },
+    {
+      "text": "background events are piling up and not being consumed",
+      "kind": "paraphrase",
+      "expected": "queue_lag",
+      "exact_precision": 1,
+      "builds": [
+        {
+          "ef40": {
+            "recall": 1,
+            "precision": 1
+          },
+          "ef160": {
+            "recall": 1,
+            "precision": 1
+          }
+        },
+        {
+          "ef40": {
+            "recall": 0,
+            "precision": 0
+          },
+          "ef160": {
+            "recall": 0,
+            "precision": 0
+          }
+        },
+        {
+          "ef40": {
+            "recall": 1,
+            "precision": 1
+          },
+          "ef160": {
+            "recall": 1,
+            "precision": 1
+          }
+        }
+      ]
+    },
+    {
+      "text": "emails are being sent hours late",
+      "kind": "paraphrase",
+      "expected": "queue_lag",
+      "exact_precision": 0.9,
+      "builds": [
+        {
+          "ef40": {
+            "recall": 1,
+            "precision": 0.9
+          },
+          "ef160": {
+            "recall": 1,
+            "precision": 0.9
+          }
+        },
+        {
+          "ef40": {
+            "recall": 0,
+            "precision": 0
+          },
+          "ef160": {
+            "recall": 1,
+            "precision": 0.9
+          }
+        },
+        {
+          "ef40": {
+            "recall": 0,
+            "precision": 0
+          },
+          "ef160": {
+            "recall": 1,
+            "precision": 0.9
+          }
+        }
+      ]
+    },
+    {
+      "text": "too many requests",
+      "kind": "keyword",
+      "expected": "rate_limited",
+      "exact_precision": 1,
+      "builds": [
+        {
+          "ef40": {
+            "recall": 0,
+            "precision": 0
+          },
+          "ef160": {
+            "recall": 0,
+            "precision": 0
+          }
+        },
+        {
+          "ef40": {
+            "recall": 1,
+            "precision": 1
+          },
+          "ef160": {
+            "recall": 1,
+            "precision": 1
+          }
+        },
+        {
+          "ef40": {
+            "recall": 1,
+            "precision": 1
+          },
+          "ef160": {
+            "recall": 1,
+            "precision": 1
+          }
+        }
+      ]
+    },
+    {
+      "text": "rate limit exceeded",
+      "kind": "keyword",
+      "expected": "rate_limited",
+      "exact_precision": 1,
+      "builds": [
+        {
+          "ef40": {
+            "recall": 1,
+            "precision": 1
+          },
+          "ef160": {
+            "recall": 1,
+            "precision": 1
+          }
+        },
+        {
+          "ef40": {
+            "recall": 0,
+            "precision": 1
+          },
+          "ef160": {
+            "recall": 1,
+            "precision": 1
+          }
+        },
+        {
+          "ef40": {
+            "recall": 0,
+            "precision": 1
+          },
+          "ef160": {
+            "recall": 1,
+            "precision": 1
+          }
+        }
+      ]
+    },
+    {
+      "text": "partner API is throttling our calls",
+      "kind": "mixed",
+      "expected": "rate_limited",
+      "exact_precision": 1,
+      "builds": [
+        {
+          "ef40": {
+            "recall": 0,
+            "precision": 0
+          },
+          "ef160": {
+            "recall": 0,
+            "precision": 0
+          }
+        },
+        {
+          "ef40": {
+            "recall": 1,
+            "precision": 1
+          },
+          "ef160": {
+            "recall": 1,
+            "precision": 1
+          }
+        },
+        {
+          "ef40": {
+            "recall": 1,
+            "precision": 1
+          },
+          "ef160": {
+            "recall": 1,
+            "precision": 1
+          }
+        }
+      ]
+    },
+    {
+      "text": "one client is flooding us with traffic",
+      "kind": "paraphrase",
+      "expected": "rate_limited",
+      "exact_precision": 1,
+      "builds": [
+        {
+          "ef40": {
+            "recall": 1,
+            "precision": 1
+          },
+          "ef160": {
+            "recall": 1,
+            "precision": 1
+          }
+        },
+        {
+          "ef40": {
+            "recall": 1,
+            "precision": 1
+          },
+          "ef160": {
+            "recall": 1,
+            "precision": 1
+          }
+        },
+        {
+          "ef40": {
+            "recall": 1,
+            "precision": 1
+          },
+          "ef160": {
+            "recall": 1,
+            "precision": 1
+          }
+        }
+      ]
+    },
+    {
+      "text": "statement timeout",
+      "kind": "keyword",
+      "expected": "slow_query",
+      "exact_precision": 1,
+      "builds": [
+        {
+          "ef40": {
+            "recall": 1,
+            "precision": 1
+          },
+          "ef160": {
+            "recall": 1,
+            "precision": 1
+          }
+        },
+        {
+          "ef40": {
+            "recall": 1,
+            "precision": 1
+          },
+          "ef160": {
+            "recall": 1,
+            "precision": 1
+          }
+        },
+        {
+          "ef40": {
+            "recall": 1,
+            "precision": 1
+          },
+          "ef160": {
+            "recall": 1,
+            "precision": 1
+          }
+        }
+      ]
+    },
+    {
+      "text": "query is too slow",
+      "kind": "mixed",
+      "expected": "slow_query",
+      "exact_precision": 1,
+      "builds": [
+        {
+          "ef40": {
+            "recall": 0,
+            "precision": 0
+          },
+          "ef160": {
+            "recall": 0,
+            "precision": 0
+          }
+        },
+        {
+          "ef40": {
+            "recall": 0,
+            "precision": 0
+          },
+          "ef160": {
+            "recall": 0,
+            "precision": 0
+          }
+        },
+        {
+          "ef40": {
+            "recall": 0,
+            "precision": 0
+          },
+          "ef160": {
+            "recall": 0,
+            "precision": 0
+          }
+        }
+      ]
+    },
+    {
+      "text": "database calls exceeding their latency budget",
+      "kind": "mixed",
+      "expected": "slow_query",
+      "exact_precision": 1,
+      "builds": [
+        {
+          "ef40": {
+            "recall": 1,
+            "precision": 1
+          },
+          "ef160": {
+            "recall": 1,
+            "precision": 1
+          }
+        },
+        {
+          "ef40": {
+            "recall": 1,
+            "precision": 1
+          },
+          "ef160": {
+            "recall": 1,
+            "precision": 1
+          }
+        },
+        {
+          "ef40": {
+            "recall": 1,
+            "precision": 1
+          },
+          "ef160": {
+            "recall": 1,
+            "precision": 1
+          }
+        }
+      ]
+    },
+    {
+      "text": "orders page takes forever to load from the database",
+      "kind": "paraphrase",
+      "expected": "slow_query",
+      "exact_precision": 1,
+      "builds": [
+        {
+          "ef40": {
+            "recall": 0,
+            "precision": 0
+          },
+          "ef160": {
+            "recall": 1,
+            "precision": 1
+          }
+        },
+        {
+          "ef40": {
+            "recall": 0,
+            "precision": 0
+          },
+          "ef160": {
+            "recall": 0,
+            "precision": 0
+          }
+        },
+        {
+          "ef40": {
+            "recall": 1,
+            "precision": 1
+          },
+          "ef160": {
+            "recall": 1,
+            "precision": 1
+          }
+        }
+      ]
+    },
+    {
+      "text": "inventory went negative",
+      "kind": "keyword",
+      "expected": "stock_inconsistency",
+      "exact_precision": 1,
+      "builds": [
+        {
+          "ef40": {
+            "recall": 1,
+            "precision": 1
+          },
+          "ef160": {
+            "recall": 1,
+            "precision": 1
+          }
+        },
+        {
+          "ef40": {
+            "recall": 1,
+            "precision": 1
+          },
+          "ef160": {
+            "recall": 1,
+            "precision": 1
+          }
+        },
+        {
+          "ef40": {
+            "recall": 1,
+            "precision": 1
+          },
+          "ef160": {
+            "recall": 1,
+            "precision": 1
+          }
+        }
+      ]
+    },
+    {
+      "text": "stock count does not match what we expected",
+      "kind": "mixed",
+      "expected": "stock_inconsistency",
+      "exact_precision": 1,
+      "builds": [
+        {
+          "ef40": {
+            "recall": 1,
+            "precision": 1
+          },
+          "ef160": {
+            "recall": 1,
+            "precision": 1
+          }
+        },
+        {
+          "ef40": {
+            "recall": 1,
+            "precision": 1
+          },
+          "ef160": {
+            "recall": 1,
+            "precision": 1
+          }
+        },
+        {
+          "ef40": {
+            "recall": 1,
+            "precision": 1
+          },
+          "ef160": {
+            "recall": 1,
+            "precision": 1
+          }
+        }
+      ]
+    },
+    {
+      "text": "we sold more items than we have in the warehouse",
+      "kind": "paraphrase",
+      "expected": "stock_inconsistency",
+      "exact_precision": 1,
+      "builds": [
+        {
+          "ef40": {
+            "recall": 1,
+            "precision": 1
+          },
+          "ef160": {
+            "recall": 1,
+            "precision": 1
+          }
+        },
+        {
+          "ef40": {
+            "recall": 1,
+            "precision": 1
+          },
+          "ef160": {
+            "recall": 1,
+            "precision": 1
+          }
+        },
+        {
+          "ef40": {
+            "recall": 1,
+            "precision": 1
+          },
+          "ef160": {
+            "recall": 1,
+            "precision": 1
+          }
+        }
+      ]
+    },
+    {
+      "text": "x509",
+      "kind": "keyword",
+      "expected": "tls_cert_expired",
+      "exact_precision": 0,
+      "builds": [
+        {
+          "ef40": {
+            "recall": 0.1,
+            "precision": 0
+          },
+          "ef160": {
+            "recall": 0.1,
+            "precision": 0
+          }
+        },
+        {
+          "ef40": {
+            "recall": 0.1,
+            "precision": 0
+          },
+          "ef160": {
+            "recall": 0.1,
+            "precision": 0
+          }
+        },
+        {
+          "ef40": {
+            "recall": 0.8,
+            "precision": 0
+          },
+          "ef160": {
+            "recall": 0.8,
+            "precision": 0
+          }
+        }
+      ]
+    },
+    {
+      "text": "CERT_HAS_EXPIRED",
+      "kind": "keyword",
+      "expected": "tls_cert_expired",
+      "exact_precision": 1,
+      "builds": [
+        {
+          "ef40": {
+            "recall": 0,
+            "precision": 0
+          },
+          "ef160": {
+            "recall": 0,
+            "precision": 0
+          }
+        },
+        {
+          "ef40": {
+            "recall": 1,
+            "precision": 1
+          },
+          "ef160": {
+            "recall": 1,
+            "precision": 1
+          }
+        },
+        {
+          "ef40": {
+            "recall": 0,
+            "precision": 0
+          },
+          "ef160": {
+            "recall": 0,
+            "precision": 0
+          }
+        }
+      ]
+    },
+    {
+      "text": "HTTPS certificate is no longer valid",
+      "kind": "mixed",
+      "expected": "tls_cert_expired",
+      "exact_precision": 1,
+      "builds": [
+        {
+          "ef40": {
+            "recall": 1,
+            "precision": 1
+          },
+          "ef160": {
+            "recall": 1,
+            "precision": 1
+          }
+        },
+        {
+          "ef40": {
+            "recall": 0,
+            "precision": 0.2
+          },
+          "ef160": {
+            "recall": 1,
+            "precision": 1
+          }
+        },
+        {
+          "ef40": {
+            "recall": 0,
+            "precision": 0
+          },
+          "ef160": {
+            "recall": 0,
+            "precision": 0
+          }
+        }
+      ]
+    },
+    {
+      "text": "outbound calls rejected because the SSL cert is old",
+      "kind": "mixed",
+      "expected": "tls_cert_expired",
+      "exact_precision": 1,
+      "builds": [
+        {
+          "ef40": {
+            "recall": 0,
+            "precision": 0
+          },
+          "ef160": {
+            "recall": 0,
+            "precision": 0
+          }
+        },
+        {
+          "ef40": {
+            "recall": 0,
+            "precision": 0
+          },
+          "ef160": {
+            "recall": 1,
+            "precision": 1
+          }
+        },
+        {
+          "ef40": {
+            "recall": 1,
+            "precision": 1
+          },
+          "ef160": {
+            "recall": 1,
+            "precision": 1
+          }
+        }
+      ]
+    }
+  ],
+  "deep_dive": [
+    {
+      "text": "redis is down",
+      "kind": "mixed",
+      "expected": "cache_unavailable",
+      "why": "biggest precision loss vs exact (the index failed)",
+      "nearest_distance": 0.40906491063477735,
+      "kth_distance": 0.4185441732406451,
+      "exact_precision": 1,
+      "hnsw_ef160": {
+        "recall": 0,
+        "precision": 0
+      },
+      "plans": {
+        "40": {
+          "ms": 0.899,
+          "pages": {
+            "hit": 1410,
+            "read": 0
+          },
+          "workers": 0,
+          "plan": "Limit → Index Scan (idx_logs_embedding_hnsw)"
+        },
+        "160": {
+          "ms": 1.551,
+          "pages": {
+            "hit": 2090,
+            "read": 0
+          },
+          "workers": 0,
+          "plan": "Limit → Index Scan (idx_logs_embedding_hnsw)"
+        },
+        "exact": {
+          "ms": 32.318,
+          "pages": {
+            "hit": 2503,
+            "read": 24357
+          },
+          "workers": 2,
+          "plan": "Limit → Gather Merge → Sort → Seq Scan"
+        }
+      },
+      "missed": [
+        {
+          "id": 29672,
+          "root_cause": "cache_unavailable",
+          "message": "Redis connection lost (ECONNRESET), reconnecting in 1126ms",
+          "distance": 0.40906491063477735
+        },
+        {
+          "id": 31862,
+          "root_cause": "cache_unavailable",
+          "message": "Redis connection lost (ECONNRESET), reconnecting in 1643ms",
+          "distance": 0.4099454107864111
+        },
+        {
+          "id": 46525,
+          "root_cause": "cache_unavailable",
+          "message": "Redis connection lost (ECONNRESET), reconnecting in 1780ms",
+          "distance": 0.41174323418816694
+        },
+        {
+          "id": 32650,
+          "root_cause": "cache_unavailable",
+          "message": "Redis connection lost (ECONNRESET), reconnecting in 1786ms",
+          "distance": 0.4139778819136901
+        },
+        {
+          "id": 13842,
+          "root_cause": "cache_unavailable",
+          "message": "Redis connection lost (ECONNRESET), reconnecting in 3372ms",
+          "distance": 0.41596586513925793
+        },
+        {
+          "id": 49077,
+          "root_cause": "cache_unavailable",
+          "message": "Redis connection lost (ECONNRESET), reconnecting in 1494ms",
+          "distance": 0.4163312515422698
+        },
+        {
+          "id": 5923,
+          "root_cause": "cache_unavailable",
+          "message": "Redis connection lost (ECONNRESET), reconnecting in 4409ms",
+          "distance": 0.41715385504869107
+        },
+        {
+          "id": 20935,
+          "root_cause": "cache_unavailable",
+          "message": "Redis connection lost (ECONNRESET), reconnecting in 1568ms",
+          "distance": 0.4177002854048345
+        },
+        {
+          "id": 67189,
+          "root_cause": "cache_unavailable",
+          "message": "Redis connection lost (ECONNRESET), reconnecting in 1467ms",
+          "distance": 0.4184027563573315
+        },
+        {
+          "id": 53141,
+          "root_cause": "cache_unavailable",
+          "message": "Redis connection lost (ECONNRESET), reconnecting in 769ms",
+          "distance": 0.4185441732406451
+        }
+      ],
+      "instead": [
+        {
+          "id": 74963,
+          "root_cause": "info:http_request",
+          "message": "Handled /api/users/usr_301951 in 157 ms (status 200)",
+          "distance": 0.6909925113925302
+        },
+        {
+          "id": 43532,
+          "root_cause": "info:http_request",
+          "message": "Handled /api/users/usr_301547 in 173 ms (status 200)",
+          "distance": 0.6954917441626205
+        },
+        {
+          "id": 19501,
+          "root_cause": "info:http_request",
+          "message": "Handled /api/users/usr_636577 in 246 ms (status 200)",
+          "distance": 0.6983232323352737
+        },
+        {
+          "id": 94141,
+          "root_cause": "info:http_request",
+          "message": "Handled /api/users/usr_9515 in 302 ms (status 200)",
+          "distance": 0.7010319798262103
+        },
+        {
+          "id": 90265,
+          "root_cause": "info:http_request",
+          "message": "Handled /api/users/usr_984590 in 253 ms (status 200)",
+          "distance": 0.7021025355870953
+        },
+        {
+          "id": 13674,
+          "root_cause": "info:http_request",
+          "message": "Handled /api/users/usr_825403 in 224 ms (status 200)",
+          "distance": 0.7027711505703056
+        },
+        {
+          "id": 32370,
+          "root_cause": "info:http_request",
+          "message": "Handled /api/users/usr_377094 in 198 ms (status 200)",
+          "distance": 0.7074040399663372
+        },
+        {
+          "id": 63337,
+          "root_cause": "info:http_request",
+          "message": "Handled /api/users/usr_703267 in 253 ms (status 200)",
+          "distance": 0.7087012752232651
+        },
+        {
+          "id": 40882,
+          "root_cause": "info:http_request",
+          "message": "Handled /api/users/usr_269542 in 302 ms (status 200)",
+          "distance": 0.7091209043120239
+        },
+        {
+          "id": 1344,
+          "root_cause": "info:http_request",
+          "message": "Handled /api/users/usr_941203 in 246 ms (status 200)",
+          "distance": 0.709890613581988
+        }
+      ]
+    },
+    {
+      "text": "users_email_unique",
+      "kind": "keyword",
+      "expected": "duplicate_key",
+      "why": "median HNSW recall",
+      "nearest_distance": 0.22058403491971657,
+      "kth_distance": 0.22058403491971657,
+      "exact_precision": 1,
+      "hnsw_ef160": {
+        "recall": 1,
+        "precision": 1
+      },
+      "plans": {
+        "40": {
+          "ms": 0.428,
+          "pages": {
+            "hit": 622,
+            "read": 0
+          },
+          "workers": 0,
+          "plan": "Limit → Index Scan (idx_logs_embedding_hnsw)"
+        },
+        "160": {
+          "ms": 1.533,
+          "pages": {
+            "hit": 2232,
+            "read": 0
+          },
+          "workers": 0,
+          "plan": "Limit → Index Scan (idx_logs_embedding_hnsw)"
+        },
+        "exact": {
+          "ms": 32.098,
+          "pages": {
+            "hit": 2993,
+            "read": 23867
+          },
+          "workers": 2,
+          "plan": "Limit → Gather Merge → Sort → Seq Scan"
+        }
+      },
+      "missed": [],
+      "instead": []
+    },
+    {
+      "text": "we sold more items than we have in the warehouse",
+      "kind": "paraphrase",
+      "expected": "stock_inconsistency",
+      "why": "paraphrase HNSW gets right",
+      "nearest_distance": 0.48439046461411583,
+      "kth_distance": 0.5012789368629313,
+      "exact_precision": 1,
+      "hnsw_ef160": {
+        "recall": 1,
+        "precision": 1
+      },
+      "plans": {
+        "40": {
+          "ms": 0.352,
+          "pages": {
+            "hit": 420,
+            "read": 0
+          },
+          "workers": 0,
+          "plan": "Limit → Index Scan (idx_logs_embedding_hnsw)"
+        },
+        "160": {
+          "ms": 0.565,
+          "pages": {
+            "hit": 602,
+            "read": 0
+          },
+          "workers": 0,
+          "plan": "Limit → Index Scan (idx_logs_embedding_hnsw)"
+        },
+        "exact": {
+          "ms": 32.01,
+          "pages": {
+            "hit": 3492,
+            "read": 23368
+          },
+          "workers": 2,
+          "plan": "Limit → Gather Merge → Sort → Seq Scan"
+        }
+      },
+      "missed": [],
+      "instead": []
+    },
+    {
+      "text": "ECONNRESET",
+      "kind": "keyword",
+      "expected": "cache_unavailable",
+      "why": "exact search fails too (the model failed)",
+      "nearest_distance": 0.3943386203839039,
+      "kth_distance": 0.4203052365234061,
+      "exact_precision": 0,
+      "hnsw_ef160": {
+        "recall": 1,
+        "precision": 0
+      },
+      "plans": {
+        "40": {
+          "ms": 0.433,
+          "pages": {
+            "hit": 622,
+            "read": 0
+          },
+          "workers": 0,
+          "plan": "Limit → Index Scan (idx_logs_embedding_hnsw)"
+        },
+        "160": {
+          "ms": 1.205,
+          "pages": {
+            "hit": 1477,
+            "read": 0
+          },
+          "workers": 0,
+          "plan": "Limit → Index Scan (idx_logs_embedding_hnsw)"
+        },
+        "exact": {
+          "ms": 32.186,
+          "pages": {
+            "hit": 3972,
+            "read": 22888
+          },
+          "workers": 2,
+          "plan": "Limit → Gather Merge → Sort → Seq Scan"
+        }
+      },
+      "missed": [],
+      "instead": []
+    }
+  ]
+}

@@ -1,5 +1,5 @@
 {
-  "created_at": "2026-11-17T23:35:29.400Z",
+  "created_at": "2026-11-20T01:09:46.331Z",
   "rows": 100000,
   "not_info_rows": 26077,
   "index": {
@@ -41,8 +41,8 @@
         4,
         4
       ],
-      "p50_ms": 32.812033000000156,
-      "p95_ms": 33.24265899999955
+      "p50_ms": 31.737167999999656,
+      "p95_ms": 33.88167900000008
     },
     {
       "method": "exact, not INFO",
@@ -75,105 +75,141 @@
         3,
         3
       ],
-      "p50_ms": 35.03881700000056,
-      "p95_ms": 35.818710999999894
+      "p50_ms": 39.7838210000009,
+      "p95_ms": 41.99499300000025
     },
     {
       "method": "full HNSW, ef_search=40",
       "builds": 3,
       "build_s": [
-        18.719192544000002,
-        18.677160204,
-        18.41725123200001
+        23.177004441,
+        23.091742318000005,
+        24.047650952000012
       ],
-      "index_bytes": 156073984,
+      "index_bytes": 156106752,
       "plan": "Limit → Index Scan (idx_logs_embedding_hnsw)",
-      "recall": 0.7616666666666667,
+      "recall": 0.6872222222222222,
       "recall_range": [
-        0.7233333333333333,
-        0.7983333333333333
+        0.5700000000000001,
+        0.7883333333333333
       ],
-      "precision": 0.7433333333333333,
+      "precision": 0.6872222222222223,
       "precision_range": [
-        0.7166666666666667,
-        0.7816666666666666
+        0.5833333333333334,
+        0.7616666666666667
       ],
       "by_kind": {
-        "keyword": 0.6666666666666666,
-        "mixed": 0.7894736842105262,
-        "paraphrase": 0.7999999999999999
+        "keyword": 0.5791666666666666,
+        "mixed": 0.8245614035087719,
+        "paraphrase": 0.6862745098039215
       },
       "short_results": [
         0,
         0
       ],
       "zero_relevant": [
-        13,
-        16
+        14,
+        25
       ],
-      "p50_ms": 1.2900410000002012,
-      "p95_ms": 1.9292649999988498
+      "p50_ms": 1.907189000005019,
+      "p95_ms": 2.5273469999956433
     },
     {
       "method": "full HNSW + filter, ef_search=40",
       "builds": 3,
       "build_s": [
-        18.719192544000002,
-        18.677160204,
-        18.41725123200001
+        23.177004441,
+        23.091742318000005,
+        24.047650952000012
       ],
-      "index_bytes": 156073984,
+      "index_bytes": 156106752,
       "plan": "Limit → Index Scan (idx_logs_embedding_hnsw)",
-      "recall": 0.7549999999999999,
+      "recall": 0.6722222222222222,
       "recall_range": [
-        0.7083333333333334,
-        0.8016666666666665
+        0.5483333333333333,
+        0.77
       ],
-      "precision": 0.745,
+      "precision": 0.6872222222222223,
       "precision_range": [
-        0.7183333333333334,
-        0.7833333333333333
+        0.5833333333333334,
+        0.7616666666666667
       ],
       "by_kind": {
-        "keyword": 0.6666666666666666,
-        "mixed": 0.7894736842105262,
-        "paraphrase": 0.8058823529411764
+        "keyword": 0.5791666666666666,
+        "mixed": 0.8245614035087719,
+        "paraphrase": 0.6862745098039215
       },
       "short_results": [
-        6,
-        9
+        9,
+        17
       ],
       "zero_relevant": [
-        13,
-        16
+        14,
+        25
       ],
-      "p50_ms": 1.1655270000046585,
-      "p95_ms": 1.580975999997463
+      "p50_ms": 1.6560760000138544,
+      "p95_ms": 2.1901080000025104
     },
     {
       "method": "full HNSW + filter, iterative, ef_search=40",
       "builds": 3,
       "build_s": [
-        18.719192544000002,
-        18.677160204,
-        18.41725123200001
+        23.177004441,
+        23.091742318000005,
+        24.047650952000012
       ],
-      "index_bytes": 156073984,
+      "index_bytes": 156106752,
       "plan": "Limit → Index Scan (idx_logs_embedding_hnsw)",
-      "recall": 0.7549999999999999,
+      "recall": 0.6872222222222222,
       "recall_range": [
-        0.7083333333333334,
-        0.8016666666666665
+        0.5633333333333332,
+        0.7849999999999999
       ],
-      "precision": 0.791111111111111,
+      "precision": 0.7277777777777779,
       "precision_range": [
-        0.77,
-        0.8166666666666667
+        0.6383333333333333,
+        0.795
       ],
       "by_kind": {
-        "keyword": 0.7263888888888889,
-        "mixed": 0.7894736842105262,
-        "paraphrase": 0.884313725490196
+        "keyword": 0.5958333333333332,
+        "mixed": 0.8421052631578947,
+        "paraphrase": 0.7862745098039216
+      },
+      "short_results": [
+        0,
+        1
+      ],
+      "zero_relevant": [
+        12,
+        20
+      ],
+      "p50_ms": 2.1022960000045714,
+      "p95_ms": 21.05253500000981
+    },
+    {
+      "method": "full HNSW, ef_search=160",
+      "builds": 3,
+      "build_s": [
+        23.177004441,
+        23.091742318000005,
+        24.047650952000012
+      ],
+      "index_bytes": 156106752,
+      "plan": "Limit → Index Scan (idx_logs_embedding_hnsw)",
+      "recall": 0.8094444444444444,
+      "recall_range": [
+        0.7416666666666667,
+        0.8433333333333334
+      ],
+      "precision": 0.7588888888888888,
+      "precision_range": [
+        0.6833333333333333,
+        0.7983333333333333
+      ],
+      "by_kind": {
+        "keyword": 0.65,
+        "mixed": 0.8596491228070176,
+        "paraphrase": 0.8000000000000002
       },
       "short_results": [
         0,
@@ -181,142 +217,106 @@
       ],
       "zero_relevant": [
         11,
-        13
+        19
       ],
-      "p50_ms": 1.2180290000032983,
-      "p95_ms": 12.278572000010172
-    },
-    {
-      "method": "full HNSW, ef_search=160",
-      "builds": 3,
-      "build_s": [
-        18.719192544000002,
-        18.677160204,
-        18.41725123200001
-      ],
-      "index_bytes": 156073984,
-      "plan": "Limit → Index Scan (idx_logs_embedding_hnsw)",
-      "recall": 0.8505555555555556,
-      "recall_range": [
-        0.82,
-        0.8733333333333333
-      ],
-      "precision": 0.8011111111111111,
-      "precision_range": [
-        0.76,
-        0.8266666666666667
-      ],
-      "by_kind": {
-        "keyword": 0.7638888888888888,
-        "mixed": 0.8315789473684211,
-        "paraphrase": 0.819607843137255
-      },
-      "short_results": [
-        0,
-        0
-      ],
-      "zero_relevant": [
-        10,
-        14
-      ],
-      "p50_ms": 1.5968549999961397,
-      "p95_ms": 2.436197999995784
+      "p50_ms": 2.3804159999999683,
+      "p95_ms": 3.709654000005685
     },
     {
       "method": "full HNSW + filter, ef_search=160",
       "builds": 3,
       "build_s": [
-        18.719192544000002,
-        18.677160204,
-        18.41725123200001
+        23.177004441,
+        23.091742318000005,
+        24.047650952000012
       ],
-      "index_bytes": 156073984,
+      "index_bytes": 156106752,
       "plan": "Limit → Index Scan (idx_logs_embedding_hnsw)",
-      "recall": 0.8333333333333334,
+      "recall": 0.79,
       "recall_range": [
-        0.7916666666666666,
-        0.8583333333333333
-      ],
-      "precision": 0.8061111111111111,
-      "precision_range": [
-        0.7666666666666667,
+        0.7166666666666667,
         0.8333333333333334
       ],
+      "precision": 0.7600000000000001,
+      "precision_range": [
+        0.6833333333333333,
+        0.8
+      ],
       "by_kind": {
-        "keyword": 0.7638888888888888,
-        "mixed": 0.8421052631578947,
-        "paraphrase": 0.8254901960784314
+        "keyword": 0.65,
+        "mixed": 0.8596491228070176,
+        "paraphrase": 0.8039215686274511
       },
       "short_results": [
-        4,
-        7
+        5,
+        10
       ],
       "zero_relevant": [
-        10,
-        14
+        11,
+        19
       ],
-      "p50_ms": 1.6194140000006882,
-      "p95_ms": 2.672385000012582
+      "p50_ms": 2.422721000009915,
+      "p95_ms": 4.123159999995551
     },
     {
       "method": "full HNSW + filter, iterative, ef_search=160",
       "builds": 3,
       "build_s": [
-        18.719192544000002,
-        18.677160204,
-        18.41725123200001
+        23.177004441,
+        23.091742318000005,
+        24.047650952000012
       ],
-      "index_bytes": 156073984,
+      "index_bytes": 156106752,
       "plan": "Limit → Index Scan (idx_logs_embedding_hnsw)",
-      "recall": 0.8333333333333334,
+      "recall": 0.8066666666666666,
       "recall_range": [
-        0.7916666666666666,
-        0.8583333333333333
-      ],
-      "precision": 0.8227777777777777,
-      "precision_range": [
-        0.7833333333333333,
+        0.7333333333333333,
         0.85
       ],
+      "precision": 0.8005555555555555,
+      "precision_range": [
+        0.75,
+        0.8350000000000001
+      ],
       "by_kind": {
-        "keyword": 0.7638888888888888,
-        "mixed": 0.8421052631578947,
-        "paraphrase": 0.884313725490196
+        "keyword": 0.6819444444444445,
+        "mixed": 0.8596491228070176,
+        "paraphrase": 0.9019607843137255
       },
       "short_results": [
         0,
-        0
+        1
       ],
       "zero_relevant": [
         9,
-        13
+        15
       ],
-      "p50_ms": 1.6323189999966417,
-      "p95_ms": 6.0842630000042845
+      "p50_ms": 2.654164999999921,
+      "p95_ms": 14.787294000001566
     },
     {
       "method": "partial HNSW, ef_search=40",
       "builds": 3,
       "build_s": [
-        4.454329505000001,
-        4.554287691999998,
-        4.594733189000006
+        5.5681279249999935,
+        5.521975873000003,
+        5.581266753999997
       ],
-      "index_bytes": 41869312,
+      "index_bytes": 41844736,
       "plan": "Limit → Index Scan (idx_logs_embedding_hnsw_not_info)",
-      "recall": 0.8794444444444444,
+      "recall": 0.9033333333333333,
       "recall_range": [
-        0.8683333333333333,
-        0.8849999999999999
+        0.89,
+        0.9233333333333333
       ],
-      "precision": 0.8500000000000001,
+      "precision": 0.8944444444444444,
       "precision_range": [
-        0.8333333333333334,
-        0.8666666666666667
+        0.8833333333333333,
+        0.9
       ],
       "by_kind": {
-        "keyword": 0.8333333333333334,
-        "mixed": 0.8421052631578947,
+        "keyword": 0.8472222222222223,
+        "mixed": 0.9649122807017544,
         "paraphrase": 0.8823529411764706
       },
       "short_results": [
@@ -324,35 +324,35 @@
         0
       ],
       "zero_relevant": [
-        8,
-        10
+        6,
+        7
       ],
-      "p50_ms": 1.0864010000077542,
-      "p95_ms": 2.9892629999958444
+      "p50_ms": 1.8496820000000298,
+      "p95_ms": 2.3849080000072718
     },
     {
       "method": "partial HNSW, ef_search=160",
       "builds": 3,
       "build_s": [
-        4.454329505000001,
-        4.554287691999998,
-        4.594733189000006
+        5.5681279249999935,
+        5.521975873000003,
+        5.581266753999997
       ],
-      "index_bytes": 41869312,
+      "index_bytes": 41844736,
       "plan": "Limit → Index Scan (idx_logs_embedding_hnsw_not_info)",
-      "recall": 0.9277777777777777,
+      "recall": 0.96,
       "recall_range": [
-        0.9166666666666666,
-        0.9333333333333333
+        0.95,
+        0.9666666666666667
       ],
-      "precision": 0.8777777777777778,
+      "precision": 0.9111111111111111,
       "precision_range": [
-        0.8666666666666667,
-        0.8833333333333333
+        0.9,
+        0.9166666666666666
       ],
       "by_kind": {
-        "keyword": 0.8611111111111112,
-        "mixed": 0.8596491228070176,
+        "keyword": 0.8472222222222223,
+        "mixed": 0.9824561403508771,
         "paraphrase": 0.9215686274509803
       },
       "short_results": [
@@ -360,43 +360,43 @@
         0
       ],
       "zero_relevant": [
-        7,
-        8
+        5,
+        6
       ],
-      "p50_ms": 1.4618079999927431,
-      "p95_ms": 1.8926919999939855
+      "p50_ms": 1.9533119999978226,
+      "p95_ms": 2.5742059999902267
     }
   ],
   "writes": {
     "rows": 500,
     "no HNSW": {
       "INFO": {
-        "wal_bytes_per_row": 2348.816,
-        "rows_per_s": 64192.59833655842
+        "wal_bytes_per_row": 2161.184,
+        "rows_per_s": 38931.407609406204
       },
       "not INFO": {
-        "wal_bytes_per_row": 2481.664,
-        "rows_per_s": 45454.87603551386
+        "wal_bytes_per_row": 2365.808,
+        "rows_per_s": 37548.92061119617
       }
     },
     "full only": {
       "INFO": {
-        "wal_bytes_per_row": 5103.344,
-        "rows_per_s": 997.5350271057969
+        "wal_bytes_per_row": 4691.952,
+        "rows_per_s": 761.0117567899722
       },
       "not INFO": {
-        "wal_bytes_per_row": 8437.328,
-        "rows_per_s": 1002.5096807297202
+        "wal_bytes_per_row": 7748.672,
+        "rows_per_s": 796.8291325728425
       }
     },
     "partial only": {
       "INFO": {
-        "wal_bytes_per_row": 2202.112,
-        "rows_per_s": 55368.55134943429
+        "wal_bytes_per_row": 2191.952,
+        "rows_per_s": 54004.97666673225
       },
       "not INFO": {
-        "wal_bytes_per_row": 7733.952,
-        "rows_per_s": 1162.2556087067699
+        "wal_bytes_per_row": 7881.36,
+        "rows_per_s": 1037.5164818570893
       }
     }
   },
@@ -430,7 +430,7 @@
             "precision": 0
           },
           {
-            "recall": 1,
+            "recall": 0,
             "precision": 0
           }
         ],
@@ -444,7 +444,7 @@
             "precision": 0
           },
           {
-            "recall": 1,
+            "recall": 0,
             "precision": 0
           }
         ],
@@ -458,7 +458,7 @@
             "precision": 0
           },
           {
-            "recall": 1,
+            "recall": 0,
             "precision": 0
           }
         ],
@@ -639,7 +639,7 @@
         ],
         "partial HNSW, ef_search=40": [
           {
-            "recall": 1,
+            "recall": 0.9,
             "precision": 1
           },
           {
@@ -647,8 +647,8 @@
             "precision": 0
           },
           {
-            "recall": 0,
-            "precision": 0
+            "recall": 0.9,
+            "precision": 1
           }
         ],
         "partial HNSW, ef_search=160": [
@@ -657,12 +657,12 @@
             "precision": 1
           },
           {
-            "recall": 0,
-            "precision": 0
+            "recall": 1,
+            "precision": 1
           },
           {
-            "recall": 0,
-            "precision": 0
+            "recall": 1,
+            "precision": 1
           }
         ]
       }
@@ -825,8 +825,8 @@
             "precision": 1
           },
           {
-            "recall": 1,
-            "precision": 1
+            "recall": 0,
+            "precision": 0
           },
           {
             "recall": 1,
@@ -839,8 +839,8 @@
             "precision": 1
           },
           {
-            "recall": 1,
-            "precision": 1
+            "recall": 0,
+            "precision": 0
           },
           {
             "recall": 1,
@@ -853,8 +853,8 @@
             "precision": 1
           },
           {
-            "recall": 1,
-            "precision": 1
+            "recall": 0,
+            "precision": 0
           },
           {
             "recall": 1,
@@ -867,8 +867,8 @@
             "precision": 1
           },
           {
-            "recall": 1,
-            "precision": 1
+            "recall": 0,
+            "precision": 0
           },
           {
             "recall": 1,
@@ -881,8 +881,8 @@
             "precision": 1
           },
           {
-            "recall": 1,
-            "precision": 1
+            "recall": 0,
+            "precision": 0
           },
           {
             "recall": 1,
@@ -895,8 +895,8 @@
             "precision": 1
           },
           {
-            "recall": 1,
-            "precision": 1
+            "recall": 0,
+            "precision": 0
           },
           {
             "recall": 1,
@@ -954,12 +954,12 @@
         ],
         "full HNSW, ef_search=40": [
           {
-            "recall": 1,
-            "precision": 1
-          },
-          {
             "recall": 0,
             "precision": 0
+          },
+          {
+            "recall": 1,
+            "precision": 1
           },
           {
             "recall": 1,
@@ -968,12 +968,12 @@
         ],
         "full HNSW + filter, ef_search=40": [
           {
-            "recall": 1,
-            "precision": 1
-          },
-          {
             "recall": 0,
             "precision": 0
+          },
+          {
+            "recall": 1,
+            "precision": 1
           },
           {
             "recall": 1,
@@ -982,12 +982,12 @@
         ],
         "full HNSW + filter, iterative, ef_search=40": [
           {
-            "recall": 1,
-            "precision": 1
-          },
-          {
             "recall": 0,
             "precision": 0
+          },
+          {
+            "recall": 1,
+            "precision": 1
           },
           {
             "recall": 1,
@@ -996,12 +996,12 @@
         ],
         "full HNSW, ef_search=160": [
           {
-            "recall": 1,
-            "precision": 1
-          },
-          {
             "recall": 0,
             "precision": 0
+          },
+          {
+            "recall": 1,
+            "precision": 1
           },
           {
             "recall": 1,
@@ -1010,12 +1010,12 @@
         ],
         "full HNSW + filter, ef_search=160": [
           {
-            "recall": 1,
-            "precision": 1
-          },
-          {
             "recall": 0,
             "precision": 0
+          },
+          {
+            "recall": 1,
+            "precision": 1
           },
           {
             "recall": 1,
@@ -1024,12 +1024,12 @@
         ],
         "full HNSW + filter, iterative, ef_search=160": [
           {
-            "recall": 1,
-            "precision": 1
-          },
-          {
             "recall": 0,
             "precision": 0
+          },
+          {
+            "recall": 1,
+            "precision": 1
           },
           {
             "recall": 1,
@@ -1087,8 +1087,8 @@
         ],
         "full HNSW, ef_search=40": [
           {
-            "recall": 0,
-            "precision": 0
+            "recall": 1,
+            "precision": 1
           },
           {
             "recall": 0,
@@ -1101,8 +1101,8 @@
         ],
         "full HNSW + filter, ef_search=40": [
           {
-            "recall": 0,
-            "precision": 0
+            "recall": 1,
+            "precision": 1
           },
           {
             "recall": 0,
@@ -1115,12 +1115,12 @@
         ],
         "full HNSW + filter, iterative, ef_search=40": [
           {
-            "recall": 0,
-            "precision": 0.2
+            "recall": 1,
+            "precision": 1
           },
           {
             "recall": 0,
-            "precision": 0.5
+            "precision": 0.2
           },
           {
             "recall": 1,
@@ -1129,12 +1129,12 @@
         ],
         "full HNSW, ef_search=160": [
           {
-            "recall": 0,
-            "precision": 0
-          },
-          {
             "recall": 1,
             "precision": 1
+          },
+          {
+            "recall": 0,
+            "precision": 0
           },
           {
             "recall": 1,
@@ -1143,12 +1143,12 @@
         ],
         "full HNSW + filter, ef_search=160": [
           {
-            "recall": 0,
-            "precision": 0
-          },
-          {
             "recall": 1,
             "precision": 1
+          },
+          {
+            "recall": 0,
+            "precision": 0
           },
           {
             "recall": 1,
@@ -1157,12 +1157,12 @@
         ],
         "full HNSW + filter, iterative, ef_search=160": [
           {
-            "recall": 0,
-            "precision": 0
-          },
-          {
             "recall": 1,
             "precision": 1
+          },
+          {
+            "recall": 0,
+            "precision": 0
           },
           {
             "recall": 1,
@@ -1357,8 +1357,8 @@
             "precision": 1
           },
           {
-            "recall": 0,
-            "precision": 0
+            "recall": 1,
+            "precision": 1
           },
           {
             "recall": 1,
@@ -1371,8 +1371,8 @@
             "precision": 1
           },
           {
-            "recall": 0,
-            "precision": 0
+            "recall": 1,
+            "precision": 1
           },
           {
             "recall": 1,
@@ -1385,8 +1385,8 @@
             "precision": 1
           },
           {
-            "recall": 0,
-            "precision": 0
+            "recall": 1,
+            "precision": 1
           },
           {
             "recall": 1,
@@ -1399,8 +1399,8 @@
             "precision": 1
           },
           {
-            "recall": 0,
-            "precision": 0
+            "recall": 1,
+            "precision": 1
           },
           {
             "recall": 1,
@@ -1413,8 +1413,8 @@
             "precision": 1
           },
           {
-            "recall": 0,
-            "precision": 0
+            "recall": 1,
+            "precision": 1
           },
           {
             "recall": 1,
@@ -1427,8 +1427,8 @@
             "precision": 1
           },
           {
-            "recall": 0,
-            "precision": 0
+            "recall": 1,
+            "precision": 1
           },
           {
             "recall": 1,
@@ -1490,8 +1490,8 @@
             "precision": 1
           },
           {
-            "recall": 1,
-            "precision": 1
+            "recall": 0,
+            "precision": 0
           },
           {
             "recall": 1,
@@ -1504,8 +1504,8 @@
             "precision": 1
           },
           {
-            "recall": 1,
-            "precision": 1
+            "recall": 0,
+            "precision": 0
           },
           {
             "recall": 1,
@@ -1518,8 +1518,8 @@
             "precision": 1
           },
           {
-            "recall": 1,
-            "precision": 1
+            "recall": 0,
+            "precision": 0
           },
           {
             "recall": 1,
@@ -1619,12 +1619,12 @@
         ],
         "full HNSW, ef_search=40": [
           {
-            "recall": 0,
-            "precision": 0
-          },
-          {
             "recall": 1,
             "precision": 1
+          },
+          {
+            "recall": 0,
+            "precision": 0
           },
           {
             "recall": 0,
@@ -1633,12 +1633,12 @@
         ],
         "full HNSW + filter, ef_search=40": [
           {
-            "recall": 0,
-            "precision": 0
-          },
-          {
             "recall": 1,
             "precision": 1
+          },
+          {
+            "recall": 0,
+            "precision": 0
           },
           {
             "recall": 0,
@@ -1647,12 +1647,12 @@
         ],
         "full HNSW + filter, iterative, ef_search=40": [
           {
-            "recall": 0,
-            "precision": 0
-          },
-          {
             "recall": 1,
             "precision": 1
+          },
+          {
+            "recall": 0,
+            "precision": 0
           },
           {
             "recall": 0,
@@ -1665,12 +1665,12 @@
             "precision": 1
           },
           {
-            "recall": 1,
-            "precision": 1
+            "recall": 0,
+            "precision": 0
           },
           {
-            "recall": 1,
-            "precision": 1
+            "recall": 0,
+            "precision": 0
           }
         ],
         "full HNSW + filter, ef_search=160": [
@@ -1679,12 +1679,12 @@
             "precision": 1
           },
           {
-            "recall": 1,
-            "precision": 1
+            "recall": 0,
+            "precision": 0
           },
           {
-            "recall": 1,
-            "precision": 1
+            "recall": 0,
+            "precision": 0
           }
         ],
         "full HNSW + filter, iterative, ef_search=160": [
@@ -1693,22 +1693,22 @@
             "precision": 1
           },
           {
-            "recall": 1,
-            "precision": 1
+            "recall": 0,
+            "precision": 0
           },
           {
-            "recall": 1,
-            "precision": 1
+            "recall": 0,
+            "precision": 0
           }
         ],
         "partial HNSW, ef_search=40": [
           {
-            "recall": 0,
-            "precision": 0
+            "recall": 1,
+            "precision": 1
           },
           {
-            "recall": 0,
-            "precision": 0
+            "recall": 1,
+            "precision": 1
           },
           {
             "recall": 1,
@@ -1717,12 +1717,12 @@
         ],
         "partial HNSW, ef_search=160": [
           {
-            "recall": 0,
-            "precision": 0
+            "recall": 1,
+            "precision": 1
           },
           {
-            "recall": 0,
-            "precision": 0
+            "recall": 1,
+            "precision": 1
           },
           {
             "recall": 1,
@@ -1836,7 +1836,7 @@
         ],
         "partial HNSW, ef_search=40": [
           {
-            "recall": 0,
+            "recall": 1,
             "precision": 1
           },
           {
@@ -1889,12 +1889,12 @@
             "precision": 1
           },
           {
-            "recall": 0,
+            "recall": 1,
             "precision": 1
           },
           {
-            "recall": 1,
-            "precision": 1
+            "recall": 0,
+            "precision": 0
           }
         ],
         "full HNSW + filter, ef_search=40": [
@@ -1903,12 +1903,12 @@
             "precision": 1
           },
           {
-            "recall": 0,
+            "recall": 1,
             "precision": 1
           },
           {
-            "recall": 1,
-            "precision": 1
+            "recall": 0,
+            "precision": 0
           }
         ],
         "full HNSW + filter, iterative, ef_search=40": [
@@ -1917,12 +1917,12 @@
             "precision": 1
           },
           {
-            "recall": 0,
+            "recall": 1,
             "precision": 1
           },
           {
-            "recall": 1,
-            "precision": 1
+            "recall": 0,
+            "precision": 0
           }
         ],
         "full HNSW, ef_search=160": [
@@ -2151,54 +2151,54 @@
         ],
         "full HNSW, ef_search=40": [
           {
-            "recall": 1,
-            "precision": 1
+            "recall": 0,
+            "precision": 0
           },
           {
-            "recall": 1,
-            "precision": 1
+            "recall": 0,
+            "precision": 0
           },
           {
-            "recall": 1,
-            "precision": 1
+            "recall": 0,
+            "precision": 0
           }
         ],
         "full HNSW + filter, ef_search=40": [
           {
-            "recall": 1,
-            "precision": 1
+            "recall": 0,
+            "precision": 0
           },
           {
-            "recall": 1,
-            "precision": 1
+            "recall": 0,
+            "precision": 0
           },
           {
-            "recall": 1,
-            "precision": 1
+            "recall": 0,
+            "precision": 0
           }
         ],
         "full HNSW + filter, iterative, ef_search=40": [
           {
-            "recall": 1,
-            "precision": 1
+            "recall": 0,
+            "precision": 0
           },
           {
-            "recall": 1,
-            "precision": 1
+            "recall": 0,
+            "precision": 0
           },
           {
-            "recall": 1,
-            "precision": 1
+            "recall": 0,
+            "precision": 0
           }
         ],
         "full HNSW, ef_search=160": [
           {
-            "recall": 1,
-            "precision": 1
+            "recall": 0,
+            "precision": 0
           },
           {
-            "recall": 1,
-            "precision": 1
+            "recall": 0,
+            "precision": 0
           },
           {
             "recall": 1,
@@ -2207,12 +2207,12 @@
         ],
         "full HNSW + filter, ef_search=160": [
           {
-            "recall": 1,
-            "precision": 1
+            "recall": 0,
+            "precision": 0
           },
           {
-            "recall": 1,
-            "precision": 1
+            "recall": 0,
+            "precision": 0
           },
           {
             "recall": 1,
@@ -2221,12 +2221,12 @@
         ],
         "full HNSW + filter, iterative, ef_search=160": [
           {
-            "recall": 1,
-            "precision": 1
+            "recall": 0,
+            "precision": 0
           },
           {
-            "recall": 1,
-            "precision": 1
+            "recall": 0,
+            "precision": 0
           },
           {
             "recall": 1,
@@ -2243,8 +2243,8 @@
             "precision": 1
           },
           {
-            "recall": 1,
-            "precision": 1
+            "recall": 0,
+            "precision": 0
           }
         ],
         "partial HNSW, ef_search=160": [
@@ -2257,8 +2257,8 @@
             "precision": 1
           },
           {
-            "recall": 1,
-            "precision": 1
+            "recall": 0,
+            "precision": 0
           }
         ]
       }
@@ -2288,8 +2288,8 @@
             "precision": 1
           },
           {
-            "recall": 0,
-            "precision": 0.1
+            "recall": 1,
+            "precision": 1
           },
           {
             "recall": 1,
@@ -2302,8 +2302,8 @@
             "precision": 1
           },
           {
-            "recall": 0,
-            "precision": 0.1
+            "recall": 1,
+            "precision": 1
           },
           {
             "recall": 1,
@@ -2316,8 +2316,8 @@
             "precision": 1
           },
           {
-            "recall": 0,
-            "precision": 0.1
+            "recall": 1,
+            "precision": 1
           },
           {
             "recall": 1,
@@ -2330,8 +2330,8 @@
             "precision": 1
           },
           {
-            "recall": 0,
-            "precision": 0.1
+            "recall": 1,
+            "precision": 1
           },
           {
             "recall": 1,
@@ -2344,8 +2344,8 @@
             "precision": 1
           },
           {
-            "recall": 0,
-            "precision": 0.1
+            "recall": 1,
+            "precision": 1
           },
           {
             "recall": 1,
@@ -2358,8 +2358,8 @@
             "precision": 1
           },
           {
-            "recall": 0,
-            "precision": 0.1
+            "recall": 1,
+            "precision": 1
           },
           {
             "recall": 1,
@@ -2421,12 +2421,12 @@
             "precision": 1
           },
           {
-            "recall": 1,
+            "recall": 0,
             "precision": 1
           },
           {
-            "recall": 1,
-            "precision": 1
+            "recall": 0,
+            "precision": 0
           }
         ],
         "full HNSW + filter, ef_search=40": [
@@ -2435,12 +2435,12 @@
             "precision": 1
           },
           {
-            "recall": 1,
+            "recall": 0,
             "precision": 1
           },
           {
-            "recall": 1,
-            "precision": 1
+            "recall": 0,
+            "precision": 0
           }
         ],
         "full HNSW + filter, iterative, ef_search=40": [
@@ -2449,12 +2449,12 @@
             "precision": 1
           },
           {
-            "recall": 1,
+            "recall": 0,
             "precision": 1
           },
           {
-            "recall": 1,
-            "precision": 1
+            "recall": 0,
+            "precision": 0
           }
         ],
         "full HNSW, ef_search=160": [
@@ -2467,8 +2467,8 @@
             "precision": 1
           },
           {
-            "recall": 1,
-            "precision": 1
+            "recall": 0,
+            "precision": 0
           }
         ],
         "full HNSW + filter, ef_search=160": [
@@ -2481,8 +2481,8 @@
             "precision": 1
           },
           {
-            "recall": 1,
-            "precision": 1
+            "recall": 0,
+            "precision": 0
           }
         ],
         "full HNSW + filter, iterative, ef_search=160": [
@@ -2495,21 +2495,21 @@
             "precision": 1
           },
           {
-            "recall": 1,
-            "precision": 1
+            "recall": 0,
+            "precision": 0
           }
         ],
         "partial HNSW, ef_search=40": [
           {
-            "recall": 1,
+            "recall": 0,
             "precision": 1
           },
           {
-            "recall": 1,
+            "recall": 0,
             "precision": 1
           },
           {
-            "recall": 1,
+            "recall": 0,
             "precision": 1
           }
         ],
@@ -2554,8 +2554,8 @@
             "precision": 0
           },
           {
-            "recall": 1,
-            "precision": 1
+            "recall": 0,
+            "precision": 0
           },
           {
             "recall": 0,
@@ -2568,8 +2568,8 @@
             "precision": 0
           },
           {
-            "recall": 1,
-            "precision": 1
+            "recall": 0,
+            "precision": 0
           },
           {
             "recall": 0,
@@ -2582,8 +2582,8 @@
             "precision": 0
           },
           {
-            "recall": 1,
-            "precision": 1
+            "recall": 0,
+            "precision": 0
           },
           {
             "recall": 0,
@@ -2593,43 +2593,43 @@
         "full HNSW, ef_search=160": [
           {
             "recall": 0,
+            "precision": 0.1
+          },
+          {
+            "recall": 0,
             "precision": 0
           },
           {
             "recall": 1,
             "precision": 1
-          },
-          {
-            "recall": 0,
-            "precision": 0
           }
         ],
         "full HNSW + filter, ef_search=160": [
           {
             "recall": 0,
+            "precision": 0.1
+          },
+          {
+            "recall": 0,
             "precision": 0
           },
           {
             "recall": 1,
             "precision": 1
-          },
-          {
-            "recall": 0,
-            "precision": 0
           }
         ],
         "full HNSW + filter, iterative, ef_search=160": [
           {
             "recall": 0,
+            "precision": 0.1
+          },
+          {
+            "recall": 0,
             "precision": 0
           },
           {
             "recall": 1,
             "precision": 1
-          },
-          {
-            "recall": 0,
-            "precision": 0
           }
         ],
         "partial HNSW, ef_search=40": [
@@ -2691,8 +2691,8 @@
             "precision": 1
           },
           {
-            "recall": 1,
-            "precision": 1
+            "recall": 0,
+            "precision": 0
           }
         ],
         "full HNSW + filter, ef_search=40": [
@@ -2705,8 +2705,8 @@
             "precision": 1
           },
           {
-            "recall": 1,
-            "precision": 1
+            "recall": 0,
+            "precision": 0
           }
         ],
         "full HNSW + filter, iterative, ef_search=40": [
@@ -2719,8 +2719,8 @@
             "precision": 1
           },
           {
-            "recall": 1,
-            "precision": 1
+            "recall": 0,
+            "precision": 0
           }
         ],
         "full HNSW, ef_search=160": [
@@ -2733,8 +2733,8 @@
             "precision": 1
           },
           {
-            "recall": 1,
-            "precision": 1
+            "recall": 0,
+            "precision": 0
           }
         ],
         "full HNSW + filter, ef_search=160": [
@@ -2747,8 +2747,8 @@
             "precision": 1
           },
           {
-            "recall": 1,
-            "precision": 1
+            "recall": 0,
+            "precision": 0
           }
         ],
         "full HNSW + filter, iterative, ef_search=160": [
@@ -2761,8 +2761,8 @@
             "precision": 1
           },
           {
-            "recall": 1,
-            "precision": 1
+            "recall": 0,
+            "precision": 0
           }
         ],
         "partial HNSW, ef_search=40": [
@@ -2820,12 +2820,12 @@
             "precision": 1
           },
           {
-            "recall": 1,
-            "precision": 1
-          },
-          {
             "recall": 0,
             "precision": 0
+          },
+          {
+            "recall": 1,
+            "precision": 1
           }
         ],
         "full HNSW + filter, ef_search=40": [
@@ -2834,12 +2834,12 @@
             "precision": 1
           },
           {
-            "recall": 1,
-            "precision": 1
-          },
-          {
             "recall": 0,
             "precision": 0
+          },
+          {
+            "recall": 1,
+            "precision": 1
           }
         ],
         "full HNSW + filter, iterative, ef_search=40": [
@@ -2848,12 +2848,12 @@
             "precision": 1
           },
           {
-            "recall": 1,
-            "precision": 1
-          },
-          {
             "recall": 0,
             "precision": 0
+          },
+          {
+            "recall": 1,
+            "precision": 1
           }
         ],
         "full HNSW, ef_search=160": [
@@ -2866,8 +2866,8 @@
             "precision": 1
           },
           {
-            "recall": 0,
-            "precision": 0
+            "recall": 1,
+            "precision": 1
           }
         ],
         "full HNSW + filter, ef_search=160": [
@@ -2880,8 +2880,8 @@
             "precision": 1
           },
           {
-            "recall": 0,
-            "precision": 0
+            "recall": 1,
+            "precision": 1
           }
         ],
         "full HNSW + filter, iterative, ef_search=160": [
@@ -2894,8 +2894,8 @@
             "precision": 1
           },
           {
-            "recall": 0,
-            "precision": 0
+            "recall": 1,
+            "precision": 1
           }
         ],
         "partial HNSW, ef_search=40": [
@@ -2953,11 +2953,11 @@
             "precision": 0
           },
           {
-            "recall": 1,
+            "recall": 0,
             "precision": 0
           },
           {
-            "recall": 0,
+            "recall": 1,
             "precision": 0
           }
         ],
@@ -2967,11 +2967,11 @@
             "precision": 0
           },
           {
-            "recall": 1,
+            "recall": 0,
             "precision": 0
           },
           {
-            "recall": 0,
+            "recall": 1,
             "precision": 0
           }
         ],
@@ -2981,11 +2981,11 @@
             "precision": 0
           },
           {
-            "recall": 1,
+            "recall": 0,
             "precision": 0
           },
           {
-            "recall": 0,
+            "recall": 1,
             "precision": 0
           }
         ],
@@ -2999,7 +2999,7 @@
             "precision": 0
           },
           {
-            "recall": 0,
+            "recall": 1,
             "precision": 0
           }
         ],
@@ -3013,7 +3013,7 @@
             "precision": 0
           },
           {
-            "recall": 0,
+            "recall": 1,
             "precision": 0
           }
         ],
@@ -3027,7 +3027,7 @@
             "precision": 0
           },
           {
-            "recall": 0,
+            "recall": 1,
             "precision": 0
           }
         ],
@@ -3037,11 +3037,11 @@
             "precision": 0
           },
           {
-            "recall": 1,
+            "recall": 0,
             "precision": 0
           },
           {
-            "recall": 1,
+            "recall": 0,
             "precision": 0
           }
         ],
@@ -3082,54 +3082,54 @@
         ],
         "full HNSW, ef_search=40": [
           {
-            "recall": 0,
-            "precision": 0
+            "recall": 0.7,
+            "precision": 0.7
           },
           {
             "recall": 0,
             "precision": 0
           },
           {
-            "recall": 0,
-            "precision": 0
+            "recall": 1,
+            "precision": 1
           }
         ],
         "full HNSW + filter, ef_search=40": [
           {
-            "recall": 0,
-            "precision": 0
+            "recall": 0.7,
+            "precision": 0.7
           },
           {
             "recall": 0,
             "precision": 0
           },
           {
-            "recall": 0,
-            "precision": 0
+            "recall": 1,
+            "precision": 1
           }
         ],
         "full HNSW + filter, iterative, ef_search=40": [
           {
-            "recall": 0,
-            "precision": 1
+            "recall": 0.7,
+            "precision": 0.7
           },
           {
             "recall": 0,
-            "precision": 1
+            "precision": 0
           },
           {
-            "recall": 0,
+            "recall": 1,
             "precision": 1
           }
         ],
         "full HNSW, ef_search=160": [
           {
-            "recall": 1,
-            "precision": 1
+            "recall": 0.7,
+            "precision": 0.7
           },
           {
-            "recall": 1,
-            "precision": 1
+            "recall": 0,
+            "precision": 0
           },
           {
             "recall": 1,
@@ -3138,12 +3138,12 @@
         ],
         "full HNSW + filter, ef_search=160": [
           {
-            "recall": 1,
-            "precision": 1
+            "recall": 0.7,
+            "precision": 0.7
           },
           {
-            "recall": 1,
-            "precision": 1
+            "recall": 0,
+            "precision": 0
           },
           {
             "recall": 1,
@@ -3152,11 +3152,11 @@
         ],
         "full HNSW + filter, iterative, ef_search=160": [
           {
-            "recall": 1,
+            "recall": 0.7,
             "precision": 1
           },
           {
-            "recall": 1,
+            "recall": 0,
             "precision": 1
           },
           {
@@ -3215,86 +3215,86 @@
         ],
         "full HNSW, ef_search=40": [
           {
-            "recall": 1,
-            "precision": 1
+            "recall": 0,
+            "precision": 0
           },
           {
             "recall": 0,
             "precision": 0
           },
           {
-            "recall": 1,
-            "precision": 1
+            "recall": 0,
+            "precision": 0
           }
         ],
         "full HNSW + filter, ef_search=40": [
           {
-            "recall": 1,
-            "precision": 1
+            "recall": 0,
+            "precision": 0
           },
           {
             "recall": 0,
             "precision": 0
           },
           {
-            "recall": 1,
-            "precision": 1
+            "recall": 0,
+            "precision": 0
           }
         ],
         "full HNSW + filter, iterative, ef_search=40": [
           {
-            "recall": 1,
-            "precision": 1
+            "recall": 0,
+            "precision": 0
           },
           {
             "recall": 0,
             "precision": 0
           },
           {
-            "recall": 1,
-            "precision": 1
+            "recall": 0,
+            "precision": 0
           }
         ],
         "full HNSW, ef_search=160": [
           {
-            "recall": 1,
-            "precision": 1
+            "recall": 0,
+            "precision": 0
           },
           {
-            "recall": 1,
-            "precision": 1
+            "recall": 0,
+            "precision": 0
           },
           {
-            "recall": 1,
-            "precision": 1
+            "recall": 0,
+            "precision": 0
           }
         ],
         "full HNSW + filter, ef_search=160": [
           {
-            "recall": 1,
-            "precision": 1
+            "recall": 0,
+            "precision": 0
           },
           {
-            "recall": 1,
-            "precision": 1
+            "recall": 0,
+            "precision": 0
           },
           {
-            "recall": 1,
-            "precision": 1
+            "recall": 0,
+            "precision": 0
           }
         ],
         "full HNSW + filter, iterative, ef_search=160": [
           {
-            "recall": 1,
-            "precision": 1
+            "recall": 0,
+            "precision": 0
           },
           {
-            "recall": 1,
-            "precision": 1
+            "recall": 0,
+            "precision": 0
           },
           {
-            "recall": 1,
-            "precision": 1
+            "recall": 0,
+            "precision": 0
           }
         ],
         "partial HNSW, ef_search=40": [
@@ -3307,8 +3307,8 @@
             "precision": 1
           },
           {
-            "recall": 0,
-            "precision": 0
+            "recall": 1,
+            "precision": 1
           }
         ],
         "partial HNSW, ef_search=160": [
@@ -3352,8 +3352,8 @@
             "precision": 1
           },
           {
-            "recall": 1,
-            "precision": 1
+            "recall": 0,
+            "precision": 0
           },
           {
             "recall": 1,
@@ -3366,8 +3366,8 @@
             "precision": 1
           },
           {
-            "recall": 1,
-            "precision": 1
+            "recall": 0,
+            "precision": 0
           },
           {
             "recall": 1,
@@ -3380,8 +3380,8 @@
             "precision": 1
           },
           {
-            "recall": 1,
-            "precision": 1
+            "recall": 0,
+            "precision": 0
           },
           {
             "recall": 1,
@@ -3394,8 +3394,8 @@
             "precision": 1
           },
           {
-            "recall": 1,
-            "precision": 1
+            "recall": 0,
+            "precision": 0
           },
           {
             "recall": 1,
@@ -3408,8 +3408,8 @@
             "precision": 1
           },
           {
-            "recall": 1,
-            "precision": 1
+            "recall": 0,
+            "precision": 0
           },
           {
             "recall": 1,
@@ -3422,8 +3422,8 @@
             "precision": 1
           },
           {
-            "recall": 1,
-            "precision": 1
+            "recall": 0,
+            "precision": 0
           },
           {
             "recall": 1,
@@ -3614,44 +3614,44 @@
         ],
         "full HNSW, ef_search=40": [
           {
-            "recall": 1,
-            "precision": 1
+            "recall": 0,
+            "precision": 0
           },
           {
-            "recall": 1,
-            "precision": 1
+            "recall": 0,
+            "precision": 0
           },
           {
-            "recall": 1,
-            "precision": 1
+            "recall": 0,
+            "precision": 0
           }
         ],
         "full HNSW + filter, ef_search=40": [
           {
-            "recall": 1,
-            "precision": 1
+            "recall": 0,
+            "precision": 0
           },
           {
-            "recall": 1,
-            "precision": 1
+            "recall": 0,
+            "precision": 0
           },
           {
-            "recall": 1,
-            "precision": 1
+            "recall": 0,
+            "precision": 0
           }
         ],
         "full HNSW + filter, iterative, ef_search=40": [
           {
-            "recall": 1,
-            "precision": 1
+            "recall": 0,
+            "precision": 0
           },
           {
-            "recall": 1,
-            "precision": 1
+            "recall": 0,
+            "precision": 0
           },
           {
-            "recall": 1,
-            "precision": 1
+            "recall": 0,
+            "precision": 0
           }
         ],
         "full HNSW, ef_search=160": [
@@ -3888,7 +3888,7 @@
             "precision": 1
           },
           {
-            "recall": 0.1,
+            "recall": 0.5,
             "precision": 1
           }
         ],
@@ -3898,11 +3898,11 @@
             "precision": 1
           },
           {
-            "recall": 0.5,
+            "recall": 0.9,
             "precision": 1
           },
           {
-            "recall": 0.5,
+            "recall": 0.9,
             "precision": 1
           }
         ],
@@ -3912,26 +3912,26 @@
             "precision": 1
           },
           {
-            "recall": 0.5,
+            "recall": 0.9,
             "precision": 1
           },
           {
-            "recall": 0.5,
+            "recall": 0.9,
             "precision": 1
           }
         ],
         "full HNSW, ef_search=160": [
           {
-            "recall": 0.4,
-            "precision": 0.7
+            "recall": 0.1,
+            "precision": 1
           },
           {
             "recall": 0.6,
             "precision": 1
           },
           {
-            "recall": 0.4,
-            "precision": 0.7
+            "recall": 0.6,
+            "precision": 1
           }
         ],
         "full HNSW + filter, ef_search=160": [
@@ -3944,7 +3944,7 @@
             "precision": 1
           },
           {
-            "recall": 0.5,
+            "recall": 1,
             "precision": 1
           }
         ],
@@ -3958,7 +3958,7 @@
             "precision": 1
           },
           {
-            "recall": 0.5,
+            "recall": 1,
             "precision": 1
           }
         ],
@@ -3968,7 +3968,7 @@
             "precision": 1
           },
           {
-            "recall": 0.5,
+            "recall": 1,
             "precision": 1
           },
           {
@@ -4146,15 +4146,15 @@
         ],
         "full HNSW, ef_search=40": [
           {
-            "recall": 0.9,
+            "recall": 0.8,
             "precision": 0
           },
           {
-            "recall": 0.9,
+            "recall": 0.8,
             "precision": 0
           },
           {
-            "recall": 0.9,
+            "recall": 0.8,
             "precision": 0
           }
         ],
@@ -4174,15 +4174,15 @@
         ],
         "full HNSW + filter, iterative, ef_search=40": [
           {
-            "recall": 0,
+            "recall": 0.9,
             "precision": 1
           },
           {
-            "recall": 0,
+            "recall": 0.9,
             "precision": 1
           },
           {
-            "recall": 0,
+            "recall": 0.9,
             "precision": 1
           }
         ],
@@ -4216,15 +4216,15 @@
         ],
         "full HNSW + filter, iterative, ef_search=160": [
           {
-            "recall": 0,
+            "recall": 1,
             "precision": 1
           },
           {
-            "recall": 0,
+            "recall": 1,
             "precision": 1
           },
           {
-            "recall": 0,
+            "recall": 1,
             "precision": 1
           }
         ],
@@ -4420,8 +4420,8 @@
             "precision": 1
           },
           {
-            "recall": 0,
-            "precision": 0
+            "recall": 1,
+            "precision": 1
           }
         ],
         "full HNSW + filter, ef_search=40": [
@@ -4434,8 +4434,8 @@
             "precision": 1
           },
           {
-            "recall": 0,
-            "precision": 0
+            "recall": 1,
+            "precision": 1
           }
         ],
         "full HNSW + filter, iterative, ef_search=40": [
@@ -4448,8 +4448,8 @@
             "precision": 1
           },
           {
-            "recall": 0,
-            "precision": 0
+            "recall": 1,
+            "precision": 1
           }
         ],
         "full HNSW, ef_search=160": [
@@ -4549,8 +4549,8 @@
             "precision": 1
           },
           {
-            "recall": 1,
-            "precision": 1
+            "recall": 0,
+            "precision": 0
           },
           {
             "recall": 1,
@@ -4563,8 +4563,8 @@
             "precision": 1
           },
           {
-            "recall": 1,
-            "precision": 1
+            "recall": 0,
+            "precision": 0
           },
           {
             "recall": 1,
@@ -4577,7 +4577,7 @@
             "precision": 1
           },
           {
-            "recall": 1,
+            "recall": 0,
             "precision": 1
           },
           {
@@ -4678,12 +4678,12 @@
         ],
         "full HNSW, ef_search=40": [
           {
-            "recall": 0,
-            "precision": 0
-          },
-          {
             "recall": 1,
             "precision": 1
+          },
+          {
+            "recall": 0,
+            "precision": 0
           },
           {
             "recall": 1,
@@ -4692,12 +4692,12 @@
         ],
         "full HNSW + filter, ef_search=40": [
           {
-            "recall": 0,
-            "precision": 0
-          },
-          {
             "recall": 1,
             "precision": 1
+          },
+          {
+            "recall": 0,
+            "precision": 0
           },
           {
             "recall": 1,
@@ -4706,12 +4706,12 @@
         ],
         "full HNSW + filter, iterative, ef_search=40": [
           {
-            "recall": 0,
-            "precision": 0
-          },
-          {
             "recall": 1,
             "precision": 1
+          },
+          {
+            "recall": 0,
+            "precision": 0.1
           },
           {
             "recall": 1,
@@ -4720,8 +4720,8 @@
         ],
         "full HNSW, ef_search=160": [
           {
-            "recall": 0,
-            "precision": 0
+            "recall": 1,
+            "precision": 1
           },
           {
             "recall": 1,
@@ -4734,8 +4734,8 @@
         ],
         "full HNSW + filter, ef_search=160": [
           {
-            "recall": 0,
-            "precision": 0
+            "recall": 1,
+            "precision": 1
           },
           {
             "recall": 1,
@@ -4748,8 +4748,8 @@
         ],
         "full HNSW + filter, iterative, ef_search=160": [
           {
-            "recall": 0,
-            "precision": 0
+            "recall": 1,
+            "precision": 1
           },
           {
             "recall": 1,
@@ -4770,8 +4770,8 @@
             "precision": 1
           },
           {
-            "recall": 0,
-            "precision": 0
+            "recall": 1,
+            "precision": 1
           }
         ],
         "partial HNSW, ef_search=160": [
@@ -4811,8 +4811,8 @@
         ],
         "full HNSW, ef_search=40": [
           {
-            "recall": 0,
-            "precision": 0
+            "recall": 1,
+            "precision": 1
           },
           {
             "recall": 0,
@@ -4825,8 +4825,8 @@
         ],
         "full HNSW + filter, ef_search=40": [
           {
-            "recall": 0,
-            "precision": 0
+            "recall": 1,
+            "precision": 1
           },
           {
             "recall": 0,
@@ -4839,8 +4839,8 @@
         ],
         "full HNSW + filter, iterative, ef_search=40": [
           {
-            "recall": 0,
-            "precision": 0
+            "recall": 1,
+            "precision": 1
           },
           {
             "recall": 0,
@@ -4853,8 +4853,8 @@
         ],
         "full HNSW, ef_search=160": [
           {
-            "recall": 0,
-            "precision": 0
+            "recall": 1,
+            "precision": 1
           },
           {
             "recall": 0,
@@ -4867,8 +4867,8 @@
         ],
         "full HNSW + filter, ef_search=160": [
           {
-            "recall": 0,
-            "precision": 0
+            "recall": 1,
+            "precision": 1
           },
           {
             "recall": 0,
@@ -4881,8 +4881,8 @@
         ],
         "full HNSW + filter, iterative, ef_search=160": [
           {
-            "recall": 0,
-            "precision": 0
+            "recall": 1,
+            "precision": 1
           },
           {
             "recall": 0,
@@ -4895,8 +4895,8 @@
         ],
         "partial HNSW, ef_search=40": [
           {
-            "recall": 0,
-            "precision": 0
+            "recall": 1,
+            "precision": 1
           },
           {
             "recall": 1,
@@ -4944,8 +4944,8 @@
         ],
         "full HNSW, ef_search=40": [
           {
-            "recall": 1,
-            "precision": 1
+            "recall": 0,
+            "precision": 0
           },
           {
             "recall": 1,
@@ -4958,8 +4958,8 @@
         ],
         "full HNSW + filter, ef_search=40": [
           {
-            "recall": 1,
-            "precision": 1
+            "recall": 0,
+            "precision": 0
           },
           {
             "recall": 1,
@@ -4972,8 +4972,8 @@
         ],
         "full HNSW + filter, iterative, ef_search=40": [
           {
-            "recall": 1,
-            "precision": 1
+            "recall": 0,
+            "precision": 0
           },
           {
             "recall": 1,
@@ -5165,8 +5165,8 @@
             "precision": 1
           },
           {
-            "recall": 0,
-            "precision": 0
+            "recall": 1,
+            "precision": 1
           },
           {
             "recall": 1,
@@ -5294,12 +5294,12 @@
         ],
         "partial HNSW, ef_search=40": [
           {
-            "recall": 1,
-            "precision": 1
-          },
-          {
             "recall": 0,
             "precision": 0
+          },
+          {
+            "recall": 1,
+            "precision": 1
           },
           {
             "recall": 1,
@@ -5879,8 +5879,8 @@
             "precision": 1
           },
           {
-            "recall": 0,
-            "precision": 0
+            "recall": 1,
+            "precision": 1
           },
           {
             "recall": 1,
@@ -5893,8 +5893,8 @@
             "precision": 1
           },
           {
-            "recall": 0,
-            "precision": 0
+            "recall": 1,
+            "precision": 1
           },
           {
             "recall": 1,
@@ -5907,8 +5907,8 @@
             "precision": 1
           },
           {
-            "recall": 0,
-            "precision": 0.6
+            "recall": 1,
+            "precision": 1
           },
           {
             "recall": 1,
@@ -6012,8 +6012,8 @@
             "precision": 1
           },
           {
-            "recall": 1,
-            "precision": 1
+            "recall": 0,
+            "precision": 0
           },
           {
             "recall": 1,
@@ -6026,8 +6026,8 @@
             "precision": 1
           },
           {
-            "recall": 1,
-            "precision": 1
+            "recall": 0,
+            "precision": 0
           },
           {
             "recall": 1,
@@ -6040,8 +6040,8 @@
             "precision": 1
           },
           {
-            "recall": 1,
-            "precision": 1
+            "recall": 0,
+            "precision": 0
           },
           {
             "recall": 1,
@@ -6054,8 +6054,8 @@
             "precision": 1
           },
           {
-            "recall": 1,
-            "precision": 1
+            "recall": 0,
+            "precision": 0
           },
           {
             "recall": 1,
@@ -6068,8 +6068,8 @@
             "precision": 1
           },
           {
-            "recall": 1,
-            "precision": 1
+            "recall": 0,
+            "precision": 0
           },
           {
             "recall": 1,
@@ -6082,8 +6082,8 @@
             "precision": 1
           },
           {
-            "recall": 1,
-            "precision": 1
+            "recall": 0,
+            "precision": 0
           },
           {
             "recall": 1,
@@ -6096,12 +6096,12 @@
             "precision": 1
           },
           {
-            "recall": 1,
-            "precision": 1
-          },
-          {
             "recall": 0,
             "precision": 0
+          },
+          {
+            "recall": 1,
+            "precision": 1
           }
         ],
         "partial HNSW, ef_search=160": [
@@ -6110,12 +6110,12 @@
             "precision": 1
           },
           {
-            "recall": 1,
-            "precision": 1
-          },
-          {
             "recall": 0,
             "precision": 0
+          },
+          {
+            "recall": 1,
+            "precision": 1
           }
         ]
       }
@@ -6274,16 +6274,16 @@
         ],
         "full HNSW, ef_search=40": [
           {
-            "recall": 1,
-            "precision": 0.9
+            "recall": 0.9,
+            "precision": 1
           },
           {
-            "recall": 1,
-            "precision": 0.9
+            "recall": 0.1,
+            "precision": 0
           },
           {
-            "recall": 1,
-            "precision": 0.9
+            "recall": 0.9,
+            "precision": 1
           }
         ],
         "full HNSW + filter, ef_search=40": [
@@ -6292,8 +6292,8 @@
             "precision": 1
           },
           {
-            "recall": 1,
-            "precision": 1
+            "recall": 0,
+            "precision": 0
           },
           {
             "recall": 1,
@@ -6306,7 +6306,7 @@
             "precision": 1
           },
           {
-            "recall": 1,
+            "recall": 0,
             "precision": 1
           },
           {
@@ -6320,8 +6320,8 @@
             "precision": 0.9
           },
           {
-            "recall": 1,
-            "precision": 0.9
+            "recall": 0.1,
+            "precision": 0
           },
           {
             "recall": 1,
@@ -6334,8 +6334,8 @@
             "precision": 1
           },
           {
-            "recall": 1,
-            "precision": 1
+            "recall": 0,
+            "precision": 0
           },
           {
             "recall": 1,
@@ -6348,7 +6348,7 @@
             "precision": 1
           },
           {
-            "recall": 1,
+            "recall": 0,
             "precision": 1
           },
           {
@@ -6366,8 +6366,8 @@
             "precision": 0
           },
           {
-            "recall": 1,
-            "precision": 1
+            "recall": 0,
+            "precision": 0
           }
         ],
         "partial HNSW, ef_search=160": [
@@ -6376,12 +6376,12 @@
             "precision": 1
           },
           {
-            "recall": 0,
-            "precision": 0
-          },
-          {
             "recall": 1,
             "precision": 1
+          },
+          {
+            "recall": 0,
+            "precision": 0
           }
         ]
       }
@@ -6407,8 +6407,8 @@
         ],
         "full HNSW, ef_search=40": [
           {
-            "recall": 1,
-            "precision": 1
+            "recall": 0,
+            "precision": 0
           },
           {
             "recall": 1,
@@ -6421,8 +6421,8 @@
         ],
         "full HNSW + filter, ef_search=40": [
           {
-            "recall": 1,
-            "precision": 1
+            "recall": 0,
+            "precision": 0
           },
           {
             "recall": 1,
@@ -6435,7 +6435,7 @@
         ],
         "full HNSW + filter, iterative, ef_search=40": [
           {
-            "recall": 1,
+            "recall": 0,
             "precision": 1
           },
           {
@@ -6449,8 +6449,8 @@
         ],
         "full HNSW, ef_search=160": [
           {
-            "recall": 1,
-            "precision": 1
+            "recall": 0,
+            "precision": 0
           },
           {
             "recall": 1,
@@ -6463,8 +6463,8 @@
         ],
         "full HNSW + filter, ef_search=160": [
           {
-            "recall": 1,
-            "precision": 1
+            "recall": 0,
+            "precision": 0
           },
           {
             "recall": 1,
@@ -6477,7 +6477,7 @@
         ],
         "full HNSW + filter, iterative, ef_search=160": [
           {
-            "recall": 1,
+            "recall": 0,
             "precision": 1
           },
           {
@@ -6544,11 +6544,11 @@
             "precision": 1
           },
           {
-            "recall": 1,
+            "recall": 0,
             "precision": 1
           },
           {
-            "recall": 1,
+            "recall": 0,
             "precision": 1
           }
         ],
@@ -6558,11 +6558,11 @@
             "precision": 1
           },
           {
-            "recall": 1,
+            "recall": 0,
             "precision": 1
           },
           {
-            "recall": 1,
+            "recall": 0,
             "precision": 1
           }
         ],
@@ -6572,11 +6572,11 @@
             "precision": 1
           },
           {
-            "recall": 1,
+            "recall": 0,
             "precision": 1
           },
           {
-            "recall": 1,
+            "recall": 0,
             "precision": 1
           }
         ],
@@ -6673,7 +6673,7 @@
         ],
         "full HNSW, ef_search=40": [
           {
-            "recall": 1,
+            "recall": 0,
             "precision": 1
           },
           {
@@ -6681,13 +6681,13 @@
             "precision": 1
           },
           {
-            "recall": 1,
+            "recall": 0,
             "precision": 1
           }
         ],
         "full HNSW + filter, ef_search=40": [
           {
-            "recall": 1,
+            "recall": 0,
             "precision": 1
           },
           {
@@ -6695,13 +6695,13 @@
             "precision": 1
           },
           {
-            "recall": 1,
+            "recall": 0,
             "precision": 1
           }
         ],
         "full HNSW + filter, iterative, ef_search=40": [
           {
-            "recall": 1,
+            "recall": 0,
             "precision": 1
           },
           {
@@ -6709,7 +6709,7 @@
             "precision": 1
           },
           {
-            "recall": 1,
+            "recall": 0,
             "precision": 1
           }
         ],
@@ -6806,7 +6806,7 @@
         ],
         "full HNSW, ef_search=40": [
           {
-            "recall": 0.8,
+            "recall": 1,
             "precision": 1
           },
           {
@@ -6814,13 +6814,13 @@
             "precision": 1
           },
           {
-            "recall": 0.8,
+            "recall": 1,
             "precision": 1
           }
         ],
         "full HNSW + filter, ef_search=40": [
           {
-            "recall": 0.8,
+            "recall": 1,
             "precision": 1
           },
           {
@@ -6828,13 +6828,13 @@
             "precision": 1
           },
           {
-            "recall": 0.8,
+            "recall": 1,
             "precision": 1
           }
         ],
         "full HNSW + filter, iterative, ef_search=40": [
           {
-            "recall": 0.8,
+            "recall": 1,
             "precision": 1
           },
           {
@@ -6842,7 +6842,7 @@
             "precision": 1
           },
           {
-            "recall": 0.8,
+            "recall": 1,
             "precision": 1
           }
         ],
@@ -6890,15 +6890,15 @@
         ],
         "partial HNSW, ef_search=40": [
           {
-            "recall": 0.8,
+            "recall": 1,
             "precision": 1
           },
           {
-            "recall": 0.8,
+            "recall": 1,
             "precision": 1
           },
           {
-            "recall": 0.8,
+            "recall": 1,
             "precision": 1
           }
         ],
@@ -6943,8 +6943,8 @@
             "precision": 1
           },
           {
-            "recall": 1,
-            "precision": 1
+            "recall": 0,
+            "precision": 0
           },
           {
             "recall": 1,
@@ -6957,8 +6957,8 @@
             "precision": 1
           },
           {
-            "recall": 1,
-            "precision": 1
+            "recall": 0,
+            "precision": 0
           },
           {
             "recall": 1,
@@ -6971,8 +6971,8 @@
             "precision": 1
           },
           {
-            "recall": 1,
-            "precision": 1
+            "recall": 0,
+            "precision": 0
           },
           {
             "recall": 1,
@@ -7072,86 +7072,86 @@
         ],
         "full HNSW, ef_search=40": [
           {
-            "recall": 0,
-            "precision": 0
+            "recall": 1,
+            "precision": 1
           },
           {
             "recall": 1,
             "precision": 1
           },
           {
-            "recall": 0,
-            "precision": 0
+            "recall": 1,
+            "precision": 1
           }
         ],
         "full HNSW + filter, ef_search=40": [
           {
-            "recall": 0,
-            "precision": 0
+            "recall": 1,
+            "precision": 1
           },
           {
             "recall": 1,
             "precision": 1
           },
           {
-            "recall": 0,
-            "precision": 0
+            "recall": 1,
+            "precision": 1
           }
         ],
         "full HNSW + filter, iterative, ef_search=40": [
           {
-            "recall": 0,
-            "precision": 0
+            "recall": 1,
+            "precision": 1
           },
           {
             "recall": 1,
             "precision": 1
           },
           {
-            "recall": 0,
-            "precision": 0
+            "recall": 1,
+            "precision": 1
           }
         ],
         "full HNSW, ef_search=160": [
           {
-            "recall": 0,
-            "precision": 0
+            "recall": 1,
+            "precision": 1
           },
           {
             "recall": 1,
             "precision": 1
           },
           {
-            "recall": 0,
-            "precision": 0
+            "recall": 1,
+            "precision": 1
           }
         ],
         "full HNSW + filter, ef_search=160": [
           {
-            "recall": 0,
-            "precision": 0
+            "recall": 1,
+            "precision": 1
           },
           {
             "recall": 1,
             "precision": 1
           },
           {
-            "recall": 0,
-            "precision": 0
+            "recall": 1,
+            "precision": 1
           }
         ],
         "full HNSW + filter, iterative, ef_search=160": [
           {
-            "recall": 0,
-            "precision": 0
+            "recall": 1,
+            "precision": 1
           },
           {
             "recall": 1,
             "precision": 1
           },
           {
-            "recall": 0,
-            "precision": 0
+            "recall": 1,
+            "precision": 1
           }
         ],
         "partial HNSW, ef_search=40": [
@@ -7164,8 +7164,8 @@
             "precision": 1
           },
           {
-            "recall": 0,
-            "precision": 0
+            "recall": 1,
+            "precision": 1
           }
         ],
         "partial HNSW, ef_search=160": [
@@ -7178,8 +7178,8 @@
             "precision": 1
           },
           {
-            "recall": 0,
-            "precision": 0
+            "recall": 1,
+            "precision": 1
           }
         ]
       }
@@ -7205,8 +7205,8 @@
         ],
         "full HNSW, ef_search=40": [
           {
-            "recall": 0,
-            "precision": 0
+            "recall": 1,
+            "precision": 1
           },
           {
             "recall": 1,
@@ -7219,8 +7219,8 @@
         ],
         "full HNSW + filter, ef_search=40": [
           {
-            "recall": 0,
-            "precision": 0
+            "recall": 1,
+            "precision": 1
           },
           {
             "recall": 1,
@@ -7233,8 +7233,8 @@
         ],
         "full HNSW + filter, iterative, ef_search=40": [
           {
-            "recall": 0,
-            "precision": 0
+            "recall": 1,
+            "precision": 1
           },
           {
             "recall": 1,
@@ -7247,8 +7247,8 @@
         ],
         "full HNSW, ef_search=160": [
           {
-            "recall": 0,
-            "precision": 0
+            "recall": 1,
+            "precision": 1
           },
           {
             "recall": 1,
@@ -7261,8 +7261,8 @@
         ],
         "full HNSW + filter, ef_search=160": [
           {
-            "recall": 0,
-            "precision": 0
+            "recall": 1,
+            "precision": 1
           },
           {
             "recall": 1,
@@ -7275,8 +7275,8 @@
         ],
         "full HNSW + filter, iterative, ef_search=160": [
           {
-            "recall": 0,
-            "precision": 0
+            "recall": 1,
+            "precision": 1
           },
           {
             "recall": 1,
@@ -7745,11 +7745,39 @@
             "precision": 0
           },
           {
-            "recall": 1,
-            "precision": 1
+            "recall": 0,
+            "precision": 0
           }
         ],
         "full HNSW + filter, ef_search=40": [
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 0,
+            "precision": 0
+          },
+          {
+            "recall": 0,
+            "precision": 0
+          }
+        ],
+        "full HNSW + filter, iterative, ef_search=40": [
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 0,
+            "precision": 0
+          },
+          {
+            "recall": 0,
+            "precision": 1
+          }
+        ],
+        "full HNSW, ef_search=160": [
           {
             "recall": 1,
             "precision": 1
@@ -7763,42 +7791,14 @@
             "precision": 1
           }
         ],
-        "full HNSW + filter, iterative, ef_search=40": [
-          {
-            "recall": 1,
-            "precision": 1
-          },
-          {
-            "recall": 0,
-            "precision": 1
-          },
-          {
-            "recall": 1,
-            "precision": 1
-          }
-        ],
-        "full HNSW, ef_search=160": [
-          {
-            "recall": 1,
-            "precision": 1
-          },
-          {
-            "recall": 1,
-            "precision": 1
-          },
-          {
-            "recall": 1,
-            "precision": 1
-          }
-        ],
         "full HNSW + filter, ef_search=160": [
           {
             "recall": 1,
             "precision": 1
           },
           {
-            "recall": 1,
-            "precision": 1
+            "recall": 0,
+            "precision": 0
           },
           {
             "recall": 1,
@@ -7811,7 +7811,7 @@
             "precision": 1
           },
           {
-            "recall": 1,
+            "recall": 0,
             "precision": 1
           },
           {
@@ -7870,15 +7870,15 @@
         ],
         "full HNSW, ef_search=40": [
           {
-            "recall": 0,
+            "recall": 0.8,
+            "precision": 0
+          },
+          {
+            "recall": 0.8,
             "precision": 0
           },
           {
             "recall": 0,
-            "precision": 0
-          },
-          {
-            "recall": 0.1,
             "precision": 0
           }
         ],
@@ -7892,7 +7892,7 @@
             "precision": 0
           },
           {
-            "recall": 0.8,
+            "recall": 0,
             "precision": 0
           }
         ],
@@ -7906,7 +7906,7 @@
             "precision": 0
           },
           {
-            "recall": 0.8,
+            "recall": 0,
             "precision": 0
           }
         ],
@@ -7920,7 +7920,7 @@
             "precision": 0
           },
           {
-            "recall": 0.1,
+            "recall": 0,
             "precision": 0
           }
         ],
@@ -7934,7 +7934,7 @@
             "precision": 0
           },
           {
-            "recall": 1,
+            "recall": 0,
             "precision": 0
           }
         ],
@@ -7948,13 +7948,13 @@
             "precision": 0
           },
           {
-            "recall": 1,
+            "recall": 0,
             "precision": 0
           }
         ],
         "partial HNSW, ef_search=40": [
           {
-            "recall": 0.8,
+            "recall": 1,
             "precision": 0
           },
           {
@@ -7962,7 +7962,7 @@
             "precision": 0
           },
           {
-            "recall": 0.8,
+            "recall": 0,
             "precision": 0
           }
         ],
@@ -7972,7 +7972,7 @@
             "precision": 0
           },
           {
-            "recall": 1,
+            "recall": 0.8,
             "precision": 0
           },
           {
@@ -8140,8 +8140,8 @@
             "precision": 1
           },
           {
-            "recall": 0,
-            "precision": 0
+            "recall": 1,
+            "precision": 1
           },
           {
             "recall": 1,
@@ -8154,8 +8154,8 @@
             "precision": 1
           },
           {
-            "recall": 0,
-            "precision": 0
+            "recall": 1,
+            "precision": 1
           },
           {
             "recall": 1,
@@ -8168,8 +8168,8 @@
             "precision": 1
           },
           {
-            "recall": 0,
-            "precision": 0
+            "recall": 1,
+            "precision": 1
           },
           {
             "recall": 1,
@@ -8269,114 +8269,114 @@
         ],
         "full HNSW, ef_search=40": [
           {
-            "recall": 0,
-            "precision": 0
-          },
-          {
-            "recall": 0,
-            "precision": 0
-          },
-          {
             "recall": 1,
             "precision": 1
+          },
+          {
+            "recall": 0,
+            "precision": 0
+          },
+          {
+            "recall": 0,
+            "precision": 0
           }
         ],
         "full HNSW + filter, ef_search=40": [
           {
-            "recall": 0,
-            "precision": 0
-          },
-          {
-            "recall": 0,
-            "precision": 0
-          },
-          {
             "recall": 1,
             "precision": 1
+          },
+          {
+            "recall": 0,
+            "precision": 0
+          },
+          {
+            "recall": 0,
+            "precision": 0
           }
         ],
         "full HNSW + filter, iterative, ef_search=40": [
           {
-            "recall": 0,
-            "precision": 0
-          },
-          {
-            "recall": 0,
-            "precision": 0
-          },
-          {
             "recall": 1,
             "precision": 1
+          },
+          {
+            "recall": 0,
+            "precision": 0
+          },
+          {
+            "recall": 0,
+            "precision": 0
           }
         ],
         "full HNSW, ef_search=160": [
           {
-            "recall": 0,
-            "precision": 0
-          },
-          {
-            "recall": 0,
-            "precision": 0
-          },
-          {
             "recall": 1,
             "precision": 1
+          },
+          {
+            "recall": 0,
+            "precision": 0
+          },
+          {
+            "recall": 0,
+            "precision": 0
           }
         ],
         "full HNSW + filter, ef_search=160": [
           {
-            "recall": 0,
-            "precision": 0
-          },
-          {
-            "recall": 0,
-            "precision": 0
-          },
-          {
             "recall": 1,
             "precision": 1
+          },
+          {
+            "recall": 0,
+            "precision": 0
+          },
+          {
+            "recall": 0,
+            "precision": 0
           }
         ],
         "full HNSW + filter, iterative, ef_search=160": [
           {
-            "recall": 0,
-            "precision": 0
-          },
-          {
-            "recall": 0,
-            "precision": 0
-          },
-          {
             "recall": 1,
             "precision": 1
+          },
+          {
+            "recall": 0,
+            "precision": 0
+          },
+          {
+            "recall": 0,
+            "precision": 0
           }
         ],
         "partial HNSW, ef_search=40": [
           {
-            "recall": 0,
-            "precision": 0
+            "recall": 1,
+            "precision": 1
           },
           {
             "recall": 1,
             "precision": 1
           },
           {
-            "recall": 0,
-            "precision": 0
+            "recall": 1,
+            "precision": 1
           }
         ],
         "partial HNSW, ef_search=160": [
           {
-            "recall": 0,
-            "precision": 0
+            "recall": 1,
+            "precision": 1
           },
           {
             "recall": 1,
             "precision": 1
           },
           {
-            "recall": 0,
-            "precision": 0
+            "recall": 1,
+            "precision": 1
           }
         ]
       }
