@@ -154,7 +154,8 @@ sql-performance-lab/
 **Prerequisites:** Node.js 20.19+, 22.13+ or 24+, pnpm, Docker (PostgreSQL 17 + pgvector).
 
 ```bash
-docker compose up -d
+[ -f .env ] || echo "DB_PORT=5433" > .env   # Compose publishes the db on 5433, the app defaults to 5432; an existing .env needs DB_PORT too
+docker compose up -d db   # db only: the app service reseeds on every start, replacing logs and templates
 pnpm install
 pnpm migrate
 pnpm seed:run             # 100k users, 50k orders, 150k order_items

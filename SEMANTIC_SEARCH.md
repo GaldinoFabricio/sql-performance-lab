@@ -652,7 +652,8 @@ A later 10k run (`search-10k.json`, 3 builds) measured less noise: routed minus 
 ## Reproduce
 
 ```bash
-docker compose up -d            # PostgreSQL 17 + pgvector (shm_size 4gb for parallel HNSW builds)
+[ -f .env ] || echo "DB_PORT=5433" > .env   # Compose publishes the db on 5433, the app defaults to 5432; an existing .env needs DB_PORT too
+docker compose up -d db         # PostgreSQL 17 + pgvector (shm_size 4gb for parallel HNSW builds); not the app service, which reseeds on every start
 pnpm install && pnpm model:fetch
 pnpm migrate
 LOGS_COUNT=100000 pnpm seed:logs   # 10k by default
@@ -672,6 +673,9 @@ pnpm eval:codes --cw=1,2,3          # every mode on the 114 code queries, and hy
 pnpm templates:describe             # LLM descriptions of new templates (claude -p), then templates:build again
 pnpm eval:rerank --stages=hybrid --doc=template          # before / after / ceiling, top 20 and 50
 pnpm eval:rerank --stages=hybrid --doc=template --tw=1 --tt=3   # with the template list in the first stage
-pnpm eval:ground-truth --out=evals/ground_truth.10k.json   # 10k: day-to-day runs, project to 1M (see above)
-pnpm eval:search --truth=evals/ground_truth.10k.json       # LOGS_COUNT=10000 pnpm seed:logs && pnpm embed:logs before
+# 10k: day-to-day runs (see "Working at 10k" above). Reseeding replaces the 100k logs.
+LOGS_COUNT=10000 pnpm seed:logs && pnpm embed:logs
+pnpm templates:build
+pnpm eval:ground-truth --out=evals/ground_truth.10k.json
+pnpm eval:search --truth=evals/ground_truth.10k.json
 ```
