@@ -1,7 +1,7 @@
 import { Faker, base, en } from "@faker-js/faker";
 
 /**
- * Pure helpers for the exact-search ground truth (evals/ground_truth.json).
+ * Pure helpers for the exact-search ground truth (evals/ground_truth.<size>.json).
  *
  * Nothing here touches the database: the script in
  * src/scripts/ground-truth.ts gets the answer from Postgres with a forced

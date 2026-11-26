@@ -15,14 +15,14 @@ import {
 } from "../evals/ground-truth";
 
 /**
- * Builds evals/ground_truth.json: for N sampled logs, the exact top-k
+ * Builds evals/ground_truth.10k.json (or --out): for N sampled logs, the exact top-k
  * nearest neighbors by cosine distance, found with a forced sequential scan.
  *
  * The answer is then recomputed in JS (float64, brute force) and the script
  * fails if the two disagree. See evals/README.md for why this is a valid
  * ground truth for measuring ANN (HNSW) recall later.
  *
- * Usage: pnpm eval:ground-truth [--queries=100] [--k=10] [--seed=42] [--out=evals/ground_truth.json]
+ * Usage: pnpm eval:ground-truth [--queries=100] [--k=10] [--seed=42] [--out=evals/ground_truth.10k.json]
  */
 
 function arg(name: string, fallback: number): number {
@@ -37,7 +37,7 @@ const K = arg("k", 10);
 const SEED = arg("seed", 42);
 const OUT = path.resolve(
    process.argv.find((a) => a.startsWith("--out="))?.slice("--out=".length) ??
-      path.join(__dirname, "../../evals/ground_truth.json"),
+      path.join(__dirname, "../../evals/ground_truth.10k.json"),
 );
 // Rows read per round trip in the JS cross-check (~0.6 KB of text each).
 const STREAM_BATCH = 20_000;
