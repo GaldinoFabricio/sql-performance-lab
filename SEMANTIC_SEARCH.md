@@ -363,7 +363,7 @@ At 1M, partial HNSW at ef 160 has 76.9% recall, 7–9 queries with nothing relev
 
 | rows | full | partial |
 | ---: | ---: | ---: |
-| 10k | 16.6 MB, ~2 s | 4.3 MB, 0.5 s |
+| 10k | 16.6 MB, ~2 s | 4.3 MB, 0.8 s |
 | 100k | 149 MB, 18.6 s | 40 MB, 4.6 s |
 | 1M | 1,401 MB, 77.5 min | 418 MB, 68 s |
 

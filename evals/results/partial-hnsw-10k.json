@@ -1,5 +1,5 @@
 {
-  "created_at": "2026-11-24T09:53:47.545Z",
+  "created_at": "2026-11-17T23:24:13.171Z",
   "rows": 10000,
   "not_info_rows": 2639,
   "index": {
@@ -41,8 +41,8 @@
         4,
         4
       ],
-      "p50_ms": 7.36123600000019,
-      "p95_ms": 7.888977000000068
+      "p50_ms": 7.7032389999999396,
+      "p95_ms": 7.925486000000092
     },
     {
       "method": "exact, not INFO",
@@ -75,48 +75,256 @@
         3,
         3
       ],
-      "p50_ms": 4.993494999999712,
-      "p95_ms": 5.0486909999999625
+      "p50_ms": 5.240432999999939,
+      "p95_ms": 5.524327000000085
     },
     {
-      "method": "partial HNSW, ef_search=40",
+      "method": "full HNSW, ef_search=40",
       "builds": 1,
       "build_s": [
-        0.6002314430000005
+        null
       ],
-      "index_bytes": 4546560,
-      "plan": "Limit → Index Scan (idx_logs_embedding_hnsw_not_info)",
-      "recall": 0.9833333333333333,
+      "index_bytes": 17440768,
+      "plan": "Limit → Index Scan (idx_logs_embedding_hnsw)",
+      "recall": 0.9166666666666666,
       "recall_range": [
-        0.9833333333333333,
-        0.9833333333333333
+        0.9166666666666666,
+        0.9166666666666666
       ],
-      "precision": 0.9333333333333333,
+      "precision": 0.855,
       "precision_range": [
-        0.9333333333333333,
-        0.9333333333333333
+        0.855,
+        0.855
       ],
       "by_kind": {
         "keyword": 0.875,
-        "mixed": 1,
-        "paraphrase": 0.9411764705882353
+        "mixed": 0.994736842105263,
+        "paraphrase": 0.6705882352941177
       },
       "short_results": [
         0,
         0
       ],
       "zero_relevant": [
-        4,
+        8,
+        8
+      ],
+      "p50_ms": 1.0249069999999847,
+      "p95_ms": 1.2746459999998478
+    },
+    {
+      "method": "full HNSW + filter, ef_search=40",
+      "builds": 1,
+      "build_s": [
+        null
+      ],
+      "index_bytes": 17440768,
+      "plan": "Limit → Index Scan (idx_logs_embedding_hnsw)",
+      "recall": 0.905,
+      "recall_range": [
+        0.905,
+        0.905
+      ],
+      "precision": 0.86,
+      "precision_range": [
+        0.86,
+        0.86
+      ],
+      "by_kind": {
+        "keyword": 0.875,
+        "mixed": 1,
+        "paraphrase": 0.6823529411764706
+      },
+      "short_results": [
+        5,
+        5
+      ],
+      "zero_relevant": [
+        8,
+        8
+      ],
+      "p50_ms": 1.0532290000001012,
+      "p95_ms": 1.30026799999996
+    },
+    {
+      "method": "full HNSW + filter, iterative, ef_search=40",
+      "builds": 1,
+      "build_s": [
+        null
+      ],
+      "index_bytes": 17440768,
+      "plan": "Limit → Index Scan (idx_logs_embedding_hnsw)",
+      "recall": 0.9283333333333333,
+      "recall_range": [
+        0.9283333333333333,
+        0.9283333333333333
+      ],
+      "precision": 0.8833333333333333,
+      "precision_range": [
+        0.8833333333333333,
+        0.8833333333333333
+      ],
+      "by_kind": {
+        "keyword": 0.875,
+        "mixed": 1,
+        "paraphrase": 0.7647058823529411
+      },
+      "short_results": [
+        0,
+        0
+      ],
+      "zero_relevant": [
+        7,
+        7
+      ],
+      "p50_ms": 0.9950859999999011,
+      "p95_ms": 1.850655999999617
+    },
+    {
+      "method": "full HNSW, ef_search=160",
+      "builds": 1,
+      "build_s": [
+        null
+      ],
+      "index_bytes": 17440768,
+      "plan": "Limit → Index Scan (idx_logs_embedding_hnsw)",
+      "recall": 0.9666666666666667,
+      "recall_range": [
+        0.9666666666666667,
+        0.9666666666666667
+      ],
+      "precision": 0.8866666666666666,
+      "precision_range": [
+        0.8866666666666666,
+        0.8866666666666666
+      ],
+      "by_kind": {
+        "keyword": 0.8708333333333332,
+        "mixed": 0.994736842105263,
+        "paraphrase": 0.788235294117647
+      },
+      "short_results": [
+        0,
+        0
+      ],
+      "zero_relevant": [
+        6,
+        6
+      ],
+      "p50_ms": 1.5143199999993158,
+      "p95_ms": 1.7857260000000679
+    },
+    {
+      "method": "full HNSW + filter, ef_search=160",
+      "builds": 1,
+      "build_s": [
+        null
+      ],
+      "index_bytes": 17440768,
+      "plan": "Limit → Index Scan (idx_logs_embedding_hnsw)",
+      "recall": 0.95,
+      "recall_range": [
+        0.95,
+        0.95
+      ],
+      "precision": 0.8983333333333333,
+      "precision_range": [
+        0.8983333333333333,
+        0.8983333333333333
+      ],
+      "by_kind": {
+        "keyword": 0.8708333333333332,
+        "mixed": 1,
+        "paraphrase": 0.8235294117647058
+      },
+      "short_results": [
+        2,
+        2
+      ],
+      "zero_relevant": [
+        6,
+        6
+      ],
+      "p50_ms": 1.4874970000000758,
+      "p95_ms": 1.8416349999997692
+    },
+    {
+      "method": "full HNSW + filter, iterative, ef_search=160",
+      "builds": 1,
+      "build_s": [
+        null
+      ],
+      "index_bytes": 17440768,
+      "plan": "Limit → Index Scan (idx_logs_embedding_hnsw)",
+      "recall": 0.9666666666666667,
+      "recall_range": [
+        0.9666666666666667,
+        0.9666666666666667
+      ],
+      "precision": 0.9149999999999999,
+      "precision_range": [
+        0.9149999999999999,
+        0.9149999999999999
+      ],
+      "by_kind": {
+        "keyword": 0.8708333333333332,
+        "mixed": 1,
+        "paraphrase": 0.8823529411764706
+      },
+      "short_results": [
+        0,
+        0
+      ],
+      "zero_relevant": [
+        5,
+        5
+      ],
+      "p50_ms": 1.5431650000000445,
+      "p95_ms": 2.000306000000819
+    },
+    {
+      "method": "partial HNSW, ef_search=40",
+      "builds": 3,
+      "build_s": [
+        0.5088840300000002,
+        1.4669008010000015,
+        0.47899587299999985
+      ],
+      "index_bytes": 4546560,
+      "plan": "Limit → Index Scan (idx_logs_embedding_hnsw_not_info)",
+      "recall": 0.9944444444444445,
+      "recall_range": [
+        0.9833333333333333,
+        1
+      ],
+      "precision": 0.9438888888888889,
+      "precision_range": [
+        0.9316666666666666,
+        0.95
+      ],
+      "by_kind": {
+        "keyword": 0.9013888888888889,
+        "mixed": 1,
+        "paraphrase": 0.9411764705882352
+      },
+      "short_results": [
+        0,
+        0
+      ],
+      "zero_relevant": [
+        3,
         4
       ],
-      "p50_ms": 1.1989119999998366,
-      "p95_ms": 1.380844999999681
+      "p50_ms": 1.1928349999998318,
+      "p95_ms": 2.212099999998827
     },
     {
       "method": "partial HNSW, ef_search=160",
-      "builds": 1,
+      "builds": 3,
       "build_s": [
-        0.6002314430000005
+        0.5088840300000002,
+        1.4669008010000015,
+        0.47899587299999985
       ],
       "index_bytes": 4546560,
       "plan": "Limit → Index Scan (idx_logs_embedding_hnsw_not_info)",
@@ -133,7 +341,7 @@
       "by_kind": {
         "keyword": 0.9125,
         "mixed": 1,
-        "paraphrase": 0.9411764705882353
+        "paraphrase": 0.9411764705882352
       },
       "short_results": [
         0,
@@ -143,30 +351,40 @@
         3,
         3
       ],
-      "p50_ms": 1.7955139999994572,
-      "p95_ms": 2.0372480000005453
+      "p50_ms": 1.3630749999992986,
+      "p95_ms": 1.630474999999933
     }
   ],
   "writes": {
     "rows": 500,
     "no HNSW": {
       "INFO": {
-        "wal_bytes_per_row": 2156.96,
-        "rows_per_s": 54176.98602808362
+        "wal_bytes_per_row": 2155.632,
+        "rows_per_s": 18147.217048047853
       },
       "not INFO": {
-        "wal_bytes_per_row": 2363.28,
-        "rows_per_s": 37129.4646510416
+        "wal_bytes_per_row": 2265.04,
+        "rows_per_s": 40527.847656792
+      }
+    },
+    "full only": {
+      "INFO": {
+        "wal_bytes_per_row": 2916.624,
+        "rows_per_s": 1417.1223914985594
+      },
+      "not INFO": {
+        "wal_bytes_per_row": 3362.736,
+        "rows_per_s": 1196.1458477473889
       }
     },
     "partial only": {
       "INFO": {
-        "wal_bytes_per_row": 2159.856,
-        "rows_per_s": 53679.32593367603
+        "wal_bytes_per_row": 2158.864,
+        "rows_per_s": 50744.73480243384
       },
       "not INFO": {
-        "wal_bytes_per_row": 3276.832,
-        "rows_per_s": 1187.91795259775
+        "wal_bytes_per_row": 3105.28,
+        "rows_per_s": 1516.1848778467613
       }
     }
   },
@@ -190,13 +408,65 @@
             "precision": 0
           }
         ],
+        "full HNSW, ef_search=40": [
+          {
+            "recall": 1,
+            "precision": 0
+          }
+        ],
+        "full HNSW + filter, ef_search=40": [
+          {
+            "recall": 1,
+            "precision": 0
+          }
+        ],
+        "full HNSW + filter, iterative, ef_search=40": [
+          {
+            "recall": 1,
+            "precision": 0
+          }
+        ],
+        "full HNSW, ef_search=160": [
+          {
+            "recall": 1,
+            "precision": 0
+          }
+        ],
+        "full HNSW + filter, ef_search=160": [
+          {
+            "recall": 1,
+            "precision": 0
+          }
+        ],
+        "full HNSW + filter, iterative, ef_search=160": [
+          {
+            "recall": 1,
+            "precision": 0
+          }
+        ],
         "partial HNSW, ef_search=40": [
+          {
+            "recall": 1,
+            "precision": 0
+          },
+          {
+            "recall": 1,
+            "precision": 0
+          },
           {
             "recall": 1,
             "precision": 0
           }
         ],
         "partial HNSW, ef_search=160": [
+          {
+            "recall": 1,
+            "precision": 0
+          },
+          {
+            "recall": 1,
+            "precision": 0
+          },
           {
             "recall": 1,
             "precision": 0
@@ -223,13 +493,65 @@
             "precision": 1
           }
         ],
+        "full HNSW, ef_search=40": [
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "full HNSW + filter, ef_search=40": [
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "full HNSW + filter, iterative, ef_search=40": [
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "full HNSW, ef_search=160": [
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "full HNSW + filter, ef_search=160": [
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "full HNSW + filter, iterative, ef_search=160": [
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
         "partial HNSW, ef_search=40": [
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          },
           {
             "recall": 1,
             "precision": 1
           }
         ],
         "partial HNSW, ef_search=160": [
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          },
           {
             "recall": 1,
             "precision": 1
@@ -256,13 +578,65 @@
             "precision": 1
           }
         ],
+        "full HNSW, ef_search=40": [
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "full HNSW + filter, ef_search=40": [
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "full HNSW + filter, iterative, ef_search=40": [
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "full HNSW, ef_search=160": [
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "full HNSW + filter, ef_search=160": [
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "full HNSW + filter, iterative, ef_search=160": [
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
         "partial HNSW, ef_search=40": [
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          },
           {
             "recall": 1,
             "precision": 1
           }
         ],
         "partial HNSW, ef_search=160": [
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          },
           {
             "recall": 1,
             "precision": 1
@@ -289,13 +663,65 @@
             "precision": 1
           }
         ],
+        "full HNSW, ef_search=40": [
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "full HNSW + filter, ef_search=40": [
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "full HNSW + filter, iterative, ef_search=40": [
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "full HNSW, ef_search=160": [
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "full HNSW + filter, ef_search=160": [
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "full HNSW + filter, iterative, ef_search=160": [
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
         "partial HNSW, ef_search=40": [
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          },
           {
             "recall": 1,
             "precision": 1
           }
         ],
         "partial HNSW, ef_search=160": [
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          },
           {
             "recall": 1,
             "precision": 1
@@ -322,13 +748,65 @@
             "precision": 1
           }
         ],
+        "full HNSW, ef_search=40": [
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "full HNSW + filter, ef_search=40": [
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "full HNSW + filter, iterative, ef_search=40": [
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "full HNSW, ef_search=160": [
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "full HNSW + filter, ef_search=160": [
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "full HNSW + filter, iterative, ef_search=160": [
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
         "partial HNSW, ef_search=40": [
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          },
           {
             "recall": 1,
             "precision": 1
           }
         ],
         "partial HNSW, ef_search=160": [
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          },
           {
             "recall": 1,
             "precision": 1
@@ -355,13 +833,65 @@
             "precision": 1
           }
         ],
+        "full HNSW, ef_search=40": [
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "full HNSW + filter, ef_search=40": [
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "full HNSW + filter, iterative, ef_search=40": [
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "full HNSW, ef_search=160": [
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "full HNSW + filter, ef_search=160": [
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "full HNSW + filter, iterative, ef_search=160": [
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
         "partial HNSW, ef_search=40": [
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          },
           {
             "recall": 1,
             "precision": 1
           }
         ],
         "partial HNSW, ef_search=160": [
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          },
           {
             "recall": 1,
             "precision": 1
@@ -388,13 +918,65 @@
             "precision": 1
           }
         ],
+        "full HNSW, ef_search=40": [
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "full HNSW + filter, ef_search=40": [
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "full HNSW + filter, iterative, ef_search=40": [
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "full HNSW, ef_search=160": [
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "full HNSW + filter, ef_search=160": [
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "full HNSW + filter, iterative, ef_search=160": [
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
         "partial HNSW, ef_search=40": [
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          },
           {
             "recall": 1,
             "precision": 1
           }
         ],
         "partial HNSW, ef_search=160": [
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          },
           {
             "recall": 1,
             "precision": 1
@@ -421,13 +1003,65 @@
             "precision": 1
           }
         ],
+        "full HNSW, ef_search=40": [
+          {
+            "recall": 0,
+            "precision": 0
+          }
+        ],
+        "full HNSW + filter, ef_search=40": [
+          {
+            "recall": 0,
+            "precision": 0
+          }
+        ],
+        "full HNSW + filter, iterative, ef_search=40": [
+          {
+            "recall": 0,
+            "precision": 0
+          }
+        ],
+        "full HNSW, ef_search=160": [
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "full HNSW + filter, ef_search=160": [
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "full HNSW + filter, iterative, ef_search=160": [
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
         "partial HNSW, ef_search=40": [
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          },
           {
             "recall": 1,
             "precision": 1
           }
         ],
         "partial HNSW, ef_search=160": [
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          },
           {
             "recall": 1,
             "precision": 1
@@ -454,13 +1088,65 @@
             "precision": 1
           }
         ],
+        "full HNSW, ef_search=40": [
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "full HNSW + filter, ef_search=40": [
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "full HNSW + filter, iterative, ef_search=40": [
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "full HNSW, ef_search=160": [
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "full HNSW + filter, ef_search=160": [
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "full HNSW + filter, iterative, ef_search=160": [
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
         "partial HNSW, ef_search=40": [
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          },
           {
             "recall": 1,
             "precision": 1
           }
         ],
         "partial HNSW, ef_search=160": [
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          },
           {
             "recall": 1,
             "precision": 1
@@ -487,13 +1173,65 @@
             "precision": 1
           }
         ],
+        "full HNSW, ef_search=40": [
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "full HNSW + filter, ef_search=40": [
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "full HNSW + filter, iterative, ef_search=40": [
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "full HNSW, ef_search=160": [
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "full HNSW + filter, ef_search=160": [
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "full HNSW + filter, iterative, ef_search=160": [
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
         "partial HNSW, ef_search=40": [
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          },
           {
             "recall": 1,
             "precision": 1
           }
         ],
         "partial HNSW, ef_search=160": [
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          },
           {
             "recall": 1,
             "precision": 1
@@ -520,13 +1258,65 @@
             "precision": 1
           }
         ],
+        "full HNSW, ef_search=40": [
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "full HNSW + filter, ef_search=40": [
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "full HNSW + filter, iterative, ef_search=40": [
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "full HNSW, ef_search=160": [
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "full HNSW + filter, ef_search=160": [
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "full HNSW + filter, iterative, ef_search=160": [
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
         "partial HNSW, ef_search=40": [
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          },
           {
             "recall": 1,
             "precision": 1
           }
         ],
         "partial HNSW, ef_search=160": [
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          },
           {
             "recall": 1,
             "precision": 1
@@ -553,13 +1343,65 @@
             "precision": 1
           }
         ],
+        "full HNSW, ef_search=40": [
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "full HNSW + filter, ef_search=40": [
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "full HNSW + filter, iterative, ef_search=40": [
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "full HNSW, ef_search=160": [
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "full HNSW + filter, ef_search=160": [
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "full HNSW + filter, iterative, ef_search=160": [
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
         "partial HNSW, ef_search=40": [
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          },
           {
             "recall": 1,
             "precision": 1
           }
         ],
         "partial HNSW, ef_search=160": [
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          },
           {
             "recall": 1,
             "precision": 1
@@ -586,13 +1428,65 @@
             "precision": 1
           }
         ],
-        "partial HNSW, ef_search=40": [
+        "full HNSW, ef_search=40": [
           {
             "recall": 0,
             "precision": 0
           }
         ],
+        "full HNSW + filter, ef_search=40": [
+          {
+            "recall": 0,
+            "precision": 0
+          }
+        ],
+        "full HNSW + filter, iterative, ef_search=40": [
+          {
+            "recall": 0,
+            "precision": 0
+          }
+        ],
+        "full HNSW, ef_search=160": [
+          {
+            "recall": 0,
+            "precision": 0
+          }
+        ],
+        "full HNSW + filter, ef_search=160": [
+          {
+            "recall": 0,
+            "precision": 0
+          }
+        ],
+        "full HNSW + filter, iterative, ef_search=160": [
+          {
+            "recall": 0,
+            "precision": 0
+          }
+        ],
+        "partial HNSW, ef_search=40": [
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 0,
+            "precision": 0
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
         "partial HNSW, ef_search=160": [
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          },
           {
             "recall": 1,
             "precision": 1
@@ -619,13 +1513,65 @@
             "precision": 1
           }
         ],
+        "full HNSW, ef_search=40": [
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "full HNSW + filter, ef_search=40": [
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "full HNSW + filter, iterative, ef_search=40": [
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "full HNSW, ef_search=160": [
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "full HNSW + filter, ef_search=160": [
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "full HNSW + filter, iterative, ef_search=160": [
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
         "partial HNSW, ef_search=40": [
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          },
           {
             "recall": 1,
             "precision": 1
           }
         ],
         "partial HNSW, ef_search=160": [
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          },
           {
             "recall": 1,
             "precision": 1
@@ -652,13 +1598,65 @@
             "precision": 1
           }
         ],
+        "full HNSW, ef_search=40": [
+          {
+            "recall": 0,
+            "precision": 0
+          }
+        ],
+        "full HNSW + filter, ef_search=40": [
+          {
+            "recall": 0,
+            "precision": 0
+          }
+        ],
+        "full HNSW + filter, iterative, ef_search=40": [
+          {
+            "recall": 0,
+            "precision": 0
+          }
+        ],
+        "full HNSW, ef_search=160": [
+          {
+            "recall": 0,
+            "precision": 0
+          }
+        ],
+        "full HNSW + filter, ef_search=160": [
+          {
+            "recall": 0,
+            "precision": 0
+          }
+        ],
+        "full HNSW + filter, iterative, ef_search=160": [
+          {
+            "recall": 0,
+            "precision": 0
+          }
+        ],
         "partial HNSW, ef_search=40": [
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          },
           {
             "recall": 1,
             "precision": 1
           }
         ],
         "partial HNSW, ef_search=160": [
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          },
           {
             "recall": 1,
             "precision": 1
@@ -685,13 +1683,65 @@
             "precision": 1
           }
         ],
+        "full HNSW, ef_search=40": [
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "full HNSW + filter, ef_search=40": [
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "full HNSW + filter, iterative, ef_search=40": [
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "full HNSW, ef_search=160": [
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "full HNSW + filter, ef_search=160": [
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "full HNSW + filter, iterative, ef_search=160": [
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
         "partial HNSW, ef_search=40": [
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          },
           {
             "recall": 1,
             "precision": 1
           }
         ],
         "partial HNSW, ef_search=160": [
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          },
           {
             "recall": 1,
             "precision": 1
@@ -718,13 +1768,65 @@
             "precision": 0.9
           }
         ],
+        "full HNSW, ef_search=40": [
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "full HNSW + filter, ef_search=40": [
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "full HNSW + filter, iterative, ef_search=40": [
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "full HNSW, ef_search=160": [
+          {
+            "recall": 1,
+            "precision": 0.9
+          }
+        ],
+        "full HNSW + filter, ef_search=160": [
+          {
+            "recall": 1,
+            "precision": 0.9
+          }
+        ],
+        "full HNSW + filter, iterative, ef_search=160": [
+          {
+            "recall": 1,
+            "precision": 0.9
+          }
+        ],
         "partial HNSW, ef_search=40": [
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 0.9
+          },
           {
             "recall": 1,
             "precision": 1
           }
         ],
         "partial HNSW, ef_search=160": [
+          {
+            "recall": 1,
+            "precision": 0.9
+          },
+          {
+            "recall": 1,
+            "precision": 0.9
+          },
           {
             "recall": 1,
             "precision": 0.9
@@ -751,13 +1853,65 @@
             "precision": 1
           }
         ],
+        "full HNSW, ef_search=40": [
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "full HNSW + filter, ef_search=40": [
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "full HNSW + filter, iterative, ef_search=40": [
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "full HNSW, ef_search=160": [
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "full HNSW + filter, ef_search=160": [
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "full HNSW + filter, iterative, ef_search=160": [
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
         "partial HNSW, ef_search=40": [
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          },
           {
             "recall": 1,
             "precision": 1
           }
         ],
         "partial HNSW, ef_search=160": [
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          },
           {
             "recall": 1,
             "precision": 1
@@ -784,13 +1938,65 @@
             "precision": 1
           }
         ],
+        "full HNSW, ef_search=40": [
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "full HNSW + filter, ef_search=40": [
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "full HNSW + filter, iterative, ef_search=40": [
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "full HNSW, ef_search=160": [
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "full HNSW + filter, ef_search=160": [
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "full HNSW + filter, iterative, ef_search=160": [
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
         "partial HNSW, ef_search=40": [
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          },
           {
             "recall": 1,
             "precision": 1
           }
         ],
         "partial HNSW, ef_search=160": [
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          },
           {
             "recall": 1,
             "precision": 1
@@ -817,13 +2023,65 @@
             "precision": 0
           }
         ],
+        "full HNSW, ef_search=40": [
+          {
+            "recall": 1,
+            "precision": 0
+          }
+        ],
+        "full HNSW + filter, ef_search=40": [
+          {
+            "recall": 1,
+            "precision": 0
+          }
+        ],
+        "full HNSW + filter, iterative, ef_search=40": [
+          {
+            "recall": 1,
+            "precision": 0
+          }
+        ],
+        "full HNSW, ef_search=160": [
+          {
+            "recall": 1,
+            "precision": 0
+          }
+        ],
+        "full HNSW + filter, ef_search=160": [
+          {
+            "recall": 1,
+            "precision": 0
+          }
+        ],
+        "full HNSW + filter, iterative, ef_search=160": [
+          {
+            "recall": 1,
+            "precision": 0
+          }
+        ],
         "partial HNSW, ef_search=40": [
+          {
+            "recall": 1,
+            "precision": 0
+          },
+          {
+            "recall": 1,
+            "precision": 0
+          },
           {
             "recall": 1,
             "precision": 0
           }
         ],
         "partial HNSW, ef_search=160": [
+          {
+            "recall": 1,
+            "precision": 0
+          },
+          {
+            "recall": 1,
+            "precision": 0
+          },
           {
             "recall": 1,
             "precision": 0
@@ -850,13 +2108,65 @@
             "precision": 1
           }
         ],
+        "full HNSW, ef_search=40": [
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "full HNSW + filter, ef_search=40": [
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "full HNSW + filter, iterative, ef_search=40": [
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "full HNSW, ef_search=160": [
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "full HNSW + filter, ef_search=160": [
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "full HNSW + filter, iterative, ef_search=160": [
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
         "partial HNSW, ef_search=40": [
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          },
           {
             "recall": 1,
             "precision": 1
           }
         ],
         "partial HNSW, ef_search=160": [
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          },
           {
             "recall": 1,
             "precision": 1
@@ -883,13 +2193,65 @@
             "precision": 1
           }
         ],
+        "full HNSW, ef_search=40": [
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "full HNSW + filter, ef_search=40": [
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "full HNSW + filter, iterative, ef_search=40": [
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "full HNSW, ef_search=160": [
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "full HNSW + filter, ef_search=160": [
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "full HNSW + filter, iterative, ef_search=160": [
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
         "partial HNSW, ef_search=40": [
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          },
           {
             "recall": 1,
             "precision": 1
           }
         ],
         "partial HNSW, ef_search=160": [
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          },
           {
             "recall": 1,
             "precision": 1
@@ -916,13 +2278,65 @@
             "precision": 1
           }
         ],
+        "full HNSW, ef_search=40": [
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "full HNSW + filter, ef_search=40": [
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "full HNSW + filter, iterative, ef_search=40": [
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "full HNSW, ef_search=160": [
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "full HNSW + filter, ef_search=160": [
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "full HNSW + filter, iterative, ef_search=160": [
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
         "partial HNSW, ef_search=40": [
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          },
           {
             "recall": 1,
             "precision": 1
           }
         ],
         "partial HNSW, ef_search=160": [
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          },
           {
             "recall": 1,
             "precision": 1
@@ -949,13 +2363,65 @@
             "precision": 1
           }
         ],
+        "full HNSW, ef_search=40": [
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "full HNSW + filter, ef_search=40": [
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "full HNSW + filter, iterative, ef_search=40": [
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "full HNSW, ef_search=160": [
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "full HNSW + filter, ef_search=160": [
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "full HNSW + filter, iterative, ef_search=160": [
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
         "partial HNSW, ef_search=40": [
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          },
           {
             "recall": 1,
             "precision": 1
           }
         ],
         "partial HNSW, ef_search=160": [
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          },
           {
             "recall": 1,
             "precision": 1
@@ -982,13 +2448,65 @@
             "precision": 1
           }
         ],
+        "full HNSW, ef_search=40": [
+          {
+            "recall": 0,
+            "precision": 0
+          }
+        ],
+        "full HNSW + filter, ef_search=40": [
+          {
+            "recall": 0,
+            "precision": 0
+          }
+        ],
+        "full HNSW + filter, iterative, ef_search=40": [
+          {
+            "recall": 0,
+            "precision": 0
+          }
+        ],
+        "full HNSW, ef_search=160": [
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "full HNSW + filter, ef_search=160": [
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "full HNSW + filter, iterative, ef_search=160": [
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
         "partial HNSW, ef_search=40": [
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          },
           {
             "recall": 1,
             "precision": 1
           }
         ],
         "partial HNSW, ef_search=160": [
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          },
           {
             "recall": 1,
             "precision": 1
@@ -1015,13 +2533,65 @@
             "precision": 1
           }
         ],
+        "full HNSW, ef_search=40": [
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "full HNSW + filter, ef_search=40": [
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "full HNSW + filter, iterative, ef_search=40": [
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "full HNSW, ef_search=160": [
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "full HNSW + filter, ef_search=160": [
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "full HNSW + filter, iterative, ef_search=160": [
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
         "partial HNSW, ef_search=40": [
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          },
           {
             "recall": 1,
             "precision": 1
           }
         ],
         "partial HNSW, ef_search=160": [
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          },
           {
             "recall": 1,
             "precision": 1
@@ -1048,13 +2618,65 @@
             "precision": 1
           }
         ],
+        "full HNSW, ef_search=40": [
+          {
+            "recall": 0.8,
+            "precision": 0.9
+          }
+        ],
+        "full HNSW + filter, ef_search=40": [
+          {
+            "recall": 0.7,
+            "precision": 1
+          }
+        ],
+        "full HNSW + filter, iterative, ef_search=40": [
+          {
+            "recall": 0.7,
+            "precision": 1
+          }
+        ],
+        "full HNSW, ef_search=160": [
+          {
+            "recall": 1,
+            "precision": 0.9
+          }
+        ],
+        "full HNSW + filter, ef_search=160": [
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "full HNSW + filter, iterative, ef_search=160": [
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
         "partial HNSW, ef_search=40": [
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          },
           {
             "recall": 1,
             "precision": 1
           }
         ],
         "partial HNSW, ef_search=160": [
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          },
           {
             "recall": 1,
             "precision": 1
@@ -1081,13 +2703,65 @@
             "precision": 1
           }
         ],
+        "full HNSW, ef_search=40": [
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "full HNSW + filter, ef_search=40": [
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "full HNSW + filter, iterative, ef_search=40": [
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "full HNSW, ef_search=160": [
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "full HNSW + filter, ef_search=160": [
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "full HNSW + filter, iterative, ef_search=160": [
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
         "partial HNSW, ef_search=40": [
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          },
           {
             "recall": 1,
             "precision": 1
           }
         ],
         "partial HNSW, ef_search=160": [
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          },
           {
             "recall": 1,
             "precision": 1
@@ -1114,13 +2788,65 @@
             "precision": 1
           }
         ],
+        "full HNSW, ef_search=40": [
+          {
+            "recall": 1,
+            "precision": 0
+          }
+        ],
+        "full HNSW + filter, ef_search=40": [
+          {
+            "recall": 0,
+            "precision": 0
+          }
+        ],
+        "full HNSW + filter, iterative, ef_search=40": [
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "full HNSW, ef_search=160": [
+          {
+            "recall": 1,
+            "precision": 0
+          }
+        ],
+        "full HNSW + filter, ef_search=160": [
+          {
+            "recall": 0,
+            "precision": 0
+          }
+        ],
+        "full HNSW + filter, iterative, ef_search=160": [
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
         "partial HNSW, ef_search=40": [
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          },
           {
             "recall": 1,
             "precision": 1
           }
         ],
         "partial HNSW, ef_search=160": [
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          },
           {
             "recall": 1,
             "precision": 1
@@ -1147,13 +2873,65 @@
             "precision": 1
           }
         ],
+        "full HNSW, ef_search=40": [
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "full HNSW + filter, ef_search=40": [
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "full HNSW + filter, iterative, ef_search=40": [
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "full HNSW, ef_search=160": [
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "full HNSW + filter, ef_search=160": [
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "full HNSW + filter, iterative, ef_search=160": [
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
         "partial HNSW, ef_search=40": [
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          },
           {
             "recall": 1,
             "precision": 1
           }
         ],
         "partial HNSW, ef_search=160": [
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          },
           {
             "recall": 1,
             "precision": 1
@@ -1180,13 +2958,65 @@
             "precision": 1
           }
         ],
+        "full HNSW, ef_search=40": [
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "full HNSW + filter, ef_search=40": [
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "full HNSW + filter, iterative, ef_search=40": [
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "full HNSW, ef_search=160": [
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "full HNSW + filter, ef_search=160": [
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "full HNSW + filter, iterative, ef_search=160": [
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
         "partial HNSW, ef_search=40": [
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          },
           {
             "recall": 1,
             "precision": 1
           }
         ],
         "partial HNSW, ef_search=160": [
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          },
           {
             "recall": 1,
             "precision": 1
@@ -1213,13 +3043,65 @@
             "precision": 1
           }
         ],
+        "full HNSW, ef_search=40": [
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "full HNSW + filter, ef_search=40": [
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "full HNSW + filter, iterative, ef_search=40": [
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "full HNSW, ef_search=160": [
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "full HNSW + filter, ef_search=160": [
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "full HNSW + filter, iterative, ef_search=160": [
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
         "partial HNSW, ef_search=40": [
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          },
           {
             "recall": 1,
             "precision": 1
           }
         ],
         "partial HNSW, ef_search=160": [
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          },
           {
             "recall": 1,
             "precision": 1
@@ -1246,13 +3128,65 @@
             "precision": 1
           }
         ],
+        "full HNSW, ef_search=40": [
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "full HNSW + filter, ef_search=40": [
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "full HNSW + filter, iterative, ef_search=40": [
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "full HNSW, ef_search=160": [
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "full HNSW + filter, ef_search=160": [
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "full HNSW + filter, iterative, ef_search=160": [
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
         "partial HNSW, ef_search=40": [
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          },
           {
             "recall": 1,
             "precision": 1
           }
         ],
         "partial HNSW, ef_search=160": [
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          },
           {
             "recall": 1,
             "precision": 1
@@ -1279,13 +3213,65 @@
             "precision": 1
           }
         ],
+        "full HNSW, ef_search=40": [
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "full HNSW + filter, ef_search=40": [
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "full HNSW + filter, iterative, ef_search=40": [
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "full HNSW, ef_search=160": [
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "full HNSW + filter, ef_search=160": [
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "full HNSW + filter, iterative, ef_search=160": [
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
         "partial HNSW, ef_search=40": [
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          },
           {
             "recall": 1,
             "precision": 1
           }
         ],
         "partial HNSW, ef_search=160": [
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          },
           {
             "recall": 1,
             "precision": 1
@@ -1312,13 +3298,65 @@
             "precision": 1
           }
         ],
+        "full HNSW, ef_search=40": [
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "full HNSW + filter, ef_search=40": [
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "full HNSW + filter, iterative, ef_search=40": [
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "full HNSW, ef_search=160": [
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "full HNSW + filter, ef_search=160": [
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "full HNSW + filter, iterative, ef_search=160": [
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
         "partial HNSW, ef_search=40": [
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          },
           {
             "recall": 1,
             "precision": 1
           }
         ],
         "partial HNSW, ef_search=160": [
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          },
           {
             "recall": 1,
             "precision": 1
@@ -1345,13 +3383,65 @@
             "precision": 1
           }
         ],
+        "full HNSW, ef_search=40": [
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "full HNSW + filter, ef_search=40": [
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "full HNSW + filter, iterative, ef_search=40": [
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "full HNSW, ef_search=160": [
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "full HNSW + filter, ef_search=160": [
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "full HNSW + filter, iterative, ef_search=160": [
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
         "partial HNSW, ef_search=40": [
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          },
           {
             "recall": 1,
             "precision": 1
           }
         ],
         "partial HNSW, ef_search=160": [
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          },
           {
             "recall": 1,
             "precision": 1
@@ -1378,13 +3468,65 @@
             "precision": 1
           }
         ],
+        "full HNSW, ef_search=40": [
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "full HNSW + filter, ef_search=40": [
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "full HNSW + filter, iterative, ef_search=40": [
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "full HNSW, ef_search=160": [
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "full HNSW + filter, ef_search=160": [
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "full HNSW + filter, iterative, ef_search=160": [
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
         "partial HNSW, ef_search=40": [
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          },
           {
             "recall": 1,
             "precision": 1
           }
         ],
         "partial HNSW, ef_search=160": [
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          },
           {
             "recall": 1,
             "precision": 1
@@ -1411,13 +3553,65 @@
             "precision": 1
           }
         ],
+        "full HNSW, ef_search=40": [
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "full HNSW + filter, ef_search=40": [
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "full HNSW + filter, iterative, ef_search=40": [
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "full HNSW, ef_search=160": [
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "full HNSW + filter, ef_search=160": [
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "full HNSW + filter, iterative, ef_search=160": [
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
         "partial HNSW, ef_search=40": [
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          },
           {
             "recall": 1,
             "precision": 1
           }
         ],
         "partial HNSW, ef_search=160": [
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          },
           {
             "recall": 1,
             "precision": 1
@@ -1444,13 +3638,65 @@
             "precision": 1
           }
         ],
+        "full HNSW, ef_search=40": [
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "full HNSW + filter, ef_search=40": [
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "full HNSW + filter, iterative, ef_search=40": [
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "full HNSW, ef_search=160": [
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "full HNSW + filter, ef_search=160": [
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "full HNSW + filter, iterative, ef_search=160": [
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
         "partial HNSW, ef_search=40": [
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          },
           {
             "recall": 1,
             "precision": 1
           }
         ],
         "partial HNSW, ef_search=160": [
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          },
           {
             "recall": 1,
             "precision": 1
@@ -1477,13 +3723,65 @@
             "precision": 1
           }
         ],
+        "full HNSW, ef_search=40": [
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "full HNSW + filter, ef_search=40": [
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "full HNSW + filter, iterative, ef_search=40": [
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "full HNSW, ef_search=160": [
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "full HNSW + filter, ef_search=160": [
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "full HNSW + filter, iterative, ef_search=160": [
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
         "partial HNSW, ef_search=40": [
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          },
           {
             "recall": 1,
             "precision": 1
           }
         ],
         "partial HNSW, ef_search=160": [
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          },
           {
             "recall": 1,
             "precision": 1
@@ -1510,13 +3808,65 @@
             "precision": 1
           }
         ],
+        "full HNSW, ef_search=40": [
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "full HNSW + filter, ef_search=40": [
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "full HNSW + filter, iterative, ef_search=40": [
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "full HNSW, ef_search=160": [
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "full HNSW + filter, ef_search=160": [
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "full HNSW + filter, iterative, ef_search=160": [
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
         "partial HNSW, ef_search=40": [
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          },
           {
             "recall": 1,
             "precision": 1
           }
         ],
         "partial HNSW, ef_search=160": [
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          },
           {
             "recall": 1,
             "precision": 1
@@ -1543,13 +3893,65 @@
             "precision": 1
           }
         ],
+        "full HNSW, ef_search=40": [
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "full HNSW + filter, ef_search=40": [
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "full HNSW + filter, iterative, ef_search=40": [
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "full HNSW, ef_search=160": [
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "full HNSW + filter, ef_search=160": [
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "full HNSW + filter, iterative, ef_search=160": [
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
         "partial HNSW, ef_search=40": [
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          },
           {
             "recall": 1,
             "precision": 1
           }
         ],
         "partial HNSW, ef_search=160": [
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          },
           {
             "recall": 1,
             "precision": 1
@@ -1576,13 +3978,65 @@
             "precision": 1
           }
         ],
+        "full HNSW, ef_search=40": [
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "full HNSW + filter, ef_search=40": [
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "full HNSW + filter, iterative, ef_search=40": [
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "full HNSW, ef_search=160": [
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "full HNSW + filter, ef_search=160": [
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "full HNSW + filter, iterative, ef_search=160": [
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
         "partial HNSW, ef_search=40": [
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          },
           {
             "recall": 1,
             "precision": 1
           }
         ],
         "partial HNSW, ef_search=160": [
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          },
           {
             "recall": 1,
             "precision": 1
@@ -1609,13 +4063,65 @@
             "precision": 1
           }
         ],
+        "full HNSW, ef_search=40": [
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "full HNSW + filter, ef_search=40": [
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "full HNSW + filter, iterative, ef_search=40": [
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "full HNSW, ef_search=160": [
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "full HNSW + filter, ef_search=160": [
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "full HNSW + filter, iterative, ef_search=160": [
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
         "partial HNSW, ef_search=40": [
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          },
           {
             "recall": 1,
             "precision": 1
           }
         ],
         "partial HNSW, ef_search=160": [
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          },
           {
             "recall": 1,
             "precision": 1
@@ -1642,13 +4148,65 @@
             "precision": 1
           }
         ],
+        "full HNSW, ef_search=40": [
+          {
+            "recall": 1,
+            "precision": 0.4
+          }
+        ],
+        "full HNSW + filter, ef_search=40": [
+          {
+            "recall": 0.6,
+            "precision": 0.6
+          }
+        ],
+        "full HNSW + filter, iterative, ef_search=40": [
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "full HNSW, ef_search=160": [
+          {
+            "recall": 1,
+            "precision": 0.4
+          }
+        ],
+        "full HNSW + filter, ef_search=160": [
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "full HNSW + filter, iterative, ef_search=160": [
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
         "partial HNSW, ef_search=40": [
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          },
           {
             "recall": 1,
             "precision": 1
           }
         ],
         "partial HNSW, ef_search=160": [
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          },
           {
             "recall": 1,
             "precision": 1
@@ -1675,13 +4233,65 @@
             "precision": 1
           }
         ],
+        "full HNSW, ef_search=40": [
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "full HNSW + filter, ef_search=40": [
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "full HNSW + filter, iterative, ef_search=40": [
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "full HNSW, ef_search=160": [
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "full HNSW + filter, ef_search=160": [
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "full HNSW + filter, iterative, ef_search=160": [
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
         "partial HNSW, ef_search=40": [
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          },
           {
             "recall": 1,
             "precision": 1
           }
         ],
         "partial HNSW, ef_search=160": [
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          },
           {
             "recall": 1,
             "precision": 1
@@ -1708,13 +4318,65 @@
             "precision": 1
           }
         ],
+        "full HNSW, ef_search=40": [
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "full HNSW + filter, ef_search=40": [
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "full HNSW + filter, iterative, ef_search=40": [
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "full HNSW, ef_search=160": [
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "full HNSW + filter, ef_search=160": [
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "full HNSW + filter, iterative, ef_search=160": [
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
         "partial HNSW, ef_search=40": [
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          },
           {
             "recall": 1,
             "precision": 1
           }
         ],
         "partial HNSW, ef_search=160": [
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          },
           {
             "recall": 1,
             "precision": 1
@@ -1741,13 +4403,65 @@
             "precision": 1
           }
         ],
+        "full HNSW, ef_search=40": [
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "full HNSW + filter, ef_search=40": [
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "full HNSW + filter, iterative, ef_search=40": [
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "full HNSW, ef_search=160": [
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "full HNSW + filter, ef_search=160": [
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "full HNSW + filter, iterative, ef_search=160": [
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
         "partial HNSW, ef_search=40": [
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          },
           {
             "recall": 1,
             "precision": 1
           }
         ],
         "partial HNSW, ef_search=160": [
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          },
           {
             "recall": 1,
             "precision": 1
@@ -1774,13 +4488,65 @@
             "precision": 1
           }
         ],
+        "full HNSW, ef_search=40": [
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "full HNSW + filter, ef_search=40": [
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "full HNSW + filter, iterative, ef_search=40": [
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "full HNSW, ef_search=160": [
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "full HNSW + filter, ef_search=160": [
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "full HNSW + filter, iterative, ef_search=160": [
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
         "partial HNSW, ef_search=40": [
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          },
           {
             "recall": 1,
             "precision": 1
           }
         ],
         "partial HNSW, ef_search=160": [
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          },
           {
             "recall": 1,
             "precision": 1
@@ -1807,13 +4573,65 @@
             "precision": 1
           }
         ],
+        "full HNSW, ef_search=40": [
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "full HNSW + filter, ef_search=40": [
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "full HNSW + filter, iterative, ef_search=40": [
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "full HNSW, ef_search=160": [
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "full HNSW + filter, ef_search=160": [
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "full HNSW + filter, iterative, ef_search=160": [
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
         "partial HNSW, ef_search=40": [
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          },
           {
             "recall": 1,
             "precision": 1
           }
         ],
         "partial HNSW, ef_search=160": [
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          },
           {
             "recall": 1,
             "precision": 1
@@ -1840,13 +4658,65 @@
             "precision": 1
           }
         ],
+        "full HNSW, ef_search=40": [
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "full HNSW + filter, ef_search=40": [
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "full HNSW + filter, iterative, ef_search=40": [
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "full HNSW, ef_search=160": [
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "full HNSW + filter, ef_search=160": [
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "full HNSW + filter, iterative, ef_search=160": [
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
         "partial HNSW, ef_search=40": [
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          },
           {
             "recall": 1,
             "precision": 1
           }
         ],
         "partial HNSW, ef_search=160": [
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          },
           {
             "recall": 1,
             "precision": 1
@@ -1873,13 +4743,65 @@
             "precision": 1
           }
         ],
+        "full HNSW, ef_search=40": [
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "full HNSW + filter, ef_search=40": [
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "full HNSW + filter, iterative, ef_search=40": [
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "full HNSW, ef_search=160": [
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "full HNSW + filter, ef_search=160": [
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "full HNSW + filter, iterative, ef_search=160": [
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
         "partial HNSW, ef_search=40": [
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          },
           {
             "recall": 1,
             "precision": 1
           }
         ],
         "partial HNSW, ef_search=160": [
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          },
           {
             "recall": 1,
             "precision": 1
@@ -1906,13 +4828,65 @@
             "precision": 1
           }
         ],
+        "full HNSW, ef_search=40": [
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "full HNSW + filter, ef_search=40": [
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "full HNSW + filter, iterative, ef_search=40": [
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "full HNSW, ef_search=160": [
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "full HNSW + filter, ef_search=160": [
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "full HNSW + filter, iterative, ef_search=160": [
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
         "partial HNSW, ef_search=40": [
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          },
           {
             "recall": 1,
             "precision": 1
           }
         ],
         "partial HNSW, ef_search=160": [
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          },
           {
             "recall": 1,
             "precision": 1
@@ -1939,13 +4913,65 @@
             "precision": 1
           }
         ],
+        "full HNSW, ef_search=40": [
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "full HNSW + filter, ef_search=40": [
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "full HNSW + filter, iterative, ef_search=40": [
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "full HNSW, ef_search=160": [
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "full HNSW + filter, ef_search=160": [
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "full HNSW + filter, iterative, ef_search=160": [
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
         "partial HNSW, ef_search=40": [
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          },
           {
             "recall": 1,
             "precision": 1
           }
         ],
         "partial HNSW, ef_search=160": [
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          },
           {
             "recall": 1,
             "precision": 1
@@ -1972,13 +4998,65 @@
             "precision": 1
           }
         ],
+        "full HNSW, ef_search=40": [
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "full HNSW + filter, ef_search=40": [
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "full HNSW + filter, iterative, ef_search=40": [
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "full HNSW, ef_search=160": [
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "full HNSW + filter, ef_search=160": [
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "full HNSW + filter, iterative, ef_search=160": [
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
         "partial HNSW, ef_search=40": [
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          },
           {
             "recall": 1,
             "precision": 1
           }
         ],
         "partial HNSW, ef_search=160": [
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          },
           {
             "recall": 1,
             "precision": 1
@@ -2005,13 +5083,65 @@
             "precision": 1
           }
         ],
+        "full HNSW, ef_search=40": [
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "full HNSW + filter, ef_search=40": [
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "full HNSW + filter, iterative, ef_search=40": [
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "full HNSW, ef_search=160": [
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "full HNSW + filter, ef_search=160": [
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "full HNSW + filter, iterative, ef_search=160": [
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
         "partial HNSW, ef_search=40": [
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          },
           {
             "recall": 1,
             "precision": 1
           }
         ],
         "partial HNSW, ef_search=160": [
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          },
           {
             "recall": 1,
             "precision": 1
@@ -2038,13 +5168,65 @@
             "precision": 0
           }
         ],
+        "full HNSW, ef_search=40": [
+          {
+            "recall": 0.2,
+            "precision": 0
+          }
+        ],
+        "full HNSW + filter, ef_search=40": [
+          {
+            "recall": 1,
+            "precision": 0
+          }
+        ],
+        "full HNSW + filter, iterative, ef_search=40": [
+          {
+            "recall": 1,
+            "precision": 0
+          }
+        ],
+        "full HNSW, ef_search=160": [
+          {
+            "recall": 1,
+            "precision": 0
+          }
+        ],
+        "full HNSW + filter, ef_search=160": [
+          {
+            "recall": 1,
+            "precision": 0
+          }
+        ],
+        "full HNSW + filter, iterative, ef_search=160": [
+          {
+            "recall": 1,
+            "precision": 0
+          }
+        ],
         "partial HNSW, ef_search=40": [
+          {
+            "recall": 1,
+            "precision": 0
+          },
+          {
+            "recall": 1,
+            "precision": 0
+          },
           {
             "recall": 1,
             "precision": 0
           }
         ],
         "partial HNSW, ef_search=160": [
+          {
+            "recall": 1,
+            "precision": 0
+          },
+          {
+            "recall": 1,
+            "precision": 0
+          },
           {
             "recall": 1,
             "precision": 0
@@ -2071,13 +5253,65 @@
             "precision": 1
           }
         ],
+        "full HNSW, ef_search=40": [
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "full HNSW + filter, ef_search=40": [
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "full HNSW + filter, iterative, ef_search=40": [
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "full HNSW, ef_search=160": [
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "full HNSW + filter, ef_search=160": [
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "full HNSW + filter, iterative, ef_search=160": [
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
         "partial HNSW, ef_search=40": [
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          },
           {
             "recall": 1,
             "precision": 1
           }
         ],
         "partial HNSW, ef_search=160": [
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          },
           {
             "recall": 1,
             "precision": 1
@@ -2104,13 +5338,65 @@
             "precision": 1
           }
         ],
+        "full HNSW, ef_search=40": [
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "full HNSW + filter, ef_search=40": [
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "full HNSW + filter, iterative, ef_search=40": [
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "full HNSW, ef_search=160": [
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "full HNSW + filter, ef_search=160": [
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "full HNSW + filter, iterative, ef_search=160": [
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
         "partial HNSW, ef_search=40": [
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          },
           {
             "recall": 1,
             "precision": 1
           }
         ],
         "partial HNSW, ef_search=160": [
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          },
           {
             "recall": 1,
             "precision": 1
@@ -2137,13 +5423,65 @@
             "precision": 1
           }
         ],
+        "full HNSW, ef_search=40": [
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "full HNSW + filter, ef_search=40": [
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "full HNSW + filter, iterative, ef_search=40": [
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "full HNSW, ef_search=160": [
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "full HNSW + filter, ef_search=160": [
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
+        "full HNSW + filter, iterative, ef_search=160": [
+          {
+            "recall": 1,
+            "precision": 1
+          }
+        ],
         "partial HNSW, ef_search=40": [
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          },
           {
             "recall": 1,
             "precision": 1
           }
         ],
         "partial HNSW, ef_search=160": [
+          {
+            "recall": 1,
+            "precision": 1
+          },
+          {
+            "recall": 1,
+            "precision": 1
+          },
           {
             "recall": 1,
             "precision": 1
