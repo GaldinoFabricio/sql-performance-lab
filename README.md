@@ -22,8 +22,6 @@ Tested on a local PostgreSQL instance with 100,000 users, 50,000 orders, and 150
 | LIKE wildcard vs exact match     | 37.06ms       | 1.99ms       | **94.6%**   |
 | JOIN slow vs JOIN optimized      | 19.12ms       | 14.56ms      | **23.8%**   |
 
-See [RESULTS.md](./RESULTS.md) for the full benchmark breakdown.
-
 ---
 
 ## The Problem
@@ -143,7 +141,6 @@ sql-performance-lab/
 │   ├── text_queries.json, code_queries.json
 │   ├── results/       # one JSON per run (search-10k.json, rerank-100k-template.json, ...)
 │   └── plans/         # EXPLAIN ANALYZE on 1M logs
-├── RESULTS.md
 ├── SEMANTIC_SEARCH.md
 ├── docker-compose.yml
 └── package.json
@@ -153,13 +150,13 @@ sql-performance-lab/
 
 ## Running Locally
 
-**Prerequisites:** Node.js 18+, pnpm, Docker (PostgreSQL 17 + pgvector).
+**Prerequisites:** Node.js 20.19+, 22.13+ or 24+, pnpm, Docker (PostgreSQL 17 + pgvector).
 
 ```bash
 docker compose up -d
 pnpm install
-pnpm knex migrate:latest
-pnpm knex seed:run        # 100k users, 50k orders, 150k order_items
+pnpm migrate
+pnpm seed:run             # 100k users, 50k orders, 150k order_items
 pnpm dev
 ```
 
@@ -171,7 +168,7 @@ LOGS_COUNT=10000 pnpm seed:logs && pnpm embed:logs
 pnpm templates:build                              # one embedding per log template; rerun after reseeding
 pnpm eval:ground-truth --out=evals/ground_truth.10k.json
 pnpm eval:search --truth=evals/ground_truth.10k.json
-pnpm eval:partial-hnsw --skip-full
+pnpm eval:partial-hnsw --rebuild=3 --rebuild-full=3
 pnpm eval:rerank --stages=hybrid --doc=template
 ```
 
