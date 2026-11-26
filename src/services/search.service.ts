@@ -23,7 +23,8 @@ import { rerank as rerankHits, RerankDoc, rerankerReady } from "../search/rerank
  *    partial, WHERE level <> 'INFO' (migration 20261118120000), because
  *    incident searches got more precise and INFO inserts cheaper without
  *    them. With include_info=true no index covers the rows, so vector and
- *    hybrid scan every row exactly: fine at 10k, ~230 ms at 1M rows.
+ *    hybrid scan every row exactly: fine at 10k; at 1M rows the vector scan
+ *    alone takes ~255 ms (hybrid also pays for full-text).
  *  - template: exact search over one embedding per log template
  *    (pnpm templates:build), then the newest logs of the nearest templates.
  *  - rerank=N: the first stage returns N candidates and a cross-encoder

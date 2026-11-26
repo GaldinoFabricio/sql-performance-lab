@@ -249,7 +249,7 @@ function methodRows(r: Result, key: "text_queries" | "log_queries"): string[][] 
 function report(): string {
    const parts: string[] = [START, ""];
    parts.push(
-      `Measured on this machine (4 vCPU, PostgreSQL 17 + pgvector 0.8.1, warm cache, client-side wall time over a local socket). ` +
+      `Measured with PostgreSQL 17 + pgvector, warm cache, client-side wall time over a local socket; the runs are not confirmed to come from the same machine. ` +
          `Recall is tie-aware recall@10 against exact search; precision@10 is the share of the 10 results with the expected root cause. ` +
          `Where builds were repeated, recall shows the mean and the (min–max) across builds.`,
       "",
