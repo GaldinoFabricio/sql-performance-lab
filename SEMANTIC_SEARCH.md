@@ -50,9 +50,9 @@ Measured on this machine (4 vCPU, PostgreSQL 17 + pgvector 0.8.1, warm cache, cl
 
 | rows | table heap | GIN | HNSW m=16 efc=64 | HNSW m=16 efc=200 | HNSW m=32 efc=200 |
 | :--- | ---: | ---: | ---: | ---: | ---: |
-| 10k | 27.8 MB | 1.3 MB | 0.5 s, 16.1 MB | 1.0 s, 16.1 MB | 2.0 s, 16.6 MB |
+| 10k | 20.0 MB | 4.6 MB | 0.5 s, 16.1 MB | 1.3 s, 16.1 MB | 2.0 s, 16.6 MB |
 | 100k | 198 MB | 14.5 MB | 7.3 s, 146 MB | 13.0 s, 146 MB | 20.6 s, 149 MB |
-| 1M | 1964 MB | 98.0 MB | 4.2 min, 1387 MB | 25.0 min, 1382 MB | 77.5 min, 1401 MB |
+| 1M | 1957 MB | 98.8 MB | 2.2 min, 1384 MB | 3.8 min, 1380 MB | 5.8 min, 1388 MB |
 
 ### Free-text queries (60 typed searches, `evals/text_queries.json`)
 
@@ -60,16 +60,16 @@ Measured on this machine (4 vCPU, PostgreSQL 17 + pgvector 0.8.1, warm cache, cl
 
 | method | recall@10 | precision@10 | p50 ms | p95 ms |
 | :--- | ---: | ---: | ---: | ---: |
-| LIKE `%…%` (no index) | 14.5% | 35.0% | 8.09 | 9.13 |
-| full-text (GIN) | 25.3% | 80.0% | 3.51 | 12.6 |
-| vector, exact (seq scan) | 100.0% | 92.0% | 5.60 | 6.25 |
-| HNSW m=16 efc=64, ef_search=40 | 78.7% (77–83) | 73.2% | 0.47 | 0.61 |
-| HNSW m=16 efc=64, ef_search=160 | 90.9% (88–93) | 85.1% | 0.71 | 1.01 |
-| HNSW m=16 efc=200, ef_search=40 | 89.7% (85–95) | 82.1% | 0.47 | 0.64 |
-| HNSW m=16 efc=200, ef_search=160 | 94.7% (93–98) | 87.0% | 0.76 | 1.02 |
-| HNSW m=32 efc=200, ef_search=40 | 92.3% (90–94) | 85.4% | 0.54 | 0.74 |
-| HNSW m=32 efc=200, ef_search=160 | 96.7% (97–97) | 88.7% | 0.98 | 1.40 |
-| hybrid RRF (full-text + HNSW) | 54.6% (53–56) | 87.6% | 4.47 | 14.2 |
+| LIKE `%…%` (no index) | 14.5% | 35.0% | 13.6 | 15.4 |
+| full-text (GIN) | 25.3% | 80.0% | 3.89 | 13.7 |
+| vector, exact (seq scan) | 100.0% | 92.0% | 5.58 | 5.89 |
+| HNSW m=16 efc=64, ef_search=40 | 71.1% (67–76) | 68.0% | 0.57 | 0.76 |
+| HNSW m=16 efc=64, ef_search=160 | 86.8% (82–92) | 81.6% | 1.02 | 1.49 |
+| HNSW m=16 efc=200, ef_search=40 | 90.1% (87–93) | 85.1% | 0.55 | 0.73 |
+| HNSW m=16 efc=200, ef_search=160 | 94.6% (93–96) | 87.2% | 0.90 | 1.28 |
+| HNSW m=32 efc=200, ef_search=40 | 90.4% (89–91) | 84.5% | 0.67 | 0.96 |
+| HNSW m=32 efc=200, ef_search=160 | 96.8% (95–98) | 89.3% | 1.09 | 1.45 |
+| hybrid RRF (full-text + HNSW) | 53.8% (53–54) | 87.2% | 5.11 | 15.4 |
 
 **100k rows** (3 builds per config, 3 measured rounds)
 
@@ -86,20 +86,20 @@ Measured on this machine (4 vCPU, PostgreSQL 17 + pgvector 0.8.1, warm cache, cl
 | HNSW m=32 efc=200, ef_search=160 | 86.7% (83–92) | 81.8% | 1.07 | 2.07 |
 | hybrid RRF (full-text + HNSW) | 43.1% (42–44) | 80.5% | 27.0 | 115 |
 
-**1M rows** (1 build per config, 1 measured round)
+**1M rows** (1 build per config, 3 measured rounds)
 
 | method | recall@10 | precision@10 | p50 ms | p95 ms |
 | :--- | ---: | ---: | ---: | ---: |
-| LIKE `%…%` (no index) | 8.3% | 35.0% | 809 | 865 |
-| full-text (GIN) | 10.3% | 80.5% | 123 | 490 |
-| vector, exact (seq scan) | 100.0% | 91.7% | 220 | 226 |
-| HNSW m=16 efc=64, ef_search=40 | 40.8% | 73.2% | 0.88 | 1.09 |
-| HNSW m=16 efc=64, ef_search=160 | 53.7% | 78.2% | 1.57 | 2.23 |
-| HNSW m=16 efc=200, ef_search=40 | 49.3% | 70.0% | 0.82 | 1.02 |
-| HNSW m=16 efc=200, ef_search=160 | 60.5% | 70.0% | 1.58 | 2.37 |
-| HNSW m=32 efc=200, ef_search=40 | 53.2% | 65.5% | 1.10 | 1.61 |
-| HNSW m=32 efc=200, ef_search=160 | 63.7% | 72.2% | 1.88 | 4.48 |
-| hybrid RRF (full-text + HNSW) | 34.3% | 74.3% | 124 | 487 |
+| LIKE `%…%` (no index) | 8.3% | 35.0% | 1,859 | 2,029 |
+| full-text (GIN) | 10.3% | 80.5% | 142 | 994 |
+| vector, exact (seq scan) | 100.0% | 91.7% | 231 | 282 |
+| HNSW m=16 efc=64, ef_search=40 | 43.0% | 63.7% | 2.35 | 3.40 |
+| HNSW m=16 efc=64, ef_search=160 | 56.2% | 70.2% | 4.99 | 8.24 |
+| HNSW m=16 efc=200, ef_search=40 | 52.3% | 73.3% | 2.08 | 3.27 |
+| HNSW m=16 efc=200, ef_search=160 | 63.0% | 77.2% | 4.17 | 6.74 |
+| HNSW m=32 efc=200, ef_search=40 | 54.8% | 68.3% | 2.97 | 5.15 |
+| HNSW m=32 efc=200, ef_search=160 | 67.8% | 73.3% | 5.49 | 11.9 |
+| hybrid RRF (full-text + HNSW) | 36.7% | 75.5% | 141 | 956 |
 
 ### Log queries (100 logs sampled from the table, `evals/ground_truth*.json`)
 
@@ -107,16 +107,16 @@ Measured on this machine (4 vCPU, PostgreSQL 17 + pgvector 0.8.1, warm cache, cl
 
 | method | recall@10 | precision@10 | p50 ms | p95 ms |
 | :--- | ---: | ---: | ---: | ---: |
-| LIKE `%…%` (no index) | 19.2% | 87.4% | 1.17 | 8.26 |
-| full-text (GIN) | 28.9% | 100.0% | 22.5 | 176 |
-| vector, exact (seq scan) | 100.0% | 99.5% | 5.63 | 6.31 |
-| HNSW m=16 efc=64, ef_search=40 | 99.5% (98–100) | 99.0% | 0.41 | 0.51 |
-| HNSW m=16 efc=64, ef_search=160 | 100.0% (100–100) | 99.5% | 0.63 | 0.84 |
-| HNSW m=16 efc=200, ef_search=40 | 100.0% (100–100) | 99.5% | 0.44 | 0.55 |
-| HNSW m=16 efc=200, ef_search=160 | 100.0% (100–100) | 99.5% | 0.66 | 0.84 |
-| HNSW m=32 efc=200, ef_search=40 | 100.0% (100–100) | 99.5% | 0.48 | 0.62 |
-| HNSW m=32 efc=200, ef_search=160 | 100.0% (100–100) | 99.5% | 0.78 | 1.10 |
-| hybrid RRF (full-text + HNSW) | 56.2% (56–56) | 99.3% | 24.2 | 174 |
+| LIKE `%…%` (no index) | 19.2% | 87.4% | 2.15 | 15.1 |
+| full-text (GIN) | 28.9% | 100.0% | 23.8 | 166 |
+| vector, exact (seq scan) | 100.0% | 99.5% | 5.31 | 5.60 |
+| HNSW m=16 efc=64, ef_search=40 | 98.7% (98–100) | 98.7% | 0.52 | 0.63 |
+| HNSW m=16 efc=64, ef_search=160 | 99.7% (99–100) | 99.2% | 0.79 | 1.11 |
+| HNSW m=16 efc=200, ef_search=40 | 100.0% (100–100) | 99.5% | 0.48 | 0.60 |
+| HNSW m=16 efc=200, ef_search=160 | 100.0% (100–100) | 99.5% | 0.76 | 1.17 |
+| HNSW m=32 efc=200, ef_search=40 | 100.0% (100–100) | 99.5% | 0.62 | 1.07 |
+| HNSW m=32 efc=200, ef_search=160 | 100.0% (100–100) | 99.5% | 0.91 | 1.22 |
+| hybrid RRF (full-text + HNSW) | 56.2% (56–56) | 99.3% | 24.6 | 170 |
 
 **100k rows** (3 builds per config, 3 measured rounds)
 
@@ -133,42 +133,42 @@ Measured on this machine (4 vCPU, PostgreSQL 17 + pgvector 0.8.1, warm cache, cl
 | HNSW m=32 efc=200, ef_search=160 | 99.7% (99–100) | 100.0% | 1.02 | 1.68 |
 | hybrid RRF (full-text + HNSW) | 57.5% (57–58) | 99.7% | 415 | 1,637 |
 
-**1M rows** (1 build per config, 1 measured round)
+**1M rows** (1 build per config, 3 measured rounds)
 
 | method | recall@10 | precision@10 | p50 ms | p95 ms |
 | :--- | ---: | ---: | ---: | ---: |
-| LIKE `%…%` (no index) | 16.3% | 94.0% | 1.53 | 798 |
-| full-text (GIN) | 32.6% | 100.0% | 1,023 | 6,358 |
-| vector, exact (seq scan) | 100.0% | 100.0% | 222 | 225 |
-| HNSW m=16 efc=64, ef_search=40 | 91.7% | 100.0% | 0.66 | 1.03 |
-| HNSW m=16 efc=64, ef_search=160 | 93.4% | 100.0% | 1.19 | 2.31 |
-| HNSW m=16 efc=200, ef_search=40 | 91.1% | 99.0% | 0.65 | 1.05 |
-| HNSW m=16 efc=200, ef_search=160 | 93.3% | 100.0% | 1.33 | 2.46 |
-| HNSW m=32 efc=200, ef_search=40 | 88.9% | 97.0% | 0.83 | 1.56 |
-| HNSW m=32 efc=200, ef_search=160 | 93.0% | 98.0% | 1.48 | 3.35 |
-| hybrid RRF (full-text + HNSW) | 62.4% | 99.0% | 1,022 | 6,497 |
+| LIKE `%…%` (no index) | 16.3% | 94.0% | 2.50 | 1,824 |
+| full-text (GIN) | 32.6% | 100.0% | 1,764 | 9,558 |
+| vector, exact (seq scan) | 100.0% | 100.0% | 232 | 283 |
+| HNSW m=16 efc=64, ef_search=40 | 90.2% | 100.0% | 1.59 | 2.94 |
+| HNSW m=16 efc=64, ef_search=160 | 92.3% | 100.0% | 3.02 | 6.97 |
+| HNSW m=16 efc=200, ef_search=40 | 89.5% | 97.7% | 1.87 | 3.49 |
+| HNSW m=16 efc=200, ef_search=160 | 90.8% | 98.1% | 3.58 | 7.99 |
+| HNSW m=32 efc=200, ef_search=40 | 90.0% | 100.0% | 2.07 | 4.43 |
+| HNSW m=32 efc=200, ef_search=160 | 94.0% | 100.0% | 4.06 | 10.4 |
+| hybrid RRF (full-text + HNSW) | 62.9% | 100.0% | 1,755 | 9,453 |
 
 ### Free-text precision@10 by kind of query
 
 | rows | kind | LIKE | full-text | vector exact | HNSW m=32 efc=200 ef=40 | hybrid |
 | :--- | :--- | ---: | ---: | ---: | ---: | ---: |
-| 10k | keyword | 83.3% | 91.3% | 91.3% | 81.8% | 88.6% |
-| 10k | mixed | 5.3% | 94.2% | 99.5% | 92.5% | 95.4% |
-| 10k | paraphrase | 0.0% | 48.2% | 84.7% | 82.7% | 77.5% |
+| 10k | keyword | 83.3% | 91.3% | 91.3% | 76.4% | 86.0% |
+| 10k | mixed | 5.3% | 94.2% | 99.5% | 94.6% | 96.3% |
+| 10k | paraphrase | 0.0% | 48.2% | 84.7% | 84.7% | 78.6% |
 | 100k | keyword | 83.3% | 91.3% | 91.7% | 74.2% | 84.9% |
 | 100k | mixed | 5.3% | 94.2% | 97.9% | 82.6% | 88.8% |
 | 100k | paraphrase | 0.0% | 50.0% | 87.6% | 76.9% | 65.1% |
-| 1M | keyword | 83.3% | 91.3% | 91.7% | 54.2% | 74.6% |
-| 1M | mixed | 5.3% | 94.2% | 95.3% | 78.9% | 86.8% |
-| 1M | paraphrase | 0.0% | 50.0% | 87.6% | 66.5% | 60.0% |
+| 1M | keyword | 83.3% | 91.3% | 91.7% | 66.7% | 80.8% |
+| 1M | mixed | 5.3% | 94.2% | 95.3% | 68.4% | 81.6% |
+| 1M | paraphrase | 0.0% | 50.0% | 87.6% | 70.6% | 61.2% |
 
 ### Free-text queries where a method returns nothing relevant (precision@10 = 0, of 60)
 
 | rows | LIKE | full-text | vector exact | HNSW m=32 efc=200 ef=40 | HNSW m=32 efc=200 ef=160 | hybrid |
 | :--- | ---: | ---: | ---: | ---: | ---: | ---: |
-| 10k | 39 | 7 | 4 | 5 | 4 | 2 |
+| 10k | 39 | 7 | 4 | 7 | 5 | 2 |
 | 100k | 39 | 7 | 4 | 6 | 4 | 2 |
-| 1M | 39 | 7 | 4 | 20 | 16 | 3 |
+| 1M | 39 | 7 | 4 | 18 | 15 | 3 |
 
 ### Larger ef_search, 1M rows, HNSW m=16 efc=64 (`evals/results/search-1m-ef.json`, a separate build)
 
@@ -180,7 +180,7 @@ Measured on this machine (4 vCPU, PostgreSQL 17 + pgvector 0.8.1, warm cache, cl
 | 640 | 59.7% | 72.0% | 4.04 | 7.15 | 95.8% |
 | 1000 | 62.8% | 73.7% | 6.39 | 12.2 | 95.8% |
 
-Embedding a typed query with the local model adds ~1.65 ms (p50) before any vector search.
+Embedding a typed query with the local model adds ~1.66 ms (p50) before any vector search.
 
 <!-- results:end -->
 
