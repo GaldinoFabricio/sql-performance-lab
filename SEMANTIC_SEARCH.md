@@ -193,7 +193,7 @@ The 10k and 1M results above are from runs on 2026-11-24 and the 100k results fr
 - Full-text reaches 80% precision. It still scores 0 on paraphrases that share no stem with the logs ("server ran out of RAM"), and on tokenizer surprises: `NullPointerException` doesn't match the token `java.lang.nullpointerexception`, and "too many requests" loses "too" and "many" as stopwords.
 - Vectors score 0% on bare codes such as `ECONNRESET` and `x509`, where full-text scores 100%. A code means nothing to a sentence-embedding model.
 
-**2. Exact vector search is the quality ceiling, and its cost grows with the table.** Precision stays at ~92% at every size, but p50 goes from 5.6 ms (10k) to 27 ms (100k) to 231 ms (1M): a full scan, row by row.
+**2. Exact vector search is the quality ceiling for per-row ranking, and its cost grows with the table.** Precision stays at ~92% at every size, but p50 goes from 5.6 ms (10k) to 27 ms (100k) to 231 ms (1M): a full scan, row by row.
 
 **3. HNSW recall depends on what you ask it, so the eval set matters.**
 - *Log queries* are rows from the table, so they sit where the data is. HNSW finds 91–100% of their exact neighbours at ef_search 160.
@@ -201,19 +201,20 @@ The 10k and 1M results above are from runs on 2026-11-24 and the 100k results fr
 - At 1M, 15 of the 60 typed queries come back with no relevant log at all, against 4 for exact search. The greedy graph walk ends in the wrong region.
 - An eval built only from rows of the table, the easy thing to build, would have reported 94% and hidden this.
 
-**4. Build parameters matter more than ef_search, until the build itself becomes the problem.**
+**4. Build parameters matter, and ef_search buys back only part of the difference.**
 - At 100k, m=32/ef_construction=200 at ef_search 40 (79%) beats the default 16/64 at ef_search 160 (65%).
-- At 1M, ef_search 1000 on the default index (62.8%, 6.4 ms) catches up with m=32/200 at ef_search 160 (63.7%, 1.9 ms). Query-time effort can buy back recall, at about 3x the latency.
-- The bigger graph is expensive to build: 5.8 min at 1M, against 2.2 min for the default.
+- At 1M that pair is about level (54.8% vs 56.2%). At the same ef_search 160, m=32/200 reaches 67.8% against 56.2% for the default.
+- More query-time effort helps: in a separate, older sweep of the default index (`search-1m-ef.json`), ef_search 160 → 1000 went from 52.2% (1.7 ms) to 62.8% (6.4 ms). That is still below the 67.8% (5.5 ms) of m=32/200 at 160, though these are different builds, one each.
+- The bigger graph takes longer to build: 5.8 min at 1M, against 2.2 min for the default.
 
-**5. Recall against exact search is not relevance.** At 1M, m=32/200 at ef_search 160 has higher recall than 16/64 (63.7% vs 53.7%) but lower precision (72.2% vs 78.2%). Missing a true neighbour doesn't always mean missing a relevant log, and each config was built only once at 1M. Both metrics are reported for this reason.
+**5. Recall against exact search is not relevance.** At 1M and ef_search 160, m=32/200 has higher recall than m=16/200 (67.8% vs 63.0%) but lower precision (73.3% vs 77.2%). Missing a true neighbour doesn't always mean missing a relevant log, and each config was built only once at 1M. Both metrics are reported for this reason.
 
 **6. Measure the noise before reading the differences.**
 - Builds of the same config differ by up to 15 recall points at 10k: 47–61% for 16/64 at ef_search 10.
-- The first ef_search measured after a fresh build pays for warming the cache. That causes the backwards segments in the chart (log queries, ef_search 10 slower than 20: both m=16 configs at 10k, 16/64 at 1M). The separate 1M sweep has one too: ef_search 40 (2.6 ms) is slower than 160.
+- The chart has backwards segments (log queries, ef_search 10 slower than 20: both m=16 configs at 10k, 16/64 at 1M), and so does the separate 1M sweep: ef_search 40 (2.6 ms) is slower than 160. In each case the slower value was measured first. A colder cache after a fresh build could explain it, but this was not measured.
 
 **7. Hybrid is the safest mode, not the best on average.**
-- Exact vectors have the best mean precision.
+- Among the methods that rank individual logs, exact vectors have the best mean precision. [Template mode](#one-embedding-per-log-template) scores higher.
 - Hybrid fails least: 2–3 of 60 typed queries come back with nothing relevant, against 7 for full-text and 15–18 for HNSW (m=32) at 1M.
 - It pays for its full-text side: 141 ms p50 at 1M for typed queries, and over a second for long log-text queries, whose OR of many lexemes matches a large share of the table.
 
@@ -221,11 +222,11 @@ The 10k and 1M results above are from runs on 2026-11-24 and the 100k results fr
 
 ## Conclusion
 
-**The production index is m = 32, ef_construction = 200** (migration `20261115130000_add_logs_embedding_hnsw_index.ts`). It had the best typed-query recall at every size, and builds in seconds up to 100k rows. Since migration `20261118120000` it is a partial index without INFO logs, with the same parameters: see [A partial HNSW index without INFO logs](#a-partial-hnsw-index-without-info-logs).
+**The production index is m = 32, ef_construction = 200** (migration `20261115130000_add_logs_embedding_hnsw_index.ts`). It had the best typed-query recall at every size (though not the best precision at 1M, see finding 5), and builds in seconds up to 100k rows. Since migration `20261118120000` it is a partial index without INFO logs, with the same parameters: see [A partial HNSW index without INFO logs](#a-partial-hnsw-index-without-info-logs).
 
 **The default ef_search is 160.**
-- **Why not lower:** going from 40 to 160 adds 4 (10k), 7 (100k) and 10 (1M) recall points and costs less than a millisecond. At 1M, ef_search 160 is 1.9 ms p50 and 4.5 ms p95. That is about the cost of embedding the query (1.6 ms) and far below hybrid's full-text side (124 ms). ef_search is not where the time goes.
-- **Why not higher by default:** past 160, recall keeps rising at 1M, but slowly. On the default index, 160 → 1000 adds 10 points for 4x the latency. So the endpoint accepts `ef_search` up to 1000 per request ("dig deeper"), and the default stays at 160.
+- **Why not lower:** going from 40 to 160 adds 6 (10k), 7 (100k) and 13 (1M) recall points. It costs under half a millisecond up to 100k and 2.5 ms at 1M, where ef_search 160 is 5.5 ms p50 and 11.9 ms p95. That is close to the cost of embedding the query (4.4 ms p50 in that run) and far below hybrid's full-text side (142 ms). ef_search is not where the time goes.
+- **Why not higher by default:** past 160, recall keeps rising at 1M, but slowly. In the separate sweep of the default index, 160 → 1000 adds about 11 points for about 4x the latency (not measured on m=32/200). So the endpoint accepts `ef_search` up to 1000 per request ("dig deeper"), and the default stays at 160.
 
 **The default mode is hybrid.** It is the only mode without a blind spot: codes come from the full-text side, paraphrases from the vector side, and almost no query comes back empty-handed.
 
@@ -233,7 +234,7 @@ The 10k and 1M results above are from runs on 2026-11-24 and the 100k results fr
 - At 1M rows, typed queries lose ~18 precision points with HNSW against exact search (73% vs 92%).
 - For an internal on-call tool with a few searches a minute, exact search at ~230 ms is a legitimate answer.
 - Narrowing first is better still: a service or time window makes exact search over the remaining rows cheap. Phase 5 measures this ([evals/plans/README.md](evals/plans/README.md), experiments 16–20).
-- When the index must be rebuilt often (a new embedding model means re-embedding and rebuilding), the default m = 16 / ef_construction = 64 with a larger ef_search gets close to the same recall for 3x the query latency and a fraction of the build time.
+- When the index must be rebuilt often (a new embedding model means re-embedding and rebuilding), the default m = 16 / ef_construction = 64 is an option: it built in 2.2 min against 5.8 min at 1M. A larger ef_search narrows the gap without closing it: at 1000 it had 62.8% recall and 73.7% precision at 6.4 ms, against 67.8%, 73.3% and 5.5 ms for m=32/200 at 160 (separate runs, one build each).
 
 ## One embedding per log template
 
@@ -572,14 +573,14 @@ A 1M-row eval takes hours: embedding the rows, the exact ground truth (a 1M-row 
 | HNSW recall@10, free text | 90.4% | 79.3% | 68.2% | 54.8% | +24% |
 | HNSW recall@10, free text, ef_search 160 | 96.8% | 86.7% | 76.6% | 67.8% | +13% |
 
-Error is `(projected - measured) / measured`: positive means the projection was too optimistic about quality or too slow, negative means it hid a cost.
+Error is `(projected - measured) / measured`: positive means the projection was too optimistic about quality or too slow, negative means it hid a cost. Sizes in this section are in MB of 10⁶ bytes. The generated tables above divide by 1,048,576, so 1,455 MB here is 1,388 MB there.
 
 ### Findings
 
-**1. Size, tail latency of full-text and hybrid precision project well.** All within 4%, except full-text p50, which is 31% off but whose p95 (the number that matters for a user) is within 2%. The HNSW size is almost exactly linear in rows: 1.45 GB at 1M is 1.4 KB per row, about the same at every size. m and ef_construction barely move it (1,447 to 1,455 MB).
+**1. Size, tail latency of full-text and hybrid precision project well.** All within 4%, except full-text p50, which is 31% off but whose p95 (the number that matters for a user) is within 2%. The HNSW size is close to linear in rows: about 1.7 KB per row at 10k, 1.6 KB at 100k and 1.5 KB at 1M. m and ef_construction barely move it (1,447 to 1,455 MB).
 
 **2. Latency and build time cost more than the trend says.**
-- Exact vector search grows 5x from 10k to 100k and 8.6x from 100k to 1M: the table (2 GB heap, 1.4 GB index) stops fitting in the page cache.
+- Exact vector search grows 5x from 10k to 100k and 8.6x from 100k to 1M. The 10k plan is a single-process scan, while the 100k and 1M plans are parallel (2 workers planned, see `plan` in the result files), so the first step understates how cost grows with rows. The table (2 GB heap at 1M) may also fit worse in cache, but no run recorded cache statistics, so that is untested.
 - HNSW p50 is flat from 10k to 100k (0.67 and 0.68 ms), so a projection from those two sees no growth and says 0.69 ms. The measured 1M value is 2.97 ms. A flat segment is the wrong thing to extrapolate.
 - The build takes 346 s, not 210 s. Pgvector builds faster while the graph fits in `maintenance_work_mem` and slows down once it does not; the 1M run had 3,907 MB for a 1.45 GB index, so memory is not the explanation here and the cause was not isolated.
 - For these three, use the measured 1M number.
@@ -590,11 +591,12 @@ Error is `(projected - measured) / measured`: positive means the projection was 
 - Raising ef_search helps but does not close the gap: at ef_search 160 the free-text recall is 67.8% at 1M, where the line says 76.6%.
 - A 10k run therefore cannot tell you the recall at 1M, and a recall of 100% at 10k says nothing about it. Pick `ef_search` from a 1M run (see [Conclusion](#conclusion)).
 
-**4. The ranking between methods mostly holds, with one swap.**
-- Exact vector search leads free-text precision at every size (92.0%, 92.5%, 91.7%).
-- HNSW sits below hybrid at every size, and LIKE is last at every size (35.0%).
+**4. The ranking between methods only partly holds.**
+- Among the methods that rank individual logs, exact vector search leads free-text precision at every size (92.0%, 92.5%, 91.7%). Template mode scores higher: 98.3% at 10k and 100k (`search-10k.json`, `search-100k-templates-only.json`) and 95.0% at 1M, in a run made before the template descriptions were added.
+- At ef_search 40, HNSW (m=32) sits below hybrid at every size. At ef_search 160 it is above fixed hybrid at 10k (89.3% against 87.2%) and 100k (81.8% against 80.5%) and below it at 1M (73.3% against 75.5%). Routed hybrid at 10k (90.0%) is still above it.
+- LIKE is last at every size (35.0%).
 - Hybrid and full-text swap places. Hybrid (RRF m=32) is at 87.2% against 80.0% for full-text at 10k, and 75.5% against 80.5% at 1M. The router, +2.8 points over fixed RRF at 10k (noise 0.8), is 77.8% against 80.5% at 1M.
-- So a 10k run is a good way to compare ideas such as routing, templates or the reranker against each other, but a verdict of "hybrid beats full-text" at 10k does not hold at 1M.
+- So a 10k run is useful for trying ideas such as routing or templates, but a verdict of "hybrid beats full-text", or "HNSW at ef_search 160 beats hybrid", does not hold at 1M. The reranker has no 1M run, so whether its 10k results carry over is untested.
 
 **5. The noise shrinks too.** The 1M run has one HNSW build per config (`repeats: 1`), so its min-max ranges and the routing noise (0.0) say nothing. At 10k, with 3 builds, noise is measurable: 0.8 points for all queries, 2.5 for keyword. Judge a routing or reranking difference at 10k against that noise, and treat 1M differences between builds as unmeasured.
 
@@ -602,9 +604,9 @@ Error is `(projected - measured) / measured`: positive means the projection was 
 
 | Question | Run at | Why |
 | -------- | ------ | --- |
-| Does the router, template list, code list or reranker help? | 10k (3 builds) | Needs several builds for noise; ranking among them mostly transfers |
+| Does the router, template list, code list or reranker help? | 10k (3 builds) | Needs several builds for noise. Of these, only the router was also run at 1M with the others off |
 | How big is the index, and how slow is full-text's tail? | 10k, project | Scales as a power law, error under 5% |
-| Latency, build time, memory | 1M | Cache and `maintenance_work_mem` effects appear only there |
+| Latency, build time, memory | 1M | Latency and build time came out well above the trend from 10k and 100k |
 | HNSW recall and the default `ef_search` | 1M | Falls faster than any projection from smaller sizes |
 
 ### Limits
@@ -644,6 +646,8 @@ The response says `include_info`, and `ms: { embed, search, rerank, total }`. Wh
 | paraphrase | +3.7 | 17.6 | no |
 
 Routing made 6 queries worse, the worst being "redis is down" (67% → 33%). The shape rule also has known misses: lowercase codes (`econnreset`) and sentences with an acronym ("partner API is throttling our calls"). So `route=true` is opt-in until an eval at a larger size shows a gain above the noise.
+
+A later 10k run (`search-10k.json`, 3 builds) measured less noise: routed minus fixed was +2.8 points overall (noise 0.8), +5.7 on keyword, +5.5 on paraphrase and −3.2 on mixed. At 1M (`search-1m.json`, 1 build, so noise is unmeasured) it was +2.3 overall and −11.6 on mixed, and routed hybrid left 12 queries with nothing relevant against 3 for fixed. The default is unchanged.
 
 ## Reproduce
 

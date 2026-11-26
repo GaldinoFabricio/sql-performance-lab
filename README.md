@@ -97,11 +97,11 @@ A 1M-row eval takes hours (embedding, ground truth, HNSW builds), so day-to-day 
 | HNSW recall@10 (free text) | 68.2% | 54.8% | +24% |
 | HNSW recall@10 (log queries) | 96.6% | 90.0% | +7% |
 
-(Power law through 10k and 100k for sizes and times, a straight line in log10(rows) for recall and precision. The 10k and 1M runs are from 2026-11-24, the 100k run from 2026-11-15; it is not confirmed that they ran on the same machine.)
+(Power law through 10k and 100k for sizes and times, a straight line in log10(rows) for recall and precision. The 10k and 1M runs are from 2026-11-24, the 100k run from 2026-11-15; it is not confirmed that they ran on the same machine. Here MB is 10⁶ bytes; the generated tables in SEMANTIC_SEARCH.md divide by 1,048,576.)
 
-- **10k is enough to compare methods**: precision by query kind, the router against fixed RRF, templates, the reranker. The order of exact vector, HNSW and LIKE holds at every size. Hybrid and full-text swap places: hybrid leads at 10k (87-90% against 80%) and trails at 1M (75-78% against 80.5%), so a hybrid-vs-full-text verdict at 10k does not carry over.
+- **10k is useful for comparing methods**, such as precision by query kind, the router against fixed RRF and templates. The order of exact vector, HNSW and LIKE holds at every size, but others do not. Hybrid leads full-text at 10k (87-90% against 80%) and trails it at 1M (75-78% against 80.5%). At `ef_search` 160, HNSW is above fixed hybrid at 10k and 100k and below it at 1M. The reranker has no 1M run, so its carry-over is untested.
 - **10k projects well** index size, tail latency of full-text and hybrid precision.
-- **10k is too optimistic** about HNSW recall and too cheap on latency and build time. Past 100k the index stops fitting in cache and recall falls faster (free text, m=32: -11 points from 10k to 100k, -24 from 100k to 1M). Plan a higher `ef_search` for 1M and use the measured 1M numbers for latency and build time.
+- **10k is too optimistic** about HNSW recall and too cheap on latency and build time. Recall falls faster past 100k (free text, m=32: -11 points from 10k to 100k, -24 from 100k to 1M). Cache pressure may add to the latency growth, but it was not measured. Plan a higher `ef_search` for 1M and use the measured 1M numbers for latency and build time.
 
 Latest 10k run (`evals/results/search-10k.json`, `rerank-10k-template.json`): the template method reaches 98.3% precision on free text, the router beats fixed RRF by +2.8 points (noise 0.8), and the reranker takes hybrid from 96.5% to 97.0% (top 20) and 98.3% (top 50, the ceiling).
 
