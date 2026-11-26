@@ -45,7 +45,7 @@ import { templateSearch, templatesCurrent } from "../search/templates";
  * recreated from its saved definition at the end.
  * Results go to evals/results/search-<rows>.json, or --out.
  *
- * Usage: pnpm eval:search [--truth=evals/ground_truth.json] [--rounds=3]
+ * Usage: pnpm eval:search [--truth=evals/ground_truth.10k.json] [--rounds=3]
  *        [--hnsw=16:64,16:200,32:200] [--ef=10,20,40,80,160] [--repeats=N]
  *        [--hybrid-last-only] [--keep-index] [--out=evals/results/x.json]
  *        [--templates-only]
@@ -67,7 +67,7 @@ const flag = (name: string) =>
    process.argv.find((a) => a.startsWith(`--${name}=`))?.slice(name.length + 3);
 const ROOT = path.resolve(__dirname, "../..");
 const TRUTH_PATH = path.resolve(
-   flag("truth") ?? path.join(ROOT, "evals/ground_truth.json"),
+   flag("truth") ?? path.join(ROOT, "evals/ground_truth.10k.json"),
 );
 const TEXT_QUERIES_PATH = path.join(ROOT, "evals/text_queries.json");
 const ROUNDS = Number(flag("rounds") ?? 3);

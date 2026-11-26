@@ -1,6 +1,6 @@
 # Evals
 
-## `ground_truth.json`
+## `ground_truth.<size>.json`
 
 For 100 logs sampled from the `logs` table (seed 42), the **exact** 10 nearest
 neighbors by cosine distance (`<=>`), excluding the query row itself.
@@ -68,9 +68,10 @@ is reproducible.
   mostly near-copies of the same template. That's expected for nearest-neighbor
   search, and it doesn't make recall less valid. It is why relevance needs its
   own eval.
-- **One file per table size.** `ground_truth.json` is for the default 10k
-  rows (CI). Larger tables get their own file, built with the same script and
-  checks: `pnpm eval:ground-truth --out=evals/ground_truth.100k.json` after
+- **One file per table size.** `ground_truth.10k.json` is for the default 10k
+  rows, and the scripts use it when no path is given. Larger tables get their
+  own file, built with the same script and checks:
+  `pnpm eval:ground-truth --out=evals/ground_truth.100k.json` after
   `LOGS_COUNT=100000 pnpm seed:logs && pnpm embed:logs`. At 100k, the exact
   scan takes ~5s for the 100 queries and the JS cross-check ~19s.
 
