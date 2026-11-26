@@ -58,7 +58,7 @@ is reproducible.
   the graph search finds them easily. Typed searches like "redis is down" land
   *outside* the data (nearest neighbor at ~0.4), and there HNSW recall drops
   sharply. Phase 3 showed this: at 10k rows with pgvector's default build,
-  `ef_search=40` gives 99.5% recall on log queries but 79% on free text. So
+  `ef_search=40` gives 98.7% recall on log queries but 71% on free text. So
   `pnpm eval:search` also measures recall for `text_queries.json`. Exact
   search is the truth for any query vector, so it computes the exact k-th
   distance for each free-text query with the same forced sequential scan.
@@ -196,7 +196,7 @@ queries. Write-up in [SEMANTIC_SEARCH.md](../SEMANTIC_SEARCH.md#a-partial-hnsw-i
 
 Flags: `--rebuild=N` builds of the partial index (default 1),
 `--rebuild-full=N` builds of the full one (default: the existing index),
-`--skip-full` (the 1M file: building the full index takes ~77 min), `--rounds`,
+`--skip-full` (the 1M file: building the full index takes ~6 min), `--rounds`,
 `--write-rows`, `--keep-index`. If the partial index existed before the run
 (it is the production index), its last build stays.
 

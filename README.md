@@ -79,7 +79,7 @@ A single endpoint that runs both the slow and optimized versions multiple times 
 
 `GET /search/logs` searches a synthetic `logs` table four ways: `LIKE`, full-text (GIN), vectors (exact and HNSW) and a hybrid of both. Each is measured with recall and precision evals at 10k, 100k and 1M rows.
 
-Headline: with 1M rows, an HNSW index answers in ~2 ms instead of 220 ms, but finds only 64% of the true nearest neighbours for typed queries. Searching one embedding per log template (68 of them) instead of one per row gets 95% precision in under 1 ms at every size. A partial HNSW index without INFO logs (74% of the rows) raises HNSW precision at 1M from 72% to 87%, and builds in 68 s instead of 77 min. Typed error codes such as `40P01`, which never appear in the message text, now match through the `error_code` column: precision on code queries went from 62% to 99.7% at 100k. A cross-encoder reranker that reads LLM-written descriptions of the templates (written once, not per search) takes typed-query precision at 100k from 89–91% to 96.5–98.2%, near the candidates' ceiling, for 14 ms. Full write-up, chart and conclusions: [SEMANTIC_SEARCH.md](./SEMANTIC_SEARCH.md).
+Headline: with 1M rows, an HNSW index (`ef_search` 160) answers in ~5.5 ms instead of 231 ms, but finds only 68% of the true nearest neighbours for typed queries. Searching one embedding per log template (68 of them) instead of one per row gets 95% precision in under 1 ms at every size. A partial HNSW index without INFO logs (74% of the rows) raises HNSW precision at 1M from 73% to 87%, and builds in 68 s instead of 5.8 min (separate runs). Typed error codes such as `40P01`, which never appear in the message text, now match through the `error_code` column: precision on code queries went from 62% to 99.7% at 100k. A cross-encoder reranker that reads LLM-written descriptions of the templates (written once, not per search) takes typed-query precision at 100k from 88.7–92.2% to 98.2% across three index builds, near the candidates' ceiling, for 12 ms. Full write-up, chart and conclusions: [SEMANTIC_SEARCH.md](./SEMANTIC_SEARCH.md).
 
 #### Working at 10k and projecting to 1M
 
@@ -90,13 +90,14 @@ A 1M-row eval takes hours (embedding, ground truth, HNSW builds), so day-to-day 
 | HNSW size | 1,400 MB | 1,455 MB | -4% |
 | Full-text p95 (free text) | 1,013 ms | 994 ms | +2% |
 | Hybrid precision@10 (free text) | 73.8% | 75.5% | -2% |
-| HNSW build time | 208 s | 346 s | -40% |
-| Exact vector search p50 | 131-138 ms | 231 ms | -42% |
+| HNSW build time | 210 s | 346 s | -39% |
+| Exact vector search p50 (free text) | 131 ms | 231 ms | -43% |
+| Exact vector search p50 (log queries) | 138 ms | 232 ms | -41% |
 | HNSW p50 latency | 0.69 ms | 2.97 ms | -77% |
 | HNSW recall@10 (free text) | 68.2% | 54.8% | +24% |
 | HNSW recall@10 (log queries) | 96.6% | 90.0% | +7% |
 
-(Power law through 10k and 100k for sizes and times, a straight line in log10(rows) for recall and precision.)
+(Power law through 10k and 100k for sizes and times, a straight line in log10(rows) for recall and precision. The 10k and 1M runs are from 2026-11-24, the 100k run from 2026-11-15; it is not confirmed that they ran on the same machine.)
 
 - **10k is enough to compare methods**: precision by query kind, the router against fixed RRF, templates, the reranker. The order of exact vector, HNSW and LIKE holds at every size. Hybrid and full-text swap places: hybrid leads at 10k (87-90% against 80%) and trails at 1M (75-78% against 80.5%), so a hybrid-vs-full-text verdict at 10k does not carry over.
 - **10k projects well** index size, tail latency of full-text and hybrid precision.

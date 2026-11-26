@@ -184,6 +184,8 @@ Embedding a typed query with the local model adds ~1.66 ms (p50) before any vect
 
 <!-- results:end -->
 
+The 10k and 1M results above are from runs on 2026-11-24 and the 100k results from 2026-11-15. It is not confirmed that they ran on the same machine, so read differences between sizes, latency above all, with care.
+
 ## Findings
 
 **1. Keywords and meaning fail in opposite places.**
@@ -191,31 +193,31 @@ Embedding a typed query with the local model adds ~1.66 ms (p50) before any vect
 - Full-text reaches 80% precision. It still scores 0 on paraphrases that share no stem with the logs ("server ran out of RAM"), and on tokenizer surprises: `NullPointerException` doesn't match the token `java.lang.nullpointerexception`, and "too many requests" loses "too" and "many" as stopwords.
 - Vectors score 0% on bare codes such as `ECONNRESET` and `x509`, where full-text scores 100%. A code means nothing to a sentence-embedding model.
 
-**2. Exact vector search is the quality ceiling, and its cost grows with the table.** Precision stays at ~92% at every size, but p50 goes from 5.6 ms (10k) to 27 ms (100k) to 220 ms (1M): a full scan, row by row.
+**2. Exact vector search is the quality ceiling, and its cost grows with the table.** Precision stays at ~92% at every size, but p50 goes from 5.6 ms (10k) to 27 ms (100k) to 231 ms (1M): a full scan, row by row.
 
 **3. HNSW recall depends on what you ask it, so the eval set matters.**
-- *Log queries* are rows from the table, so they sit where the data is. HNSW finds 93–100% of their exact neighbours at ef_search 160.
-- *Typed queries* are out of distribution: their nearest log is at cosine distance 0.4–0.7. Here recall falls from 97% at 10k to 64% at 1M (m=32, ef_construction=200, ef_search=160).
-- At 1M, 16 of the 60 typed queries come back with no relevant log at all, against 4 for exact search. The greedy graph walk ends in the wrong region.
-- An eval built only from rows of the table, the easy thing to build, would have reported 93% and hidden this.
+- *Log queries* are rows from the table, so they sit where the data is. HNSW finds 91–100% of their exact neighbours at ef_search 160.
+- *Typed queries* are out of distribution: their nearest log is at cosine distance 0.4–0.7. Here recall falls from 97% at 10k to 68% at 1M (m=32, ef_construction=200, ef_search=160).
+- At 1M, 15 of the 60 typed queries come back with no relevant log at all, against 4 for exact search. The greedy graph walk ends in the wrong region.
+- An eval built only from rows of the table, the easy thing to build, would have reported 94% and hidden this.
 
 **4. Build parameters matter more than ef_search, until the build itself becomes the problem.**
 - At 100k, m=32/ef_construction=200 at ef_search 40 (79%) beats the default 16/64 at ef_search 160 (65%).
 - At 1M, ef_search 1000 on the default index (62.8%, 6.4 ms) catches up with m=32/200 at ef_search 160 (63.7%, 1.9 ms). Query-time effort can buy back recall, at about 3x the latency.
-- The bigger graph is expensive to build: 77 min at 1M, against 4–10 min for the default.
+- The bigger graph is expensive to build: 5.8 min at 1M, against 2.2 min for the default.
 
 **5. Recall against exact search is not relevance.** At 1M, m=32/200 at ef_search 160 has higher recall than 16/64 (63.7% vs 53.7%) but lower precision (72.2% vs 78.2%). Missing a true neighbour doesn't always mean missing a relevant log, and each config was built only once at 1M. Both metrics are reported for this reason.
 
 **6. Measure the noise before reading the differences.**
-- Two builds of the same config differ by up to 10 recall points at 10k: 85–95% for 16/200 at ef_search 40.
-- The first ef_search measured after a fresh build pays for warming the cache. That causes the backwards segments in the chart: ef_search 10 at 10k, and ef_search 40 in the 1M sweep (2.6 ms, slower than 160).
+- Builds of the same config differ by up to 15 recall points at 10k: 47–61% for 16/64 at ef_search 10.
+- The first ef_search measured after a fresh build pays for warming the cache. That causes the backwards segments in the chart (log queries, ef_search 10 slower than 20: both m=16 configs at 10k, 16/64 at 1M). The separate 1M sweep has one too: ef_search 40 (2.6 ms) is slower than 160.
 
 **7. Hybrid is the safest mode, not the best on average.**
 - Exact vectors have the best mean precision.
-- Hybrid fails least: 2–3 of 60 typed queries come back with nothing relevant, against 7 for full-text and 16–20 for HNSW at 1M.
-- It pays for its full-text side: 124 ms p50 at 1M for typed queries, and over a second for long log-text queries, whose OR of many lexemes matches a large share of the table.
+- Hybrid fails least: 2–3 of 60 typed queries come back with nothing relevant, against 7 for full-text and 15–18 for HNSW (m=32) at 1M.
+- It pays for its full-text side: 141 ms p50 at 1M for typed queries, and over a second for long log-text queries, whose OR of many lexemes matches a large share of the table.
 
-**8. Embedding the query costs ~1.6 ms** on CPU. That is less than every search at 1M except HNSW, so the model isn't the bottleneck.
+**8. Embedding the query costs a few ms** on CPU: p50 1.7 ms in the 10k run and 4.4 ms in the 1M run. At 1M that is far below exact (231 ms), full-text and hybrid (~140 ms) and about the same as HNSW (2–5 ms), so the model isn't the bottleneck for the slow searches.
 
 ## Conclusion
 
@@ -228,8 +230,8 @@ Embedding a typed query with the local model adds ~1.66 ms (p50) before any vect
 **The default mode is hybrid.** It is the only mode without a blind spot: codes come from the full-text side, paraphrases from the vector side, and almost no query comes back empty-handed.
 
 **The architectural conclusion: an ANN index is not free recall.**
-- At 1M rows, typed queries lose ~20 precision points with HNSW against exact search (72% vs 92%).
-- For an internal on-call tool with a few searches a minute, exact search at ~220 ms is a legitimate answer.
+- At 1M rows, typed queries lose ~18 precision points with HNSW against exact search (73% vs 92%).
+- For an internal on-call tool with a few searches a minute, exact search at ~230 ms is a legitimate answer.
 - Narrowing first is better still: a service or time window makes exact search over the remaining rows cheap. Phase 5 measures this ([evals/plans/README.md](evals/plans/README.md), experiments 16–20).
 - When the index must be rebuilt often (a new embedding model means re-embedding and rebuilding), the default m = 16 / ef_construction = 64 with a larger ef_search gets close to the same recall for 3x the query latency and a fraction of the build time.
 
@@ -275,8 +277,8 @@ Same 60 free-text queries and 100 log queries as above, m = 32 / ef_construction
 | :--- | ---: | ---: | ---: | ---: | ---: |
 | **template (exact over 68 templates)** | **95.0%** | **95.0%** | **95.0%** | **0.66** | **3** |
 | vector, exact (seq scan) | 92.0% | 92.5% | 91.7% | 27.0 | 4 |
-| HNSW ef_search=160 | 88.1% | 79.3% | 72.2% | 1.08 | 8 |
-| hybrid RRF | 86.4% | 77.7% | 74.3% | 26.9 | 2 |
+| HNSW ef_search=160 | 88.1% | 79.3% | 73.3% | 1.08 | 8 |
+| hybrid RRF | 86.4% | 77.7% | 75.5% | 26.9 | 2 |
 | full-text (GIN) | 80.0% | 80.5% | 80.5% | 26.5 | 7 |
 
 Template p50 is 0.67 ms at 10k, 0.66 ms at 100k and 0.81 ms at 1M: the search cost depends on the number of templates, not on the number of logs. By kind of query at 100k: keyword 95.8%, mixed 100%, paraphrase 88.2% (exact vectors: 91.7 / 97.9 / 87.6).
@@ -287,7 +289,7 @@ Recall against the exact top-10 (34% at 10k, 16% at 100k) is not meaningful here
 
 ### Findings
 
-**1. Fewer, cleaner vectors beat a better index.** A template embedding is the average meaning of thousands of logs, with the noise of ids and hosts taken out. Template mode is more precise than exact search over every row (95.0% vs 92.5% at 100k), 40x faster (0.66 ms vs 27 ms) and stays flat to 1M, where HNSW has fallen to 72%. It needs no ANN index, so it has no recall loss to measure.
+**1. Fewer, cleaner vectors beat a better index.** A template embedding is the average meaning of thousands of logs, with the noise of ids and hosts taken out. Template mode is more precise than exact search over every row (95.0% vs 92.5% at 100k), 40x faster (0.66 ms vs 27 ms) and stays flat to 1M, where HNSW has fallen to 73%. It needs no ANN index, so it has no recall loss to measure.
 
 **2. A template is only as good as its embed_text.** For a log used as a query, the HTTP template's `embed_text` lists routes in place of its `<*>`, and mean pooling makes its vector "about routes" rather than "about a request". The nearest template to an INFO HTTP log is then often the `jwt_expired` one, whose text also mentions routes. Fewer values in `embed_text` would help. A better fix for "logs similar to this log" needs no vector at all: run `toTemplate` on the log and look its variant up in `log_template_variants`.
 
@@ -325,7 +327,7 @@ The planner uses it only when the query's `WHERE` implies the index predicate. S
 - **full HNSW**, the earlier production index, three ways: no filter; `WHERE level <> 'INFO'` applied after the walk; and the same filter with `hnsw.iterative_scan = strict_order`, which keeps walking until it has k rows;
 - **partial HNSW.**
 
-Both indexes use m = 32 / ef_construction = 200 and were built 3 times at 10k and 100k (mean and min–max). At 1M only the partial index was built (3 times); the full index's 1M numbers come from `search-1m.json`, with the same data and queries but 1 build and a different script. Latency is the per-query median of 3 passes after a warm-up, with a `CHECKPOINT` after each build. Without it, the checkpoint that follows a build landed in the next measurement.
+Both indexes use m = 32 / ef_construction = 200. The partial index was built 3 times at 10k and 100k, the full one 3 times at 100k and once at 10k (mean and min–max). At 1M only the partial index was built (3 times); the full index's 1M numbers come from `search-1m.json`, with the same data and queries but 1 build, a different script and a later run. Latency is the per-query median of 3 passes after a warm-up, with a `CHECKPOINT` after each build. Without it, the checkpoint that follows a build landed in the next measurement.
 
 Write cost: 500 copied INFO rows and 500 non-INFO rows are inserted with only the full index, only the partial one, or no HNSW index. Each case runs in a transaction that drops the other indexes and is rolled back. `DROP INDEX` is transactional, so nothing is rebuilt. The metric is WAL bytes per row, which was the stable one in Phase 5.
 
@@ -337,7 +339,7 @@ Write cost: 500 copied INFO rows and 500 non-INFO rows are inserted with only th
 | :--- | ---: | ---: | ---: |
 | exact, all rows | 92.0% | 92.5% | 91.7% |
 | exact, not INFO (ceiling) | 94.8% | 95.0% | 95.0% |
-| full HNSW | 88.7% | 80.1% (76–83) | 72.2% (1 build) |
+| full HNSW | 88.7% | 80.1% (76–83) | 73.3% (1 build) |
 | full HNSW + filter after the walk | 89.8% | 80.6% (77–83) | — |
 | full HNSW + filter, iterative scan | 91.5% | 82.3% (78–85) | — |
 | **partial HNSW** | **94.8%** | **87.8% (87–88)** | **86.7% (85–88)** |
@@ -357,7 +359,7 @@ Write cost: 500 copied INFO rows and 500 non-INFO rows are inserted with only th
 | partial HNSW, ef 40 | 87.9% | 85.0% | 0 | 8–10 | 1.09 | 2.99 |
 | partial HNSW, ef 160 | 92.8% | 87.8% | 0 | 7–8 | 1.46 | 1.89 |
 
-At 1M, partial HNSW at ef 160 has 76.9% recall, 7–9 queries with nothing relevant and a p50 of 2.5 ms. The full index had 63.7%, 16 and 1.9 ms. Exact search without INFO takes 172 ms there.
+At 1M, partial HNSW at ef 160 has 76.9% recall, 7–9 queries with nothing relevant and a p50 of 2.5 ms. The full index, in the separate `search-1m.json` run, had 67.8%, 15 and 5.5 ms. Exact search without INFO takes 172 ms there.
 
 **Index size and build time**
 
@@ -365,7 +367,9 @@ At 1M, partial HNSW at ef 160 has 76.9% recall, 7–9 queries with nothing relev
 | ---: | ---: | ---: |
 | 10k | 16.6 MB, ~2 s | 4.3 MB, 0.8 s |
 | 100k | 149 MB, 18.6 s | 40 MB, 4.6 s |
-| 1M | 1,401 MB, 77.5 min | 418 MB, 68 s |
+| 1M | 1,388 MB, 5.8 min | 418 MB, 68 s |
+
+At 1M the full and partial numbers come from separate runs (`search-1m.json` and `partial-hnsw-1m.json`).
 
 **INSERT cost per row** (100k rows; 1M in parentheses)
 
@@ -377,7 +381,7 @@ At 1M, partial HNSW at ef 160 has 76.9% recall, 7–9 queries with nothing relev
 
 ### Findings
 
-**1. A smaller graph that holds only the possible answers beats a bigger one.** At 100k, the partial index at ef_search 40 (85.0%) is more precise than the full one at 160 (80.1%). At 160 their build ranges don't overlap (87–88 vs 76–83), so this is not build noise. The precision loss as the table grows almost stops: 87.8% at 100k and 86.7% at 1M, against 80.1% and 72.2% for the full index.
+**1. A smaller graph that holds only the possible answers beats a bigger one.** At 100k, the partial index at ef_search 40 (85.0%) is more precise than the full one at 160 (80.1%). At 160 their build ranges don't overlap (87–88 vs 76–83), so this is not build noise. The precision loss as the table grows almost stops: 87.8% at 100k and 86.7% at 1M, against 80.1% and 73.3% for the full index.
 
 **2. Builds vary less.** The partial index's precision range across 3 builds is 1–3 points, against 7 for the full one at 100k. There is no INFO cluster to trap some builds' walks.
 
@@ -385,7 +389,7 @@ At 1M, partial HNSW at ef 160 has 76.9% recall, 7–9 queries with nothing relev
 
 **4. INFO inserts stop paying for HNSW.** With the partial index, an INFO insert writes the same WAL as with no vector index (2.2 KB) and runs ~55x faster than with the full index. Non-INFO inserts still pay for the graph. At 1M they cost more (10 KB, 620 rows/s) than at 100k, because the graph they join is 10x bigger.
 
-**5. The build is far cheaper than the row count suggests.** A quarter of the rows built in 68 s instead of 77 min at 1M. This run did not measure why.
+**5. The partial index is also much cheaper to build.** At 1M, a quarter of the rows built in 68 s, against 5.8 min for the full index. The two come from separate runs, so treat the ratio as approximate.
 
 **6. A gap to the ceiling remains.** The partial index reaches 87% at 100k and 1M, against 95% for exact search without INFO. The walk still loses neighbours, just fewer.
 
@@ -459,9 +463,9 @@ Batching matters more than expected. A batch is padded to its longest pair, and 
 | hybrid, typed queries | before | top 20 | top 50 | ceiling | rerank cost (p50) |
 | :--- | ---: | ---: | ---: | ---: | ---: |
 | 10k | 96.5% | 94.8% | 93.5% | 98.3% | 65 ms |
-| 100k | 89.2% | 93.3% | 93.0% | 98.3% | 56 ms |
+| 100k | 89.2% | 93.3% | 93.0% | 98.3% | 57 ms |
 
-(10k: `evals/results/rerank-10k-message.json`; the 100k file of this run was later overwritten, it is `evals/results/rerank-100k.json` at commit `705a294`.) Reading the message alone, it also broke the code fix: codes that live only in `error_code` (53100, EDQUOT, NPE) went from 99.6% to 81.8% at top 50, because the reranker can't see them. With the code in front of the message (`EDQUOT: <message>`) they went back to 100%. At 100k it helped (paraphrases 77% → 85%) but made 4 queries worse.
+(The table is the reader with the error code in front of the message: `evals/results/rerank-10k.json` at commit `bbbd38c` and `rerank-100k.json` at commit `705a294`, both later overwritten. Its cost is for the top 20. The message-only run is `rerank-10k-message.json`.) Reading the message alone, it also broke the code fix: codes that live only in `error_code` (53100, EDQUOT, NPE) went from 99.6% to 81.8% at top 50, because the reranker can't see them. With the code in front of the message (`EDQUOT: <message>`) they went back to 100%. At 100k it helped (paraphrases 77% → 85%) but made 4 queries worse.
 
 ### Why it got worse: four cases, three causes
 
@@ -484,11 +488,13 @@ The descriptions go to two places: the template's `embed_text` (`pnpm templates:
 
 | hybrid, typed queries, top 50 | before | `code` | `described` | **`template`** | ceiling | rerank cost (p50 / p95) |
 | :--- | ---: | ---: | ---: | ---: | ---: | ---: |
-| 10k | 96.2% | 94.8% | 98.3% | **98.3%** | 98.3% | **19 / 43 ms** |
-| 100k | 88.8% | 94.7% | 96.5% | **96.5%** | 96.7% | **14 / 34 ms** |
+| 10k | 96.2% | 94.8% | 98.3% | **98.3%** | 98.3% | **19 / 32 ms** |
+| 100k | 88.8% | 94.7% | 96.5% | **96.5%** | 96.7% | **13 / 25 ms** |
 | 100k, paraphrases | 68.2% | 82.4% | 88.2% | **88.2%** | 88.2% | |
 
-At 100k, `template` made 15 queries better and none worse, and code queries stayed at 100%. It is also **cheaper than the first try** (14 ms vs 127 ms): 50 copies of one template are one pair. In template mode alone, the descriptions took precision from 95.0% to 98.3% at both 10k and 100k (`evals/results/search-<rows>-templates-only*.json`): `ECONNRESET` and `OOMKilled` went from 0% to 100%.
+(Each row compares the readers on one build: the `rerank-<rows>*.json` files as of commit `20c688b`. The `template` files were overwritten by later runs on other builds.)
+
+At 100k, `template` made 15 queries better and none worse, and code queries stayed at 100%. It is also **much cheaper than `code`** (13 ms vs 121 ms): 50 copies of one template are one pair. In template mode alone, the descriptions took precision from 95.0% to 98.3% at both 10k and 100k (`evals/results/search-<rows>-templates-only*.json`): `ECONNRESET` and `OOMKilled` went from 0% to 100%.
 
 **Three HNSW builds** (same 100k rows, the partial index rebuilt with `REINDEX` each time, `evals/results/rerank-100k-3builds.json`; mean [min–max], typed queries):
 
@@ -522,7 +528,7 @@ The list raises the ceiling (at weight 2 the DNS logs reach the candidates) and 
 
 **3. Check the label before blaming the model.** One of the four "model errors" was the eval asking for one answer to an ambiguous code.
 
-**4. Put the LLM's knowledge in the data, not in the request.** Four LLM calls, once, turned a reranker that made 4 queries worse into one that reaches the ceiling, at 14 ms and with repeatable results. Calling the LLM per search worked too, but took seconds and gave different answers between runs.
+**4. Put the LLM's knowledge in the data, not in the request.** Four LLM calls, once, turned a reranker that made 4 queries worse into one that reaches the ceiling, at 13 ms and with repeatable results. Calling the LLM per search worked too, but took seconds and gave different answers between runs.
 
 **5. Rerank distinct units, not copies.** With repetitive data (logs, tickets, similar products), grouping before reranking costs a fraction and scores the same.
 
@@ -558,7 +564,7 @@ A 1M-row eval takes hours: embedding the rows, the exact ground truth (a 1M-row 
 | Full-text p95 (ms) | 13.7 | 117.8 | 1,013 | 994 | +2% |
 | Hybrid precision@10 | 87.2% | 80.5% | 73.8% | 75.5% | -2% |
 | Full-text p50 (ms) | 3.89 | 26.90 | 186 | 142 | +31% |
-| HNSW build, m=32/200 (s) | 2.0 | 20.4 | 208 | 346 | -40% |
+| HNSW build, m=32/200 (s) | 2.0 | 20.6 | 210 | 346 | -39% |
 | Exact vector p50 (ms), log queries | 5.31 | 27.04 | 138 | 232 | -41% |
 | Exact vector p50 (ms), free text | 5.58 | 27.01 | 131 | 231 | -43% |
 | HNSW p50 (ms) | 0.67 | 0.68 | 0.69 | 2.97 | -77% |
@@ -575,7 +581,7 @@ Error is `(projected - measured) / measured`: positive means the projection was 
 **2. Latency and build time cost more than the trend says.**
 - Exact vector search grows 5x from 10k to 100k and 8.6x from 100k to 1M: the table (2 GB heap, 1.4 GB index) stops fitting in the page cache.
 - HNSW p50 is flat from 10k to 100k (0.67 and 0.68 ms), so a projection from those two sees no growth and says 0.69 ms. The measured 1M value is 2.97 ms. A flat segment is the wrong thing to extrapolate.
-- The build takes 346 s, not 208 s. Pgvector builds faster while the graph fits in `maintenance_work_mem` and slows down once it does not; the 1M run had 3,907 MB for a 1.45 GB index, so memory is not the explanation here and the cause was not isolated.
+- The build takes 346 s, not 210 s. Pgvector builds faster while the graph fits in `maintenance_work_mem` and slows down once it does not; the 1M run had 3,907 MB for a 1.45 GB index, so memory is not the explanation here and the cause was not isolated.
 - For these three, use the measured 1M number.
 
 **3. Recall falls faster than a line.**
@@ -603,6 +609,7 @@ Error is `(projected - measured) / measured`: positive means the projection was 
 
 ### Limits
 
+- The 10k and 1M runs are from 2026-11-24 and the 100k run from 2026-11-15. It is not confirmed that they ran on the same machine, so the projection errors may include differences between environments.
 - Two points make a fit with no check on its shape. The error table above is the check, and it is for one dataset and one machine, and `maintenance_work_mem` differs between runs (64 MB at 10k, 391 MB at 100k, 3,907 MB at 1M; see `hnsw_builds` in each result file), which affects build times.
 - The template method has no 1M entry in `search-1m.json` (it ran alone in `search-1m-templates-only.json`), so it is left out of the 1M column of the ranking above.
 - The 10k ground truth is `evals/ground_truth.10k.json`. Each size has its own file and `pnpm eval:search --truth=` must point at it; an eval at 10k against the 1M ground truth, or the reverse, measures nothing.
